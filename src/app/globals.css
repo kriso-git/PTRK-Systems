@@ -1,0 +1,118 @@
+/* STYLEPACK: Custom Cyber-HUD / Marathon-inspired */
+@import "tailwindcss";
+
+@theme {
+  --color-void: #050508;
+  --color-surface: #0a0e1a;
+  --color-surface-light: #151b2e;
+  --color-lime: #c2fe0c;
+  --color-cyan: #01ffff;
+  --color-magenta: #ea027e;
+  --color-orange: #ff8c42;
+  --color-primary: #f8fafc;
+  --color-secondary: #94a3b8;
+
+  --font-goliath: var(--font-goliath);
+  --font-khinterference: var(--font-khinterference);
+  --font-khgrotesk: var(--font-khgrotesk);
+  --font-msgothic: var(--font-msgothic);
+  --font-monospec: var(--font-monospec);
+  --font-fraktion: var(--font-fraktion);
+  --font-sequel: var(--font-sequel);
+  --font-shorai: var(--font-shorai);
+  --font-ui: system-ui, -apple-system, sans-serif;
+
+  --radius: 0px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  background: var(--color-void);
+  color: var(--color-primary);
+  overflow-x: hidden;
+  font-family: var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--color-lime);
+  color: #000;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-void);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface-light);
+  border: 2px solid var(--color-void);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-lime);
+}
+
+@keyframes dataStream {
+  0% { transform: translateY(-100%); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes scanline {
+  0% { transform: translateY(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(12px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.float-subtle {
+  animation: float 3s ease-in-out infinite;
+}
+
+.cursor-blink {
+  animation: blink 1s steps(1) infinite;
+}
+
+.tab-enter {
+  animation: fadeUp 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
