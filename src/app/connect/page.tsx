@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ContactTab } from "@/components/ContactTab";
+import { ConnectForm } from "@/components/ConnectForm";
 
 export const metadata: Metadata = {
   title: "Connect — Talk to Péter",
@@ -9,5 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function ConnectPage() {
-  return <ContactTab />;
+  return <ConnectForm />;
 }

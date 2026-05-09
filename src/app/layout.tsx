@@ -56,9 +56,26 @@ export default function RootLayout({
     <html lang="hu" className={fontVars}>
       <body>
         <SmoothScroll />
-        <div className="min-h-screen bg-void text-primary flex flex-col">
+        {/* Subtle grain + scanline overlays */}
+        <div
+          aria-hidden
+          className="pointer-events-none fixed inset-0 z-[1] opacity-[0.04] mix-blend-overlay"
+          style={{
+            backgroundImage:
+              "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")",
+          }}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none fixed inset-0 z-[1] opacity-[0.04]"
+          style={{
+            backgroundImage:
+              "repeating-linear-gradient(0deg, transparent 0 2px, rgba(255,255,255,0.4) 2px 3px)",
+          }}
+        />
+        <div className="min-h-screen bg-void text-primary flex flex-col relative">
           <Navigation />
-          <main className="pt-20 flex-1">{children}</main>
+          <main className="flex-1">{children}</main>
           <Footer />
         </div>
       </body>

@@ -2,55 +2,75 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Crosshair } from "./Crosshair";
 
-const TABS = [
-  { href: "/", label: "HOME" },
-  { href: "/work", label: "WORK" },
-  { href: "/method", label: "METHOD" },
-  { href: "/connect", label: "CONNECT" },
-] as const;
+const COORD = "47.4979°N · 19.0402°E";
+
+const NAV = [
+  { href: "/", label: "Index", section: "§ 00" },
+  { href: "/work", label: "Work", section: "§ 02" },
+  { href: "/method", label: "Method", section: "§ 03" },
+  { href: "/connect", label: "Connect", section: "§ 06" },
+];
 
 export function Navigation() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-void/90 backdrop-blur-xl border-b border-lime/20">
-      <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-r from-lime/0 via-lime/5 to-lime/0 pointer-events-none" />
-      <Crosshair position="tl" color="lime" />
-      <Crosshair position="tr" color="cyan" />
-
-      <div className="max-w-[1800px] mx-auto px-6 md:px-10 py-5 flex items-center justify-between gap-6 relative z-10">
-        <Link href="/" className="flex items-center gap-4 text-left group">
-          <span className="font-khinterference text-xl md:text-2xl text-primary tracking-[0.05em] uppercase">
-            PTRK<span className="text-lime"> Systems</span>
+    <header className="relative z-10 border-b border-white/10 bg-void">
+      <div className="max-w-[1700px] mx-auto px-6 md:px-10 py-7 md:py-9 flex items-center justify-between font-monospec text-[11px] md:text-[12px] tracking-[0.35em] uppercase text-secondary gap-6">
+        {/* ─── Brand + status ─── */}
+        <div className="flex items-center gap-4 shrink-0">
+          <Link href="/" className="text-primary hover:text-lime transition-colors">
+            PTRK <span className="text-lime">Systems</span>
+          </Link>
+          <span
+            aria-hidden
+            className="hidden lg:inline-flex items-center gap-2 px-2.5 py-1 border border-lime/25 bg-lime/[0.04]"
+          >
+            <span className="w-1.5 h-1.5 bg-lime cursor-blink" />
+            <span className="text-lime tracking-[0.3em]">TX·LIVE</span>
+            <span className="text-secondary/40">/</span>
+            <span className="text-secondary/70 tracking-[0.3em]">CET</span>
           </span>
-          <span className="hidden md:inline font-monospec text-[10px] text-cyan tracking-[0.3em] opacity-60 group-hover:opacity-100 transition-opacity">
-            ESCAPE WILL MAKE ME █████
-          </span>
-        </Link>
+        </div>
 
-        <div className="flex items-center gap-1 md:gap-2">
-          {TABS.map((tab) => {
+        {/* ─── Nav buttons ─── */}
+        <nav className="flex items-center gap-2 md:gap-3 overflow-x-auto" aria-label="Primary">
+          {NAV.map((n) => {
             const isActive =
-              tab.href === "/" ? pathname === "/" : pathname.startsWith(tab.href);
+              n.href === "/" ? pathname === "/" : pathname.startsWith(n.href);
             return (
               <Link
-                key={tab.href}
-                href={tab.href}
+                key={n.href}
+                href={n.href}
                 aria-current={isActive ? "page" : undefined}
-                className={`px-3 md:px-5 py-2.5 font-monospec font-bold text-xs md:text-[13px] uppercase tracking-[0.25em] transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-lime focus-visible:ring-offset-2 focus-visible:ring-offset-void ${
+                className={`group relative flex items-baseline gap-2 px-3 md:px-4 py-2 md:py-2.5 border transition-all whitespace-nowrap focus:outline-none focus-visible:border-lime focus-visible:bg-lime/10 ${
                   isActive
-                    ? "bg-lime text-black"
-                    : "text-secondary hover:text-primary hover:bg-surface-light"
+                    ? "border-lime bg-lime/10 text-lime"
+                    : "border-white/15 text-secondary hover:border-lime/50 hover:bg-lime/5 hover:text-primary"
                 }`}
               >
-                {tab.label}
+                <span className={`text-[9px] ${isActive ? "opacity-70" : "opacity-50 group-hover:opacity-80"} transition-opacity`}>
+                  {n.section}
+                </span>
+                <span>{n.label}</span>
+                {isActive ? (
+                  <span className="text-lime text-[10px]">●</span>
+                ) : (
+                  <span className="text-[10px] opacity-0 group-hover:opacity-60 -translate-x-1 group-hover:translate-x-0 transition-all">
+                    →
+                  </span>
+                )}
               </Link>
             );
           })}
-        </div>
+        </nav>
+
+        {/* ─── Coords ─── */}
+        <span className="hidden md:inline shrink-0 text-secondary/60 font-monospec text-[10px] md:text-[11px] tracking-[0.3em]">
+          {COORD}
+        </span>
       </div>
-    </nav>
+    </header>
   );
 }
