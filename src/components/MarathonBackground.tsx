@@ -13,34 +13,14 @@ import {
 /**
  * Viewport-fixed Marathon background.
  *
- * Streams are restricted to the LEFT and RIGHT edges so the central content
- * column (where headings and prose live) stays clean. Plus a dedicated
- * right-edge "waterfall" column with continuously emitted terminal lines —
- * fresh content scrolls down forever.
+ * Desktop (fine pointer): cursor drives the radial glow centers and the
+ * mesh-warp lens. Mobile / touch (coarse pointer): the same CSS vars are
+ * auto-panned along a slow Lissajous path so the bg still breathes without
+ * any pointer to follow. Both cases share one source of truth — the CSS
+ * variables `--mx/--my` (smoothed) and `--cx/--cy` (raw). All decorative
+ * canvases (mesh-warp, code-rain) read the same vars off the wrapper, so
+ * the whole background reacts coherently.
  */
-
-// Edge-only stream columns (left 0–10%, right 90–100%).
-const STREAMS = Array.from({ length: 12 }, (_, i) => {
-  const isLeft = i < 6;
-  const left = isLeft
-    ? (0.5 + i * 1.7).toFixed(2) // 0.5, 2.2, 3.9, 5.6, 7.3, 9.0
-    : (90.5 + (i - 6) * 1.7).toFixed(2); // 90.5, 92.2, ..., 99.0
-  return {
-    left: `${left}%`,
-    delay: `${(i * 0.39) % 5}s`,
-    duration: `${4.5 + ((i * 0.91) % 3.5)}s`,
-    payload:
-      i % 3 === 0
-        ? `01010011\n11001010\n00110101\n10101100\n01011001\n11100010\n0xEC1153\n0xC2FE0C\nNOD·0A20`
-        : i % 3 === 1
-        ? `0xEC1153\n0xC2FE0C\nNOD·0A20\nLNK·EC11\n7F-A2-9D\n${(i * 1153)
-            .toString(16)
-            .toUpperCase()}\nF3X·9D\n0xC2FE0C\nLIVE`
-        : `► JEL.STREAM\n${(i * 7919).toString(16).toUpperCase()}\nNOD·${i
-            .toString()
-            .padStart(2, "0")}A20\n████████\n░░░░ LIVE\n║║║║║║\n11001010\n0xEC1153`,
-  };
-});
 
 export function MarathonBackground() {
   const ref = useRef<HTMLDivElement>(null);
@@ -48,31 +28,40 @@ export function MarathonBackground() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
+    const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
+
     let raf = 0;
     // Smoothed (lerped) position drives the soft glow so it feels weighty.
     let targetX = 0.5;
     let targetY = 0.5;
     let curX = 0.5;
     let curY = 0.5;
+    const startedAt = performance.now();
+
+    const setCrisp = (x: number, y: number) => {
+      if (!ref.current) return;
+      ref.current.style.setProperty("--cx", `${(x * 100).toFixed(2)}%`);
+      ref.current.style.setProperty("--cy", `${(y * 100).toFixed(2)}%`);
+    };
 
     const onMove = (e: MouseEvent) => {
       targetX = e.clientX / window.innerWidth;
       targetY = e.clientY / window.innerHeight;
       // Crisp position drives the inner spotlight + grid lens — no lag,
       // so the lens stays glued under the cursor.
-      if (ref.current) {
-        ref.current.style.setProperty(
-          "--cx",
-          `${(targetX * 100).toFixed(2)}%`
-        );
-        ref.current.style.setProperty(
-          "--cy",
-          `${(targetY * 100).toFixed(2)}%`
-        );
-      }
+      setCrisp(targetX, targetY);
     };
 
     const tick = () => {
+      // On coarse-pointer devices (touch), auto-pan along a slow Lissajous
+      // curve so the bg keeps breathing without a cursor. The curve crosses
+      // the viewport every ~30s on x, ~40s on y, so the motion is calm.
+      if (coarsePointer) {
+        const t = (performance.now() - startedAt) / 1000;
+        targetX = 0.5 + 0.32 * Math.sin(t * 0.21);
+        targetY = 0.5 + 0.28 * Math.sin(t * 0.17 + 1.4);
+        setCrisp(targetX, targetY);
+      }
       // Snappier lerp than before so the soft glow visibly tracks.
       curX += (targetX - curX) * 0.18;
       curY += (targetY - curY) * 0.18;
@@ -83,7 +72,9 @@ export function MarathonBackground() {
       raf = requestAnimationFrame(tick);
     };
 
-    window.addEventListener("mousemove", onMove, { passive: true });
+    if (!coarsePointer) {
+      window.addEventListener("mousemove", onMove, { passive: true });
+    }
     raf = requestAnimationFrame(tick);
 
     return () => {
@@ -130,23 +121,11 @@ export function MarathonBackground() {
         }}
       />
 
-      {/* Edge-only vertical streams */}
-      <div className="absolute inset-0">
-        {STREAMS.map((s, i) => (
-          <pre
-            key={i}
-            className="absolute top-0 font-monospec text-[10px] leading-tight whitespace-pre"
-            style={{
-              left: s.left,
-              color: i % 4 === 0 ? "#01ffff" : "#c2fe0c",
-              opacity: 0.18,
-              animation: `dataStream ${s.duration} linear ${s.delay} infinite`,
-            }}
-          >
-            {s.payload}
-          </pre>
-        ))}
-      </div>
+      {/* Code rain — JS-driven canvas, immune to the global CSS reduced-motion
+          override. Falling hex/binary across the entire viewport at low
+          opacity. Subtle on top of content but visibly alive on desktop and
+          mobile alike. */}
+      <CodeRain />
 
       {/* Right-edge designed datastream with marquee + live typers */}
       <RightDataStream />
@@ -240,6 +219,8 @@ function WarpMesh() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
+
     let dpr = window.devicePixelRatio || 1;
     let w = window.innerWidth;
     let h = window.innerHeight;
@@ -250,6 +231,7 @@ function WarpMesh() {
     let smx = mx;
     let smy = my;
     let raf = 0;
+    const startedAt = performance.now();
 
     const resize = () => {
       dpr = window.devicePixelRatio || 1;
@@ -268,6 +250,13 @@ function WarpMesh() {
     };
 
     const draw = () => {
+      // On coarse-pointer devices: drive the lens center along a slow
+      // Lissajous path so the mesh still warps without a cursor.
+      if (coarsePointer) {
+        const t = (performance.now() - startedAt) / 1000;
+        mx = w * (0.5 + 0.32 * Math.sin(t * 0.21));
+        my = h * (0.5 + 0.28 * Math.sin(t * 0.17 + 1.4));
+      }
       // Lerp smoothed cursor toward raw cursor.
       smx += (mx - smx) * 0.22;
       smy += (my - smy) * 0.22;
@@ -352,7 +341,9 @@ function WarpMesh() {
 
     resize();
     window.addEventListener("resize", resize);
-    window.addEventListener("mousemove", onMove, { passive: true });
+    if (!coarsePointer) {
+      window.addEventListener("mousemove", onMove, { passive: true });
+    }
     raf = requestAnimationFrame(draw);
 
     return () => {
@@ -367,6 +358,148 @@ function WarpMesh() {
       ref={canvasRef}
       className="absolute inset-0 w-full h-full pointer-events-none"
       aria-hidden
+    />
+  );
+}
+
+/**
+ * Code-rain canvas — Matrix-style falling characters across the full
+ * viewport at a low, non-distracting opacity.
+ *
+ * Each column has its own y-position, speed, and char-cycle phase. JS-driven
+ * via requestAnimationFrame, so the global `prefers-reduced-motion` CSS
+ * override does NOT silence it (which is the bug that hid the previous
+ * CSS-animated edge streams on desktop). DPR-aware, responsive cell width,
+ * lime/cyan tint with a subtle "head" highlight on the leading character.
+ */
+function CodeRain() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const CHARS = "0123456789ABCDEF·▓░║▶○◉".split("");
+
+    let dpr = window.devicePixelRatio || 1;
+    let w = window.innerWidth;
+    let h = window.innerHeight;
+    let cellW = 14;
+    let fontPx = 11;
+    let cols: {
+      y: number;
+      speed: number;
+      char: string;
+      tint: "lime" | "cyan";
+      changeAt: number;
+    }[] = [];
+    let raf = 0;
+    let last = performance.now();
+
+    const setupCols = () => {
+      cellW = w < 640 ? 16 : 18;
+      fontPx = w < 640 ? 10 : 12;
+      const count = Math.ceil(w / cellW);
+      cols = Array.from({ length: count }, () => ({
+        y: Math.random() * h,
+        speed: 50 + Math.random() * 110, // px per second
+        char: CHARS[Math.floor(Math.random() * CHARS.length)],
+        tint: Math.random() < 0.18 ? "cyan" : "lime",
+        changeAt: 0,
+      }));
+    };
+
+    const resize = () => {
+      dpr = window.devicePixelRatio || 1;
+      w = window.innerWidth;
+      h = window.innerHeight;
+      canvas.width = Math.floor(w * dpr);
+      canvas.height = Math.floor(h * dpr);
+      canvas.style.width = `${w}px`;
+      canvas.style.height = `${h}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      setupCols();
+    };
+
+    const draw = (now: number) => {
+      const dt = Math.min(0.05, (now - last) / 1000);
+      last = now;
+
+      // Soft fade-out of the previous frame leaves a faint motion trail —
+      // characters dissolve as they fall.
+      ctx.fillStyle = "rgba(5, 5, 8, 0.28)";
+      ctx.fillRect(0, 0, w, h);
+
+      ctx.font = `${fontPx}px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace`;
+      ctx.textBaseline = "top";
+
+      for (let i = 0; i < cols.length; i++) {
+        const c = cols[i];
+        c.y += c.speed * dt;
+        if (c.y > h + fontPx) {
+          c.y = -fontPx * 2 - Math.random() * h * 0.5;
+          c.speed = 50 + Math.random() * 110;
+          c.tint = Math.random() < 0.18 ? "cyan" : "lime";
+        }
+        // Cycle char roughly every 80-180 ms.
+        if (now > c.changeAt) {
+          c.char = CHARS[Math.floor(Math.random() * CHARS.length)];
+          c.changeAt = now + 80 + Math.random() * 100;
+        }
+
+        const x = i * cellW;
+        // Leading character: slightly brighter "head".
+        ctx.fillStyle =
+          c.tint === "cyan"
+            ? "rgba(1, 255, 255, 0.55)"
+            : "rgba(194, 254, 12, 0.55)";
+        ctx.fillText(c.char, x, c.y);
+
+        // Two faint trailing characters above the head, additional fade.
+        ctx.fillStyle =
+          c.tint === "cyan"
+            ? "rgba(1, 255, 255, 0.18)"
+            : "rgba(194, 254, 12, 0.18)";
+        ctx.fillText(
+          CHARS[(i * 7 + Math.floor(now / 600)) % CHARS.length],
+          x,
+          c.y - fontPx
+        );
+        ctx.fillStyle =
+          c.tint === "cyan"
+            ? "rgba(1, 255, 255, 0.08)"
+            : "rgba(194, 254, 12, 0.08)";
+        ctx.fillText(
+          CHARS[(i * 13 + Math.floor(now / 900)) % CHARS.length],
+          x,
+          c.y - fontPx * 2
+        );
+      }
+
+      raf = requestAnimationFrame(draw);
+    };
+
+    resize();
+    window.addEventListener("resize", resize);
+    raf = requestAnimationFrame(draw);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", resize);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      aria-hidden
+      // Low overall opacity layered on top of the page void — visible but
+      // strictly background-character. Sits behind the mesh-warp + glow.
+      className="absolute inset-0 w-full h-full pointer-events-none"
+      style={{ opacity: 0.42 }}
     />
   );
 }

@@ -25,14 +25,6 @@ export function Footer() {
             <Link href="/connect" className="hover:text-lime transition-colors">
               § 06 · Connect
             </Link>
-            <a
-              href="https://github.com/kriso-git"
-              target="_blank"
-              rel="noreferrer"
-              className="hover:text-lime transition-colors"
-            >
-              GitHub ↗
-            </a>
           </nav>
 
           <div className="col-span-12 md:col-span-3 md:text-right font-monospec text-[10px] uppercase tracking-[0.35em] text-secondary/60">

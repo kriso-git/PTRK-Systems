@@ -126,14 +126,17 @@ export function ConnectForm() {
 
       {/* ─────────────────────────────  SLA  ───────────────────────────── */}
       <section className="relative z-10 border-y border-white/10 bg-void/30">
-        <div className="max-w-[1700px] mx-auto px-6 md:px-10 py-10 grid grid-cols-3 divide-x divide-white/10">
+        <div className="max-w-[1700px] mx-auto px-6 md:px-10 py-8 md:py-10 grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-white/10">
           {SLA.map((s) => (
-            <div key={s.code} className="px-3 md:px-8 py-2 flex flex-col gap-3">
+            <div
+              key={s.code}
+              className="px-0 sm:px-3 md:px-8 py-5 sm:py-2 flex flex-col gap-2 sm:gap-3"
+            >
               <span className="font-monospec text-[10px] uppercase tracking-[0.35em] text-secondary/60">
                 SLA · {s.code} · {s.label}
               </span>
               <span
-                className={`font-sequel text-[clamp(48px,7vw,108px)] leading-[0.85] tracking-[-0.04em] ${COLOR_TEXT[s.color]}`}
+                className={`font-sequel text-[clamp(40px,9vw,108px)] leading-[0.85] tracking-[-0.04em] ${COLOR_TEXT[s.color]}`}
               >
                 {s.value}
               </span>
@@ -221,11 +224,14 @@ export function ConnectForm() {
               <span className="inline-block w-8 h-px bg-magenta" />
               <span>TX · Quick message</span>
             </div>
-            <h2 className="font-khinterference uppercase tracking-[0.005em] text-5xl md:text-6xl leading-[0.92] text-primary mb-12">
-              Vagy
-              <br />
-              <span className="text-magenta">írj egyből.</span>
+            <h2 className="font-khinterference uppercase tracking-[0.005em] text-5xl md:text-6xl leading-[0.92] text-primary mb-4">
+              <span className="text-magenta">Írj emailt.</span>
             </h2>
+            <p className="font-shorai text-base md:text-lg text-secondary leading-relaxed max-w-[52ch] mb-12">
+              Itt részletes briefet is írhatsz — projekt cél, határidő,
+              költségvetés, eddigi munkák. Minden segít a gyors,{" "}
+              <span className="text-primary">személyre szabott válaszadásban</span>.
+            </p>
 
             {submitted ? (
               <div className="border-l-4 border-lime pl-6 py-6 font-shorai text-lg text-lime leading-relaxed max-w-2xl">
