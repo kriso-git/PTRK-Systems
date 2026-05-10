@@ -5,20 +5,18 @@ import { useEffect, useRef, useState } from "react";
 /**
  * Custom Marathon-style cursor.
  *
- * Renders a tiny precision dot with a soft lime aura, plus a motion-trace
- * trail of fading dots behind the cursor as it moves — gives the pointer
- * a sense of velocity without competing with content.
+ * Renders a tiny precision dot with a soft lime aura, plus a continuous
+ * motion-trail line behind the cursor — drawn as a smoothed polyline of
+ * the last N positions with a tapering width and alpha so the trail
+ * reads as one connected stroke, not a string of separate dots.
  *
  * The native cursor is hidden by injecting a <style> tag at runtime — this
  * beats any class-based approach because the injected rule lives in <head>
  * with `!important` and cannot be lost to Tailwind utility specificity or
  * SSR/hydration timing issues.
- *
- * Trail rendered to a single canvas (additive blending, low opacity) so
- * the cost is fixed regardless of how many points are in flight.
  */
-const TRAIL_LENGTH = 14; // segments retained
-const TRAIL_FADE = 0.92; // per-frame alpha decay
+const TRAIL_LENGTH = 22; // points retained — longer for a continuous feel
+const TRAIL_FADE = 0.88; // per-frame canvas alpha decay
 
 export function CustomCursor() {
   const dotRef = useRef<HTMLDivElement>(null);
@@ -147,34 +145,38 @@ export function CustomCursor() {
         ringRef.current.style.transform = `translate3d(${rx}px, ${ry}px, 0)`;
       }
 
-      // Sample a trail point ~every 16ms (per frame at 60fps) so the trail
-      // sticks tight to the cursor velocity instead of pooling on stops.
-      if (now - lastSampleAt >= 14) {
-        lastSampleAt = now;
-        trail.unshift({ x: cx, y: cy, age: 0 });
-        if (trail.length > TRAIL_LENGTH) trail.length = TRAIL_LENGTH;
-      }
-      // Age all points so they fade in time, not just by index.
+      // Sample EVERY frame — keeps consecutive points close enough that the
+      // line connecting them reads as one continuous curve, not segments.
+      lastSampleAt = now;
+      trail.unshift({ x: cx, y: cy, age: 0 });
+      if (trail.length > TRAIL_LENGTH) trail.length = TRAIL_LENGTH;
       for (const p of trail) p.age += 1;
 
-      // Render trail.
+      // Render trail as a smoothed polyline (not dots). For each adjacent
+      // pair we stroke a short line segment; lineCap + lineJoin "round" and
+      // a width that tapers from cursor → tail give a continuous, smooth
+      // motion-line rather than a string of beads.
       if (ctx && cw > 0 && ch > 0) {
-        // Soft fade of previous frame instead of full clear, gives the
-        // motion trace a subtle ghost halo even when the pointer is still.
+        // Soft fade of previous frame leaves a faint after-image so the
+        // line decays naturally even when the pointer is still.
         ctx.globalCompositeOperation = "destination-out";
         ctx.fillStyle = `rgba(0,0,0,${1 - TRAIL_FADE})`;
         ctx.fillRect(0, 0, cw, ch);
 
         ctx.globalCompositeOperation = "lighter";
-        for (let i = 0; i < trail.length; i++) {
-          const p = trail[i];
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+        for (let i = 1; i < trail.length; i++) {
+          const a = trail[i - 1];
+          const b = trail[i];
           const t = 1 - i / TRAIL_LENGTH;
-          const radius = 1.5 + t * 4.5;
-          const alpha = t * 0.55;
+          // Width tapers from ~6 px near the cursor down to 1 px at the tail.
+          ctx.lineWidth = 1 + t * 5;
+          ctx.strokeStyle = `rgba(194,254,12,${t * 0.55})`;
           ctx.beginPath();
-          ctx.arc(p.x, p.y, radius, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(194,254,12,${alpha})`;
-          ctx.fill();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
         }
         ctx.globalCompositeOperation = "source-over";
       }

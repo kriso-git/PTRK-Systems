@@ -130,12 +130,14 @@ export function MarathonBackground() {
       {/* Right-edge designed datastream with marquee + live typers */}
       <RightDataStream />
 
-      {/* HUD scanlines */}
+      {/* HUD scanlines — kept very faint and strictly behind content via
+          the parent z-0. They breathe at the edge of perception, never
+          competing with text. */}
       <div
-        className="absolute inset-x-0 h-[2px]"
+        className="absolute inset-x-0 h-px"
         style={{
           background:
-            "linear-gradient(90deg, transparent, rgba(194,254,12,0.85) 50%, transparent)",
+            "linear-gradient(90deg, transparent, rgba(194,254,12,0.18) 50%, transparent)",
           animation: "scanline 7s linear infinite",
         }}
       />
@@ -143,7 +145,7 @@ export function MarathonBackground() {
         className="absolute inset-x-0 h-px"
         style={{
           background:
-            "linear-gradient(90deg, transparent, rgba(1,255,255,0.7) 50%, transparent)",
+            "linear-gradient(90deg, transparent, rgba(1,255,255,0.14) 50%, transparent)",
           animation: "scanline 13s linear infinite reverse",
           animationDelay: "2s",
         }}
@@ -152,7 +154,7 @@ export function MarathonBackground() {
         className="absolute inset-x-0 h-px"
         style={{
           background:
-            "linear-gradient(90deg, transparent, rgba(234,2,126,0.6) 50%, transparent)",
+            "linear-gradient(90deg, transparent, rgba(234,2,126,0.10) 50%, transparent)",
           animation: "scanline 19s linear infinite",
           animationDelay: "5s",
         }}
@@ -249,6 +251,30 @@ function WarpMesh() {
       my = e.clientY;
     };
 
+    /**
+     * Smooth a polyline of sample points using mid-point quadratic curves.
+     * Each segment is drawn as `quadraticCurveTo(prev, midpoint(prev, cur))`
+     * — produces a continuously differentiable curve that visibly bends
+     * around the lens without piecewise-linear "fragmentation" between
+     * sample points, even when consecutive points fall on opposite sides
+     * of the steep displacement falloff.
+     */
+    const strokeSmooth = (pts: { x: number; y: number }[]) => {
+      if (pts.length < 2) return;
+      ctx.beginPath();
+      ctx.moveTo(pts[0].x, pts[0].y);
+      for (let i = 1; i < pts.length - 1; i++) {
+        const cx0 = pts[i].x;
+        const cy0 = pts[i].y;
+        const ex = (pts[i].x + pts[i + 1].x) / 2;
+        const ey = (pts[i].y + pts[i + 1].y) / 2;
+        ctx.quadraticCurveTo(cx0, cy0, ex, ey);
+      }
+      const last = pts[pts.length - 1];
+      ctx.lineTo(last.x, last.y);
+      ctx.stroke();
+    };
+
     const draw = () => {
       // On coarse-pointer devices: drive the lens center along a slow
       // Lissajous path so the mesh still warps without a cursor.
@@ -265,6 +291,7 @@ function WarpMesh() {
       ctx.strokeStyle = "rgba(194, 254, 12, 0.10)";
       ctx.lineWidth = 1;
       ctx.lineCap = "round";
+      ctx.lineJoin = "round";
 
       // Responsive cell size: 6 vw clamped 56–96 px (matches the static
       // CSS grid spec we replaced).
@@ -273,67 +300,41 @@ function WarpMesh() {
       const radius = Math.min(280, Math.max(180, w * 0.16));
       const radiusSq = radius * radius;
       const strength = 32; // peak displacement in px
-      // Sample every ~10 px along each line so the curve is smooth even
-      // when a line passes through the steep part of the falloff.
-      const step = 10;
+      // Sample every 6 px along each line — combined with quadratic
+      // smoothing this produces a clean visible curve under the lens.
+      const step = 6;
+
+      const displace = (x: number, y: number): { x: number; y: number } => {
+        const dx = x - smx;
+        const dy = y - smy;
+        const distSq = dx * dx + dy * dy;
+        if (distSq >= radiusSq || distSq === 0) return { x, y };
+        const dist = Math.sqrt(distSq);
+        const t = 1 - dist / radius;
+        const pull = t * t * strength;
+        const ux = dx / dist;
+        const uy = dy / dist;
+        return { x: x + ux * pull, y: y + uy * pull };
+      };
+
+      const pts: { x: number; y: number }[] = [];
 
       // Vertical lines.
       for (let x = 0; x <= w + cell; x += cell) {
-        ctx.beginPath();
-        let started = false;
+        pts.length = 0;
         for (let y = 0; y <= h; y += step) {
-          const dx = x - smx;
-          const dy = y - smy;
-          const distSq = dx * dx + dy * dy;
-          let px = x;
-          let py = y;
-          if (distSq < radiusSq && distSq > 0) {
-            const dist = Math.sqrt(distSq);
-            const t = 1 - dist / radius;
-            // Quadratic falloff for a smooth bulge.
-            const pull = t * t * strength;
-            const ux = dx / dist;
-            const uy = dy / dist;
-            px = x + ux * pull;
-            py = y + uy * pull;
-          }
-          if (!started) {
-            ctx.moveTo(px, py);
-            started = true;
-          } else {
-            ctx.lineTo(px, py);
-          }
+          pts.push(displace(x, y));
         }
-        ctx.stroke();
+        strokeSmooth(pts);
       }
 
       // Horizontal lines.
       for (let y = 0; y <= h + cell; y += cell) {
-        ctx.beginPath();
-        let started = false;
+        pts.length = 0;
         for (let x = 0; x <= w; x += step) {
-          const dx = x - smx;
-          const dy = y - smy;
-          const distSq = dx * dx + dy * dy;
-          let px = x;
-          let py = y;
-          if (distSq < radiusSq && distSq > 0) {
-            const dist = Math.sqrt(distSq);
-            const t = 1 - dist / radius;
-            const pull = t * t * strength;
-            const ux = dx / dist;
-            const uy = dy / dist;
-            px = x + ux * pull;
-            py = y + uy * pull;
-          }
-          if (!started) {
-            ctx.moveTo(px, py);
-            started = true;
-          } else {
-            ctx.lineTo(px, py);
-          }
+          pts.push(displace(x, y));
         }
-        ctx.stroke();
+        strokeSmooth(pts);
       }
 
       raf = requestAnimationFrame(draw);
@@ -451,18 +452,18 @@ function CodeRain() {
         }
 
         const x = i * cellW;
-        // Leading character: slightly brighter "head".
+        // Leading character — slightly brighter "head".
         ctx.fillStyle =
           c.tint === "cyan"
-            ? "rgba(1, 255, 255, 0.55)"
-            : "rgba(194, 254, 12, 0.55)";
+            ? "rgba(1, 255, 255, 0.32)"
+            : "rgba(194, 254, 12, 0.32)";
         ctx.fillText(c.char, x, c.y);
 
         // Two faint trailing characters above the head, additional fade.
         ctx.fillStyle =
           c.tint === "cyan"
-            ? "rgba(1, 255, 255, 0.18)"
-            : "rgba(194, 254, 12, 0.18)";
+            ? "rgba(1, 255, 255, 0.10)"
+            : "rgba(194, 254, 12, 0.10)";
         ctx.fillText(
           CHARS[(i * 7 + Math.floor(now / 600)) % CHARS.length],
           x,
@@ -470,8 +471,8 @@ function CodeRain() {
         );
         ctx.fillStyle =
           c.tint === "cyan"
-            ? "rgba(1, 255, 255, 0.08)"
-            : "rgba(194, 254, 12, 0.08)";
+            ? "rgba(1, 255, 255, 0.04)"
+            : "rgba(194, 254, 12, 0.04)";
         ctx.fillText(
           CHARS[(i * 13 + Math.floor(now / 900)) % CHARS.length],
           x,
@@ -496,10 +497,10 @@ function CodeRain() {
     <canvas
       ref={canvasRef}
       aria-hidden
-      // Low overall opacity layered on top of the page void — visible but
-      // strictly background-character. Sits behind the mesh-warp + glow.
+      // Very low overall opacity — the rain should be a barely-there
+      // ambient texture, not a competing visual element.
       className="absolute inset-0 w-full h-full pointer-events-none"
-      style={{ opacity: 0.42 }}
+      style={{ opacity: 0.16 }}
     />
   );
 }
