@@ -23,8 +23,9 @@ import {
   Share_Tech_Mono,
   Black_Ops_One,
   Roboto_Flex,
-  Khand,
-  Krona_One,
+  Anybody,
+  Saira_Stencil_One,
+  Goldman,
 } from "next/font/google";
 
 const archivoBlack = Archivo_Black({
@@ -200,17 +201,26 @@ const robotoFlex = Roboto_Flex({
   display: "swap",
 });
 
-const khand = Khand({
+// Anybody — variable wdth 75-150 + wght 100-900. Free analog of
+// Sequel 100 Wide's two-axis flexibility (width + weight).
+const anybody = Anybody({
   subsets: ["latin", "latin-ext"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-pv-khand",
+  weight: ["400", "500", "600", "700", "800", "900"],
+  variable: "--font-pv-anybody",
   display: "swap",
 });
 
-const kronaOne = Krona_One({
+const sairaStencil = Saira_Stencil_One({
   subsets: ["latin", "latin-ext"],
   weight: "400",
-  variable: "--font-pv-krona-one",
+  variable: "--font-pv-saira-stencil",
+  display: "swap",
+});
+
+const goldman = Goldman({
+  subsets: ["latin", "latin-ext"],
+  weight: ["400", "700"],
+  variable: "--font-pv-goldman",
   display: "swap",
 });
 
@@ -239,8 +249,9 @@ const previewVars = [
   shareTechMono.variable,
   blackOps.variable,
   robotoFlex.variable,
-  khand.variable,
-  kronaOne.variable,
+  anybody.variable,
+  sairaStencil.variable,
+  goldman.variable,
 ].join(" ");
 
 export const metadata = {
