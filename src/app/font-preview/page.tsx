@@ -6,7 +6,17 @@
  * MonoSpec, Sequel, Fraktion) compare to free Google Fonts alternatives at
  * the exact sizes / weights they're used at on the live site, so the user
  * can pick replacements based on real visual impression rather than names.
+ *
+ * The Goliath section additionally renders the full GoliathSymbols set —
+ * the SVG-based decorative replacement that will take over for the Goliath
+ * font watermarks on the live site.
  */
+
+import {
+  GOLIATH_SYMBOL_NAMES,
+  GoliathOrnament,
+  GoliathSymbol,
+} from "@/components/GoliathSymbols";
 
 type Risk = "marathon" | "commercial" | "ofl" | "deferred";
 
@@ -134,12 +144,12 @@ const SECTIONS: Section[] = [
         fontFamily: "var(--font-khinterference)",
       },
       {
-        name: "Chakra Petch (Bold 700)",
+        name: "Chakra Petch (SemiBold 600)",
         source: "Google Fonts · OFL · 300 · 400 · 500 · 600 · 700 + italics",
         risk: "ofl",
         fontFamily: "var(--font-pv-chakra-petch)",
-        style: { fontWeight: 700 },
-        note: "Szögletes-techno display sans, cyberpunk/Marathon karakter. Teljes súly-skála (Light → Bold), italic változatokkal — ugyanaz a hierarchia mint a KH Interference Light + Regular kettősénél, plusz extra súlyok.",
+        style: { fontWeight: 600 },
+        note: "Szögletes-techno display sans, cyberpunk/Marathon karakter. SemiBold súly — köztes a Regular és Bold között, jó display-balansz a heading-ekhez. Teljes skála: 300/400/500/600/700 + italicok.",
       },
       {
         name: "Major Mono Display",
@@ -247,7 +257,8 @@ const SECTIONS: Section[] = [
   },
   {
     slot: "SEQUEL 100 WIDE",
-    usage: "25× — projekt címek, statisztika accent",
+    usage:
+      "25× — projekt címek, statisztika accent · ✓ DÖNTÉS: Roboto Flex (wide+heavy)",
     display: "PROJECT 042",
     secondary: "Méretezett szélességgel",
     tertiary: HU_PANGRAM,
@@ -265,6 +276,18 @@ const SECTIONS: Section[] = [
         fontFamily: "var(--font-sequel)",
       },
       {
+        name: "Roboto Flex (wide+heavy)",
+        source: "Google Fonts · OFL · variable wdth 25-151 + wght 100-1000",
+        risk: "ofl",
+        fontFamily: "var(--font-pv-roboto-flex)",
+        style: {
+          fontWeight: 900,
+          fontStretch: "151%",
+        },
+        chosen: true,
+        note: "Variable font két tengellyel (width + weight), 151%-ig ultra-wide. Modern Roboto-bázis, jó hinting, kifogástalan latin-ext support. Sequel 1:1 cseréje a fő site-on.",
+      },
+      {
         name: "Anybody (wdth 150 · 900)",
         source: "Google Fonts · OFL · variable wdth 75-150 + wght 100-900",
         risk: "ofl",
@@ -273,7 +296,7 @@ const SECTIONS: Section[] = [
           fontWeight: 900,
           fontStretch: "150%",
         },
-        note: "Sequel valódi free analogja — azonos két-tengelyes flexibilitás (width + weight), éles geometriai konstrukció, sport-/magazin-impact.",
+        note: "Backup — élesebb geometriai konstrukció, sport-/magazin-impact.",
       },
       {
         name: "Saira Stencil One",
@@ -281,7 +304,7 @@ const SECTIONS: Section[] = [
         risk: "ofl",
         fontFamily: "var(--font-pv-saira-stencil)",
         style: { fontWeight: 400 },
-        note: "Wide stencil, vágott éles karakterek — Sequel-szerű élesség, military/sport hangulattal.",
+        note: "Backup — Wide stencil, vágott éles karakterek, military/sport hangulattal.",
       },
       {
         name: "Goldman 700",
@@ -289,18 +312,7 @@ const SECTIONS: Section[] = [
         risk: "ofl",
         fontFamily: "var(--font-pv-goldman)",
         style: { fontWeight: 700 },
-        note: "Wide blokk-display, sharp edges, „sport cap” feel — direct Sequel-rokon.",
-      },
-      {
-        name: "Roboto Flex (wide+heavy)",
-        source: "Google Fonts · OFL · variable wdth 25-151",
-        risk: "ofl",
-        fontFamily: "var(--font-pv-roboto-flex)",
-        style: {
-          fontWeight: 900,
-          fontStretch: "151%",
-        },
-        note: "Variable wdth axis 151-ig — igazi „ultra-wide” karakterek, modern Roboto-bázis, kevésbé éles mint a többi opció.",
+        note: "Backup — Wide blokk-display, sharp edges, „sport cap” feel.",
       },
       {
         name: "Saira Black",
@@ -505,6 +517,131 @@ function SampleCard({
   );
 }
 
+/**
+ * Bemutatja a `<GoliathSymbols />` SVG szimbólum-szettet. Megmutat:
+ *  - egy kompozíciót a 5 jelenlegi watermark-szöveghez (·26·, HELLO,
+ *    2026, SYS·, METHOD), pontosan a live site-on használt méretekhez
+ *    arányosan kicsinyítve
+ *  - a teljes 16-elemű katalógust névvel + jelölőkkel
+ */
+function GoliathShowcase() {
+  // Reproduces — at preview scale — the five live-site watermarks. The
+  // `seed` matches the original "text" so the same composition is
+  // dropped in to the live site later for visual continuity.
+  const ornaments = [
+    { seed: "·26·", count: 4, label: "Landing · ·26·", size: 56 },
+    { seed: "HELLO", count: 5, label: "Connect · HELLO", size: 72 },
+    { seed: "2026", count: 4, label: "Landing · 2026", size: 96 },
+    { seed: "SYS·", count: 4, label: "Footer · SYS·", size: 72 },
+    { seed: "METHOD", count: 6, label: "Method · METHOD", size: 56 },
+  ];
+
+  return (
+    <div className="mt-10 border border-cyan/30 bg-surface/30 p-6 md:p-8 space-y-10">
+      <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-3">
+        <h3
+          className="text-[20px] md:text-[24px] uppercase tracking-tight"
+          style={{ fontFamily: "var(--font-pv-archivo-black)" }}
+        >
+          GOLIATH REPLACEMENT — SVG Symbol Set
+        </h3>
+        <p
+          className="text-[10px] uppercase tracking-[0.25em] text-cyan/80"
+          style={{ fontFamily: "var(--font-pv-geist-mono)" }}
+        >
+          16 szimbólum · NEM font · drop-in helyettesítő
+        </p>
+      </div>
+
+      <p
+        className="text-sm md:text-base text-secondary leading-relaxed max-w-[70ch]"
+        style={{ fontFamily: "var(--font-pv-bricolage)" }}
+      >
+        A Goliath font helyett egy kis SVG szimbólum-könyvtár:{" "}
+        <code
+          className="text-cyan"
+          style={{ fontFamily: "var(--font-pv-geist-mono)" }}
+        >
+          GoliathOrnament seed=… count=…
+        </code>
+        — a meglévő watermark szövegeket („·26·", „HELLO", „2026", „SYS·",
+        „METHOD") seed-alapú determinisztikus szimbólum-sorozattal cseréli.
+        Mind currentColor-driven, ugyanúgy fogadják a Tailwind
+        opacity-osztályokat (text-lime/[0.04] stb.) mint a font-szöveg.
+      </p>
+
+      {/* Ornament compositions — what each watermark on the live site
+          would look like once swapped to GoliathOrnament. */}
+      <div>
+        <div
+          className="text-[10px] uppercase tracking-[0.3em] text-secondary/70 mb-4"
+          style={{ fontFamily: "var(--font-pv-geist-mono)" }}
+        >
+          § Ornament kompozíciók — élő site-on
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {ornaments.map((o) => (
+            <div
+              key={o.seed}
+              className="border border-cyan/20 bg-void/40 p-5 flex flex-col gap-3"
+            >
+              <div className="flex items-baseline justify-between gap-2">
+                <span
+                  className="text-[10px] uppercase tracking-[0.25em] text-cyan/80"
+                  style={{ fontFamily: "var(--font-pv-geist-mono)" }}
+                >
+                  {o.label}
+                </span>
+                <span
+                  className="text-[9px] uppercase tracking-[0.2em] text-secondary/50"
+                  style={{ fontFamily: "var(--font-pv-geist-mono)" }}
+                >
+                  seed=&quot;{o.seed}&quot; · n={o.count}
+                </span>
+              </div>
+              <div className="text-lime min-h-[80px] flex items-center">
+                <GoliathOrnament
+                  seed={o.seed}
+                  count={o.count}
+                  size={o.size}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Full catalogue */}
+      <div>
+        <div
+          className="text-[10px] uppercase tracking-[0.3em] text-secondary/70 mb-4"
+          style={{ fontFamily: "var(--font-pv-geist-mono)" }}
+        >
+          § Teljes szimbólum-katalógus (16)
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3">
+          {GOLIATH_SYMBOL_NAMES.map((name) => (
+            <div
+              key={name}
+              className="border border-cyan/15 bg-void/30 p-4 flex flex-col items-center gap-2"
+            >
+              <div className="text-lime">
+                <GoliathSymbol name={name} size={48} />
+              </div>
+              <span
+                className="text-[9px] uppercase tracking-[0.2em] text-secondary/70"
+                style={{ fontFamily: "var(--font-pv-geist-mono)" }}
+              >
+                {name}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function FontPreviewPage() {
   return (
     <main className="max-w-[1700px] mx-auto px-6 md:px-10 py-12 md:py-20">
@@ -578,6 +715,12 @@ export default function FontPreviewPage() {
                 />
               ))}
             </div>
+
+            {/* Goliath replacement showcase — rendered immediately under
+                the Goliath comparison so the user can see what the
+                custom SVG symbol set looks like at the same scales the
+                font watermarks used on the live site. */}
+            {section.slot === "GOLIATH" && <GoliathShowcase />}
           </section>
         ))}
       </div>
