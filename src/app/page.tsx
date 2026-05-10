@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { PROJECTS, PROCESS_STEPS, FAQ, TECH_STACK } from "@/data/projects";
 import { ScrollCue } from "@/components/ScrollCue";
+import { GoliathOrnament } from "@/components/GoliathSymbols";
 
 const COORD = "47.4979°N · 19.0402°E";
 
@@ -67,13 +68,13 @@ export default function Home() {
             </div>
 
             <h1 className="font-khinterference uppercase leading-[0.82] tracking-[-0.015em] text-primary relative">
-              {/* Decorative goliath marginalia */}
-              <span
-                aria-hidden
-                className="font-goliath text-lime/[0.06] absolute top-3 right-0 text-[clamp(40px,5vw,96px)] leading-none pointer-events-none select-none uppercase tracking-[0.1em] hidden md:block"
-              >
-                ·26·
-              </span>
+              {/* Decorative ornament marginalia (replaces font-goliath ·26· watermark) */}
+              <GoliathOrnament
+                seed="·26·"
+                count={4}
+                size="clamp(28px, 3.5vw, 64px)"
+                className="text-lime/[0.06] absolute top-3 right-0 pointer-events-none hidden md:inline-flex"
+              />
 
               <span className="block text-[clamp(72px,17vw,296px)] relative">
                 PTRK
@@ -179,12 +180,12 @@ export default function Home() {
         data-label="Hozzáférés"
         className="relative z-10 border-b border-white/10 px-6 md:px-10 py-32 md:py-48 overflow-hidden"
       >
-        <div
-          aria-hidden
-          className="absolute -bottom-24 -right-12 font-goliath text-lime/[0.04] text-[clamp(180px,28vw,520px)] leading-[0.8] pointer-events-none select-none uppercase tracking-[-0.02em]"
-        >
-          2026
-        </div>
+        <GoliathOrnament
+          seed="2026"
+          count={4}
+          size="clamp(110px, 17vw, 320px)"
+          className="absolute -bottom-24 -right-12 text-lime/[0.04] pointer-events-none"
+        />
 
         <div className="max-w-[1700px] mx-auto grid grid-cols-12 gap-y-14 md:gap-x-10 relative">
           <aside className="col-span-12 md:col-span-3">
@@ -512,12 +513,12 @@ export default function Home() {
           </div>
 
           <div className="relative">
-            <span
-              aria-hidden
-              className="font-goliath text-lime/[0.05] absolute -top-10 left-0 right-0 text-[clamp(120px,22vw,420px)] leading-[0.8] pointer-events-none select-none uppercase"
-            >
-              SYS·
-            </span>
+            <GoliathOrnament
+              seed="SYS·"
+              count={4}
+              size="clamp(72px, 13vw, 252px)"
+              className="absolute -top-10 left-0 text-lime/[0.05] pointer-events-none"
+            />
             <h2 className="font-khinterference uppercase tracking-[-0.005em] leading-[0.82] text-[clamp(72px,16vw,288px)] text-primary relative">
               Még<span className="text-lime">·</span>egy
               <br />

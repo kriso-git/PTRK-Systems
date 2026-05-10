@@ -1,8 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import {
-  goliath,
   khInterference,
-  khGrotesk,
   msPGothic,
   monoSpec,
   fraktion,
@@ -44,9 +42,7 @@ export const viewport: Viewport = {
 };
 
 const fontVars = [
-  goliath.variable,
   khInterference.variable,
-  khGrotesk.variable,
   msPGothic.variable,
   monoSpec.variable,
   fraktion.variable,

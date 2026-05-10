@@ -1,3 +1,4 @@
+import localFont from "next/font/local";
 import {
   Archivo_Black,
   Bricolage_Grotesque,
@@ -27,6 +28,55 @@ import {
   Saira_Stencil_One,
   Goldman,
 } from "next/font/google";
+
+// ── ARCHIVE — original (now-removed) fonts kept loaded ONLY on this
+//    /font-preview route so the "Current" comparison cards still render
+//    visually faithful samples. Files remain in /public/fonts but are
+//    not referenced from the live site fonts.ts. ──────────────────────
+const archiveGoliath = localFont({
+  src: "../../../public/fonts/Goliath.otf",
+  variable: "--font-pv-archive-goliath",
+  display: "swap",
+  weight: "900",
+});
+
+const archiveKhInterference = localFont({
+  src: [
+    {
+      path: "../../../public/fonts/KHInterference-Light.ttf",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../../../public/fonts/KHInterference-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+  ],
+  variable: "--font-pv-archive-khinterference",
+  display: "swap",
+});
+
+const archiveMonoSpec = localFont({
+  src: "../../../public/fonts/MonoSpec-Regular.otf",
+  variable: "--font-pv-archive-monospec",
+  display: "swap",
+  weight: "400",
+});
+
+const archiveFraktion = localFont({
+  src: "../../../public/fonts/PPFraktionMono-Regular.ttf",
+  variable: "--font-pv-archive-fraktion",
+  display: "swap",
+  weight: "400",
+});
+
+const archiveSequel = localFont({
+  src: "../../../public/fonts/Sequel100Wide-65.ttf",
+  variable: "--font-pv-archive-sequel",
+  display: "swap",
+  weight: "700",
+});
 
 const archivoBlack = Archivo_Black({
   subsets: ["latin", "latin-ext"],
@@ -225,6 +275,11 @@ const goldman = Goldman({
 });
 
 const previewVars = [
+  archiveGoliath.variable,
+  archiveKhInterference.variable,
+  archiveMonoSpec.variable,
+  archiveFraktion.variable,
+  archiveSequel.variable,
   archivoBlack.variable,
   bricolage.variable,
   anton.variable,

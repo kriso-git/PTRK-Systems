@@ -12,9 +12,7 @@
   --color-primary: #f8fafc;
   --color-secondary: #94a3b8;
 
-  --font-goliath: var(--font-goliath);
   --font-khinterference: var(--font-khinterference);
-  --font-khgrotesk: var(--font-khgrotesk);
   --font-msgothic: var(--font-msgothic);
   --font-monospec: var(--font-monospec);
   --font-fraktion: var(--font-fraktion);
@@ -39,6 +37,23 @@ body {
   font-family: var(--font-ui);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Default rendering for the replaced display fonts so existing usages
+   (which only set the family via Tailwind class, no explicit weight or
+   stretch) keep their visual weight after the live-site swap.
+
+   - .font-khinterference (Chakra Petch) renders at SemiBold 600 by
+     default — the user's chosen pick from the font-preview review.
+   - .font-sequel (Roboto Flex variable) renders at the heaviest, widest
+     setting by default — closest match to the original Sequel 100 Wide
+     character. Individual usages can still override via inline style. */
+.font-khinterference {
+  font-weight: 600;
+}
+.font-sequel {
+  font-weight: 900;
+  font-stretch: 151%;
 }
 
 /* Readability shield — masks busy background pattern directly behind text glyphs.

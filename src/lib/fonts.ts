@@ -1,33 +1,43 @@
-import localFont from "next/font/local";
-import { Onest, Manrope } from "next/font/google";
+/**
+ * Live-site font stack — fully Google Fonts (OFL), no commercial /
+ * fan-extracted fonts. Replacements were chosen via the /font-preview
+ * archive after side-by-side review:
+ *
+ *   - khInterference  → Chakra Petch (SemiBold 600 default)
+ *   - monoSpec        → Geist Mono (Vercel)
+ *   - fraktion        → DM Mono
+ *   - sequel          → Roboto Flex (variable wdth + wght)
+ *   - msPGothic       → Manrope (already migrated)
+ *   - shorai          → Onest (already migrated)
+ *
+ * Removed entirely:
+ *   - goliath   → replaced by <GoliathOrnament> SVG symbols
+ *   - khGrotesk → was loaded but never referenced in the codebase
+ *
+ * The CSS variable names are unchanged so every existing
+ * `font-khinterference`, `font-monospec`, `font-fraktion`, `font-sequel`
+ * Tailwind class on the live site keeps working without edits.
+ */
+import {
+  Onest,
+  Manrope,
+  Chakra_Petch,
+  Geist_Mono,
+  DM_Mono,
+  Roboto_Flex,
+} from "next/font/google";
 
-export const goliath = localFont({
-  src: "../../public/fonts/Goliath.otf",
-  variable: "--font-goliath",
-  display: "swap",
-  weight: "900",
-});
-
-export const khInterference = localFont({
-  src: [
-    { path: "../../public/fonts/KHInterference-Light.ttf", weight: "300", style: "normal" },
-    { path: "../../public/fonts/KHInterference-Regular.ttf", weight: "400", style: "normal" },
-  ],
+// Chakra Petch — angular techno display sans, Marathon-feel match for
+// KH Interference. SemiBold 600 is the live default (set via CSS in
+// globals.css), full weight range loaded for explicit hierarchy.
+export const khInterference = Chakra_Petch({
+  subsets: ["latin", "latin-ext"],
+  weight: ["300", "400", "500", "600", "700"],
   variable: "--font-khinterference",
   display: "swap",
 });
 
-export const khGrotesk = localFont({
-  src: [
-    { path: "../../public/fonts/KHGroteskAlpha-CompressedLight.ttf", weight: "300", style: "normal" },
-    { path: "../../public/fonts/KHGroteskAlpha-CompressedRegular.ttf", weight: "400", style: "normal" },
-  ],
-  variable: "--font-khgrotesk",
-  display: "swap",
-});
-
 // Manrope — Latin Extended subset includes Hungarian (ő, ű, é, á, ó, í, ú).
-// Replaces MS PGothic which lacks Hungarian diacritics.
 export const msPGothic = Manrope({
   subsets: ["latin", "latin-ext"],
   weight: ["500", "600", "700"],
@@ -35,29 +45,36 @@ export const msPGothic = Manrope({
   display: "swap",
 });
 
-export const monoSpec = localFont({
-  src: "../../public/fonts/MonoSpec-Regular.otf",
+// Geist Mono — modern terminal monospace, replaces MonoSpec for all
+// terminal-style UI labels and timestamps.
+export const monoSpec = Geist_Mono({
+  subsets: ["latin", "latin-ext"],
+  weight: ["300", "400", "500", "600"],
   variable: "--font-monospec",
   display: "swap",
-  weight: "400",
 });
 
-export const fraktion = localFont({
-  src: "../../public/fonts/PPFraktionMono-Regular.ttf",
+// DM Mono — calm display monospace, replaces PP Fraktion Mono in the
+// single project-card watermark spot.
+export const fraktion = DM_Mono({
+  subsets: ["latin", "latin-ext"],
+  weight: ["400"],
   variable: "--font-fraktion",
   display: "swap",
-  weight: "400",
 });
 
-export const sequel = localFont({
-  src: "../../public/fonts/Sequel100Wide-65.ttf",
+// Roboto Flex — variable wdth (25-151) + wght (100-1000). Replaces
+// Sequel 100 Wide. Default rendering is set to wght 900 + wdth 151 via
+// a CSS override on `.font-sequel` in globals.css so existing class
+// usages keep their wide-heavy look without per-call edits.
+export const sequel = Roboto_Flex({
+  subsets: ["latin", "latin-ext"],
+  axes: ["wdth"],
   variable: "--font-sequel",
   display: "swap",
-  weight: "700",
 });
 
-// Onest — Latin Extended subset includes Hungarian. Replaces Shorai Sans
-// which lacks Hungarian diacritics (ő, ű).
+// Onest — Latin Extended subset includes Hungarian.
 export const shorai = Onest({
   subsets: ["latin", "latin-ext"],
   weight: ["400", "500", "600"],
@@ -66,9 +83,7 @@ export const shorai = Onest({
 });
 
 export const fontVariables = [
-  goliath.variable,
   khInterference.variable,
-  khGrotesk.variable,
   msPGothic.variable,
   monoSpec.variable,
   fraktion.variable,

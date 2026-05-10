@@ -110,9 +110,9 @@ const SECTIONS: Section[] = [
     samples: [
       {
         name: "Goliath",
-        source: "Bungie / Marathon (fan-extracted)",
+        source: "Bungie / Marathon (fan-extracted) · archived",
         risk: "marathon",
-        fontFamily: "var(--font-goliath)",
+        fontFamily: "var(--font-pv-archive-goliath)",
       },
       {
         name: "Generált szimbólumok (TBD)",
@@ -141,9 +141,9 @@ const SECTIONS: Section[] = [
     samples: [
       {
         name: "KH Interference",
-        source: "Marathon community (fan-extracted)",
+        source: "Marathon community (fan-extracted) · archived",
         risk: "marathon",
-        fontFamily: "var(--font-khinterference)",
+        fontFamily: "var(--font-pv-archive-khinterference)",
       },
       {
         name: "Chakra Petch (SemiBold 600)",
@@ -227,9 +227,9 @@ const SECTIONS: Section[] = [
     samples: [
       {
         name: "MonoSpec",
-        source: "Studio Triple · ~€90 commercial",
+        source: "Studio Triple · ~€90 commercial · archived",
         risk: "commercial",
-        fontFamily: "var(--font-monospec)",
+        fontFamily: "var(--font-pv-archive-monospec)",
       },
       {
         name: "Geist Mono",
@@ -274,9 +274,9 @@ const SECTIONS: Section[] = [
     samples: [
       {
         name: "Sequel 100 Wide",
-        source: "Fontfabric · $50-250 commercial",
+        source: "Fontfabric · $50-250 commercial · archived",
         risk: "commercial",
-        fontFamily: "var(--font-sequel)",
+        fontFamily: "var(--font-pv-archive-sequel)",
       },
       {
         name: "Roboto Flex (wide+heavy)",
@@ -353,9 +353,9 @@ const SECTIONS: Section[] = [
     samples: [
       {
         name: "PP Fraktion Mono",
-        source: "Pangram Pangram · ~$200/site commercial",
+        source: "Pangram Pangram · ~$200/site commercial · archived",
         risk: "commercial",
-        fontFamily: "var(--font-fraktion)",
+        fontFamily: "var(--font-pv-archive-fraktion)",
       },
       {
         name: "DM Mono",
@@ -753,10 +753,16 @@ export default function FontPreviewPage() {
       {/* Header */}
       <header className="mb-16 md:mb-24 max-w-3xl">
         <div
-          className="text-[10px] uppercase tracking-[0.4em] text-lime mb-4"
+          className="flex flex-wrap items-center gap-3 text-[10px] uppercase tracking-[0.4em] mb-4"
           style={{ fontFamily: "var(--font-pv-geist-mono)" }}
         >
-          § INTERNAL · NOT INDEXED
+          <span
+            className="inline-flex items-center gap-2 px-2 py-0.5 bg-magenta text-void"
+          >
+            <span className="w-1.5 h-1.5 bg-void" />
+            ARCHIVED
+          </span>
+          <span className="text-lime">§ INTERNAL · NOT INDEXED</span>
         </div>
         <h1
           className="text-[44px] md:text-[64px] leading-[0.95] mb-6 uppercase"
@@ -765,17 +771,19 @@ export default function FontPreviewPage() {
             letterSpacing: "-0.02em",
           }}
         >
-          Font Preview · PTRK Systems
+          Font Preview · Archive
         </h1>
         <p
           className="text-base md:text-lg text-secondary leading-relaxed"
           style={{ fontFamily: "var(--font-pv-bricolage)" }}
         >
-          Az 5 jogilag problémás font slot összehasonlítása ingyenes Google
-          Fonts alternatívákkal. Minden minta a valós oldalon használt
-          méreten és súlyon renderelődik. A bal-szélső oszlop a jelenlegi
-          (problémás) font, a többi 3 a jelölt csere. Magyar ékezet-teszt:
-          „árvíztűrő tükörfúrógép".
+          <strong className="text-magenta">Archív snapshot.</strong> A
+          döntések megtörténtek, a fő site már a választott Google Fonts +
+          SVG szimbólum-szettre épül. Ez az oldal megőrzi a teljes
+          összehasonlítási folyamatot későbbi referenciaként — a „Current"
+          oszlopok a régi (jogilag problémás) fontokat csak itt töltik
+          be, kizárólag a /font-preview route-on. A fő site fontstack-je
+          tisztán OFL.
         </p>
         <div
           className="mt-6 flex flex-wrap gap-2 text-[10px] uppercase tracking-[0.18em]"

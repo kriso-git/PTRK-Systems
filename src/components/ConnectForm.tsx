@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { GoliathOrnament } from "@/components/GoliathSymbols";
 
 const SLA = [
   { code: "01", label: "Válaszidő", value: "<24h", color: "lime" as const },
@@ -105,12 +106,12 @@ export function ConnectForm() {
               <span className="text-lime">Open dispatch</span> · talk before you brief
             </div>
             <h1 className="font-khinterference uppercase leading-[0.86] tracking-[-0.005em] text-primary text-[clamp(56px,11vw,184px)] relative">
-              <span
-                aria-hidden
-                className="font-goliath text-lime/[0.04] absolute -top-8 right-0 text-[clamp(120px,22vw,400px)] leading-none pointer-events-none select-none uppercase"
-              >
-                HELLO
-              </span>
+              <GoliathOrnament
+                seed="HELLO"
+                count={5}
+                size="clamp(72px, 13vw, 240px)"
+                className="absolute -top-8 right-0 text-lime/[0.04] pointer-events-none"
+              />
               <span className="relative">Beszéljünk a</span>
               <br />
               <span className="text-lime relative">projektedről.</span>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PROCESS_STEPS, TECH_STACK } from "@/data/projects";
 import { Crosshair } from "@/components/Crosshair";
+import { GoliathOrnament } from "@/components/GoliathSymbols";
 
 export const metadata: Metadata = {
   title: "Method — Hogyan dolgozom",
@@ -73,12 +74,12 @@ export default function MethodPage() {
               <span className="text-cyan">Methodology</span> · how we operate
             </div>
             <h1 className="font-khinterference uppercase leading-[0.86] tracking-[-0.005em] text-primary text-[clamp(60px,12vw,200px)] relative">
-              <span
-                aria-hidden
-                className="font-goliath text-cyan/[0.04] absolute -top-8 -left-2 text-[clamp(120px,22vw,400px)] leading-none pointer-events-none select-none uppercase"
-              >
-                METHOD
-              </span>
+              <GoliathOrnament
+                seed="METHOD"
+                count={6}
+                size="clamp(72px, 13vw, 240px)"
+                className="absolute -top-8 -left-2 text-cyan/[0.04] pointer-events-none"
+              />
               <span className="relative">Stratégiától</span>
               <br />
               <span className="text-cyan relative">a deployig.</span>
