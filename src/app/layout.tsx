@@ -82,9 +82,10 @@ export default function RootLayout({
           <LiveTerminalTypers />
           <Navigation />
           {/* Reserve space for the fixed Navigation header so content
-              doesn't slide underneath it on initial paint. Tracks the
-              header's py-7 / md:py-9 padding + line height. */}
-          <div aria-hidden className="h-[78px] md:h-[94px] shrink-0" />
+              doesn't slide underneath it on initial paint. Mobile is
+              taller (~96px) because the header has a brand row + a 4-tab
+              nav row stacked underneath it. */}
+          <div aria-hidden className="h-[96px] md:h-[94px] shrink-0" />
           <main className="flex-1 relative z-10">{children}</main>
           <Footer />
         </div>

@@ -10,6 +10,14 @@ import {
   DM_Mono,
   Sora,
   Archivo,
+  Bungee,
+  Honk,
+  Sixtyfour,
+  Bowlby_One,
+  Orbitron,
+  Audiowide,
+  Saira,
+  Big_Shoulders,
 } from "next/font/google";
 
 const archivoBlack = Archivo_Black({
@@ -89,6 +97,65 @@ const archivo = Archivo({
   display: "swap",
 });
 
+// ── Decorative-impact / symbol-like display fonts (for Goliath slot) ──
+const bungee = Bungee({
+  subsets: ["latin", "latin-ext"],
+  weight: "400",
+  variable: "--font-pv-bungee",
+  display: "swap",
+});
+
+const honk = Honk({
+  subsets: ["latin", "latin-ext"],
+  weight: "400",
+  variable: "--font-pv-honk",
+  display: "swap",
+});
+
+const sixtyfour = Sixtyfour({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-pv-sixtyfour",
+  display: "swap",
+});
+
+const bowlbyOne = Bowlby_One({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-pv-bowlby",
+  display: "swap",
+});
+
+// ── Angular / blocky terminal-display (for KH Interference slot) ──
+const orbitron = Orbitron({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  variable: "--font-pv-orbitron",
+  display: "swap",
+});
+
+const audiowide = Audiowide({
+  subsets: ["latin", "latin-ext"],
+  weight: "400",
+  variable: "--font-pv-audiowide",
+  display: "swap",
+});
+
+// ── Wide bold modern display (for Sequel 100 Wide slot) ──
+const saira = Saira({
+  subsets: ["latin", "latin-ext"],
+  weight: ["400", "600", "700", "800", "900"],
+  variable: "--font-pv-saira",
+  display: "swap",
+});
+
+const bigShoulders = Big_Shoulders({
+  subsets: ["latin", "latin-ext"],
+  weight: ["400", "600", "700", "800", "900"],
+  variable: "--font-pv-big-shoulders",
+  display: "swap",
+});
+
 const previewVars = [
   archivoBlack.variable,
   bricolage.variable,
@@ -101,6 +168,14 @@ const previewVars = [
   dmMono.variable,
   sora.variable,
   archivo.variable,
+  bungee.variable,
+  honk.variable,
+  sixtyfour.variable,
+  bowlbyOne.variable,
+  orbitron.variable,
+  audiowide.variable,
+  saira.variable,
+  bigShoulders.variable,
 ].join(" ");
 
 export const metadata = {

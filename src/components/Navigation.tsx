@@ -2,12 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
 
 const COORD = "47.4979°N · 19.0402°E";
 
 const NAV = [
-  { href: "/", label: "Introduction", section: "§ 00" },
+  { href: "/", label: "Intro", section: "§ 00" },
   { href: "/work", label: "Work", section: "§ 02" },
   { href: "/method", label: "Method", section: "§ 03" },
   { href: "/connect", label: "Connect", section: "§ 06" },
@@ -15,29 +14,11 @@ const NAV = [
 
 export function Navigation() {
   const pathname = usePathname();
-  const [open, setOpen] = useState(false);
-
-  // Auto-close on route change.
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
-
-  // Lock body scroll while drawer is open.
-  useEffect(() => {
-    if (typeof document === "undefined") return;
-    if (open) {
-      const prev = document.body.style.overflow;
-      document.body.style.overflow = "hidden";
-      return () => {
-        document.body.style.overflow = prev;
-      };
-    }
-  }, [open]);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-40 border-b border-white/10 bg-void/85 backdrop-blur-md supports-[backdrop-filter]:bg-void/70">
-      <div className="max-w-[1700px] mx-auto px-5 md:px-10 py-5 md:py-9 flex items-center justify-between font-monospec text-[11px] md:text-[12px] tracking-[0.35em] uppercase text-secondary gap-4 md:gap-6">
-        {/* ─── Brand + status ─── */}
+      {/* ─── Top row: brand + (desktop) nav + coords ─── */}
+      <div className="max-w-[1700px] mx-auto px-5 md:px-10 py-3.5 md:py-9 flex items-center justify-between font-monospec text-[11px] md:text-[12px] tracking-[0.35em] uppercase text-secondary gap-4 md:gap-6">
         <div className="flex items-center gap-4 shrink-0">
           <Link
             href="/"
@@ -56,7 +37,7 @@ export function Navigation() {
           </span>
         </div>
 
-        {/* ─── Desktop nav ─── */}
+        {/* Desktop nav — hidden below md */}
         <nav
           className="hidden md:flex items-center gap-2 md:gap-3"
           aria-label="Primary"
@@ -84,7 +65,7 @@ export function Navigation() {
                 >
                   {n.section}
                 </span>
-                <span>{n.label}</span>
+                <span>{n.label === "Intro" ? "Introduction" : n.label}</span>
                 {isActive ? (
                   <span className="text-lime text-[10px]">●</span>
                 ) : (
@@ -97,92 +78,61 @@ export function Navigation() {
           })}
         </nav>
 
-        {/* ─── Mobile toggle — single tap reveals all nav items ─── */}
-        <button
-          type="button"
-          aria-label={open ? "Close menu" : "Open menu"}
-          aria-expanded={open}
-          aria-controls="mobile-nav"
-          onClick={() => setOpen((o) => !o)}
-          className={`md:hidden inline-flex items-center gap-2 px-3 py-2 border transition-colors ${
-            open
-              ? "border-lime bg-lime/10 text-lime"
-              : "border-lime/40 text-lime hover:bg-lime/5"
-          }`}
-        >
-          <span className="text-[10px] tracking-[0.3em]">
-            {open ? "Close" : "Menu"}
-          </span>
-          {/* Two-line / X glyph — doesn't depend on a font glyph. */}
-          <span
-            aria-hidden
-            className="relative inline-block w-3.5 h-3.5"
-          >
-            <span
-              className={`absolute left-0 right-0 h-px bg-current transition-transform duration-200 ${
-                open ? "top-1/2 rotate-45" : "top-[4px]"
-              }`}
-            />
-            <span
-              className={`absolute left-0 right-0 h-px bg-current transition-transform duration-200 ${
-                open ? "top-1/2 -rotate-45" : "top-[10px]"
-              }`}
-            />
-          </span>
-        </button>
-
-        {/* ─── Coords (desktop only) ─── */}
+        {/* Coords — desktop only */}
         <span className="hidden md:inline shrink-0 text-secondary/60 font-monospec text-[10px] md:text-[11px] tracking-[0.3em]">
           {COORD}
         </span>
+
+        {/* Mobile mini status (replaces coord block) — kept on the same row
+            as the brand so the nav row below has the full width for buttons. */}
+        <span
+          aria-hidden
+          className="md:hidden inline-flex items-center gap-2 text-[9px] tracking-[0.3em] text-secondary/70 shrink-0"
+        >
+          <span className="w-1.5 h-1.5 bg-lime cursor-blink" />
+          <span className="text-lime">LIVE</span>
+        </span>
       </div>
 
-      {/* ─── Mobile drawer ─── */}
+      {/* ─── Mobile nav row — fixed under the brand row, 4 equal-width
+          buttons, no scroll, no toggle. Always visible. ─── */}
       <nav
-        id="mobile-nav"
         aria-label="Primary mobile"
-        aria-hidden={!open}
-        className={`md:hidden absolute left-0 right-0 top-full border-t border-lime/25 bg-void/95 backdrop-blur-md transition-[max-height,opacity] duration-300 overflow-hidden ${
-          open
-            ? "max-h-[80vh] opacity-100"
-            : "max-h-0 opacity-0 pointer-events-none"
-        }`}
+        className="md:hidden border-t border-white/10 bg-void/70 grid grid-cols-4 font-monospec uppercase text-secondary"
       >
-        <ul className="px-5 py-3 flex flex-col">
-          {NAV.map((n) => {
-            const isActive =
-              n.href === "/" ? pathname === "/" : pathname.startsWith(n.href);
-            return (
-              <li key={n.href}>
-                <Link
-                  href={n.href}
-                  aria-current={isActive ? "page" : undefined}
-                  className={`flex items-baseline gap-3 py-4 border-b border-white/10 last:border-b-0 transition-colors ${
-                    isActive
-                      ? "text-lime"
-                      : "text-secondary hover:text-primary"
-                  }`}
-                >
-                  <span className="text-[10px] tracking-[0.3em] opacity-60 w-12 shrink-0">
-                    {n.section}
-                  </span>
-                  <span className="text-base tracking-[0.25em]">
-                    {n.label}
-                  </span>
-                  {isActive ? (
-                    <span className="ml-auto text-lime text-[10px]">●</span>
-                  ) : (
-                    <span className="ml-auto text-[12px] opacity-50">→</span>
-                  )}
-                </Link>
-              </li>
-            );
-          })}
-          <li className="pt-4 pb-2 text-[10px] tracking-[0.3em] text-secondary/40 flex items-center gap-3">
-            <span className="w-1.5 h-1.5 bg-lime cursor-blink" />
-            {COORD}
-          </li>
-        </ul>
+        {NAV.map((n) => {
+          const isActive =
+            n.href === "/" ? pathname === "/" : pathname.startsWith(n.href);
+          return (
+            <Link
+              key={n.href}
+              href={n.href}
+              aria-current={isActive ? "page" : undefined}
+              className={`relative flex flex-col items-center justify-center gap-1 py-3 border-r last:border-r-0 border-white/10 transition-colors ${
+                isActive
+                  ? "text-lime bg-lime/[0.06]"
+                  : "hover:text-primary hover:bg-white/[0.02]"
+              }`}
+            >
+              <span
+                className={`text-[9px] tracking-[0.3em] ${
+                  isActive ? "opacity-90" : "opacity-50"
+                }`}
+              >
+                {n.section}
+              </span>
+              <span className="text-[11px] tracking-[0.25em]">
+                {n.label}
+              </span>
+              {isActive && (
+                <span
+                  aria-hidden
+                  className="absolute bottom-0 left-0 right-0 h-[2px] bg-lime"
+                />
+              )}
+            </Link>
+          );
+        })}
       </nav>
     </header>
   );
