@@ -15,7 +15,9 @@
 import {
   GOLIATH_SYMBOL_NAMES,
   GoliathOrnament,
+  GoliathScatter,
   GoliathSymbol,
+  type GoliathTone,
 } from "@/components/GoliathSymbols";
 
 type Risk = "marathon" | "commercial" | "ofl" | "deferred";
@@ -126,7 +128,7 @@ const SECTIONS: Section[] = [
   {
     slot: "KH INTERFERENCE",
     usage:
-      "44× — fő heading font, page címek, navigáció (CORE VISUAL IDENTITY)",
+      "44× — fő heading font, page címek, navigáció · ✓ DÖNTÉS: Chakra Petch (SemiBold 600)",
     display: "§ 04 · WORK ARCHIVE",
     secondary: "Operátor egysége — Budapesten",
     tertiary: HU_PANGRAM,
@@ -149,7 +151,8 @@ const SECTIONS: Section[] = [
         risk: "ofl",
         fontFamily: "var(--font-pv-chakra-petch)",
         style: { fontWeight: 600 },
-        note: "Szögletes-techno display sans, cyberpunk/Marathon karakter. SemiBold súly — köztes a Regular és Bold között, jó display-balansz a heading-ekhez. Teljes skála: 300/400/500/600/700 + italicok.",
+        chosen: true,
+        note: "Szögletes-techno display sans, cyberpunk/Marathon karakter. SemiBold súly — köztes a Regular és Bold között, ideális display-balansz a heading-ekhez. Teljes skála: 300/400/500/600/700 + italicok az élő site-on használható lesz.",
       },
       {
         name: "Major Mono Display",
@@ -518,16 +521,15 @@ function SampleCard({
 }
 
 /**
- * Bemutatja a `<GoliathSymbols />` SVG szimbólum-szettet. Megmutat:
- *  - egy kompozíciót a 5 jelenlegi watermark-szöveghez (·26·, HELLO,
- *    2026, SYS·, METHOD), pontosan a live site-on használt méretekhez
- *    arányosan kicsinyítve
- *  - a teljes 16-elemű katalógust névvel + jelölőkkel
+ * Bemutatja a `<GoliathSymbols />` SVG szimbólum-szettet:
+ *  - 5 ornament-kompozíciót a jelenlegi watermark-szövegekhez
+ *  - a 4 Marathon-szín variánsait (lime/cyan/magenta/orange)
+ *  - a multitone üzemmódot (vegyes-szín ornament)
+ *  - egy „background-scatter" példát a `<GoliathScatter />`-rel
+ *  - a teljes ${GOLIATH_SYMBOL_NAMES.length}-elemű szimbólum-katalógust
  */
 function GoliathShowcase() {
-  // Reproduces — at preview scale — the five live-site watermarks. The
-  // `seed` matches the original "text" so the same composition is
-  // dropped in to the live site later for visual continuity.
+  // Reproduces — at preview scale — the five live-site watermarks.
   const ornaments = [
     { seed: "·26·", count: 4, label: "Landing · ·26·", size: 56 },
     { seed: "HELLO", count: 5, label: "Connect · HELLO", size: 72 },
@@ -536,8 +538,15 @@ function GoliathShowcase() {
     { seed: "METHOD", count: 6, label: "Method · METHOD", size: 56 },
   ];
 
+  const tones: { tone: GoliathTone; label: string; hex: string }[] = [
+    { tone: "lime", label: "Lime", hex: "#c2fe0c" },
+    { tone: "cyan", label: "Cyan", hex: "#01ffff" },
+    { tone: "magenta", label: "Magenta", hex: "#ea027e" },
+    { tone: "orange", label: "Orange", hex: "#ff8c42" },
+  ];
+
   return (
-    <div className="mt-10 border border-cyan/30 bg-surface/30 p-6 md:p-8 space-y-10">
+    <div className="mt-10 border border-cyan/30 bg-surface/30 p-6 md:p-8 space-y-12">
       <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-3">
         <h3
           className="text-[20px] md:text-[24px] uppercase tracking-tight"
@@ -549,65 +558,160 @@ function GoliathShowcase() {
           className="text-[10px] uppercase tracking-[0.25em] text-cyan/80"
           style={{ fontFamily: "var(--font-pv-geist-mono)" }}
         >
-          16 szimbólum · NEM font · drop-in helyettesítő
+          {GOLIATH_SYMBOL_NAMES.length} szimbólum · 4 szín · NEM font
         </p>
       </div>
 
       <p
-        className="text-sm md:text-base text-secondary leading-relaxed max-w-[70ch]"
+        className="text-sm md:text-base text-secondary leading-relaxed max-w-[72ch]"
         style={{ fontFamily: "var(--font-pv-bricolage)" }}
       >
-        A Goliath font helyett egy kis SVG szimbólum-könyvtár:{" "}
+        SVG szimbólum-könyvtár, kifejezetten a Goliath font 5 watermark
+        helyének helyettesítésére az élő site-on. Három drop-in API:{" "}
         <code
           className="text-cyan"
           style={{ fontFamily: "var(--font-pv-geist-mono)" }}
         >
-          GoliathOrnament seed=… count=…
-        </code>
-        — a meglévő watermark szövegeket („·26·", „HELLO", „2026", „SYS·",
-        „METHOD") seed-alapú determinisztikus szimbólum-sorozattal cseréli.
-        Mind currentColor-driven, ugyanúgy fogadják a Tailwind
-        opacity-osztályokat (text-lime/[0.04] stb.) mint a font-szöveg.
+          GoliathSymbol
+        </code>{" "}
+        egy glyph-hez,{" "}
+        <code
+          className="text-cyan"
+          style={{ fontFamily: "var(--font-pv-geist-mono)" }}
+        >
+          GoliathOrnament
+        </code>{" "}
+        seed-alapú sorozathoz, és{" "}
+        <code
+          className="text-cyan"
+          style={{ fontFamily: "var(--font-pv-geist-mono)" }}
+        >
+          GoliathScatter
+        </code>{" "}
+        teljes background-decoráció mintára. Mind a 4 Marathon-tónus
+        elérhető, vagy `currentColor` (Tailwind text-X-en keresztül).
       </p>
 
-      {/* Ornament compositions — what each watermark on the live site
-          would look like once swapped to GoliathOrnament. */}
+      {/* Tone variants */}
       <div>
         <div
           className="text-[10px] uppercase tracking-[0.3em] text-secondary/70 mb-4"
           style={{ fontFamily: "var(--font-pv-geist-mono)" }}
         >
-          § Ornament kompozíciók — élő site-on
+          § Marathon palette tónusok
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {ornaments.map((o) => (
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {tones.map((t) => (
             <div
-              key={o.seed}
-              className="border border-cyan/20 bg-void/40 p-5 flex flex-col gap-3"
+              key={t.tone}
+              className="border border-white/10 bg-void/40 p-5 flex flex-col gap-3"
             >
-              <div className="flex items-baseline justify-between gap-2">
+              <div className="flex items-baseline justify-between">
                 <span
-                  className="text-[10px] uppercase tracking-[0.25em] text-cyan/80"
-                  style={{ fontFamily: "var(--font-pv-geist-mono)" }}
+                  className="text-[11px] uppercase tracking-[0.3em]"
+                  style={{
+                    fontFamily: "var(--font-pv-geist-mono)",
+                    color: t.hex,
+                  }}
                 >
-                  {o.label}
+                  {t.label}
                 </span>
                 <span
                   className="text-[9px] uppercase tracking-[0.2em] text-secondary/50"
                   style={{ fontFamily: "var(--font-pv-geist-mono)" }}
                 >
-                  seed=&quot;{o.seed}&quot; · n={o.count}
+                  {t.hex}
                 </span>
               </div>
-              <div className="text-lime min-h-[80px] flex items-center">
-                <GoliathOrnament
-                  seed={o.seed}
-                  count={o.count}
-                  size={o.size}
-                />
+              <div className="min-h-[64px] flex items-center">
+                <GoliathOrnament seed="palette" count={4} size={48} tone={t.tone} />
               </div>
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* Multitone variant */}
+      <div>
+        <div
+          className="text-[10px] uppercase tracking-[0.3em] text-secondary/70 mb-4"
+          style={{ fontFamily: "var(--font-pv-geist-mono)" }}
+        >
+          § Multitone — vegyes-szín ornament (HUD-feel)
+        </div>
+        <div className="border border-white/10 bg-void/40 p-6 flex items-center justify-center">
+          <GoliathOrnament seed="ptrk-multi" count={6} size={64} multitone />
+        </div>
+      </div>
+
+      {/* Ornament compositions — live-site watermark replacements */}
+      <div>
+        <div
+          className="text-[10px] uppercase tracking-[0.3em] text-secondary/70 mb-4"
+          style={{ fontFamily: "var(--font-pv-geist-mono)" }}
+        >
+          § Ornament kompozíciók — élő site-on használandó cserék
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {ornaments.map((o, i) => {
+            const tone = tones[i % tones.length].tone;
+            return (
+              <div
+                key={o.seed}
+                className="border border-cyan/20 bg-void/40 p-5 flex flex-col gap-3"
+              >
+                <div className="flex items-baseline justify-between gap-2">
+                  <span
+                    className="text-[10px] uppercase tracking-[0.25em] text-cyan/80"
+                    style={{ fontFamily: "var(--font-pv-geist-mono)" }}
+                  >
+                    {o.label}
+                  </span>
+                  <span
+                    className="text-[9px] uppercase tracking-[0.2em] text-secondary/50"
+                    style={{ fontFamily: "var(--font-pv-geist-mono)" }}
+                  >
+                    seed=&quot;{o.seed}&quot; · n={o.count} · {tone}
+                  </span>
+                </div>
+                <div className="min-h-[80px] flex items-center">
+                  <GoliathOrnament
+                    seed={o.seed}
+                    count={o.count}
+                    size={o.size}
+                    tone={tone}
+                  />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Background-scatter — section-decoration mockup */}
+      <div>
+        <div
+          className="text-[10px] uppercase tracking-[0.3em] text-secondary/70 mb-4"
+          style={{ fontFamily: "var(--font-pv-geist-mono)" }}
+        >
+          § GoliathScatter — full-section background decoration
+        </div>
+        <div className="relative border border-white/10 bg-void/60 px-6 py-12 md:py-16 overflow-hidden min-h-[260px] flex items-center justify-center">
+          <GoliathScatter seed="connect-mock" />
+          <div
+            className="relative z-10 text-center max-w-md text-secondary text-sm md:text-base leading-relaxed"
+            style={{ fontFamily: "var(--font-pv-bricolage)" }}
+          >
+            <span
+              className="block text-[10px] uppercase tracking-[0.3em] text-lime mb-3"
+              style={{ fontFamily: "var(--font-pv-geist-mono)" }}
+            >
+              § DEMO · CONNECT SECTION
+            </span>
+            Tartalom-szöveg ide kerül. A háttérbe szétszórt szimbólumok 4
+            sarokra + középre kerülnek, mind a 4 Marathon-szín képviselve,
+            3-5% opacityvel — pont mint a Goliath-watermarkok eddig.
+          </div>
         </div>
       </div>
 
@@ -617,25 +721,26 @@ function GoliathShowcase() {
           className="text-[10px] uppercase tracking-[0.3em] text-secondary/70 mb-4"
           style={{ fontFamily: "var(--font-pv-geist-mono)" }}
         >
-          § Teljes szimbólum-katalógus (16)
+          § Teljes szimbólum-katalógus ({GOLIATH_SYMBOL_NAMES.length})
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3">
-          {GOLIATH_SYMBOL_NAMES.map((name) => (
-            <div
-              key={name}
-              className="border border-cyan/15 bg-void/30 p-4 flex flex-col items-center gap-2"
-            >
-              <div className="text-lime">
-                <GoliathSymbol name={name} size={48} />
-              </div>
-              <span
-                className="text-[9px] uppercase tracking-[0.2em] text-secondary/70"
-                style={{ fontFamily: "var(--font-pv-geist-mono)" }}
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3">
+          {GOLIATH_SYMBOL_NAMES.map((name, i) => {
+            const tone = tones[i % tones.length].tone;
+            return (
+              <div
+                key={name}
+                className="border border-white/10 bg-void/30 p-4 flex flex-col items-center gap-2"
               >
-                {name}
-              </span>
-            </div>
-          ))}
+                <GoliathSymbol name={name} size={48} tone={tone} />
+                <span
+                  className="text-[9px] uppercase tracking-[0.2em] text-secondary/70"
+                  style={{ fontFamily: "var(--font-pv-geist-mono)" }}
+                >
+                  {name}
+                </span>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
