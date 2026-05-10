@@ -16,7 +16,6 @@ import { useEffect, useRef, useState } from "react";
  * SSR/hydration timing issues.
  */
 const TRAIL_LENGTH = 22; // points retained — longer for a continuous feel
-const TRAIL_FADE = 0.88; // per-frame canvas alpha decay
 
 export function CustomCursor() {
   const dotRef = useRef<HTMLDivElement>(null);
@@ -71,7 +70,6 @@ export function CustomCursor() {
     let ry = ty;
     // Trail: ring buffer of recent positions.
     const trail: { x: number; y: number; age: number }[] = [];
-    let lastSampleAt = 0;
 
     // Canvas setup for trail rendering.
     const canvas = trailCanvasRef.current;
@@ -123,7 +121,7 @@ export function CustomCursor() {
     const onLeave = () => setVisible(false);
     const onEnter = () => setVisible(true);
 
-    const tick = (now: number) => {
+    const tick = () => {
       if (reducedMotion) {
         cx = tx;
         cy = ty;
@@ -147,7 +145,6 @@ export function CustomCursor() {
 
       // Sample EVERY frame — keeps consecutive points close enough that the
       // line connecting them reads as one continuous curve, not segments.
-      lastSampleAt = now;
       trail.unshift({ x: cx, y: cy, age: 0 });
       if (trail.length > TRAIL_LENGTH) trail.length = TRAIL_LENGTH;
       for (const p of trail) p.age += 1;
@@ -157,11 +154,9 @@ export function CustomCursor() {
       // a width that tapers from cursor → tail give a continuous, smooth
       // motion-line rather than a string of beads.
       if (ctx && cw > 0 && ch > 0) {
-        // Soft fade of previous frame leaves a faint after-image so the
-        // line decays naturally even when the pointer is still.
-        ctx.globalCompositeOperation = "destination-out";
-        ctx.fillStyle = `rgba(0,0,0,${1 - TRAIL_FADE})`;
-        ctx.fillRect(0, 0, cw, ch);
+        // Hard-clear every frame so the trail only ever shows the live
+        // buffer of recent positions — no accumulated streak left behind.
+        ctx.clearRect(0, 0, cw, ch);
 
         ctx.globalCompositeOperation = "lighter";
         ctx.lineCap = "round";
