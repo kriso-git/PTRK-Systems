@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PROCESS_STEPS, TECH_STACK } from "@/data/projects";
+import { Crosshair } from "@/components/Crosshair";
 
 export const metadata: Metadata = {
   title: "Method — Hogyan dolgozom",
@@ -52,7 +53,7 @@ export default function MethodPage() {
   return (
     <>
       {/* ─────────────────────────────  HERO  ───────────────────────────── */}
-      <section className="relative z-10 px-6 md:px-10 pt-20 md:pt-32 pb-16 md:pb-24 overflow-hidden">
+      <section className="relative z-10 px-6 md:px-10 pt-32 md:pt-48 pb-32 md:pb-44 overflow-hidden">
         <div className="max-w-[1700px] mx-auto grid grid-cols-12 gap-y-10 md:gap-x-10">
           <aside className="col-span-12 md:col-span-3 lg:col-span-2 md:pt-4">
             <div className="font-monospec text-[10px] tracking-[0.4em] uppercase text-cyan mb-6 flex items-center gap-3">
@@ -91,46 +92,94 @@ export default function MethodPage() {
         </div>
       </section>
 
-      {/* ─────────────────────────────  PROCESS LADDER  ───────────────────────────── */}
-      <section className="relative z-10 border-t border-white/10">
+      {/* ─────────────────────────────  PROCESS LADDER (single Marathon tile)  ───────────────────────────── */}
+      <section className="relative z-10 border-t border-white/10 px-6 md:px-10 py-24 md:py-32">
         <div className="max-w-[1700px] mx-auto">
-          {PROCESS_STEPS.map((step, i) => (
-            <article
-              key={step.number}
-              className={`grid grid-cols-12 gap-y-6 md:gap-x-10 px-6 md:px-10 py-14 md:py-20 ${
-                i !== PROCESS_STEPS.length - 1 ? "border-b border-white/10" : ""
-              } group hover:bg-surface/20 transition-colors`}
-            >
-              <aside className="col-span-12 md:col-span-3 lg:col-span-2">
-                <div className="font-monospec text-[10px] uppercase tracking-[0.35em] text-secondary mb-4">
-                  Phase {step.number}
-                </div>
-                <div className="font-sequel text-7xl md:text-8xl lg:text-9xl text-lime leading-none tracking-[-0.05em] transition-transform duration-500 group-hover:translate-x-2">
-                  {step.number}
-                </div>
-              </aside>
+          {/* Section label */}
+          <div className="mb-10 flex items-baseline gap-4">
+            <span className="font-monospec text-[10px] tracking-[0.4em] uppercase text-cyan">
+              § 03 / PROCESS
+            </span>
+            <span className="h-px flex-1 bg-lime/20" />
+            <span className="font-monospec text-[10px] tracking-[0.3em] uppercase text-secondary">
+              06 phases
+            </span>
+          </div>
 
-              <div className="col-span-12 md:col-span-9 lg:col-span-7">
-                <h2 className="font-khinterference uppercase tracking-[0.005em] text-[clamp(36px,5vw,80px)] leading-[0.95] text-primary mb-6">
-                  {step.title}
-                </h2>
-                <p className="font-shorai text-lg md:text-xl text-secondary leading-[1.55] max-w-[58ch]">
-                  {step.desc}
-                </p>
+          {/* THE TILE */}
+          <div className="relative border border-lime/30 bg-surface/40 backdrop-blur-sm">
+            <Crosshair position="tl" color="lime" />
+            <Crosshair position="tr" color="cyan" />
+            <Crosshair position="bl" color="magenta" />
+            <Crosshair position="br" color="orange" />
+
+            {/* Tile header bar */}
+            <div className="flex items-center justify-between border-b border-lime/20 bg-black/40 px-5 py-3">
+              <div className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 bg-lime cursor-blink" />
+                <span className="font-monospec text-[10px] text-lime tracking-[0.3em]">
+                  METHOD.LADDER · 06
+                </span>
               </div>
+              <span className="font-monospec text-[10px] text-cyan/60 tracking-[0.25em]">
+                DISCOVERY → SHIP
+              </span>
+            </div>
 
-              <aside className="hidden lg:flex col-span-3 lg:pl-8 lg:border-l lg:border-white/10 flex-col font-monospec text-[10px] uppercase tracking-[0.3em] text-secondary leading-relaxed">
-                <div className="text-cyan mb-3">Output</div>
-                <div className="text-primary/80">{PHASE_OUTPUTS[i]}</div>
-              </aside>
-            </article>
-          ))}
+            {/* 6 phase rows */}
+            <ul className="divide-y divide-lime/15">
+              {PROCESS_STEPS.map((step, i) => (
+                <li
+                  key={step.number}
+                  className="group grid grid-cols-12 items-center gap-x-4 md:gap-x-6 px-4 md:px-6 py-5 md:py-7 hover:bg-lime/[0.03] transition-colors"
+                >
+                  {/* Phase number with frame */}
+                  <div className="col-span-3 md:col-span-2 flex items-center gap-2 md:gap-3">
+                    <div className="hidden md:block font-monospec text-[9px] tracking-[0.3em] text-secondary">
+                      P.{step.number}
+                    </div>
+                    <div className="border border-lime/30 bg-black/50 px-2.5 py-1 group-hover:border-lime/70 group-hover:bg-lime/5 transition-colors">
+                      <div className="font-sequel text-2xl md:text-3xl text-lime leading-none tracking-[-0.04em]">
+                        {step.number}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="col-span-9 md:col-span-5 font-khinterference uppercase text-base md:text-2xl text-primary tracking-[0.005em] leading-tight">
+                    {step.title}
+                  </h3>
+
+                  {/* Desc */}
+                  <p className="col-span-12 md:col-span-3 font-shorai text-sm text-secondary leading-relaxed hidden md:block">
+                    {step.desc}
+                  </p>
+
+                  {/* Output */}
+                  <div className="col-span-12 md:col-span-2 hidden md:flex flex-col items-end font-monospec text-[9px] uppercase tracking-[0.25em] leading-relaxed">
+                    <span className="text-cyan/70 mb-0.5">OUT</span>
+                    <span className="text-primary/70 text-right">{PHASE_OUTPUTS[i]}</span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+
+            {/* Tile footer bar */}
+            <div className="flex items-center justify-between border-t border-lime/20 bg-black/40 px-5 py-3">
+              <span className="font-monospec text-[10px] text-secondary tracking-[0.3em]">
+                ▓▓▓ END.LADDER
+              </span>
+              <span className="font-monospec text-[10px] text-lime/60 tracking-widest">
+                06 / 06
+              </span>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* ─────────────────────────────  DELIVERABLES  ───────────────────────────── */}
-      <section className="relative z-10 border-t border-white/10 px-6 md:px-10 py-28 md:py-40">
-        <div className="max-w-[1700px] mx-auto grid grid-cols-12 gap-y-14 md:gap-x-10">
+      <section className="relative z-10 border-t border-white/10 px-6 md:px-10 py-40 md:py-64">
+        <div className="max-w-[1700px] mx-auto grid grid-cols-12 gap-y-20 md:gap-x-10">
           <aside className="col-span-12 md:col-span-4">
             <div className="md:sticky md:top-32">
               <div className="font-monospec text-[10px] uppercase tracking-[0.4em] text-magenta mb-6 flex items-center gap-3">
@@ -153,7 +202,7 @@ export default function MethodPage() {
             {DELIVERABLES.map((d, i) => (
               <article
                 key={d.code}
-                className={`py-12 md:py-14 ${
+                className={`py-16 md:py-20 ${
                   i !== DELIVERABLES.length - 1 ? "border-b border-white/15" : ""
                 }`}
               >
@@ -174,9 +223,9 @@ export default function MethodPage() {
       </section>
 
       {/* ─────────────────────────────  STACK TABLE  ───────────────────────────── */}
-      <section className="relative z-10 border-t border-white/10 bg-surface/20 px-6 md:px-10 py-24 md:py-32">
+      <section className="relative z-10 border-t border-white/10 bg-void/30 px-6 md:px-10 py-40 md:py-56">
         <div className="max-w-[1700px] mx-auto">
-          <div className="grid grid-cols-12 gap-y-10 md:gap-x-10 items-end mb-14">
+          <div className="grid grid-cols-12 gap-y-12 md:gap-x-10 items-end mb-20">
             <div className="col-span-12 md:col-span-7">
               <div className="font-monospec text-[10px] uppercase tracking-[0.4em] text-orange mb-4 flex items-center gap-3">
                 <span className="inline-block w-8 h-px bg-orange" />
@@ -198,7 +247,7 @@ export default function MethodPage() {
             {Object.entries(STACK_BY_CATEGORY).map(([category, names]) => (
               <li
                 key={category}
-                className="grid grid-cols-12 gap-4 border-b border-white/15 py-6 md:py-8 items-baseline"
+                className="grid grid-cols-12 gap-4 border-b border-white/15 py-10 md:py-12 items-baseline"
               >
                 <div className="col-span-12 md:col-span-3 font-monospec text-[11px] uppercase tracking-[0.3em] text-orange">
                   {category}
@@ -217,8 +266,8 @@ export default function MethodPage() {
       </section>
 
       {/* ─────────────────────────────  CTA  ───────────────────────────── */}
-      <section className="relative z-10 border-t border-white/10 px-6 md:px-10 py-24 md:py-32">
-        <div className="max-w-[1700px] mx-auto grid grid-cols-12 gap-y-8 md:gap-x-10 items-end">
+      <section className="relative z-10 border-t border-white/10 px-6 md:px-10 py-40 md:py-56">
+        <div className="max-w-[1700px] mx-auto grid grid-cols-12 gap-y-12 md:gap-x-10 items-end">
           <h2 className="col-span-12 md:col-span-8 font-khinterference uppercase tracking-[-0.005em] text-[clamp(48px,9vw,144px)] leading-[0.86] text-primary">
             Készen állsz egy
             <br />

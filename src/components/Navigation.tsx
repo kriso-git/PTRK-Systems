@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 const COORD = "47.4979°N · 19.0402°E";
 
 const NAV = [
-  { href: "/", label: "Index", section: "§ 00" },
+  { href: "/", label: "Introduction", section: "§ 00" },
   { href: "/work", label: "Work", section: "§ 02" },
   { href: "/method", label: "Method", section: "§ 03" },
   { href: "/connect", label: "Connect", section: "§ 06" },
@@ -16,7 +16,7 @@ export function Navigation() {
   const pathname = usePathname();
 
   return (
-    <header className="relative z-10 border-b border-white/10 bg-void">
+    <header className="fixed top-0 left-0 right-0 z-40 border-b border-white/10 bg-void/85 backdrop-blur-md supports-[backdrop-filter]:bg-void/70">
       <div className="max-w-[1700px] mx-auto px-6 md:px-10 py-7 md:py-9 flex items-center justify-between font-monospec text-[11px] md:text-[12px] tracking-[0.35em] uppercase text-secondary gap-6">
         {/* ─── Brand + status ─── */}
         <div className="flex items-center gap-4 shrink-0">

@@ -82,7 +82,7 @@ export function ConnectForm() {
   return (
     <>
       {/* ─────────────────────────────  HERO  ───────────────────────────── */}
-      <section className="relative z-10 px-6 md:px-10 pt-20 md:pt-32 pb-16 md:pb-20 overflow-hidden">
+      <section className="relative z-10 px-6 md:px-10 pt-24 md:pt-40 pb-24 md:pb-32 overflow-hidden">
         <div className="max-w-[1700px] mx-auto grid grid-cols-12 gap-y-10 md:gap-x-10">
           <aside className="col-span-12 md:col-span-3 lg:col-span-2 md:pt-4">
             <div className="font-monospec text-[10px] tracking-[0.4em] uppercase text-lime mb-6 flex items-center gap-3">
@@ -125,7 +125,7 @@ export function ConnectForm() {
       </section>
 
       {/* ─────────────────────────────  SLA  ───────────────────────────── */}
-      <section className="relative z-10 border-y border-white/10 bg-surface/30">
+      <section className="relative z-10 border-y border-white/10 bg-void/30">
         <div className="max-w-[1700px] mx-auto px-6 md:px-10 py-10 grid grid-cols-3 divide-x divide-white/10">
           {SLA.map((s) => (
             <div key={s.code} className="px-3 md:px-8 py-2 flex flex-col gap-3">
@@ -143,7 +143,7 @@ export function ConnectForm() {
       </section>
 
       {/* ─────────────────────────────  CHANNELS + FORM  ───────────────────────────── */}
-      <section className="relative z-10 px-6 md:px-10 py-24 md:py-32">
+      <section className="relative z-10 px-6 md:px-10 py-32 md:py-48">
         <div className="max-w-[1700px] mx-auto grid grid-cols-12 gap-y-16 md:gap-x-12">
           <aside className="col-span-12 md:col-span-5">
             <div className="font-monospec text-[10px] uppercase tracking-[0.4em] text-cyan mb-6 flex items-center gap-3">
@@ -296,7 +296,7 @@ export function ConnectForm() {
         </div>
       </section>
 
-      <section className="relative z-10 border-t border-white/10 px-6 md:px-10 py-16 md:py-20">
+      <section className="relative z-10 border-t border-white/10 px-6 md:px-10 py-24 md:py-32">
         <div className="max-w-[1700px] mx-auto flex flex-wrap items-baseline justify-between gap-6 font-monospec text-[10px] uppercase tracking-[0.35em] text-secondary">
           <Link href="/" className="hover:text-lime transition-colors">
             ← § 00 · Index

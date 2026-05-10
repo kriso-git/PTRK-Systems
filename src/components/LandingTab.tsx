@@ -54,7 +54,7 @@ export function LandingTab() {
   return (
     <>
       {/* HERO */}
-      <section className="min-h-screen flex items-center justify-center px-6 md:px-10 py-24 bg-void relative overflow-hidden tab-enter">
+      <section className="min-h-screen flex items-center justify-center px-6 md:px-10 py-32 md:py-40 bg-void relative overflow-hidden tab-enter">
         <DataStream />
 
         {/* Corner markers */}
@@ -76,7 +76,7 @@ export function LandingTab() {
 
         <div className="max-w-[1600px] w-full relative z-10">
           {/* Big PTRK SYSTEMS brand badge */}
-          <div className="mb-12 flex flex-wrap items-end gap-4 md:gap-6 border-b border-lime/15 pb-8">
+          <div className="mb-20 flex flex-wrap items-end gap-4 md:gap-6 border-b border-lime/15 pb-10">
             <div className="flex items-center gap-4">
               <Glyph name="lime-hex" size={44} color="#c2fe0c" />
               <div className="font-khinterference text-5xl md:text-7xl text-primary tracking-[0.04em] leading-none uppercase">
@@ -92,7 +92,7 @@ export function LandingTab() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
             {/* Left: Text */}
             <div className="lg:col-span-7 relative">
               <div className="mb-6 flex flex-wrap items-center gap-3">
@@ -104,13 +104,13 @@ export function LandingTab() {
                 </span>
               </div>
 
-              <h1 className="font-khinterference leading-[0.95] mb-10 tracking-[0.02em] uppercase break-words">
+              <h1 className="font-khinterference leading-[0.95] mb-14 tracking-[0.02em] uppercase break-words">
                 <span className="block text-[clamp(48px,8vw,124px)] text-primary">Building</span>
                 <span className="block text-[clamp(48px,8vw,124px)] text-primary">Digital</span>
                 <span className="block text-[clamp(48px,8vw,124px)] text-lime">Systems.</span>
               </h1>
 
-              <div className="bg-surface/80 backdrop-blur-xl border-l-4 border-lime p-7 md:p-10 mb-10 relative max-w-[680px]">
+              <div className="bg-surface/80 backdrop-blur-xl border-l-4 border-lime p-8 md:p-12 mb-14 relative max-w-[680px]">
                 <Crosshair position="tr" color="lime" />
                 <p className="font-sequel text-xl md:text-2xl text-primary leading-[1.15] mb-4 tracking-[-0.01em]">
                   Design engineering csapat Budapesten.
@@ -149,8 +149,8 @@ export function LandingTab() {
             </div>
 
             {/* Right: Bento stats + Marathon mockup */}
-            <div className="lg:col-span-5 flex flex-col gap-5">
-              <div className="grid grid-cols-2 gap-4">
+            <div className="lg:col-span-5 flex flex-col gap-8">
+              <div className="grid grid-cols-2 gap-5">
                 {STATS.map((stat, i) => {
                   const c = STAT_CLASSES[stat.color];
                   return (
@@ -179,7 +179,7 @@ export function LandingTab() {
           </div>
 
           {/* Marquee ticker */}
-          <div className="mt-16 border-y border-lime/20 overflow-hidden bg-void/60">
+          <div className="mt-24 border-y border-lime/20 overflow-hidden bg-void/60">
             <div className="flex whitespace-nowrap py-3" style={{ animation: "ticker 32s linear infinite" }}>
               {Array.from({ length: 2 }).flatMap((_, dup) =>
                 [
@@ -205,11 +205,11 @@ export function LandingTab() {
       </section>
 
       {/* SERVICES BLOCK */}
-      <section className="px-6 md:px-10 py-24 md:py-32 bg-void relative overflow-hidden">
+      <section className="px-6 md:px-10 py-32 md:py-44 bg-void relative overflow-hidden">
         <DataStream />
 
         <div className="max-w-[1600px] mx-auto relative z-10">
-          <header className="mb-14 md:mb-16 relative">
+          <header className="mb-20 md:mb-24 relative">
             <div className="absolute -left-2 md:-left-4 top-0 bottom-0 w-1 bg-gradient-to-b from-lime via-cyan to-magenta" />
             <div className="pl-6 md:pl-8">
               <div className="mb-5 flex flex-wrap items-center gap-3">
@@ -230,7 +230,7 @@ export function LandingTab() {
             </div>
           </header>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
             {SERVICES.map((s) => {
               const c = STAT_CLASSES[s.color];
               return (

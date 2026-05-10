@@ -28,7 +28,7 @@ export default function WorkPage() {
   return (
     <>
       {/* ─────────────────────────────  HERO  ───────────────────────────── */}
-      <section className="relative z-10 px-6 md:px-10 pt-20 md:pt-32 pb-16 md:pb-24 overflow-hidden">
+      <section className="relative z-10 px-6 md:px-10 pt-24 md:pt-40 pb-24 md:pb-32 overflow-hidden">
         <div className="max-w-[1700px] mx-auto grid grid-cols-12 gap-y-10 md:gap-x-10">
           <aside className="col-span-12 md:col-span-3 lg:col-span-2 md:pt-4">
             <div className="font-monospec text-[10px] tracking-[0.4em] uppercase text-magenta mb-6 flex items-center gap-3">
@@ -86,7 +86,7 @@ export default function WorkPage() {
             return (
               <Wrapper key={p.id}>
                 <article
-                  className={`px-6 md:px-10 py-20 md:py-28 ${
+                  className={`px-6 md:px-10 py-28 md:py-40 ${
                     !isLast ? "border-b border-white/10" : ""
                   } transition-colors group-hover:bg-surface/20`}
                 >

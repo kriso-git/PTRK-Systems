@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { PROJECTS, PROCESS_STEPS, FAQ, TECH_STACK } from "@/data/projects";
+import { ScrollCue } from "@/components/ScrollCue";
 
 const COORD = "47.4979°N · 19.0402°E";
 
@@ -32,7 +33,11 @@ export default function Home() {
   return (
     <>
       {/* ─────────────────────────────  HERO MANIFESTO  ───────────────────────────── */}
-      <section className="relative z-10 px-6 md:px-10 pt-20 md:pt-32 pb-24 md:pb-40 overflow-hidden">
+      <section
+        data-section="§ 00"
+        data-label="Introduction"
+        className="relative z-10 px-6 md:px-10 pt-24 md:pt-40 pb-32 md:pb-56 overflow-hidden"
+      >
         <div
           aria-hidden
           className="absolute top-0 right-0 h-[200%] w-[1px] bg-gradient-to-b from-transparent via-lime/40 to-transparent rotate-[18deg] origin-top-right translate-x-[-25vw]"
@@ -116,13 +121,19 @@ export default function Home() {
                 Connect
               </Link>
             </div>
+
+            <ScrollCue label="Tovább a metrikákhoz" />
           </div>
         </div>
       </section>
 
       {/* ─────────────────────────────  RUNNING METER  ───────────────────────────── */}
-      <section className="relative z-10 border-y border-white/10 bg-surface/30 backdrop-blur-sm">
-        <div className="max-w-[1700px] mx-auto px-6 md:px-10 py-10 grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-white/10">
+      <section
+        data-section="§ 01"
+        data-label="Metrika"
+        className="relative z-10 border-y border-white/10 bg-void/30 backdrop-blur-[1px]"
+      >
+        <div className="max-w-[1700px] mx-auto px-6 md:px-10 py-16 md:py-20 grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-white/10">
           {STATS.map((s, i) => {
             const isLong = s.n.length > 3;
             const sizeClass = isLong
@@ -163,7 +174,11 @@ export default function Home() {
       </section>
 
       {/* ─────────────────────────────  ACCESS / PRICING NOTE  ───────────────────────────── */}
-      <section className="relative z-10 border-b border-white/10 px-6 md:px-10 py-24 md:py-32 overflow-hidden">
+      <section
+        data-section="§ 02"
+        data-label="Hozzáférés"
+        className="relative z-10 border-b border-white/10 px-6 md:px-10 py-32 md:py-48 overflow-hidden"
+      >
         <div
           aria-hidden
           className="absolute -bottom-24 -right-12 font-goliath text-lime/[0.04] text-[clamp(180px,28vw,520px)] leading-[0.8] pointer-events-none select-none uppercase tracking-[-0.02em]"
@@ -244,7 +259,11 @@ export default function Home() {
       </section>
 
       {/* ─────────────────────────────  PRINCIPLES  ───────────────────────────── */}
-      <section className="relative z-10 px-6 md:px-10 py-28 md:py-40">
+      <section
+        data-section="§ 03"
+        data-label="Alapkövek"
+        className="relative z-10 px-6 md:px-10 py-36 md:py-56 border-t border-white/10"
+      >
         <div className="max-w-[1700px] mx-auto grid grid-cols-12 gap-y-14 md:gap-x-10">
           <aside className="col-span-12 md:col-span-3">
             <div className="md:sticky md:top-32">
@@ -288,8 +307,12 @@ export default function Home() {
       </section>
 
       {/* ─────────────────────────────  PROJECT INDEX (preview)  ───────────────────────────── */}
-      <section className="relative z-10 border-t border-white/10 bg-void">
-        <div className="max-w-[1700px] mx-auto px-6 md:px-10 py-24 md:py-32">
+      <section
+        data-section="§ 04"
+        data-label="Munkák"
+        className="relative z-10 border-t border-white/10 bg-transparent"
+      >
+        <div className="max-w-[1700px] mx-auto px-6 md:px-10 py-32 md:py-48">
           <div className="flex items-end justify-between flex-wrap gap-6 mb-16">
             <div>
               <div className="font-monospec text-[10px] tracking-[0.35em] uppercase text-magenta mb-4">
@@ -356,7 +379,11 @@ export default function Home() {
       </section>
 
       {/* ─────────────────────────────  PROCESS LADDER  ───────────────────────────── */}
-      <section className="relative z-10 border-t border-white/10 px-6 md:px-10 py-28 md:py-40 overflow-hidden">
+      <section
+        data-section="§ 05"
+        data-label="Folyamat"
+        className="relative z-10 border-t border-white/10 px-6 md:px-10 py-36 md:py-56 overflow-hidden"
+      >
         <div className="max-w-[1700px] mx-auto">
           <div className="font-monospec text-[10px] tracking-[0.35em] uppercase text-orange mb-6">
             § 03 · Process · 06 phases
@@ -390,7 +417,11 @@ export default function Home() {
       </section>
 
       {/* ─────────────────────────────  STACK MARGINALIA  ───────────────────────────── */}
-      <section className="relative z-10 border-t border-white/10 px-6 md:px-10 py-24 md:py-32 bg-surface/20">
+      <section
+        data-section="§ 06"
+        data-label="Stack"
+        className="relative z-10 border-t border-white/10 px-6 md:px-10 py-32 md:py-48 bg-void/30"
+      >
         <div className="max-w-[1700px] mx-auto grid grid-cols-12 gap-y-10 md:gap-x-10 items-end">
           <div className="col-span-12 md:col-span-5">
             <div className="font-monospec text-[10px] tracking-[0.35em] uppercase text-cyan mb-4">
@@ -422,7 +453,11 @@ export default function Home() {
       </section>
 
       {/* ─────────────────────────────  FAQ DIALOGUE  ───────────────────────────── */}
-      <section className="relative z-10 border-t border-white/10 px-6 md:px-10 py-28 md:py-40">
+      <section
+        data-section="§ 07"
+        data-label="Kérdések"
+        className="relative z-10 border-t border-white/10 px-6 md:px-10 py-36 md:py-56"
+      >
         <div className="max-w-[1700px] mx-auto grid grid-cols-12 gap-y-14 md:gap-x-10">
           <aside className="col-span-12 md:col-span-4">
             <div className="font-monospec text-[10px] tracking-[0.35em] uppercase text-magenta mb-6">
@@ -466,7 +501,11 @@ export default function Home() {
       </section>
 
       {/* ─────────────────────────────  COLOPHON / CTA  ───────────────────────────── */}
-      <section className="relative z-10 border-t border-white/10 px-6 md:px-10 py-28 md:py-40 overflow-hidden">
+      <section
+        data-section="§ 08"
+        data-label="Engage"
+        className="relative z-10 border-t border-white/10 px-6 md:px-10 py-36 md:py-56 overflow-hidden"
+      >
         <div className="max-w-[1700px] mx-auto relative">
           <div className="font-monospec text-[10px] tracking-[0.35em] uppercase text-lime mb-6">
             § 06 · Engage
