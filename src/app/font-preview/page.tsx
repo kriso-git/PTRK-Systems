@@ -8,7 +8,7 @@
  * can pick replacements based on real visual impression rather than names.
  */
 
-type Risk = "marathon" | "commercial" | "ofl";
+type Risk = "marathon" | "commercial" | "ofl" | "deferred";
 
 type Sample = {
   /** Display name of the font */
@@ -24,6 +24,10 @@ type Sample = {
   style?: React.CSSProperties;
   /** Note shown in small print under the sample */
   note?: string;
+  /** Marks this option as the chosen replacement — gets a lime border + chip */
+  chosen?: boolean;
+  /** Marks this card as a "future plan" placeholder, no actual font */
+  placeholder?: boolean;
 };
 
 type Section = {
@@ -69,6 +73,11 @@ const RISK_LABEL: Record<Risk, { label: string; bg: string; fg: string }> = {
     bg: "rgba(194,254,12,0.15)",
     fg: "#c2fe0c",
   },
+  deferred: {
+    label: "TBD",
+    bg: "rgba(1,255,255,0.12)",
+    fg: "#01ffff",
+  },
 };
 
 const HU_PANGRAM = "árvíztűrő tükörfúrógép";
@@ -77,7 +86,7 @@ const SECTIONS: Section[] = [
   {
     slot: "GOLIATH",
     usage:
-      "5× — dekoratív watermark (csak szimbolikus glyph, alacsony opacity 4-6%)",
+      "5× — dekoratív watermark · TBD: nem font, generált szimbólumokra cserélve",
     display: "·26·",
     secondary: "DESIGN ENGINEERING UNIT",
     tertiary: HU_PANGRAM,
@@ -94,36 +103,13 @@ const SECTIONS: Section[] = [
         fontFamily: "var(--font-goliath)",
       },
       {
-        name: "Bungee",
-        source: "Google Fonts · OFL · David Jonathan Ross",
-        risk: "ofl",
-        fontFamily: "var(--font-pv-bungee)",
+        name: "Generált szimbólumok (TBD)",
+        source: "Egyedi SVG / glyph-set, NEM font",
+        risk: "deferred",
+        fontFamily: "var(--font-pv-geist-mono)",
         style: { fontWeight: 400 },
-        note: "Urban-blokk display, geometrikus, szimbolikus karakter — Marathon-szerű impact watermarknak.",
-      },
-      {
-        name: "Honk",
-        source: "Google Fonts · OFL · variable color font",
-        risk: "ofl",
-        fontFamily: "var(--font-pv-honk)",
-        style: { fontWeight: 400 },
-        note: "Chunky, eltúlzott dekoratív — szimbolikus mint a Goliath, abszolút „nem szöveg”.",
-      },
-      {
-        name: "Sixtyfour",
-        source: "Google Fonts · OFL · pixel/retro display",
-        risk: "ofl",
-        fontFamily: "var(--font-pv-sixtyfour)",
-        style: { fontWeight: 400 },
-        note: "Retro pixel-glyph esztétika, 64-bit-feel — szándékosan szimbolikus.",
-      },
-      {
-        name: "Bowlby One",
-        source: "Google Fonts · OFL · 1 weight",
-        risk: "ofl",
-        fontFamily: "var(--font-pv-bowlby)",
-        style: { fontWeight: 400 },
-        note: "Ultra-tömbös fekete display, sci-fi plakát impact.",
+        note: "Ezt a slot-ot nem fontra cseréljük. Mivel a Goliath itt ténylegesen csak ornamentum (nem szöveg), később egyedi generált glyph-szerű szimbólumokat (SVG vagy Unicode-mintázat) teszünk a helyébe. A choice itt: nincs font.",
+        placeholder: true,
       },
     ],
   },
@@ -148,12 +134,44 @@ const SECTIONS: Section[] = [
         fontFamily: "var(--font-khinterference)",
       },
       {
+        name: "Chakra Petch",
+        source: "Google Fonts · OFL · 300-700",
+        risk: "ofl",
+        fontFamily: "var(--font-pv-chakra-petch)",
+        style: { fontWeight: 500 },
+        note: "Szögletes-techno display sans, cyberpunk-Marathon karakter — gyakran erős match a KH Interference geometriájához.",
+      },
+      {
+        name: "Major Mono Display",
+        source: "Google Fonts · OFL · 1 weight",
+        risk: "ofl",
+        fontFamily: "var(--font-pv-major-mono)",
+        style: { fontWeight: 400 },
+        note: "Angular geometric monospace display, élesen rajzolt karakterek — display heading-nek illik a Marathon-érzéshez.",
+      },
+      {
+        name: "Share Tech Mono",
+        source: "Google Fonts · OFL · 1 weight",
+        risk: "ofl",
+        fontFamily: "var(--font-pv-share-tech-mono)",
+        style: { fontWeight: 400 },
+        note: "Klasszikus terminal monospace, kicsit kompaktabb mint a Geist Mono.",
+      },
+      {
+        name: "Black Ops One",
+        source: "Google Fonts · OFL · 1 weight",
+        risk: "ofl",
+        fontFamily: "var(--font-pv-black-ops)",
+        style: { fontWeight: 400 },
+        note: "Military stencil display, vágott élek — agresszívebb, sci-fi/military hangulat.",
+      },
+      {
         name: "Orbitron",
         source: "Google Fonts · OFL · 400-900",
         risk: "ofl",
         fontFamily: "var(--font-pv-orbitron)",
         style: { fontWeight: 500 },
-        note: "Szögletes, futurisztikus, sci-fi heading-feel — Marathon-szerű terminal display karakter.",
+        note: "Szögletes, futurisztikus, sci-fi heading-feel.",
       },
       {
         name: "Audiowide",
@@ -183,7 +201,8 @@ const SECTIONS: Section[] = [
   },
   {
     slot: "MONOSPEC",
-    usage: "150× — terminal UI labels, timestamps (LEGDOMINÁNSABB FONT)",
+    usage:
+      "150× — terminal UI labels, timestamps · ✓ DÖNTÉS: Geist Mono",
     display: "12:05:14 [OK] BUILD COMPLETE · 1.04s",
     secondary: "$ pnpm dev --turbopack",
     tertiary: `// ${HU_PANGRAM}`,
@@ -200,12 +219,21 @@ const SECTIONS: Section[] = [
         fontFamily: "var(--font-monospec)",
       },
       {
+        name: "Geist Mono",
+        source: "Google Fonts (Vercel) · variable",
+        risk: "ofl",
+        fontFamily: "var(--font-pv-geist-mono)",
+        style: { fontWeight: 400 },
+        chosen: true,
+        note: "Modern terminal mono. Cseréje 1:1 a MonoSpec helyén — koherens „minden terminal mono ugyanaz” élmény az egész oldalon.",
+      },
+      {
         name: "IBM Plex Mono",
         source: "Google Fonts (IBM) · 100-700",
         risk: "ofl",
         fontFamily: "var(--font-pv-plex-mono)",
         style: { fontWeight: 400 },
-        note: "Profi humanista terminal mono. Legjobb match.",
+        note: "Backup option — humanistább, ha a Geist túl száraznak hatna.",
       },
       {
         name: "JetBrains Mono",
@@ -213,15 +241,7 @@ const SECTIONS: Section[] = [
         risk: "ofl",
         fontFamily: "var(--font-pv-jetbrains)",
         style: { fontWeight: 400 },
-        note: "Agresszívebb terminál-feel, jobb hinting.",
-      },
-      {
-        name: "Geist Mono",
-        source: "Google Fonts (Vercel) · variable",
-        risk: "ofl",
-        fontFamily: "var(--font-pv-geist-mono)",
-        style: { fontWeight: 400 },
-        note: "Ha a heading-eknél is Geist → 1 fonttal kevesebb a bundle-ben.",
+        note: "Backup — agresszívebb terminál-feel, jobb hinting.",
       },
     ],
   },
@@ -245,6 +265,17 @@ const SECTIONS: Section[] = [
         fontFamily: "var(--font-sequel)",
       },
       {
+        name: "Roboto Flex (wide+heavy)",
+        source: "Google Fonts · OFL · variable wdth 25-151",
+        risk: "ofl",
+        fontFamily: "var(--font-pv-roboto-flex)",
+        style: {
+          fontWeight: 900,
+          fontStretch: "151%",
+        },
+        note: "Variable wdth axis 151-ig — igazi „ultra-wide” karakterek, Sequel-szerű impact, modern karakter.",
+      },
+      {
         name: "Saira Black",
         source: "Google Fonts · OFL · variable wdth + wght",
         risk: "ofl",
@@ -253,20 +284,28 @@ const SECTIONS: Section[] = [
         note: "Modern variable, igazi szélesség- és súly-axis. Sequel-szerű impact, élesebb karakterek.",
       },
       {
-        name: "Big Shoulders Display 800",
+        name: "Khand 700",
+        source: "Google Fonts · OFL · 300-700",
+        risk: "ofl",
+        fontFamily: "var(--font-pv-khand)",
+        style: { fontWeight: 700 },
+        note: "Indian Type Foundry által tervezett, modern wide bold display — szélesebb x-height, plakát-impact.",
+      },
+      {
+        name: "Krona One",
+        source: "Google Fonts · OFL · 1 weight",
+        risk: "ofl",
+        fontFamily: "var(--font-pv-krona-one)",
+        style: { fontWeight: 400 },
+        note: "Geometriai wide, art-deco-szerű karakter — Sequel-hez hasonló „wide felirat” feel.",
+      },
+      {
+        name: "Big Shoulders 800",
         source: "Google Fonts · OFL · variable",
         risk: "ofl",
         fontFamily: "var(--font-pv-big-shoulders)",
         style: { fontWeight: 800 },
         note: "Kondenzált-bold modern display, magazin/sport-cím feel.",
-      },
-      {
-        name: "Bricolage Grotesque 700",
-        source: "Google Fonts · OFL · variable",
-        risk: "ofl",
-        fontFamily: "var(--font-pv-bricolage)",
-        style: { fontWeight: 700 },
-        note: "Ha goliath-hoz is Bricolage → 1 font 2 helyen.",
       },
       {
         name: "Archivo Wide (wdth 125)",
@@ -279,11 +318,19 @@ const SECTIONS: Section[] = [
         },
         note: "Igazi width-axis, Condensed→Wide állítható.",
       },
+      {
+        name: "Bricolage Grotesque 700",
+        source: "Google Fonts · OFL · variable",
+        risk: "ofl",
+        fontFamily: "var(--font-pv-bricolage)",
+        style: { fontWeight: 700 },
+        note: "Variable, modernebb humanista karakter.",
+      },
     ],
   },
   {
     slot: "PP FRAKTION MONO",
-    usage: "1× — projektkártya watermark (10px, 30% opacity)",
+    usage: "1× — projektkártya watermark · ✓ DÖNTÉS: DM Mono",
     display: "[42·META]",
     secondary: "PROJECT METADATA",
     tertiary: HU_PANGRAM,
@@ -301,28 +348,21 @@ const SECTIONS: Section[] = [
         fontFamily: "var(--font-fraktion)",
       },
       {
+        name: "DM Mono",
+        source: "Google Fonts · OFL · 300-500",
+        risk: "ofl",
+        fontFamily: "var(--font-pv-dm-mono)",
+        style: { fontWeight: 400 },
+        chosen: true,
+        note: "Nyugodt, kicsit szélesebb karakterek, jól olvasható minden méretben — tökéletes ehhez az 1× watermark szerephez.",
+      },
+      {
         name: "Space Mono",
         source: "Google Fonts · 400, 700",
         risk: "ofl",
         fontFamily: "var(--font-pv-space-mono)",
         style: { fontWeight: 400 },
-        note: "Pangram-szerű karaktertörés, retro-tech.",
-      },
-      {
-        name: "DM Mono",
-        source: "Google Fonts · 300-500",
-        risk: "ofl",
-        fontFamily: "var(--font-pv-dm-mono)",
-        style: { fontWeight: 400 },
-        note: "Nyugodtabb mint Space Mono.",
-      },
-      {
-        name: "Use MonoSpec replacement",
-        source: "merge — 1 hellyel kevesebb font",
-        risk: "ofl",
-        fontFamily: "var(--font-pv-plex-mono)",
-        style: { fontWeight: 500 },
-        note: "Egyszerűen elhagyható, IBM Plex Mono-t használjuk itt is. -1 network request.",
+        note: "Backup — Pangram-szerű karaktertörés, retro-tech.",
       },
     ],
   },
@@ -354,12 +394,33 @@ function SampleCard({
     ...sample.style,
   };
 
+  const borderClass = sample.chosen
+    ? "border-lime border-2 shadow-[0_0_24px_rgba(194,254,12,0.18)]"
+    : sample.placeholder
+    ? "border-cyan/40 border-dashed"
+    : isCurrent
+    ? "border-magenta/40"
+    : "border-lime/20";
+
   return (
-    <div
-      className={`flex flex-col gap-4 border bg-surface/40 p-5 ${
-        isCurrent ? "border-magenta/40" : "border-lime/20"
-      }`}
-    >
+    <div className={`relative flex flex-col gap-4 border bg-surface/40 p-5 ${borderClass}`}>
+      {sample.chosen && (
+        <span
+          className="absolute -top-2.5 right-4 inline-flex items-center gap-1 px-2 py-0.5 bg-lime text-void text-[10px] uppercase tracking-[0.2em] font-medium"
+          style={{ fontFamily: "var(--font-pv-geist-mono)" }}
+        >
+          ✓ Chosen
+        </span>
+      )}
+      {sample.placeholder && (
+        <span
+          className="absolute -top-2.5 right-4 inline-flex items-center gap-1 px-2 py-0.5 bg-cyan text-void text-[10px] uppercase tracking-[0.2em] font-medium"
+          style={{ fontFamily: "var(--font-pv-geist-mono)" }}
+        >
+          → Generált szimbólumok
+        </span>
+      )}
+
       {/* Header: name + risk chip */}
       <div className="flex flex-col gap-2">
         <div className="flex items-baseline justify-between gap-2">
@@ -382,40 +443,58 @@ function SampleCard({
         </p>
       </div>
 
-      {/* Display sample (the real-life headline use case) */}
-      <div className="border-t border-lime/10 pt-4">
-        <div
-          className={`${section.displaySizeClass} ${
-            section.displayTracking ?? ""
-          } ${section.uppercase ? "uppercase" : ""} text-primary`}
-          style={{
-            ...fontStyle,
-            fontWeight:
-              sample.style?.fontWeight ?? section.displayWeight,
-          }}
-        >
-          {section.display}
+      {/* Display sample (the real-life headline use case). Placeholder
+          cards skip rendering the sample and show an explanatory block. */}
+      {sample.placeholder ? (
+        <div className="border-t border-cyan/20 pt-4 flex-1 flex items-center justify-center text-center">
+          <div className="space-y-3 max-w-[34ch]">
+            <div className="text-[36px] leading-none text-cyan">◇ ◆ ◈</div>
+            <p
+              className="text-[11px] uppercase tracking-[0.25em] text-cyan/70"
+              style={{ fontFamily: "var(--font-pv-geist-mono)" }}
+            >
+              No font · custom glyph-set
+            </p>
+          </div>
         </div>
-      </div>
-
-      {/* Secondary sample */}
-      <div
-        className={`${section.secondarySizeClass} text-secondary`}
-        style={{ ...fontStyle, fontWeight: 400 }}
-      >
-        {section.secondary}
-      </div>
-
-      {/* Tertiary (Hungarian pangram or smallest detail) */}
-      {section.tertiary && (
-        <div
-          className={`${
-            section.tertiarySizeClass ?? "text-sm"
-          } text-secondary/70 italic`}
-          style={{ ...fontStyle, fontWeight: 400 }}
-        >
-          {section.tertiary}
+      ) : (
+        <div className="border-t border-lime/10 pt-4">
+          <div
+            className={`${section.displaySizeClass} ${
+              section.displayTracking ?? ""
+            } ${section.uppercase ? "uppercase" : ""} text-primary`}
+            style={{
+              ...fontStyle,
+              fontWeight:
+                sample.style?.fontWeight ?? section.displayWeight,
+            }}
+          >
+            {section.display}
+          </div>
         </div>
+      )}
+
+      {/* Secondary + tertiary samples — skipped on placeholder cards
+          since there's no font to demonstrate. */}
+      {!sample.placeholder && (
+        <>
+          <div
+            className={`${section.secondarySizeClass} text-secondary`}
+            style={{ ...fontStyle, fontWeight: 400 }}
+          >
+            {section.secondary}
+          </div>
+          {section.tertiary && (
+            <div
+              className={`${
+                section.tertiarySizeClass ?? "text-sm"
+              } text-secondary/70 italic`}
+              style={{ ...fontStyle, fontWeight: 400 }}
+            >
+              {section.tertiary}
+            </div>
+          )}
+        </>
       )}
 
       {/* Note */}
@@ -468,6 +547,7 @@ export default function FontPreviewPage() {
           <RiskChip risk="marathon" />
           <RiskChip risk="commercial" />
           <RiskChip risk="ofl" />
+          <RiskChip risk="deferred" />
         </div>
       </header>
 

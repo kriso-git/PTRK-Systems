@@ -18,6 +18,13 @@ import {
   Audiowide,
   Saira,
   Big_Shoulders,
+  Chakra_Petch,
+  Major_Mono_Display,
+  Share_Tech_Mono,
+  Black_Ops_One,
+  Roboto_Flex,
+  Khand,
+  Krona_One,
 } from "next/font/google";
 
 const archivoBlack = Archivo_Black({
@@ -156,6 +163,57 @@ const bigShoulders = Big_Shoulders({
   display: "swap",
 });
 
+// ── Extra angular / blocky candidates for KH Interference ──
+const chakraPetch = Chakra_Petch({
+  subsets: ["latin", "latin-ext"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-pv-chakra-petch",
+  display: "swap",
+});
+
+const majorMono = Major_Mono_Display({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-pv-major-mono",
+  display: "swap",
+});
+
+const shareTechMono = Share_Tech_Mono({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-pv-share-tech-mono",
+  display: "swap",
+});
+
+const blackOps = Black_Ops_One({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-pv-black-ops",
+  display: "swap",
+});
+
+// ── Extra wide-bold-modern candidates for Sequel 100 Wide ──
+const robotoFlex = Roboto_Flex({
+  subsets: ["latin", "latin-ext"],
+  axes: ["wdth"],
+  variable: "--font-pv-roboto-flex",
+  display: "swap",
+});
+
+const khand = Khand({
+  subsets: ["latin", "latin-ext"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-pv-khand",
+  display: "swap",
+});
+
+const kronaOne = Krona_One({
+  subsets: ["latin", "latin-ext"],
+  weight: "400",
+  variable: "--font-pv-krona-one",
+  display: "swap",
+});
+
 const previewVars = [
   archivoBlack.variable,
   bricolage.variable,
@@ -176,6 +234,13 @@ const previewVars = [
   audiowide.variable,
   saira.variable,
   bigShoulders.variable,
+  chakraPetch.variable,
+  majorMono.variable,
+  shareTechMono.variable,
+  blackOps.variable,
+  robotoFlex.variable,
+  khand.variable,
+  kronaOne.variable,
 ].join(" ");
 
 export const metadata = {
