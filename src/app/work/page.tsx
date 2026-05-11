@@ -29,7 +29,7 @@ export default function WorkPage() {
     <>
       {/* ─────────────────────────────  HERO  ───────────────────────────── */}
       <section className="relative z-10 px-6 md:px-10 pt-24 md:pt-40 pb-24 md:pb-32 overflow-hidden">
-        <div className="max-w-[1700px] mx-auto grid grid-cols-12 gap-y-10 md:gap-x-10">
+        <div className="max-w-[1500px] mx-auto grid grid-cols-12 gap-y-10 md:gap-x-10">
           <aside className="col-span-12 md:col-span-3 lg:col-span-2 md:pt-4">
             <div className="font-monospec text-[10px] tracking-[0.4em] uppercase text-magenta mb-6 flex items-center gap-3">
               <span className="inline-block w-8 h-px bg-magenta" />
@@ -63,7 +63,7 @@ export default function WorkPage() {
 
       {/* ─────────────────────────────  PROJECT CASES  ───────────────────────────── */}
       <section className="relative z-10 border-t border-white/10">
-        <div className="max-w-[1700px] mx-auto">
+        <div className="max-w-[1500px] mx-auto">
           {PROJECTS.map((p, i) => {
             const tx = ACCENT_TEXT[p.color];
             const bg = ACCENT_BG[p.color];
@@ -182,7 +182,7 @@ export default function WorkPage() {
 
       {/* ─────────────────────────────  SLOT OPEN  ───────────────────────────── */}
       <section className="relative z-10 border-t border-white/10 px-6 md:px-10 py-24 md:py-32">
-        <div className="max-w-[1700px] mx-auto grid grid-cols-12 gap-y-8 md:gap-x-10 items-end">
+        <div className="max-w-[1500px] mx-auto grid grid-cols-12 gap-y-8 md:gap-x-10 items-end">
           <div className="col-span-12 md:col-span-8">
             <div className="font-monospec text-[10px] uppercase tracking-[0.4em] text-lime mb-6 flex items-center gap-3">
               <span className="inline-block w-8 h-px bg-lime" />
