@@ -72,7 +72,12 @@ export function ScrollProgress() {
       >
         <div
           className="absolute top-0 right-0 w-full bg-lime"
-          style={{ height: `${progress * 100}%`, transition: "height 0.1s linear" }}
+          style={{
+            height: "100%",
+            transformOrigin: "top",
+            transform: `scaleY(${progress})`,
+            transition: "transform 0.1s linear"
+          }}
         />
         <div
           className="absolute right-0 w-2 h-2 -mr-[3px] bg-lime border-2 border-void"
