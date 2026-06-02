@@ -5,7 +5,7 @@ import { Crosshair } from "./Crosshair";
 import { DataStream } from "./DataStream";
 import { PROJECTS, type Project, type AccentColor } from "@/data/projects";
 import { colorMap } from "@/lib/colors";
-import { PROJECT_PREVIEWS } from "./ProjectPreviews";
+import { PROJECT_PREVIEWS } from "./project-previews-registry";
 
 const ACCENT_HEX: Record<AccentColor, string> = {
   lime: "#c2fe0c",

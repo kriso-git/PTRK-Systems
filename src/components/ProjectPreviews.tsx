@@ -250,9 +250,3 @@ export function DonnaPizzaPreview() {
     </div>
   );
 }
-
-export const PROJECT_PREVIEWS: Record<string, React.ComponentType> = {
-  "f3xykee-terminal": F3xykeePreview,
-  molekulax: MolekulaXPreview,
-  "donna-pizza": DonnaPizzaPreview,
-};

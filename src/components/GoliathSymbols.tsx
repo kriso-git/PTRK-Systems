@@ -22,42 +22,11 @@
  */
 
 import * as React from "react";
-
-export type GoliathSymbolName =
-  // Cores
-  | "dot"
-  | "block"
-  | "frame"
-  | "bar"
-  | "post"
-  | "plus"
-  | "diamond"
-  | "hex"
-  | "slash"
-  | "double"
-  | "notch"
-  | "bracket"
-  | "ring"
-  | "step"
-  // Directional / arrows
-  | "arrow"
-  | "arrow-l"
-  | "arrow-u"
-  | "arrow-d"
-  | "chevron"
-  | "chevron-d"
-  // Marathon-rune-style block letterforms
-  | "rune-s"
-  | "rune-t"
-  | "rune-x"
-  | "rune-y"
-  // Extra ornaments
-  | "target"
-  | "gateway"
-  | "stairs"
-  | "shield"
-  | "eye"
-  | "octa";
+import {
+  type GoliathSymbolName,
+  type GoliathTone,
+  GOLIATH_SYMBOL_NAMES,
+} from "./goliath-symbols-data";
 
 const SHAPES: Record<GoliathSymbolName, React.ReactNode> = {
   // ── Cores ─────────────────────────────────────────────────────────────
@@ -174,51 +143,6 @@ const SHAPES: Record<GoliathSymbolName, React.ReactNode> = {
   // Solid octagon — chunky stop-sign feel.
   octa: <polygon points="32,8 68,8 92,32 92,68 68,92 32,92 8,68 8,32" />,
 };
-
-export const GOLIATH_SYMBOL_NAMES: GoliathSymbolName[] = [
-  // Cores
-  "dot",
-  "block",
-  "frame",
-  "bar",
-  "post",
-  "plus",
-  "diamond",
-  "hex",
-  "slash",
-  "double",
-  "notch",
-  "bracket",
-  "ring",
-  "step",
-  // Arrows + chevrons
-  "arrow",
-  "arrow-l",
-  "arrow-u",
-  "arrow-d",
-  "chevron",
-  "chevron-d",
-  // Runes
-  "rune-s",
-  "rune-t",
-  "rune-x",
-  "rune-y",
-  // Extras
-  "target",
-  "gateway",
-  "stairs",
-  "shield",
-  "eye",
-  "octa",
-];
-
-/**
- * Marathon palette tones — mirrors the design tokens
- * (lime / cyan / magenta / orange) so callers can pick a colour without
- * having to know the hex code. `currentColor` (no `tone` prop) stays the
- * default so the same call site can also be coloured via parent text-X.
- */
-export type GoliathTone = "lime" | "cyan" | "magenta" | "orange";
 
 const TONE_HEX: Record<GoliathTone, string> = {
   lime: "#c2fe0c",

@@ -14,10 +14,12 @@
 
 import {
   GOLIATH_SYMBOL_NAMES,
+  type GoliathTone,
+} from "@/components/goliath-symbols-data";
+import {
   GoliathOrnament,
   GoliathScatter,
   GoliathSymbol,
-  type GoliathTone,
 } from "@/components/GoliathSymbols";
 
 type Risk = "marathon" | "commercial" | "ofl" | "deferred";
