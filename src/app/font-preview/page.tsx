@@ -14,10 +14,12 @@
 
 import {
   GOLIATH_SYMBOL_NAMES,
+  type GoliathTone,
+} from "@/components/goliath-symbols-data";
+import {
   GoliathOrnament,
   GoliathScatter,
   GoliathSymbol,
-  type GoliathTone,
 } from "@/components/GoliathSymbols";
 
 type Risk = "marathon" | "commercial" | "ofl" | "deferred";
@@ -93,6 +95,21 @@ const RISK_LABEL: Record<Risk, { label: string; bg: string; fg: string }> = {
 };
 
 const HU_PANGRAM = "árvíztűrő tükörfúrógép";
+
+const GOLIATH_SHOWCASE_ORNAMENTS = [
+  { seed: "·26·", count: 4, label: "Landing · ·26·", size: 56 },
+  { seed: "HELLO", count: 5, label: "Connect · HELLO", size: 72 },
+  { seed: "2026", count: 4, label: "Landing · 2026", size: 96 },
+  { seed: "SYS·", count: 4, label: "Footer · SYS·", size: 72 },
+  { seed: "METHOD", count: 6, label: "Method · METHOD", size: 56 },
+];
+
+const GOLIATH_SHOWCASE_TONES = [
+  { tone: "lime" as const, label: "Lime", hex: "#c2fe0c" },
+  { tone: "cyan" as const, label: "Cyan", hex: "#01ffff" },
+  { tone: "magenta" as const, label: "Magenta", hex: "#ea027e" },
+  { tone: "orange" as const, label: "Orange", hex: "#ff8c42" },
+];
 
 const SECTIONS: Section[] = [
   {
@@ -529,21 +546,6 @@ function SampleCard({
  *  - a teljes ${GOLIATH_SYMBOL_NAMES.length}-elemű szimbólum-katalógust
  */
 function GoliathShowcase() {
-  // Reproduces — at preview scale — the five live-site watermarks.
-  const ornaments = [
-    { seed: "·26·", count: 4, label: "Landing · ·26·", size: 56 },
-    { seed: "HELLO", count: 5, label: "Connect · HELLO", size: 72 },
-    { seed: "2026", count: 4, label: "Landing · 2026", size: 96 },
-    { seed: "SYS·", count: 4, label: "Footer · SYS·", size: 72 },
-    { seed: "METHOD", count: 6, label: "Method · METHOD", size: 56 },
-  ];
-
-  const tones: { tone: GoliathTone; label: string; hex: string }[] = [
-    { tone: "lime", label: "Lime", hex: "#c2fe0c" },
-    { tone: "cyan", label: "Cyan", hex: "#01ffff" },
-    { tone: "magenta", label: "Magenta", hex: "#ea027e" },
-    { tone: "orange", label: "Orange", hex: "#ff8c42" },
-  ];
 
   return (
     <div className="mt-10 border border-cyan/30 bg-surface/30 p-6 md:p-8 space-y-12">
@@ -601,7 +603,7 @@ function GoliathShowcase() {
           § Marathon palette tónusok
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          {tones.map((t) => (
+          {GOLIATH_SHOWCASE_TONES.map((t) => (
             <div
               key={t.tone}
               className="border border-white/10 bg-void/40 p-5 flex flex-col gap-3"
@@ -653,8 +655,8 @@ function GoliathShowcase() {
           § Ornament kompozíciók — élő site-on használandó cserék
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {ornaments.map((o, i) => {
-            const tone = tones[i % tones.length].tone;
+          {GOLIATH_SHOWCASE_ORNAMENTS.map((o, i) => {
+            const tone = GOLIATH_SHOWCASE_TONES[i % GOLIATH_SHOWCASE_TONES.length].tone;
             return (
               <div
                 key={o.seed}
@@ -725,7 +727,7 @@ function GoliathShowcase() {
         </div>
         <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3">
           {GOLIATH_SYMBOL_NAMES.map((name, i) => {
-            const tone = tones[i % tones.length].tone;
+            const tone = GOLIATH_SHOWCASE_TONES[i % GOLIATH_SHOWCASE_TONES.length].tone;
             return (
               <div
                 key={name}

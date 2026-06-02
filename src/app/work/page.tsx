@@ -69,112 +69,106 @@ export default function WorkPage() {
             const bg = ACCENT_BG[p.color];
             const isLast = i === PROJECTS.length - 1;
 
-            const Wrapper = ({ children }: { children: React.ReactNode }) =>
-              p.url ? (
-                <a
-                  href={p.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="block group"
-                >
-                  {children}
-                </a>
-              ) : (
-                <div className="block group">{children}</div>
-              );
+            const articleContent = (
+              <article
+                className={`px-6 md:px-10 py-28 md:py-40 ${
+                  !isLast ? "border-b border-white/10" : ""
+                } transition-colors group-hover:bg-surface/20`}
+              >
+                <div className="grid grid-cols-12 gap-y-8 md:gap-x-10 mb-12 md:mb-14">
+                  <aside className="col-span-12 md:col-span-3 lg:col-span-2 flex md:flex-col items-baseline md:items-start gap-6 md:gap-3">
+                    <div className="font-sequel text-5xl md:text-7xl leading-none tracking-[-0.04em]">
+                      <span className={tx}>{String(i + 1).padStart(2, "0")}</span>
+                      <span className="text-secondary/40">/{String(PROJECTS.length).padStart(2, "0")}</span>
+                    </div>
+                    <div className="md:mt-4 leading-relaxed font-monospec text-[10px] uppercase tracking-[0.35em] text-secondary">
+                      <div className="text-secondary/80">{p.year}</div>
+                      <div className={tx}>{p.client}</div>
+                    </div>
+                  </aside>
 
-            return (
-              <Wrapper key={p.id}>
-                <article
-                  className={`px-6 md:px-10 py-28 md:py-40 ${
-                    !isLast ? "border-b border-white/10" : ""
-                  } transition-colors group-hover:bg-surface/20`}
-                >
-                  <div className="grid grid-cols-12 gap-y-8 md:gap-x-10 mb-12 md:mb-14">
-                    <aside className="col-span-12 md:col-span-3 lg:col-span-2 flex md:flex-col items-baseline md:items-start gap-6 md:gap-3">
-                      <div className="font-sequel text-5xl md:text-7xl leading-none tracking-[-0.04em]">
-                        <span className={tx}>{String(i + 1).padStart(2, "0")}</span>
-                        <span className="text-secondary/40">/{String(PROJECTS.length).padStart(2, "0")}</span>
-                      </div>
-                      <div className="md:mt-4 leading-relaxed font-monospec text-[10px] uppercase tracking-[0.35em] text-secondary">
-                        <div className="text-secondary/80">{p.year}</div>
-                        <div className={tx}>{p.client}</div>
-                      </div>
-                    </aside>
+                  <h2
+                    className={`col-span-12 md:col-span-9 lg:col-span-10 font-khinterference uppercase tracking-[0.005em] text-[clamp(56px,11vw,168px)] leading-[0.85] ${tx} transition-transform duration-500 group-hover:translate-x-3`}
+                  >
+                    {p.name}
+                  </h2>
+                </div>
 
-                    <h2
-                      className={`col-span-12 md:col-span-9 lg:col-span-10 font-khinterference uppercase tracking-[0.005em] text-[clamp(56px,11vw,168px)] leading-[0.85] ${tx} transition-transform duration-500 group-hover:translate-x-3`}
+                <div className="grid grid-cols-12 gap-y-8 md:gap-x-10 mb-12 md:mb-14">
+                  <div className="hidden md:block md:col-span-3 lg:col-span-2 font-monospec text-[10px] uppercase tracking-[0.35em] text-secondary">
+                    <div className="flex items-center gap-3">
+                      <span className={`inline-block w-6 h-px ${bg}`} />
+                      <span>Preview</span>
+                    </div>
+                    <div className="mt-3 text-secondary/60 leading-relaxed max-w-[18ch]">
+                      Stilizált landing snapshot — kattints a látogatáshoz.
+                    </div>
+                  </div>
+                  <div className="col-span-12 md:col-span-9 lg:col-span-10">
+                    <BrowserPreview project={p} />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-12 gap-y-10 md:gap-x-10">
+                  <div className="hidden md:block md:col-span-3 lg:col-span-2 font-monospec text-[10px] uppercase tracking-[0.35em] text-secondary">
+                    <div className="flex items-center gap-3">
+                      <span className={`inline-block w-6 h-px ${bg}`} />
+                      <span>{p.role.split(" · ")[0]}</span>
+                    </div>
+                  </div>
+
+                  <div className="col-span-12 md:col-span-6 lg:col-span-7">
+                    <div className="font-monospec text-[11px] uppercase tracking-[0.3em] text-secondary mb-5">
+                      {p.role}
+                    </div>
+                    <p className="font-shorai text-lg md:text-xl text-secondary leading-[1.55] max-w-[58ch]">
+                      {p.desc}
+                    </p>
+                    <ul className="mt-8 flex flex-wrap gap-x-5 gap-y-2 font-monospec text-[11px] uppercase tracking-[0.25em]">
+                      {p.stack.map((s) => (
+                        <li key={s} className="text-primary/80 flex items-center gap-2">
+                          <span className={`inline-block w-1 h-1 ${bg}`} />
+                          {s}
+                        </li>
+                      ))}
+                    </ul>
+                    {p.url && (
+                      <div className="mt-10 inline-flex items-baseline gap-3 font-khinterference uppercase tracking-[0.02em] text-2xl md:text-3xl text-primary border-b-2 border-lime pb-1 group-hover:text-lime transition-colors">
+                        <span className="text-lime">→</span>
+                        {p.url.replace(/^https?:\/\//, "").replace(/\/$/, "")}
+                      </div>
+                    )}
+                  </div>
+
+                  <aside className="col-span-12 md:col-span-3 lg:col-span-3 md:pl-8 md:border-l md:border-white/10 min-w-0">
+                    <div className="font-monospec text-[10px] uppercase tracking-[0.35em] text-secondary mb-4">
+                      Metric
+                    </div>
+                    <div
+                      className={`font-sequel ${tx} leading-none whitespace-nowrap ${
+                        p.metric.length > 4
+                          ? "text-[clamp(36px,4vw,68px)] tracking-[-0.05em]"
+                          : "text-7xl md:text-8xl tracking-[-0.04em]"
+                      }`}
                     >
-                      {p.name}
-                    </h2>
-                  </div>
-
-                  <div className="grid grid-cols-12 gap-y-8 md:gap-x-10 mb-12 md:mb-14">
-                    <div className="hidden md:block md:col-span-3 lg:col-span-2 font-monospec text-[10px] uppercase tracking-[0.35em] text-secondary">
-                      <div className="flex items-center gap-3">
-                        <span className={`inline-block w-6 h-px ${bg}`} />
-                        <span>Preview</span>
-                      </div>
-                      <div className="mt-3 text-secondary/60 leading-relaxed max-w-[18ch]">
-                        Stilizált landing snapshot — kattints a látogatáshoz.
-                      </div>
+                      {p.metric}
                     </div>
-                    <div className="col-span-12 md:col-span-9 lg:col-span-10">
-                      <BrowserPreview project={p} />
+                    <div className="mt-3 font-shorai text-base text-secondary leading-snug max-w-[20ch]">
+                      {p.metricLabel}
                     </div>
-                  </div>
+                  </aside>
+                </div>
+              </article>
+            );
 
-                  <div className="grid grid-cols-12 gap-y-10 md:gap-x-10">
-                    <div className="hidden md:block md:col-span-3 lg:col-span-2 font-monospec text-[10px] uppercase tracking-[0.35em] text-secondary">
-                      <div className="flex items-center gap-3">
-                        <span className={`inline-block w-6 h-px ${bg}`} />
-                        <span>{p.role.split(" · ")[0]}</span>
-                      </div>
-                    </div>
-
-                    <div className="col-span-12 md:col-span-6 lg:col-span-7">
-                      <div className="font-monospec text-[11px] uppercase tracking-[0.3em] text-secondary mb-5">
-                        {p.role}
-                      </div>
-                      <p className="font-shorai text-lg md:text-xl text-secondary leading-[1.55] max-w-[58ch]">
-                        {p.desc}
-                      </p>
-                      <ul className="mt-8 flex flex-wrap gap-x-5 gap-y-2 font-monospec text-[11px] uppercase tracking-[0.25em]">
-                        {p.stack.map((s) => (
-                          <li key={s} className="text-primary/80 flex items-center gap-2">
-                            <span className={`inline-block w-1 h-1 ${bg}`} />
-                            {s}
-                          </li>
-                        ))}
-                      </ul>
-                      {p.url && (
-                        <div className="mt-10 inline-flex items-baseline gap-3 font-khinterference uppercase tracking-[0.02em] text-2xl md:text-3xl text-primary border-b-2 border-lime pb-1 group-hover:text-lime transition-colors">
-                          <span className="text-lime">→</span>
-                          {p.url.replace(/^https?:\/\//, "").replace(/\/$/, "")}
-                        </div>
-                      )}
-                    </div>
-
-                    <aside className="col-span-12 md:col-span-3 lg:col-span-3 md:pl-8 md:border-l md:border-white/10 min-w-0">
-                      <div className="font-monospec text-[10px] uppercase tracking-[0.35em] text-secondary mb-4">
-                        Metric
-                      </div>
-                      <div
-                        className={`font-sequel ${tx} leading-none whitespace-nowrap ${
-                          p.metric.length > 4
-                            ? "text-[clamp(36px,4vw,68px)] tracking-[-0.05em]"
-                            : "text-7xl md:text-8xl tracking-[-0.04em]"
-                        }`}
-                      >
-                        {p.metric}
-                      </div>
-                      <div className="mt-3 font-shorai text-base text-secondary leading-snug max-w-[20ch]">
-                        {p.metricLabel}
-                      </div>
-                    </aside>
-                  </div>
-                </article>
-              </Wrapper>
+            return p.url ? (
+              <a key={p.id} href={p.url} target="_blank" rel="noreferrer" className="block group">
+                {articleContent}
+              </a>
+            ) : (
+              <div key={p.id} className="block group">
+                {articleContent}
+              </div>
             );
           })}
         </div>

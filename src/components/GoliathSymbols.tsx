@@ -22,42 +22,11 @@
  */
 
 import * as React from "react";
-
-export type GoliathSymbolName =
-  // Cores
-  | "dot"
-  | "block"
-  | "frame"
-  | "bar"
-  | "post"
-  | "plus"
-  | "diamond"
-  | "hex"
-  | "slash"
-  | "double"
-  | "notch"
-  | "bracket"
-  | "ring"
-  | "step"
-  // Directional / arrows
-  | "arrow"
-  | "arrow-l"
-  | "arrow-u"
-  | "arrow-d"
-  | "chevron"
-  | "chevron-d"
-  // Marathon-rune-style block letterforms
-  | "rune-s"
-  | "rune-t"
-  | "rune-x"
-  | "rune-y"
-  // Extra ornaments
-  | "target"
-  | "gateway"
-  | "stairs"
-  | "shield"
-  | "eye"
-  | "octa";
+import {
+  type GoliathSymbolName,
+  type GoliathTone,
+  GOLIATH_SYMBOL_NAMES,
+} from "./goliath-symbols-data";
 
 const SHAPES: Record<GoliathSymbolName, React.ReactNode> = {
   // ── Cores ─────────────────────────────────────────────────────────────
@@ -175,57 +144,22 @@ const SHAPES: Record<GoliathSymbolName, React.ReactNode> = {
   octa: <polygon points="32,8 68,8 92,32 92,68 68,92 32,92 8,68 8,32" />,
 };
 
-export const GOLIATH_SYMBOL_NAMES: GoliathSymbolName[] = [
-  // Cores
-  "dot",
-  "block",
-  "frame",
-  "bar",
-  "post",
-  "plus",
-  "diamond",
-  "hex",
-  "slash",
-  "double",
-  "notch",
-  "bracket",
-  "ring",
-  "step",
-  // Arrows + chevrons
-  "arrow",
-  "arrow-l",
-  "arrow-u",
-  "arrow-d",
-  "chevron",
-  "chevron-d",
-  // Runes
-  "rune-s",
-  "rune-t",
-  "rune-x",
-  "rune-y",
-  // Extras
-  "target",
-  "gateway",
-  "stairs",
-  "shield",
-  "eye",
-  "octa",
-];
-
-/**
- * Marathon palette tones — mirrors the design tokens
- * (lime / cyan / magenta / orange) so callers can pick a colour without
- * having to know the hex code. `currentColor` (no `tone` prop) stays the
- * default so the same call site can also be coloured via parent text-X.
- */
-export type GoliathTone = "lime" | "cyan" | "magenta" | "orange";
-
 const TONE_HEX: Record<GoliathTone, string> = {
   lime: "#c2fe0c",
   cyan: "#01ffff",
   magenta: "#ea027e",
   orange: "#ff8c42",
 };
+
+const GOLIATH_ORNAMENT_PALETTE: GoliathTone[] = ["lime", "cyan", "magenta", "orange"];
+
+const GOLIATH_SCATTER_SLOTS = [
+  { placement: "tr" as const, tone: "lime" as const, count: 3, size: "clamp(80px, 14vw, 240px)", opacity: 0.05 },
+  { placement: "bl" as const, tone: "cyan" as const, count: 4, size: "clamp(60px, 11vw, 200px)", opacity: 0.05 },
+  { placement: "tl" as const, tone: "magenta" as const, count: 2, size: "clamp(70px, 13vw, 220px)", opacity: 0.04 },
+  { placement: "br" as const, tone: "orange" as const, count: 3, size: "clamp(70px, 13vw, 220px)", opacity: 0.04 },
+  { placement: "center" as const, tone: "lime" as const, count: 4, size: "clamp(120px, 22vw, 380px)", opacity: 0.03 },
+];
 
 /**
  * Render a single Goliath ornament glyph.
@@ -321,7 +255,6 @@ export function GoliathOrnament({
     const idx = (h + i * 2654435761) % GOLIATH_SYMBOL_NAMES.length;
     picks.push(GOLIATH_SYMBOL_NAMES[idx]);
   }
-  const palette: GoliathTone[] = ["lime", "cyan", "magenta", "orange"];
   return (
     <span
       aria-hidden
@@ -336,7 +269,7 @@ export function GoliathOrnament({
     >
       {picks.map((name, i) => {
         const glyphTone = multitone
-          ? palette[(h + i * 1597) % palette.length]
+          ? GOLIATH_ORNAMENT_PALETTE[(h + i * 1597) % GOLIATH_ORNAMENT_PALETTE.length]
           : tone;
         return (
           <GoliathSymbol key={i} name={name} size={size} tone={glyphTone} />
@@ -390,26 +323,13 @@ export function GoliathScatter({
   density?: number;
   className?: string;
 }) {
-  const slots: {
-    placement: GoliathScatterPlacement;
-    tone: GoliathTone;
-    count: number;
-    size: string;
-    opacity: number;
-  }[] = [
-    { placement: "tr", tone: "lime", count: 3, size: "clamp(80px, 14vw, 240px)", opacity: 0.05 },
-    { placement: "bl", tone: "cyan", count: 4, size: "clamp(60px, 11vw, 200px)", opacity: 0.05 },
-    { placement: "tl", tone: "magenta", count: 2, size: "clamp(70px, 13vw, 220px)", opacity: 0.04 },
-    { placement: "br", tone: "orange", count: 3, size: "clamp(70px, 13vw, 220px)", opacity: 0.04 },
-    { placement: "center", tone: "lime", count: 4, size: "clamp(120px, 22vw, 380px)", opacity: 0.03 },
-  ];
   const h = hashSeed(seed);
   return (
     <div
       aria-hidden
       className={`pointer-events-none absolute inset-0 overflow-hidden select-none ${className ?? ""}`}
     >
-      {slots.slice(0, Math.max(0, Math.min(density, slots.length))).map((s, i) => (
+      {GOLIATH_SCATTER_SLOTS.slice(0, Math.max(0, Math.min(density, GOLIATH_SCATTER_SLOTS.length))).map((s, i) => (
         <GoliathOrnament
           key={`${s.placement}-${i}`}
           seed={`${seed}-${s.placement}-${h}`}

@@ -5,7 +5,7 @@ import { Crosshair } from "./Crosshair";
 import { DataStream } from "./DataStream";
 import { PROJECTS, type Project, type AccentColor } from "@/data/projects";
 import { colorMap } from "@/lib/colors";
-import { PROJECT_PREVIEWS } from "./ProjectPreviews";
+import { PROJECT_PREVIEWS } from "./project-previews-registry";
 
 const ACCENT_HEX: Record<AccentColor, string> = {
   lime: "#c2fe0c",
@@ -137,6 +137,7 @@ export function PortfolioTab() {
               return (
                 <button
                   key={project.id}
+                  type="button"
                   onClick={() => setActiveProject(project)}
                   className={`w-full text-left p-6 md:p-8 border-l-4 transition-all duration-300 relative group focus:outline-none focus-visible:ring-2 focus-visible:ring-lime ${
                     isActive

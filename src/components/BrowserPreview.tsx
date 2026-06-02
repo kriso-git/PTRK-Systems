@@ -1,4 +1,4 @@
-import { PROJECT_PREVIEWS } from "@/components/ProjectPreviews";
+import { PROJECT_PREVIEWS } from "@/components/project-previews-registry";
 import type { AccentColor, Project } from "@/data/projects";
 
 const ACCENT_HEX: Record<AccentColor, string> = {
