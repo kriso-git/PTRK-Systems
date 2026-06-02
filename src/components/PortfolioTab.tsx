@@ -137,6 +137,7 @@ export function PortfolioTab() {
               return (
                 <button
                   key={project.id}
+                  type="button"
                   onClick={() => setActiveProject(project)}
                   className={`w-full text-left p-6 md:p-8 border-l-4 transition-all duration-300 relative group focus:outline-none focus-visible:ring-2 focus-visible:ring-lime ${
                     isActive
