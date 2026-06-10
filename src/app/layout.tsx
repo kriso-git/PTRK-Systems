@@ -18,6 +18,9 @@ import { MarathonScatter } from "@/components/MarathonScatter";
 import { LiveTerminalTypers } from "@/components/LiveTerminalTypers";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { CustomCursor } from "@/components/CustomCursor";
+import { RevealObserver } from "@/components/RevealObserver";
+import { RouteTransition } from "@/components/RouteTransition";
+import { BootSequence } from "@/components/BootSequence";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -65,8 +68,18 @@ export default function RootLayout({
   return (
     <html lang="hu" className={fontVars}>
       <body>
+        {/* JS-liveness flag before hydration — the scroll-reveal hidden
+            state in globals.css only applies under html[data-js], so
+            no-JS visitors always see the content. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "document.documentElement.setAttribute('data-js','')",
+          }}
+        />
         <JsonLd />
         <SmoothScroll />
+        <RevealObserver />
+        <RouteTransition />
         <MarathonBackground />
         <ScrollProgress />
         <CustomCursor />
@@ -100,6 +113,7 @@ export default function RootLayout({
           <main className="flex-1 relative z-10 md:pr-[260px]">{children}</main>
           <Footer />
         </div>
+        <BootSequence />
         <Analytics />
         <SpeedInsights />
       </body>

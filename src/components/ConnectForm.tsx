@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { GoliathOrnament } from "@/components/GoliathSymbols";
+import { DecodeText } from "@/components/DecodeText";
 
 const SLA = [
   { code: "01", label: "Válaszidő", value: "<24h", color: "lime" as const },
@@ -86,8 +87,8 @@ export function ConnectForm() {
       <section className="relative z-10 px-6 md:px-10 pt-24 md:pt-40 pb-24 md:pb-32 overflow-hidden">
         <div className="max-w-[1500px] mx-auto grid grid-cols-12 gap-y-10 md:gap-x-10">
           <aside className="col-span-12 md:col-span-3 lg:col-span-2 md:pt-4">
-            <div className="font-monospec text-[10px] tracking-[0.4em] uppercase text-lime mb-6 flex items-center gap-3">
-              <span className="inline-block w-8 h-px bg-lime" />
+            <div className="font-monospec text-[10px] tracking-[0.4em] uppercase text-orange mb-6 flex items-center gap-3">
+              <span className="inline-block w-8 h-px bg-orange" />
               <span>§ 06 · Connect</span>
             </div>
             <div className="font-monospec text-[10px] tracking-[0.3em] uppercase text-secondary leading-relaxed">
@@ -103,7 +104,7 @@ export function ConnectForm() {
 
           <div className="col-span-12 md:col-span-9 lg:col-span-10">
             <div className="font-monospec text-[10px] uppercase tracking-[0.3em] text-secondary mb-4">
-              <span className="text-lime">Open dispatch</span> · talk before you brief
+              <span className="text-orange">Open dispatch</span> · talk before you brief
             </div>
             <h1 className="font-khinterference uppercase leading-[0.86] tracking-[-0.005em] text-primary text-[clamp(56px,11vw,184px)] relative">
               <GoliathOrnament
@@ -114,7 +115,9 @@ export function ConnectForm() {
               />
               <span className="relative">Beszéljünk a</span>
               <br />
-              <span className="text-lime relative">projektedről.</span>
+              <span className="text-orange relative">
+                <DecodeText text="projektedről." />
+              </span>
             </h1>
             <p className="mt-10 font-shorai text-xl md:text-2xl text-secondary leading-[1.4] max-w-[58ch] tracking-[-0.005em]">
               Új ötlet vagy működő termék — egy 30 perces bemutatkozó beszélgetésben
