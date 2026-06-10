@@ -2,6 +2,8 @@ import Link from "next/link";
 import { PROJECTS, PROCESS_STEPS, FAQ, TECH_STACK } from "@/data/projects";
 import { ScrollCue } from "@/components/ScrollCue";
 import { GoliathOrnament } from "@/components/GoliathSymbols";
+import { ManifestoBand } from "@/components/ManifestoBand";
+import { DecodeText } from "@/components/DecodeText";
 
 const COORD = "47.4979°N · 19.0402°E";
 
@@ -77,11 +79,11 @@ export default function Home() {
               />
 
               <span className="block text-[clamp(72px,17vw,296px)] relative">
-                PTRK
+                <DecodeText text="PTRK" />
                 <span className="text-lime">.</span>
               </span>
               <span className="block text-[clamp(72px,17vw,296px)] text-lime -mt-[0.05em]">
-                Systems
+                <DecodeText text="Systems" delayMs={150} />
                 <span className="text-cyan">·</span>
               </span>
             </h1>
@@ -143,6 +145,8 @@ export default function Home() {
             return (
               <div
                 key={s.label}
+                data-reveal
+                style={{ transitionDelay: `${i * 70}ms` }}
                 className="px-2 md:px-8 py-6 md:py-2 flex flex-col items-start gap-3 min-w-0"
               >
                 <span className="font-monospec text-[10px] tracking-[0.35em] uppercase text-secondary/60">
@@ -186,6 +190,12 @@ export default function Home() {
           size="clamp(110px, 17vw, 320px)"
           className="absolute -bottom-24 -right-12 text-lime/[0.04] pointer-events-none"
         />
+        <span
+          aria-hidden
+          className="text-ghost font-khinterference uppercase absolute -right-8 top-10 text-lime/15 text-[clamp(90px,15vw,240px)] leading-none pointer-events-none hidden lg:block"
+        >
+          ACCESS
+        </span>
 
         <div className="max-w-[1500px] mx-auto grid grid-cols-12 gap-y-14 md:gap-x-10 relative">
           <aside className="col-span-12 md:col-span-3">
@@ -232,7 +242,12 @@ export default function Home() {
                 { n: "0", label: "Rejtett tétel", color: "magenta" },
                 { n: "30d", label: "Hyper-care launch után", color: "orange" },
               ].map((m, i) => (
-                <div key={i} className="flex flex-col gap-2">
+                <div
+                  key={i}
+                  data-reveal
+                  style={{ transitionDelay: `${i * 70}ms` }}
+                  className="flex flex-col gap-2"
+                >
                   <span className="font-monospec text-[10px] tracking-[0.35em] uppercase text-secondary/60">
                     {String(i + 1).padStart(2, "0")} ·
                   </span>
@@ -287,6 +302,8 @@ export default function Home() {
             {PRINCIPLES.map((p, i) => (
               <article
                 key={p.n}
+                data-reveal
+                style={{ transitionDelay: `${i * 70}ms` }}
                 className={`py-14 md:py-20 ${
                   i !== PRINCIPLES.length - 1 ? "border-b border-white/10" : ""
                 }`}
@@ -306,6 +323,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <ManifestoBand />
 
       {/* ─────────────────────────────  PROJECT INDEX (preview)  ───────────────────────────── */}
       <section
@@ -344,7 +363,12 @@ export default function Home() {
                   ? "text-magenta"
                   : "text-orange";
               return (
-                <li key={p.id} className="border-b border-white/15">
+                <li
+                  key={p.id}
+                  data-reveal
+                  style={{ transitionDelay: `${i * 70}ms` }}
+                  className="border-b border-white/15"
+                >
                   <Link href="/work" className="block group">
                     <div className="grid grid-cols-12 gap-4 py-8 md:py-12 items-baseline transition-colors group-hover:bg-surface/40">
                       <div className="col-span-2 md:col-span-1 font-monospec text-xs md:text-sm text-secondary tracking-[0.2em]">
@@ -385,6 +409,12 @@ export default function Home() {
         data-label="Folyamat"
         className="relative z-10 border-t border-white/10 px-6 md:px-10 py-36 md:py-56 overflow-hidden"
       >
+        <span
+          aria-hidden
+          className="text-ghost font-khinterference uppercase absolute -left-6 bottom-4 text-orange/15 text-[clamp(90px,15vw,240px)] leading-none pointer-events-none hidden lg:block"
+        >
+          PROCESS
+        </span>
         <div className="max-w-[1500px] mx-auto">
           <div className="font-monospec text-[10px] tracking-[0.35em] uppercase text-orange mb-6">
             § 03 · Process · 06 phases
@@ -395,8 +425,13 @@ export default function Home() {
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14">
-            {PROCESS_STEPS.map((step) => (
-              <div key={step.number} className="border-t border-white/15 pt-6 group">
+            {PROCESS_STEPS.map((step, i) => (
+              <div
+                key={step.number}
+                data-reveal
+                style={{ transitionDelay: `${(i % 3) * 70}ms` }}
+                className="border-t border-white/15 pt-6 group"
+              >
                 <div className="flex items-baseline justify-between mb-4">
                   <span className="font-sequel text-7xl md:text-8xl text-lime leading-none tracking-[-0.04em]">
                     {step.number}

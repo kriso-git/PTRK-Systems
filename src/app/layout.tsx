@@ -18,6 +18,9 @@ import { MarathonScatter } from "@/components/MarathonScatter";
 import { LiveTerminalTypers } from "@/components/LiveTerminalTypers";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { CustomCursor } from "@/components/CustomCursor";
+import { RevealObserver } from "@/components/RevealObserver";
+import { RouteTransition } from "@/components/RouteTransition";
+import { BootSequence } from "@/components/BootSequence";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -67,6 +70,8 @@ export default function RootLayout({
       <body>
         <JsonLd />
         <SmoothScroll />
+        <RevealObserver />
+        <RouteTransition />
         <MarathonBackground />
         <ScrollProgress />
         <CustomCursor />
@@ -100,6 +105,7 @@ export default function RootLayout({
           <main className="flex-1 relative z-10 md:pr-[260px]">{children}</main>
           <Footer />
         </div>
+        <BootSequence />
         <Analytics />
         <SpeedInsights />
       </body>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PROJECTS } from "@/data/projects";
 import { BrowserPreview } from "@/components/BrowserPreview";
+import { DecodeText } from "@/components/DecodeText";
 
 export const metadata: Metadata = {
   title: "Work — Selected Projects",
@@ -45,12 +46,14 @@ export default function WorkPage() {
 
           <div className="col-span-12 md:col-span-9 lg:col-span-10">
             <div className="font-monospec text-[10px] uppercase tracking-[0.3em] text-secondary mb-4">
-              <span className="text-lime">Selected work</span> · production deploys
+              <span className="text-magenta">Selected work</span> · production deploys
             </div>
             <h1 className="font-khinterference uppercase leading-[0.86] tracking-[-0.005em] text-primary text-[clamp(60px,12vw,200px)]">
               Az
               <br />
-              <span className="text-lime">archívum.</span>
+              <span className="text-magenta">
+                <DecodeText text="archívum." />
+              </span>
             </h1>
             <p className="mt-10 font-shorai text-xl md:text-2xl text-secondary leading-[1.4] max-w-[58ch] tracking-[-0.005em]">
               Minden tétel a teljes design → engineering láncot mutatja: kutatás,
@@ -71,6 +74,7 @@ export default function WorkPage() {
 
             const articleContent = (
               <article
+                data-reveal
                 className={`px-6 md:px-10 py-28 md:py-40 ${
                   !isLast ? "border-b border-white/10" : ""
                 } transition-colors group-hover:bg-surface/20`}

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { PROCESS_STEPS, TECH_STACK } from "@/data/projects";
 import { Crosshair } from "@/components/Crosshair";
 import { GoliathOrnament } from "@/components/GoliathSymbols";
+import { DecodeText } from "@/components/DecodeText";
 
 export const metadata: Metadata = {
   title: "Method — Hogyan dolgozom",
@@ -80,9 +81,13 @@ export default function MethodPage() {
                 size="clamp(72px, 13vw, 240px)"
                 className="absolute -top-8 -left-2 text-cyan/[0.04] pointer-events-none"
               />
-              <span className="relative">Stratégiától</span>
+              <span className="relative">
+                <DecodeText text="Stratégiától" />
+              </span>
               <br />
-              <span className="text-cyan relative">a deployig.</span>
+              <span className="text-cyan relative">
+                <DecodeText text="a deployig." delayMs={150} />
+              </span>
             </h1>
             <p className="mt-10 font-shorai text-xl md:text-2xl text-secondary leading-[1.4] max-w-[58ch] tracking-[-0.005em]">
               Hat fázis, négy szállítható, egy vertikális csapat. A folyamat nem
@@ -132,6 +137,8 @@ export default function MethodPage() {
               {PROCESS_STEPS.map((step, i) => (
                 <li
                   key={step.number}
+                  data-reveal
+                  style={{ transitionDelay: `${i * 60}ms` }}
                   className="group grid grid-cols-12 items-center gap-x-4 md:gap-x-6 px-4 md:px-6 py-5 md:py-7 hover:bg-lime/[0.03] transition-colors"
                 >
                   {/* Phase number with frame */}
@@ -203,6 +210,8 @@ export default function MethodPage() {
             {DELIVERABLES.map((d, i) => (
               <article
                 key={d.code}
+                data-reveal
+                style={{ transitionDelay: `${i * 70}ms` }}
                 className={`py-16 md:py-20 ${
                   i !== DELIVERABLES.length - 1 ? "border-b border-white/15" : ""
                 }`}

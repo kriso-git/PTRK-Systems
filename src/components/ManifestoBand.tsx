@@ -1,0 +1,61 @@
+import Link from "next/link";
+
+/**
+ * Full-bleed lime manifesto band — the site's boldest color surface.
+ * Black-on-lime inverts the HUD palette; the Sprint 1 shield exemption
+ * (.bg-lime *) keeps the dark text halo-free.
+ */
+export function ManifestoBand() {
+  return (
+    <section
+      data-section="§ 03"
+      data-label="Kiáltvány"
+      className="relative z-10 bg-lime text-black overflow-hidden"
+    >
+      {/* Inverse corner markers — black on lime */}
+      <div className="absolute top-0 left-0 w-16 h-16 border-t-4 border-l-4 border-black/80 pointer-events-none" />
+      <div className="absolute top-0 right-0 w-16 h-16 border-t-4 border-r-4 border-black/80 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-16 h-16 border-b-4 border-l-4 border-black/80 pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-16 h-16 border-b-4 border-r-4 border-black/80 pointer-events-none" />
+
+      {/* Edge texture — thin black data-ticks along the top edge */}
+      <div
+        aria-hidden
+        className="absolute top-0 left-0 right-0 h-[6px] pointer-events-none"
+        style={{
+          backgroundImage:
+            "repeating-linear-gradient(90deg, rgba(0,0,0,0.85) 0 2px, transparent 2px 14px)",
+        }}
+      />
+
+      <div className="max-w-[1500px] mx-auto px-6 md:px-10 py-24 md:py-36">
+        <div className="font-monospec text-[10px] uppercase tracking-[0.4em] text-black/70 mb-10 flex items-center gap-3">
+          <span className="inline-block w-8 h-px bg-black/70" />
+          <span>SYS·Manifesto·01 — Vertikális egység</span>
+        </div>
+
+        <h2 className="font-khinterference uppercase leading-[0.88] tracking-[-0.01em] text-[clamp(44px,7vw,110px)]">
+          Stratégiától
+          <br />
+          live deployig.
+        </h2>
+        <p className="mt-5 font-khinterference uppercase tracking-[0.01em] text-[clamp(26px,4vw,56px)] text-black/75">
+          Egy kézben.
+        </p>
+
+        <div className="mt-14 flex flex-wrap items-center justify-between gap-6">
+          <Link
+            href="/connect"
+            className="group inline-flex items-center gap-4 border-2 border-black px-8 md:px-12 py-4 md:py-5 font-monospec font-bold text-xs md:text-sm tracking-[0.25em] uppercase hover:bg-black hover:text-lime transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-black"
+          >
+            <span aria-hidden>→</span>
+            Connect
+          </Link>
+          <span className="font-monospec text-[10px] tracking-[0.3em] uppercase text-black/60">
+            NOD·0A20070A · Budapest · CET
+          </span>
+        </div>
+      </div>
+    </section>
+  );
+}

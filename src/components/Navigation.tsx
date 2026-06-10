@@ -5,12 +5,40 @@ import { usePathname } from "next/navigation";
 
 const COORD = "47.4979°N · 19.0402°E";
 
-const NAV = [
-  { href: "/", label: "Intro", section: "§ 00" },
-  { href: "/work", label: "Work", section: "§ 02" },
-  { href: "/method", label: "Method", section: "§ 03" },
-  { href: "/connect", label: "Connect", section: "§ 06" },
+type Accent = "lime" | "magenta" | "cyan" | "orange";
+
+const NAV: { href: string; label: string; section: string; accent: Accent }[] = [
+  { href: "/", label: "Intro", section: "§ 00", accent: "lime" },
+  { href: "/work", label: "Work", section: "§ 02", accent: "magenta" },
+  { href: "/method", label: "Method", section: "§ 03", accent: "cyan" },
+  { href: "/connect", label: "Connect", section: "§ 06", accent: "orange" },
 ];
+
+/* Static lookups — Tailwind JIT only sees literal class strings */
+const ACTIVE_DESKTOP: Record<Accent, string> = {
+  lime: "border-lime bg-lime/10 text-lime",
+  magenta: "border-magenta bg-magenta/10 text-magenta",
+  cyan: "border-cyan bg-cyan/10 text-cyan",
+  orange: "border-orange bg-orange/10 text-orange",
+};
+const ACTIVE_MOBILE: Record<Accent, string> = {
+  lime: "text-lime bg-lime/[0.06]",
+  magenta: "text-magenta bg-magenta/[0.06]",
+  cyan: "text-cyan bg-cyan/[0.06]",
+  orange: "text-orange bg-orange/[0.06]",
+};
+const ACTIVE_BAR: Record<Accent, string> = {
+  lime: "bg-lime",
+  magenta: "bg-magenta",
+  cyan: "bg-cyan",
+  orange: "bg-orange",
+};
+const ACTIVE_DOT: Record<Accent, string> = {
+  lime: "text-lime",
+  magenta: "text-magenta",
+  cyan: "text-cyan",
+  orange: "text-orange",
+};
 
 export function Navigation() {
   const pathname = usePathname();
@@ -52,7 +80,7 @@ export function Navigation() {
                 aria-current={isActive ? "page" : undefined}
                 className={`group relative flex items-baseline gap-2 px-3 md:px-4 py-2 md:py-2.5 border transition-all whitespace-nowrap focus:outline-none focus-visible:border-lime focus-visible:bg-lime/10 ${
                   isActive
-                    ? "border-lime bg-lime/10 text-lime"
+                    ? ACTIVE_DESKTOP[n.accent]
                     : "border-white/15 text-secondary hover:border-lime/50 hover:bg-lime/5 hover:text-primary"
                 }`}
               >
@@ -67,7 +95,7 @@ export function Navigation() {
                 </span>
                 <span>{n.label === "Intro" ? "Introduction" : n.label}</span>
                 {isActive ? (
-                  <span className="text-lime text-[10px]">●</span>
+                  <span className={`${ACTIVE_DOT[n.accent]} text-[10px]`}>●</span>
                 ) : (
                   <span className="text-[10px] opacity-0 group-hover:opacity-60 -translate-x-1 group-hover:translate-x-0 transition-all">
                     →
@@ -110,7 +138,7 @@ export function Navigation() {
               aria-current={isActive ? "page" : undefined}
               className={`relative flex flex-col items-center justify-center gap-1 py-3 border-r last:border-r-0 border-white/10 transition-colors ${
                 isActive
-                  ? "text-lime bg-lime/[0.06]"
+                  ? ACTIVE_MOBILE[n.accent]
                   : "hover:text-primary hover:bg-white/[0.02]"
               }`}
             >
@@ -127,7 +155,7 @@ export function Navigation() {
               {isActive && (
                 <span
                   aria-hidden
-                  className="absolute bottom-0 left-0 right-0 h-[2px] bg-lime"
+                  className={`absolute bottom-0 left-0 right-0 h-[2px] ${ACTIVE_BAR[n.accent]}`}
                 />
               )}
             </Link>
