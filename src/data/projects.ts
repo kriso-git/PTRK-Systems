@@ -41,7 +41,7 @@ export const PROJECTS: Project[] = [
     metric: "04",
     metricLabel: "PubMed Studies",
     color: "cyan",
-    // url: live URL TBD — set this when deployed
+    url: "https://molekulax.vercel.app",
   },
   {
     id: "donna-pizza",
@@ -54,7 +54,7 @@ export const PROJECTS: Project[] = [
     metric: "9",
     metricLabel: "Sections Live",
     color: "magenta",
-    // url: live URL TBD — set this when deployed
+    url: "https://www.donnapizzakecskemet.eu",
   },
 ];
 

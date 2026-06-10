@@ -105,7 +105,9 @@ export default function WorkPage() {
                     </div>
                   </div>
                   <div className="col-span-12 md:col-span-9 lg:col-span-10">
-                    <BrowserPreview project={p} />
+                    {/* asLink=false: the whole card is already wrapped in
+                        an <a> when p.url exists — no nested anchors */}
+                    <BrowserPreview project={p} asLink={!p.url} />
                   </div>
                 </div>
 
