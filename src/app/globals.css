@@ -70,6 +70,15 @@ input, textarea, select, option {
     0 0 14px rgba(5, 5, 8, 0.6);
 }
 
+/* Solid accent surfaces (lime CTAs etc.) render dark text on a light
+   background — the dark halo shield would smear them. Kill it there. */
+.bg-lime, .bg-lime *,
+.bg-cyan, .bg-cyan *,
+.bg-magenta, .bg-magenta *,
+.bg-orange, .bg-orange * {
+  text-shadow: none;
+}
+
 ::selection {
   background: var(--color-lime);
   color: #000;
