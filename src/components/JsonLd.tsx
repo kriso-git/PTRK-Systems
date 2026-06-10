@@ -38,7 +38,9 @@ export function JsonLd() {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }}
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(SCHEMA).replace(/</g, "\\u003c"),
+      }}
     />
   );
 }

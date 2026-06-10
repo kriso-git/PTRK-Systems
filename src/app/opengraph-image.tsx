@@ -9,13 +9,16 @@ async function loadChakraPetch(): Promise<ArrayBuffer | null> {
     const css = await (
       await fetch(
         "https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600",
+        { signal: AbortSignal.timeout(8000) },
       )
     ).text();
     const url = css.match(
       /src: url\((.+?)\) format\('(?:truetype|opentype)'\)/,
     )?.[1];
     if (!url) return null;
-    return await (await fetch(url)).arrayBuffer();
+    return await (
+      await fetch(url, { signal: AbortSignal.timeout(8000) })
+    ).arrayBuffer();
   } catch {
     return null;
   }

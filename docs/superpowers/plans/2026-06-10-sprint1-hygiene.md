@@ -66,7 +66,7 @@ Marad (font-preview hivatkozza): `Goliath.otf`, `KHInterference-Light.ttf`, `KHI
 }
 ```
 
-- [ ] **Step 2:** Dev-szerveren ellenőrizd: a landing "VIEW PROJECTS →" lime gomb fekete szövege éles, halo nélkül.
+- [ ] **Step 2:** Megjegyzés (review-korrekció): a production route-okon jelenleg NINCS szöveges solid-accent felület (a "VIEW PROJECTS" gomb a halott LandingTab-ban élt) — a szabály a /font-preview PICK badge-eken ellenőrizhető, élesben pedig a Sprint 2 lime kiáltvány-sáv lesz az első fogyasztója.
 - [ ] **Step 3:** Commit: `git commit -m "fix(css): exempt solid accent surfaces from the text-shadow readability shield"`
 
 ### Task 6: Sitemap lastModified eltávolítása

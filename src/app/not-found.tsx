@@ -1,5 +1,10 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Crosshair } from "@/components/Crosshair";
+
+export const metadata: Metadata = {
+  title: "404 — Signal Lost",
+};
 
 const ERROR_LOG = [
   { t: "00:00.041", code: "RTE·404", msg: "route not resolved in nav graph" },

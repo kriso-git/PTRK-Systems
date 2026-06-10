@@ -35,6 +35,13 @@
 
 Nincs teszt-harness a repóban (scripts: dev/build/start) — a kapu: `npm run build` PASS (TS strict típusellenőrzéssel) + `npm audit` 0 moderate + a 4 route és a /404 manuális render-ellenőrzése dev szerveren + code-quality review agent a teljes diffen.
 
+## Carry-over jegyzetek (code-review 2026-06-10 → Sprint 2 backlog)
+
+- **postcss override lejárati figyelés:** a `package.json` `overrides.next.postcss` blokkot el kell távolítani, amint a Next a saját vendorolt postcss-ét ≥8.5.10-re emeli — minden jövőbeli Next-bumpnál ellenőrizd (`npm ls postcss`).
+- **robots /font-preview kérdés:** a /font-preview crawlolható (noindex meta van rajta), és a 6 megtartott kereskedelmi fontfájl publikus a /fonts/ alatt — launch előtt döntés kell: route dev-only mögé vagy robots disallow (utóbbi önmagában a fontfájlokat nem védi).
+- **HSTS preload:** a header benne van, de a hstspreload.org listára csak akkor szabad beküldeni, ha biztos, hogy soha egyetlen subdomain sem fog sima HTTP-t igényelni (2 éves elköteleződés).
+- **Render-smoke gap:** a build+HTTP-check kapu hydration-hibákat nem fog meg (a nested-anchor findingot is csak a review találta). MolekulaX-mintára egy minimál Puppeteer console-error smoke az 5 route-ra megfontolandó, amikor élesedik a site.
+
 ## Design-döntések
 
 - **404 oldal:** server component, 0 extra JS. Óriás "SIGNAL LOST" (Chakra Petch / `font-khinterference`), magenta glitch-accent, SysLog-stílusú fake hibalog (statikus, monospec), 3 nagy visszavezető link (/, /work, /connect) a meglévő link-nyelven. A root layout (háttér, terminal-aside, nav) automatikusan körbeöleli.

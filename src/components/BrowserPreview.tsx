@@ -8,13 +8,17 @@ const ACCENT_HEX: Record<AccentColor, string> = {
   orange: "#ff8c42",
 };
 
-const VISIT_URL: Record<string, string | undefined> = {
-  "f3xykee-terminal": "https://fexyke.hu",
-};
-
-export function BrowserPreview({ project }: { project: Project }) {
+export function BrowserPreview({
+  project,
+  asLink = true,
+}: {
+  project: Project;
+  /** Set false when an ancestor already provides the link context —
+      nested <a> inside <a> is invalid HTML and breaks hydration. */
+  asLink?: boolean;
+}) {
   const accent = ACCENT_HEX[project.color];
-  const visitUrl = VISIT_URL[project.id] ?? project.url;
+  const visitUrl = project.url;
   const hasVisit = Boolean(visitUrl);
   const displayUrl = visitUrl
     ? visitUrl.replace(/^https?:\/\//, "").replace(/\/$/, "")
@@ -22,15 +26,16 @@ export function BrowserPreview({ project }: { project: Project }) {
 
   const Preview = PROJECT_PREVIEWS[project.id];
 
-  const Wrapper = hasVisit ? "a" : "div";
-  const wrapperProps = hasVisit
-    ? {
-        href: visitUrl,
-        target: "_blank" as const,
-        rel: "noopener noreferrer" as const,
-        "aria-label": `Visit ${project.name} live site`,
-      }
-    : {};
+  const Wrapper = asLink && hasVisit ? "a" : "div";
+  const wrapperProps =
+    asLink && hasVisit
+      ? {
+          href: visitUrl,
+          target: "_blank" as const,
+          rel: "noopener noreferrer" as const,
+          "aria-label": `Visit ${project.name} live site`,
+        }
+      : {};
 
   return (
     <Wrapper

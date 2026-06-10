@@ -7,7 +7,7 @@ import {
   sequel,
   shorai,
 } from "@/lib/fonts";
-import { Analytics } from "@vercel/analytics/react";
+import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { JsonLd } from "@/components/JsonLd";
 import { Navigation } from "@/components/Navigation";
