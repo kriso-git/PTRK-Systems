@@ -1,9 +1,11 @@
 import Link from "next/link";
-import { PROJECTS, PROCESS_STEPS, FAQ, TECH_STACK } from "@/data/projects";
+import { PROJECTS, PROCESS_STEPS, FAQ, TECH_STACK, ENGAGEMENT } from "@/data/projects";
 import { ScrollCue } from "@/components/ScrollCue";
 import { GoliathOrnament } from "@/components/GoliathSymbols";
 import { ManifestoBand } from "@/components/ManifestoBand";
 import { DecodeText } from "@/components/DecodeText";
+import { TransmissionLog } from "@/components/TransmissionLog";
+import { Operator } from "@/components/Operator";
 
 const COORD = "47.4979°N · 19.0402°E";
 
@@ -11,7 +13,7 @@ const STATS = [
   { n: "03", label: "Élesben futó rendszer", color: "lime" },
   { n: "98", label: "Lighthouse átlag", color: "cyan" },
   { n: "24h", label: "Maximum válaszidő", color: "magenta" },
-  { n: "14–30d", label: "Discovery → élesben", color: "orange" },
+  { n: ENGAGEMENT.launchRange, label: "Discovery → élesben", color: "orange" },
 ] as const;
 
 const PRINCIPLES = [
@@ -237,7 +239,7 @@ export default function Home() {
             {/* Inline meter row */}
             <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-6 border-t border-white/15 pt-10">
               {[
-                { n: "14–30d", label: "Átlag launch", color: "lime" },
+                { n: ENGAGEMENT.launchRange, label: "Átlag launch", color: "lime" },
                 { n: "1×", label: "Fix ár, nem óradíj", color: "cyan" },
                 { n: "0", label: "Rejtett tétel", color: "magenta" },
                 { n: "30d", label: "Hyper-care launch után", color: "orange" },
@@ -402,6 +404,9 @@ export default function Home() {
           </ol>
         </div>
       </section>
+
+      <Operator />
+      <TransmissionLog />
 
       {/* ─────────────────────────────  PROCESS LADDER  ───────────────────────────── */}
       <section
