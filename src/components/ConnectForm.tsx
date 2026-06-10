@@ -4,11 +4,12 @@ import { useState } from "react";
 import Link from "next/link";
 import { GoliathOrnament } from "@/components/GoliathSymbols";
 import { DecodeText } from "@/components/DecodeText";
+import { ENGAGEMENT } from "@/data/projects";
 
 const SLA = [
-  { code: "01", label: "Válaszidő", value: "<24h", color: "lime" as const },
+  { code: "01", label: "Válaszidő", value: ENGAGEMENT.responseTime, color: "lime" as const },
   { code: "02", label: "Elérhető", value: "Q3.26", color: "cyan" as const },
-  { code: "03", label: "Sprint", value: "2–4w", color: "magenta" as const },
+  { code: "03", label: "Sprint", value: ENGAGEMENT.sprintRange, color: "magenta" as const },
 ];
 
 const CHANNELS = [
