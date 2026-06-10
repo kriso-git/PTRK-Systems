@@ -30,6 +30,9 @@ export function Footer() {
             <Link href="/method" className="hover:text-lime transition-colors">
               § 03 · Method
             </Link>
+            <Link href="/lab" className="hover:text-lime transition-colors">
+              § 05 · Lab
+            </Link>
             <Link href="/connect" className="hover:text-lime transition-colors">
               § 06 · Connect
             </Link>

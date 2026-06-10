@@ -11,7 +11,15 @@ import puppeteer from "puppeteer";
 
 const PORT = 3100;
 const BASE = `http://localhost:${PORT}`;
-const ROUTES = ["/", "/work", "/method", "/connect", "/nemletezik"];
+const ROUTES = [
+  "/",
+  "/work",
+  "/work/f3xykee-terminal",
+  "/method",
+  "/lab",
+  "/connect",
+  "/nemletezik",
+];
 
 function wait(ms) {
   return new Promise((r) => setTimeout(r, ms));
