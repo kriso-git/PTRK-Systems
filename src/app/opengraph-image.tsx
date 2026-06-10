@@ -88,13 +88,34 @@ export default async function OgImage() {
         />
         <div
           style={{
-            fontSize: 28,
-            letterSpacing: 12,
-            color: "#01ffff",
+            display: "flex",
+            alignItems: "center",
+            gap: 16,
             marginBottom: 24,
           }}
         >
-          ◢ DESIGN.ENGINEERING.UNIT ◣
+          {/* ◢ — clip-path triangle: the glyph is missing from Chakra Petch
+              and satori's dynamic fallback font fetch 400s at build time */}
+          <div
+            style={{
+              width: 20,
+              height: 20,
+              backgroundColor: "#01ffff",
+              clipPath: "polygon(0% 100%, 100% 100%, 100% 0%)",
+            }}
+          />
+          <div style={{ fontSize: 28, letterSpacing: 12, color: "#01ffff" }}>
+            DESIGN.ENGINEERING.UNIT
+          </div>
+          {/* ◣ */}
+          <div
+            style={{
+              width: 20,
+              height: 20,
+              backgroundColor: "#01ffff",
+              clipPath: "polygon(0% 0%, 0% 100%, 100% 100%)",
+            }}
+          />
         </div>
         <div style={{ display: "flex", fontSize: 160, lineHeight: 1 }}>
           <span style={{ color: "#f8fafc" }}>PTRK</span>
@@ -127,12 +148,16 @@ export default async function OgImage() {
             position: "absolute",
             bottom: 56,
             right: 80,
+            display: "flex",
+            alignItems: "center",
+            gap: 12,
             fontSize: 22,
             letterSpacing: 6,
             color: "#c2fe0c",
           }}
         >
-          SYS_ONLINE ■
+          <span>SYS_ONLINE</span>
+          <div style={{ width: 14, height: 14, backgroundColor: "#c2fe0c" }} />
         </div>
       </div>
     ),
