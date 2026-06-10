@@ -7,6 +7,9 @@ import {
   sequel,
   shorai,
 } from "@/lib/fonts";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { JsonLd } from "@/components/JsonLd";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { SmoothScroll } from "@/components/SmoothScroll";
@@ -32,6 +35,12 @@ export const metadata: Metadata = {
     locale: "hu_HU",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "PTRK Systems — Design Engineering",
+    description:
+      "Termék-felületek, design rendszerek és frontend architektúra Budapestről.",
+  },
   icons: { icon: "/favicon.ico" },
 };
 
@@ -56,6 +65,7 @@ export default function RootLayout({
   return (
     <html lang="hu" className={fontVars}>
       <body>
+        <JsonLd />
         <SmoothScroll />
         <MarathonBackground />
         <ScrollProgress />
@@ -90,6 +100,8 @@ export default function RootLayout({
           <main className="flex-1 relative z-10 md:pr-[260px]">{children}</main>
           <Footer />
         </div>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
