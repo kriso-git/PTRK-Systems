@@ -68,14 +68,6 @@ export default function RootLayout({
   return (
     <html lang="hu" className={fontVars}>
       <body>
-        {/* JS-liveness flag before hydration — the scroll-reveal hidden
-            state in globals.css only applies under html[data-js], so
-            no-JS visitors always see the content. */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: "document.documentElement.setAttribute('data-js','')",
-          }}
-        />
         <JsonLd />
         <SmoothScroll />
         <RevealObserver />

@@ -14,6 +14,11 @@ export function RevealObserver() {
   const pathname = usePathname();
 
   useEffect(() => {
+    // data-js is set HERE (not in an inline script) so the CSS hidden
+    // state only ever exists once the revealer is provably alive — if
+    // the JS bundle never runs, every [data-reveal] stays visible.
+    document.documentElement.setAttribute("data-js", "");
+
     const els = document.querySelectorAll<HTMLElement>(
       "[data-reveal]:not([data-inview])",
     );
@@ -28,7 +33,9 @@ export function RevealObserver() {
           }
         }
       },
-      { threshold: 0.15, rootMargin: "0px 0px -8% 0px" },
+      // threshold 0: tall articles (taller than the viewport) would never
+      // hit a 15% visibility ratio on small screens
+      { threshold: 0, rootMargin: "0px 0px -8% 0px" },
     );
 
     els.forEach((el) => io.observe(el));

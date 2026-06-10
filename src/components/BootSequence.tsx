@@ -26,14 +26,20 @@ export function BootSequence() {
   const [lineCount, setLineCount] = useState(0);
 
   useEffect(() => {
-    if (
-      sessionStorage.getItem("ptrk-booted") ||
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    ) {
+    // sessionStorage throws SecurityError when site data is blocked —
+    // treat that as "already booted" instead of crashing the root.
+    try {
+      if (
+        sessionStorage.getItem("ptrk-booted") ||
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      ) {
+        sessionStorage.setItem("ptrk-booted", "1");
+        return;
+      }
       sessionStorage.setItem("ptrk-booted", "1");
+    } catch {
       return;
     }
-    sessionStorage.setItem("ptrk-booted", "1");
     setPhase("typing");
   }, []);
 
@@ -41,6 +47,7 @@ export function BootSequence() {
     if (phase !== "typing") return;
 
     let line = 0;
+    let holdTimer: ReturnType<typeof setTimeout> | undefined;
     const lineTimer = setInterval(() => {
       line += 1;
       setLineCount(line);
@@ -49,17 +56,18 @@ export function BootSequence() {
         holdTimer = setTimeout(() => setPhase("wipe"), HOLD_MS);
       }
     }, LINE_INTERVAL_MS);
-    let holdTimer: ReturnType<typeof setTimeout> | undefined;
 
     const skip = () => setPhase("wipe");
     window.addEventListener("pointerdown", skip);
     window.addEventListener("keydown", skip);
+    window.addEventListener("wheel", skip);
 
     return () => {
       clearInterval(lineTimer);
       if (holdTimer) clearTimeout(holdTimer);
       window.removeEventListener("pointerdown", skip);
       window.removeEventListener("keydown", skip);
+      window.removeEventListener("wheel", skip);
     };
   }, [phase]);
 

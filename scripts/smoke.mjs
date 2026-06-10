@@ -41,7 +41,7 @@ const server = spawn("npx", ["next", "start", "-p", String(PORT)], {
 let failures = 0;
 try {
   await waitForServer();
-  const browser = await puppeteer.launch({ headless: "new" });
+  const browser = await puppeteer.launch({ headless: true });
   try {
     for (const route of ROUTES) {
       const page = await browser.newPage();
@@ -54,7 +54,8 @@ try {
         /_vercel\/(insights|speed-insights)\//.test(`${text} ${url ?? ""}`) ||
         (route === "/nemletezik" &&
           text.startsWith("Failed to load resource") &&
-          (url === pageUrl || url === undefined));
+          text.includes("404") &&
+          (url === pageUrl || url === "" || url === undefined));
       page.on("console", (msg) => {
         if (msg.type() !== "error") return;
         const url = msg.location()?.url;
