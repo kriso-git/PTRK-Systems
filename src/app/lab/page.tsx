@@ -7,7 +7,7 @@ import { DecodeReplay, BootReplay } from "@/components/LabDemos";
 export const metadata: Metadata = {
   title: "Lab — Experiments Archive",
   description:
-    "A PTRK Systems site-on élő craft-komponensek kiállítva: decode-animáció, Goliath szimbólum-készlet, boot-szekvencia, ambient HUD-réteg. Zéró runtime dependency, CSS + canvas + rAF.",
+    "A PTRK Systems site-on élő craft-komponensek kiállítva: decode-animáció, Goliath szimbólum-készlet, boot-szekvencia, ambient HUD-réteg. Zéró extra runtime dependency, CSS + canvas + rAF.",
   alternates: { canonical: "/lab" },
 };
 
@@ -130,7 +130,7 @@ export default function LabPage() {
           </h1>
           <p className="mt-10 font-shorai text-xl md:text-2xl text-secondary leading-[1.4] max-w-[58ch] tracking-[-0.005em]">
             A site maga is portfólió-darab: az itt élő craft-komponensek kiállítva,
-            működés közben. <span className="text-primary">Zéró runtime dependency</span> —
+            működés közben. <span className="text-primary">Zéró extra runtime dependency</span> —
             CSS, canvas és requestAnimationFrame.
           </p>
         </div>

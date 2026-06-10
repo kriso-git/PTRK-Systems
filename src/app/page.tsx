@@ -568,8 +568,8 @@ export default function Home() {
 
           <div className="mt-14 grid grid-cols-12 gap-y-8 md:gap-x-10 items-end">
             <p className="col-span-12 md:col-span-7 font-shorai text-xl md:text-2xl text-secondary leading-[1.4] max-w-[60ch] tracking-[-0.005em]">
-              Q3 · 2026 nyit a következő retainer slot. Discovery call 30 perc — utána
-              vagy passzol, vagy elindul.
+              {ENGAGEMENT.nextSlot} nyit a következő retainer slot. Discovery call 30
+              perc — utána vagy passzol, vagy elindul.
             </p>
             <div className="col-span-12 md:col-span-5 flex flex-col items-start md:items-end gap-5">
               <Link
@@ -587,6 +587,12 @@ export default function Home() {
               >
                 hello@ptrksystems.com
               </a>
+              <Link
+                href="/lab"
+                className="font-monospec text-xs tracking-[0.25em] uppercase text-secondary hover:text-lime transition-colors"
+              >
+                § 05 · Experiments lab →
+              </Link>
             </div>
           </div>
 

@@ -7,6 +7,7 @@ export const ENGAGEMENT = {
   launchRange: "14–30d",
   responseTime: "<24h",
   nextSlot: "Q3 · 2026",
+  nextSlotCompact: "Q3.26",
   budgetRange: "5–50k EUR",
 } as const;
 
@@ -75,7 +76,7 @@ export const PROJECTS: Project[] = [
         },
         {
           title: "Auth + RLS adatréteg",
-          body: "Supabase PostgreSQL Row Level Security policy-kkal: a jogosultság az adatbázis-rétegben kényszerített, nem csak a UI-ban — a kliens megkerülésével sem szivárog adat.",
+          body: "Supabase PostgreSQL Row Level Security policy-kkal: a jogosultsági szabályok a kliens megkerülése esetén is az adatbázis-rétegben érvényesülnek, nem csak a UI-ban.",
         },
       ],
       debrief: [
@@ -242,7 +243,7 @@ export const FAQ = [
   },
   {
     q: "Milyen projektméret optimális?",
-    a: "2–8 hetes szprintek 5–50k EUR között. Hosszabb retainer szerződésekre is van kapacitás (Q3 2026 nyit).",
+    a: `${ENGAGEMENT.sprintRange.replace("w", "")} hetes szprintek ${ENGAGEMENT.budgetRange} között. Hosszabb retainer szerződésekre is van kapacitás (${ENGAGEMENT.nextSlot} nyit).`,
   },
   {
     q: "Készen kapunk valamit, vagy közösen építjük?",

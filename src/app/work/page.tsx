@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { PROJECTS } from "@/data/projects";
+import { PROJECTS, ENGAGEMENT } from "@/data/projects";
 import { BrowserPreview } from "@/components/BrowserPreview";
 import { DecodeText } from "@/components/DecodeText";
 
 export const metadata: Metadata = {
   title: "Work — Selected Projects",
   description:
-    "Válogatott design engineering projektek 2024–2026 között: F3XYKEE Terminal, MolekulaX, Donna Pizza. Stack, role, metrika, élő linkek.",
+    "Válogatott design engineering projektek 2024–2026 között: F3XYKEE Terminal, MolekulaX, Donna Pizza. Stack, role, metrika, mission debrief aloldalak.",
   alternates: { canonical: "/work" },
 };
 
@@ -190,7 +190,7 @@ export default function WorkPage() {
           </div>
           <div className="col-span-12 md:col-span-4 flex flex-col gap-5 md:items-end">
             <p className="font-shorai text-base md:text-lg text-secondary leading-relaxed max-w-sm md:text-right">
-              Q3 · 2026 nyit a következő retainer slot. Discovery call 30 perc.
+              {ENGAGEMENT.nextSlot} nyit a következő retainer slot. Discovery call 30 perc.
             </p>
             <Link
               href="/connect"

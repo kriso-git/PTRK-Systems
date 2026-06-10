@@ -32,7 +32,7 @@ export function BootReplay() {
         try {
           sessionStorage.removeItem("ptrk-booted");
         } catch {
-          /* storage blocked — reload still navigates home */
+          /* storage blocked — reload happens anyway, boot stays gated off */
         }
         window.location.reload();
       }}

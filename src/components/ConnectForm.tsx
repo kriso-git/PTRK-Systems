@@ -8,7 +8,7 @@ import { ENGAGEMENT } from "@/data/projects";
 
 const SLA = [
   { code: "01", label: "Válaszidő", value: ENGAGEMENT.responseTime, color: "lime" as const },
-  { code: "02", label: "Elérhető", value: "Q3.26", color: "cyan" as const },
+  { code: "02", label: "Elérhető", value: ENGAGEMENT.nextSlotCompact, color: "cyan" as const },
   { code: "03", label: "Sprint", value: ENGAGEMENT.sprintRange, color: "magenta" as const },
 ];
 
@@ -99,7 +99,7 @@ export function ConnectForm() {
                 <span className="w-1.5 h-1.5 bg-lime cursor-blink" />
                 Available
               </span>
-              <span className="block mt-3 text-cyan/70">— Q3 · 2026</span>
+              <span className="block mt-3 text-cyan/70">— {ENGAGEMENT.nextSlot}</span>
             </div>
           </aside>
 
