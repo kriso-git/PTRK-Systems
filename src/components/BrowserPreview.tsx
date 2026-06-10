@@ -41,7 +41,7 @@ export function BrowserPreview({
     <Wrapper
       {...wrapperProps}
       className={`relative block overflow-hidden bg-black border border-white/15 ${
-        hasVisit ? "cursor-pointer group/preview" : "group/preview"
+        asLink && hasVisit ? "cursor-pointer group/preview" : "group/preview"
       }`}
     >
       {/* Browser chrome */}
@@ -72,8 +72,9 @@ export function BrowserPreview({
           </div>
         )}
 
-        {/* Hover overlay */}
-        {hasVisit && (
+        {/* Hover overlay — only when THIS component is the link; otherwise
+            the promise ("Visit …") would lie about where the click goes */}
+        {asLink && hasVisit && (
           <div className="absolute inset-0 z-10 flex items-center justify-center opacity-0 group-hover/preview:opacity-100 transition-opacity duration-300 pointer-events-none bg-black/40 backdrop-blur-[2px]">
             <span
               className="font-monospec text-xs md:text-sm tracking-[0.4em] px-5 py-3 border bg-black/70 uppercase"

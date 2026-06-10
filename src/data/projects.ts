@@ -1,5 +1,32 @@
 export type AccentColor = "lime" | "cyan" | "magenta" | "orange";
 
+/** Single source of truth for engagement terms — NEVER hardcode these
+    numbers in components; the 2–4w/2–8w/14–30d drift came from exactly that. */
+export const ENGAGEMENT = {
+  sprintRange: "2–8w",
+  launchRange: "14–30d",
+  responseTime: "<24h",
+  nextSlot: "Q3 · 2026",
+  nextSlotCompact: "Q3.26",
+  budgetRange: "5–50k EUR",
+} as const;
+
+/** Mission Debrief content — VERIFIABLE FACTS ONLY (stack, shipped
+    features, live URLs, scope). No invented metrics, no unprovable claims. */
+export type CaseStudy = {
+  lead: string;
+  briefing: string[];
+  execution: { title: string; body: string }[];
+  debrief: string[];
+  artifacts: string[];
+};
+
+export type Testimonial = {
+  quote: string;
+  name: string;
+  role: string;
+};
+
 export type Project = {
   id: string;
   name: string;
@@ -14,6 +41,9 @@ export type Project = {
   url?: string;
   /** SVG path data for the 3D wave clip-path mock. Defaults if omitted. */
   waveClip?: { base: string; accent: string };
+  caseStudy: CaseStudy;
+  /** Real client quote — section stays hidden until one exists. */
+  testimonial?: Testimonial;
 };
 
 export const PROJECTS: Project[] = [
@@ -29,6 +59,38 @@ export const PROJECTS: Project[] = [
     metricLabel: "HUD · Term · Modern",
     color: "lime",
     url: "https://fexyke.hu",
+    caseStudy: {
+      lead: "Military-HUD adat-hálózat platform a nulláról: saját poszting motor, operátor-profilok és jogosultság-szigorú adatréteg — élesben a fexyke.hu domainen.",
+      briefing: [
+        "A megrendelő egy zárt, karakteres adat-megosztó platformot akart — nem közösségi sablonklónt, hanem saját vizuális nyelvű, terminál-esztétikájú rendszert, ahol a tartalom-áramlás és a jogosultság-kezelés is testreszabott.",
+        "A scope a teljes lánc volt: brand-irány, UI-rendszer, frontend, adatbázis-séma, autentikáció és éles deploy custom domainen.",
+      ],
+      execution: [
+        {
+          title: "HUD design-rendszer",
+          body: "Neon-zöld military-HUD vizuális nyelv, tudatos 60/30/10 rétegzéssel: HUD-keretek, terminál-elemek és modern UI-felületek aránya rögzített design-döntés, nem utólagos dísz.",
+        },
+        {
+          title: "Poszting motor + jelzéslánc",
+          body: "Saját tartalom-publikáló motor operátor-profilokkal, jelzéslánccal és superadmin irányítással — nem készre vett CMS, hanem a platform igényeire méretezett adatfolyam.",
+        },
+        {
+          title: "Auth + RLS adatréteg",
+          body: "Supabase PostgreSQL Row Level Security policy-kkal: a jogosultsági szabályok a kliens megkerülése esetén is az adatbázis-rétegben érvényesülnek, nem csak a UI-ban.",
+        },
+      ],
+      debrief: [
+        "Élesben fut a fexyke.hu custom domainen, Vercel deploy-jal.",
+        "Next.js 16 + TypeScript + Supabase stack — séma, auth és UI egy kézben készült, handoff-veszteség nélkül.",
+        "A jogosultság-rendszer és a vizuális nyelv bővíthetőre tervezett: új modul a meglévő alapokra csatlakozik.",
+      ],
+      artifacts: [
+        "Production Next.js 16 kódbázis",
+        "Supabase séma + RLS policy-k",
+        "Superadmin irányítópult",
+        "Custom domain + Vercel deploy",
+      ],
+    },
   },
   {
     id: "molekulax",
@@ -42,6 +104,42 @@ export const PROJECTS: Project[] = [
     metricLabel: "PubMed Studies",
     color: "cyan",
     url: "https://molekulax.vercel.app",
+    caseStudy: {
+      lead: "Farmakológiai edukációs tudásbázis négy könyvtárral, három nyelven — minden tanulmány-hivatkozás saját fejlesztésű PubMed-verifikációs kapun megy át, mielőtt élesbe kerül.",
+      briefing: [
+        "Edukációs platform peptidekről és társterületekről: a cél fókuszált, forrás-hű információ — csoportok és zaj nélkül, közvetlen szakértői kontakttal.",
+        "A legnagyobb kockázat a tartalom-integritás volt: tartalom-pipeline-oknál a hivatkozás-fabrikáció valós veszély, ezért a hivatkozás-ellenőrzés build-kapuvá vált, nem utólagos átnézéssé.",
+      ],
+      execution: [
+        {
+          title: "Négy tudásbázis-könyvtár",
+          body: "Peptid, nootropikum, performance és pharma könyvtár közös entry-architektúrán, route-tudatos adat-adapterrel és HU/EN/PL nyelvi rétegekkel.",
+        },
+        {
+          title: "PubMed-verifikációs tooling",
+          body: "Saját NCBI eutils-alapú ellenőrző CLI: minden PMID-hivatkozás cím-egyezés alapján validálódik; commit-hook, offline drift-check és CI-kapu védi a katalógust.",
+        },
+        {
+          title: "Render-smoke kapu",
+          body: "Puppeteer-alapú render-ellenőrzés minden release előtt — a build-en és teszteken átcsúszó blank-page osztályú hibákat a render-szintű kapu fogja meg.",
+        },
+        {
+          title: "Termékfotó-pipeline",
+          body: "53 vial-fotó egységesített feldolgozása (háttér-eltávolítás, normalizálás) a teljes peptid-katalógusra.",
+        },
+      ],
+      debrief: [
+        "Élő: molekulax.vercel.app, három nyelven (HU / EN / PL).",
+        "A hivatkozás-higiénia automatizált: a teljes katalógus PMID-állománya ellenőrzésen megy át minden változásnál.",
+        "Négyrétegű integritás-kapu (commit-hook, drift-check, CI, render-smoke) védi a tartalmat és a renderelést.",
+      ],
+      artifacts: [
+        "Vite + React kódbázis",
+        "PMID-verifikációs CLI tooling",
+        "HU/EN/PL tartalmi réteg",
+        "CI + render-smoke pipeline",
+      ],
+    },
   },
   {
     id: "donna-pizza",
@@ -55,6 +153,38 @@ export const PROJECTS: Project[] = [
     metricLabel: "Sections Live",
     color: "magenta",
     url: "https://www.donnapizzakecskemet.eu",
+    caseStudy: {
+      lead: "Étterem-landing Kecskemétről: menü, foglalás-flow, Foodora-integráció és valódi Google-vélemények — egy oldal, ami a foglalás és a rendelés felé van hangolva.",
+      briefing: [
+        "A Donna Pizza & Gasztro Bárnak olyan webes jelenlét kellett, ami a vendéget néhány kattintáson belül asztalfoglalásig vagy rendelésig viszi.",
+        "Branding-irány és landing egy kézben: vizuális nyelv, tartalmi struktúra és implementáció közös kontextusban készült.",
+      ],
+      execution: [
+        {
+          title: "Konverzió-fókuszú szekció-sor",
+          body: "Hero, menü, foglalás, Foodora-rendelés, vélemények, kontakt + térkép — a teljes oldal a foglalás/rendelés felé tereli a látogatót, nem csak bemutat.",
+        },
+        {
+          title: "Foodora + Google reviews integráció",
+          body: "Közvetlen rendelés-link és kiemelt valódi vendég-vélemények — a bizonyíték a vendégektől jön, nem a marketing-copy-ból.",
+        },
+        {
+          title: "Strukturált tartalom",
+          body: "Menü és információk adatként élnek a kódbázisban — gyors módosítás, konzisztens render minden szekcióban.",
+        },
+      ],
+      debrief: [
+        "Élő: donnapizzakecskemet.eu.",
+        "Vite 5 + React + Tailwind 3 stack — könnyű, gyors landing.",
+        "A foglalási és rendelési út a látogató felől tervezett: minden szekcióból elérhető a következő lépés.",
+      ],
+      artifacts: [
+        "Vite 5 + React kódbázis",
+        "Menü- és tartalom-adatstruktúra",
+        "Foodora rendelés-integráció",
+        "Térkép + kontakt blokk",
+      ],
+    },
   },
 ];
 
@@ -113,7 +243,7 @@ export const FAQ = [
   },
   {
     q: "Milyen projektméret optimális?",
-    a: "2–8 hetes szprintek 5–50k EUR között. Hosszabb retainer szerződésekre is van kapacitás (Q3 2026 nyit).",
+    a: `${ENGAGEMENT.sprintRange.replace("w", "")} hetes szprintek ${ENGAGEMENT.budgetRange} között. Hosszabb retainer szerződésekre is van kapacitás (${ENGAGEMENT.nextSlot} nyit).`,
   },
   {
     q: "Készen kapunk valamit, vagy közösen építjük?",

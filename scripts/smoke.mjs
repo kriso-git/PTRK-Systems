@@ -11,7 +11,16 @@ import puppeteer from "puppeteer";
 
 const PORT = 3100;
 const BASE = `http://localhost:${PORT}`;
-const ROUTES = ["/", "/work", "/method", "/connect", "/nemletezik"];
+const ROUTES = [
+  "/",
+  "/work",
+  "/work/f3xykee-terminal",
+  "/work/nemletezik",
+  "/method",
+  "/lab",
+  "/connect",
+  "/nemletezik",
+];
 
 function wait(ms) {
   return new Promise((r) => setTimeout(r, ms));
@@ -50,9 +59,10 @@ try {
       // Known-benign locally: Vercel Analytics/Speed Insights scripts only
       // exist on Vercel infra (404 + MIME refusal on `next start`), and the
       // /nemletezik document itself is an EXPECTED 404 response.
+      const expected404 = route.includes("nemletezik");
       const ignorable = (text, url) =>
         /_vercel\/(insights|speed-insights)\//.test(`${text} ${url ?? ""}`) ||
-        (route === "/nemletezik" &&
+        (expected404 &&
           text.startsWith("Failed to load resource") &&
           text.includes("404") &&
           (url === pageUrl || url === "" || url === undefined));

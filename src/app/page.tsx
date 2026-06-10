@@ -1,9 +1,11 @@
 import Link from "next/link";
-import { PROJECTS, PROCESS_STEPS, FAQ, TECH_STACK } from "@/data/projects";
+import { PROJECTS, PROCESS_STEPS, FAQ, TECH_STACK, ENGAGEMENT } from "@/data/projects";
 import { ScrollCue } from "@/components/ScrollCue";
 import { GoliathOrnament } from "@/components/GoliathSymbols";
 import { ManifestoBand } from "@/components/ManifestoBand";
 import { DecodeText } from "@/components/DecodeText";
+import { TransmissionLog } from "@/components/TransmissionLog";
+import { Operator } from "@/components/Operator";
 
 const COORD = "47.4979°N · 19.0402°E";
 
@@ -11,7 +13,7 @@ const STATS = [
   { n: "03", label: "Élesben futó rendszer", color: "lime" },
   { n: "98", label: "Lighthouse átlag", color: "cyan" },
   { n: "24h", label: "Maximum válaszidő", color: "magenta" },
-  { n: "14–30d", label: "Discovery → élesben", color: "orange" },
+  { n: ENGAGEMENT.launchRange, label: "Discovery → élesben", color: "orange" },
 ] as const;
 
 const PRINCIPLES = [
@@ -237,7 +239,7 @@ export default function Home() {
             {/* Inline meter row */}
             <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-6 border-t border-white/15 pt-10">
               {[
-                { n: "14–30d", label: "Átlag launch", color: "lime" },
+                { n: ENGAGEMENT.launchRange, label: "Átlag launch", color: "lime" },
                 { n: "1×", label: "Fix ár, nem óradíj", color: "cyan" },
                 { n: "0", label: "Rejtett tétel", color: "magenta" },
                 { n: "30d", label: "Hyper-care launch után", color: "orange" },
@@ -403,6 +405,9 @@ export default function Home() {
         </div>
       </section>
 
+      <Operator />
+      <TransmissionLog />
+
       {/* ─────────────────────────────  PROCESS LADDER  ───────────────────────────── */}
       <section
         data-section="§ 05"
@@ -563,8 +568,8 @@ export default function Home() {
 
           <div className="mt-14 grid grid-cols-12 gap-y-8 md:gap-x-10 items-end">
             <p className="col-span-12 md:col-span-7 font-shorai text-xl md:text-2xl text-secondary leading-[1.4] max-w-[60ch] tracking-[-0.005em]">
-              Q3 · 2026 nyit a következő retainer slot. Discovery call 30 perc — utána
-              vagy passzol, vagy elindul.
+              {ENGAGEMENT.nextSlot} nyit a következő retainer slot. Discovery call 30
+              perc — utána vagy passzol, vagy elindul.
             </p>
             <div className="col-span-12 md:col-span-5 flex flex-col items-start md:items-end gap-5">
               <Link
@@ -582,6 +587,12 @@ export default function Home() {
               >
                 hello@ptrksystems.com
               </a>
+              <Link
+                href="/lab"
+                className="font-monospec text-xs tracking-[0.25em] uppercase text-secondary hover:text-lime transition-colors"
+              >
+                § 05 · Experiments lab →
+              </Link>
             </div>
           </div>
 

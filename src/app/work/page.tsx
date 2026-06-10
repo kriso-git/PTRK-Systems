@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { PROJECTS } from "@/data/projects";
+import { PROJECTS, ENGAGEMENT } from "@/data/projects";
 import { BrowserPreview } from "@/components/BrowserPreview";
 import { DecodeText } from "@/components/DecodeText";
 
 export const metadata: Metadata = {
   title: "Work — Selected Projects",
   description:
-    "Válogatott design engineering projektek 2024–2026 között: F3XYKEE Terminal, MolekulaX, Donna Pizza. Stack, role, metrika, élő linkek.",
+    "Válogatott design engineering projektek 2024–2026 között: F3XYKEE Terminal, MolekulaX, Donna Pizza. Stack, role, metrika, mission debrief aloldalak.",
   alternates: { canonical: "/work" },
 };
 
@@ -105,13 +105,13 @@ export default function WorkPage() {
                       <span>Preview</span>
                     </div>
                     <div className="mt-3 text-secondary/60 leading-relaxed max-w-[18ch]">
-                      Stilizált landing snapshot — kattints a látogatáshoz.
+                      Stilizált landing snapshot — kattints a debriefhez.
                     </div>
                   </div>
                   <div className="col-span-12 md:col-span-9 lg:col-span-10">
-                    {/* asLink=false: the whole card is already wrapped in
-                        an <a> when p.url exists — no nested anchors */}
-                    <BrowserPreview project={p} asLink={!p.url} />
+                    {/* asLink=false: the whole card is a Link to the
+                        debrief page — no nested anchors */}
+                    <BrowserPreview project={p} asLink={false} />
                   </div>
                 </div>
 
@@ -138,12 +138,10 @@ export default function WorkPage() {
                         </li>
                       ))}
                     </ul>
-                    {p.url && (
-                      <div className="mt-10 inline-flex items-baseline gap-3 font-khinterference uppercase tracking-[0.02em] text-2xl md:text-3xl text-primary border-b-2 border-lime pb-1 group-hover:text-lime transition-colors">
-                        <span className="text-lime">→</span>
-                        {p.url.replace(/^https?:\/\//, "").replace(/\/$/, "")}
-                      </div>
-                    )}
+                    <div className="mt-10 inline-flex items-baseline gap-3 font-khinterference uppercase tracking-[0.02em] text-2xl md:text-3xl text-primary border-b-2 border-lime pb-1 group-hover:text-lime transition-colors">
+                      <span className="text-lime">→</span>
+                      Mission Debrief
+                    </div>
                   </div>
 
                   <aside className="col-span-12 md:col-span-3 lg:col-span-3 md:pl-8 md:border-l md:border-white/10 min-w-0">
@@ -167,14 +165,10 @@ export default function WorkPage() {
               </article>
             );
 
-            return p.url ? (
-              <a key={p.id} href={p.url} target="_blank" rel="noreferrer" className="block group">
+            return (
+              <Link key={p.id} href={`/work/${p.id}`} className="block group">
                 {articleContent}
-              </a>
-            ) : (
-              <div key={p.id} className="block group">
-                {articleContent}
-              </div>
+              </Link>
             );
           })}
         </div>
@@ -196,7 +190,7 @@ export default function WorkPage() {
           </div>
           <div className="col-span-12 md:col-span-4 flex flex-col gap-5 md:items-end">
             <p className="font-shorai text-base md:text-lg text-secondary leading-relaxed max-w-sm md:text-right">
-              Q3 · 2026 nyit a következő retainer slot. Discovery call 30 perc.
+              {ENGAGEMENT.nextSlot} nyit a következő retainer slot. Discovery call 30 perc.
             </p>
             <Link
               href="/connect"
