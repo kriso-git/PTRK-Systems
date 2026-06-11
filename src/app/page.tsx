@@ -194,7 +194,7 @@ export default function Home() {
         />
         <span
           aria-hidden
-          className="text-ghost font-khinterference uppercase absolute -right-8 top-10 text-lime/15 text-[clamp(90px,15vw,240px)] leading-none pointer-events-none hidden lg:block"
+          className="text-ghost font-khinterference uppercase absolute -right-8 top-10 -z-10 text-lime/15 text-[clamp(90px,15vw,240px)] leading-none pointer-events-none hidden lg:block"
         >
           ACCESS
         </span>
@@ -416,7 +416,7 @@ export default function Home() {
       >
         <span
           aria-hidden
-          className="text-ghost font-khinterference uppercase absolute -left-6 bottom-4 text-orange/15 text-[clamp(90px,15vw,240px)] leading-none pointer-events-none hidden lg:block"
+          className="text-ghost font-khinterference uppercase absolute -left-6 bottom-4 -z-10 text-orange/15 text-[clamp(90px,15vw,240px)] leading-none pointer-events-none hidden lg:block"
         >
           PROCESS
         </span>

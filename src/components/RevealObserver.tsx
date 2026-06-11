@@ -34,8 +34,11 @@ export function RevealObserver() {
         }
       },
       // threshold 0: tall articles (taller than the viewport) would never
-      // hit a 15% visibility ratio on small screens
-      { threshold: 0, rootMargin: "0px 0px -8% 0px" },
+      // hit a 15% visibility ratio on small screens. rootMargin -18%:
+      // fire when the element is properly INSIDE the viewport, so the
+      // wipe is actually visible — at -8% it ran at the screen edge and
+      // finished before the visitor's eye arrived.
+      { threshold: 0, rootMargin: "0px 0px -18% 0px" },
     );
 
     els.forEach((el) => io.observe(el));

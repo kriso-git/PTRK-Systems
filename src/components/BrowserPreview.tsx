@@ -1,5 +1,15 @@
+import Image from "next/image";
 import { PROJECT_PREVIEWS } from "@/components/project-previews-registry";
 import type { AccentColor, Project } from "@/data/projects";
+
+/** Real screenshots of the live sites — captured by
+    `node scripts/capture-previews.mjs`, re-run when the sites change.
+    Falls back to the stylized PROJECT_PREVIEWS mock when missing. */
+const PREVIEW_IMAGES: Record<string, string> = {
+  "f3xykee-terminal": "/previews/f3xykee-terminal.webp",
+  molekulax: "/previews/molekulax.webp",
+  "donna-pizza": "/previews/donna-pizza.webp",
+};
 
 const ACCENT_HEX: Record<AccentColor, string> = {
   lime: "#c2fe0c",
@@ -64,7 +74,26 @@ export function BrowserPreview({
 
       {/* Preview canvas */}
       <div className="relative aspect-[16/10] overflow-hidden bg-void">
-        {Preview ? (
+        {PREVIEW_IMAGES[project.id] ? (
+          <>
+            <Image
+              src={PREVIEW_IMAGES[project.id]}
+              alt={`${project.name} — élő oldal képernyőképe`}
+              fill
+              sizes="(max-width: 768px) 100vw, 60vw"
+              className="object-cover object-top"
+            />
+            {/* Subtle scanline wash keeps the screenshot inside the HUD language */}
+            <div
+              aria-hidden
+              className="absolute inset-0 pointer-events-none opacity-[0.07]"
+              style={{
+                backgroundImage:
+                  "repeating-linear-gradient(0deg, transparent 0 3px, rgba(5,5,8,0.9) 3px 4px)",
+              }}
+            />
+          </>
+        ) : Preview ? (
           <Preview />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center font-monospec text-xs text-secondary">
