@@ -20,6 +20,7 @@ import { ScrollProgress } from "@/components/ScrollProgress";
 import { CustomCursor } from "@/components/CustomCursor";
 import { RevealObserver } from "@/components/RevealObserver";
 import { NodeToast } from "@/components/NodeToast";
+import { HudSystem } from "@/components/HudSystem";
 import { RouteTransition } from "@/components/RouteTransition";
 import { BootSequence } from "@/components/BootSequence";
 import "./globals.css";
@@ -108,6 +109,7 @@ export default function RootLayout({
         </div>
         <BootSequence />
         <NodeToast />
+        <HudSystem />
         <Analytics />
         <SpeedInsights />
       </body>

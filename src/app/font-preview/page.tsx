@@ -12,6 +12,7 @@
  * font watermarks on the live site.
  */
 
+import { AcquireOnMount } from "@/components/AcquireOnMount";
 import {
   GOLIATH_SYMBOL_NAMES,
   type GoliathTone,
