@@ -1,10 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { OperatorTerminal } from "@/components/OperatorTerminal";
 import { acquireNode } from "@/lib/nodes";
-import { setSfxEnabled, tick, blip } from "@/lib/sfx";
 import { applyMotionAttr, motionOff, setMotionOff } from "@/lib/motion";
 
 const TOKENS = [
@@ -35,24 +33,12 @@ export function HudSystem() {
   const [mounted, setMounted] = useState(false);
   const [terminal, setTerminal] = useState(false);
   const [blueprint, setBlueprint] = useState(false);
-  const [sound, setSound] = useState(false);
   const [motOff, setMotOff] = useState(false);
-  const pathname = usePathname();
-  const firstPath = useRef(true);
 
   useEffect(() => {
     setMounted(true);
     applyMotionAttr();
     setMotOff(motionOff());
-    try {
-      if (localStorage.getItem("ptrk-snd") === "1") {
-        // Stored preference — context resumes on first gesture anyway
-        setSound(true);
-        setSfxEnabled(true);
-      }
-    } catch {
-      /* storage blocked */
-    }
   }, []);
 
   // Keyboard shortcuts
@@ -81,31 +67,6 @@ export function HudSystem() {
     if (blueprint) acquireNode("blueprint");
     return () => document.documentElement.removeAttribute("data-blueprint");
   }, [blueprint]);
-
-  // Sound side effects: hover ticks (delegated) + route blips
-  useEffect(() => {
-    setSfxEnabled(sound);
-    try {
-      localStorage.setItem("ptrk-snd", sound ? "1" : "0");
-    } catch {
-      /* storage blocked */
-    }
-    if (!sound) return;
-    const onOver = (e: PointerEvent) => {
-      const el = e.target as HTMLElement | null;
-      if (el?.closest?.("a,button")) tick();
-    };
-    window.addEventListener("pointerover", onOver, { passive: true });
-    return () => window.removeEventListener("pointerover", onOver);
-  }, [sound]);
-
-  useEffect(() => {
-    if (firstPath.current) {
-      firstPath.current = false;
-      return;
-    }
-    blip();
-  }, [pathname]);
 
   if (!mounted) return null;
 
@@ -140,20 +101,6 @@ export function HudSystem() {
         >
           BLU <span className="opacity-50">[B]</span>
         </button>
-        {!motOff && (
-          <button
-            type="button"
-            aria-pressed={sound}
-            onClick={() => setSound((s) => !s)}
-            className={`${chip} ${
-              sound
-                ? "border-orange bg-orange/15 text-orange"
-                : "border-white/20 bg-void/80 text-secondary hover:border-orange/50 hover:text-orange"
-            }`}
-          >
-            SND·{sound ? "ON" : "OFF"}
-          </button>
-        )}
         <button
           type="button"
           aria-pressed={!motOff}

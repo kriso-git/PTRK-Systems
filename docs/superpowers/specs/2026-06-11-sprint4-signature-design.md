@@ -19,6 +19,13 @@
 - Minden overlay/effekt: SSR null (mounted-gate), reduced-motion tisztelet, 0 új runtime dependency.
 - Node-acquire integrációk szerver-komponensekben: pici client trigger-komponensek (`NodeTrigger`, `AcquireOnMount`).
 
+## Utólagos user-döntések (2026-06-11)
+
+- **SND hangréteg TELJESEN ELTÁVOLÍTVA** user-kérésre (sfx.ts törölve, SND chip ki) — ne kerüljön vissza.
+- **Motion-policy megfordítva:** minden effekt alapból BE mindenkinek (OS reduced-motion jelzés NEM kapcsolja ki); a MOT tray-chip az explicit opt-out (`localStorage ptrk-motion="off"` → `html[data-motion-reduce]`).
+- ASCII-mező desktopon nyugalomban láthatatlan (csak kurzor-proximitás), mobilon halvány hullám.
+- Tartalom-konténerek BAL-igazítottak (`mx-auto` ki) — a user a bal-anchorolt layoutot kéri.
+
 ## Tudatos korlátok (review-ben megerősítve)
 
 - **Mobil node-plafon:** a terminál desktop-eszköz (tray + billentyű), így mobilon max 5/7 node szerezhető (`whoami`, `konami` nem) — elfogadva; ha később 7/7 kell mobilon, a dock kaphat terminál-megnyitó gombot.
