@@ -272,36 +272,29 @@ html[data-blueprint] canvas {
 /* Scroll-reveal — hidden state ONLY when JS is live (html[data-js] set by
    an inline script in layout.tsx) and the user allows motion. No-JS and
    reduced-motion visitors always see the content. */
-@media screen and (prefers-reduced-motion: no-preference) {
-  html[data-js] [data-reveal] {
+/* Scroll-reveal — ON for everyone by default (owner policy, see
+   src/lib/motion.ts); the MOT chip's explicit opt-out
+   (html[data-motion-reduce]) and missing JS both keep content visible.
+   Print always shows everything. */
+@media screen {
+  html[data-js]:not([data-motion-reduce]) [data-reveal] {
     transition:
       clip-path 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
       opacity 0.45s ease;
   }
-  html[data-js] [data-reveal]:not([data-inview="true"]) {
+  html[data-js]:not([data-motion-reduce]) [data-reveal]:not([data-inview="true"]) {
     opacity: 0;
     clip-path: inset(0 100% 0 0);
   }
 }
-/* MOT override: visitor explicitly forced motion ON despite the OS
-   reduce signal (MOT tray chip → html[data-motion-force]) */
-html[data-js][data-motion-force] [data-reveal] {
-  transition:
-    clip-path 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
-    opacity 0.45s ease;
-}
-html[data-js][data-motion-force] [data-reveal]:not([data-inview="true"]) {
-  opacity: 0;
-  clip-path: inset(0 100% 0 0);
-}
 
-@media (prefers-reduced-motion: reduce) {
-  /* Kill-switch — bypassed when the visitor forces motion via the MOT chip */
-  html:not([data-motion-force]) *,
-  html:not([data-motion-force]) *::before,
-  html:not([data-motion-force]) *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
+/* Motion kill-switch — applies only on the visitor's EXPLICIT opt-out
+   via the MOT tray chip (owner policy: OS reduce signal alone does not
+   disable the brand layer). */
+html[data-motion-reduce] *,
+html[data-motion-reduce] *::before,
+html[data-motion-reduce] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
 }

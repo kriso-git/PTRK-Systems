@@ -91,6 +91,7 @@ export function MarathonBackground() {
   }, []);
 
   return (
+    <>
     <div
       ref={ref}
       aria-hidden
@@ -133,9 +134,6 @@ export function MarathonBackground() {
           opacity. Subtle on top of content but visibly alive on desktop and
           mobile alike. */}
       <CodeRain />
-
-      {/* Right-edge designed datastream with marquee + live typers */}
-      <RightDataStream />
 
       {/* HUD scanlines — kept very faint and strictly behind content via
           the parent z-0. They breathe at the edge of perception, never
@@ -203,6 +201,15 @@ export function MarathonBackground() {
         }}
       />
     </div>
+
+    {/* Right-edge datastream — SIBLING of the z-0 wrapper, not a child:
+        inside it the aside's own z-index is trapped in the z-0 stacking
+        context and any z-10 content (e.g. the manifesto band bleeding
+        into the gutter) paints over it. At root z-[15] it sits above
+        content (10), below the nav (40); the §02 slab (z-20) with the
+        ACCESS ghost intentionally stays above it. */}
+    <RightDataStream />
+  </>
   );
 }
 

@@ -77,24 +77,28 @@ export function AsciiField() {
           const x = c * CELL;
           const y = r * CELL;
 
-          const wave = 0.04 + 0.05 * (0.5 + 0.5 * Math.sin(t * 0.7 + cell.phase));
-          let alpha = wave;
+          // Fine pointer: INVISIBLE at rest — the field only materializes
+          // around the cursor (the resting speckle layer read as "dirt").
+          // Coarse pointer (touch): a very faint breathing wave instead.
+          let alpha = coarse
+            ? 0.025 + 0.035 * (0.5 + 0.5 * Math.sin(t * 0.7 + cell.phase))
+            : 0;
 
           if (!coarse) {
             const dx = x - mx;
             const dy = y - my;
             const distSq = dx * dx + dy * dy;
             if (distSq < 32400) {
-              // within 180px — brighten + rescramble
+              // within 180px — materialize + rescramble
               const p = 1 - Math.sqrt(distSq) / 180;
-              alpha = Math.min(0.34, alpha + p * 0.3);
+              alpha = Math.min(0.34, p * 0.34);
               if (Math.random() < p * 0.35) cell.ch = rand();
             }
           } else if (Math.random() < 0.002) {
             cell.ch = rand();
           }
 
-          if (alpha < 0.045) continue;
+          if (alpha < 0.05) continue;
           ctx.fillStyle = `rgba(194, 254, 12, ${alpha.toFixed(3)})`;
           ctx.fillText(cell.ch, x, y);
         }

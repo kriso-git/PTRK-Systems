@@ -1,41 +1,35 @@
 /**
- * Central motion gate. We honor the OS prefers-reduced-motion signal by
- * default, but the visitor can explicitly FORCE motion on via the MOT
- * tray chip (localStorage "ptrk-motion" = "force") — a user-controlled
- * override is a11y-acceptable, an ignored OS signal is not.
+ * Central motion gate — OWNER POLICY: the signature effects (decode,
+ * scroll-reveal, boot, ascii field, sweeps) run for EVERYONE by default,
+ * regardless of the OS prefers-reduced-motion signal. A large share of
+ * Windows machines report "reduce" purely from performance presets, and
+ * the brand layer IS the product here.
  *
- * Every JS-side motion check goes through reducedMotion(); the CSS-side
- * gates (scroll-reveal, kill-switch) read the html[data-motion="force"]
- * attribute applied by applyMotionAttr().
+ * Accessibility escape hatch: the always-visible MOT tray chip stores an
+ * explicit "off" preference (localStorage "ptrk-motion"), which both the
+ * JS gate (reducedMotion()) and the CSS gates (html[data-motion-reduce])
+ * honor everywhere.
  */
 
 const KEY = "ptrk-motion";
 
-export function motionForced(): boolean {
+export function motionOff(): boolean {
   try {
-    return localStorage.getItem(KEY) === "force";
+    return localStorage.getItem(KEY) === "off";
   } catch {
     return false;
   }
 }
 
-export function osReducedMotion(): boolean {
-  return (
-    typeof window !== "undefined" &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches
-  );
-}
-
 /** The single source of truth for "should we animate?" (JS side). */
 export function reducedMotion(): boolean {
   if (typeof window === "undefined") return true;
-  if (motionForced()) return false;
-  return osReducedMotion();
+  return motionOff();
 }
 
-export function setMotionForce(on: boolean) {
+export function setMotionOff(off: boolean) {
   try {
-    if (on) localStorage.setItem(KEY, "force");
+    if (off) localStorage.setItem(KEY, "off");
     else localStorage.removeItem(KEY);
   } catch {
     /* storage blocked */
@@ -43,8 +37,8 @@ export function setMotionForce(on: boolean) {
   applyMotionAttr();
 }
 
-/** Idempotent — mirror the stored override onto <html> for the CSS gates. */
+/** Idempotent — mirror the stored preference onto <html> for CSS gates. */
 export function applyMotionAttr() {
   if (typeof document === "undefined") return;
-  document.documentElement.toggleAttribute("data-motion-force", motionForced());
+  document.documentElement.toggleAttribute("data-motion-reduce", motionOff());
 }

@@ -5,12 +5,7 @@ import { usePathname } from "next/navigation";
 import { OperatorTerminal } from "@/components/OperatorTerminal";
 import { acquireNode } from "@/lib/nodes";
 import { setSfxEnabled, tick, blip } from "@/lib/sfx";
-import {
-  applyMotionAttr,
-  motionForced,
-  osReducedMotion,
-  setMotionForce,
-} from "@/lib/motion";
+import { applyMotionAttr, motionOff, setMotionOff } from "@/lib/motion";
 
 const TOKENS = [
   { hex: "#c2fe0c", name: "lime" },
@@ -41,16 +36,14 @@ export function HudSystem() {
   const [terminal, setTerminal] = useState(false);
   const [blueprint, setBlueprint] = useState(false);
   const [sound, setSound] = useState(false);
-  const [osReduce, setOsReduce] = useState(false);
-  const [motForce, setMotForce] = useState(false);
+  const [motOff, setMotOff] = useState(false);
   const pathname = usePathname();
   const firstPath = useRef(true);
 
   useEffect(() => {
     setMounted(true);
     applyMotionAttr();
-    setOsReduce(osReducedMotion());
-    setMotForce(motionForced());
+    setMotOff(motionOff());
     try {
       if (localStorage.getItem("ptrk-snd") === "1") {
         // Stored preference — context resumes on first gesture anyway
@@ -147,7 +140,7 @@ export function HudSystem() {
         >
           BLU <span className="opacity-50">[B]</span>
         </button>
-        {(!osReduce || motForce) && (
+        {!motOff && (
           <button
             type="button"
             aria-pressed={sound}
@@ -161,27 +154,25 @@ export function HudSystem() {
             SND·{sound ? "ON" : "OFF"}
           </button>
         )}
-        {osReduce && (
-          <button
-            type="button"
-            aria-pressed={motForce}
-            title="A rendszered csökkentett animációt kér — itt explicit bekapcsolhatod a teljes motion-réteget"
-            onClick={() => {
-              const next = !motForce;
-              setMotionForce(next);
-              setMotForce(next);
-              // Clean re-init: every mounted effect re-reads the gate
-              window.location.reload();
-            }}
-            className={`${chip} ${
-              motForce
-                ? "border-magenta bg-magenta/15 text-magenta"
-                : "border-white/20 bg-void/80 text-secondary hover:border-magenta/50 hover:text-magenta"
-            }`}
-          >
-            MOT·{motForce ? "ON" : "OFF"}
-          </button>
-        )}
+        <button
+          type="button"
+          aria-pressed={!motOff}
+          title="Motion-réteg (decode, reveal, boot, effektek) ki/be"
+          onClick={() => {
+            const next = !motOff;
+            setMotionOff(next);
+            setMotOff(next);
+            // Clean re-init: every mounted effect re-reads the gate
+            window.location.reload();
+          }}
+          className={`${chip} ${
+            !motOff
+              ? "border-magenta bg-magenta/15 text-magenta"
+              : "border-white/20 bg-void/80 text-secondary hover:border-magenta/50 hover:text-magenta"
+          }`}
+        >
+          MOT·{motOff ? "OFF" : "ON"}
+        </button>
       </div>
 
       {/* Blueprint overlays */}
