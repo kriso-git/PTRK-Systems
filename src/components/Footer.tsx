@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { NodesCounter } from "@/components/NodesCounter";
 
 const COORD = "47.4979°N · 19.0402°E";
 
@@ -41,6 +42,9 @@ export function Footer() {
           <div className="col-span-12 md:col-span-3 md:text-right font-monospec text-[10px] uppercase tracking-[0.35em] text-secondary/60">
             {COORD}
             <span className="block mt-1 text-secondary/40">© 2026 · Budapest</span>
+            <span className="block mt-1">
+              <NodesCounter />
+            </span>
           </div>
         </div>
         </div>

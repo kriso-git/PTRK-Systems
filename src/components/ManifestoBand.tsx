@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { NodeTrigger } from "@/components/NodeTrigger";
 
 /**
  * Full-bleed lime manifesto band — the site's boldest color surface.
@@ -52,7 +53,10 @@ export function ManifestoBand() {
             Connect
           </Link>
           <span className="font-monospec text-[10px] tracking-[0.3em] uppercase text-black/60">
-            NOD·0A20070A · Budapest · CET
+            <NodeTrigger id="nod-code" className="hover:text-black transition-colors">
+              NOD·0A20070A
+            </NodeTrigger>{" "}
+            · Budapest · CET
           </span>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Crosshair } from "@/components/Crosshair";
+import { AcquireOnMount } from "@/components/AcquireOnMount";
 
 export const metadata: Metadata = {
   title: "404 — Signal Lost",
@@ -22,6 +23,7 @@ const EXITS = [
 export default function NotFound() {
   return (
     <section className="min-h-svh flex items-center px-6 md:px-10 py-32 tab-enter">
+      <AcquireOnMount id="signal-lost" />
       <div className="max-w-[1100px] mx-auto w-full">
         <div className="mb-8 flex flex-wrap items-center gap-3">
           <span className="font-monospec text-[11px] text-magenta bg-magenta/10 border border-magenta/30 px-3 py-1.5 tracking-[0.25em]">

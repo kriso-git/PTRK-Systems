@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { DecodeText } from "@/components/DecodeText";
+import { acquireNode } from "@/lib/nodes";
 
 /** Click-to-replay DecodeText demo — key remount restarts the scramble. */
 export function DecodeReplay() {
@@ -9,7 +10,10 @@ export function DecodeReplay() {
   return (
     <button
       type="button"
-      onClick={() => setRun((n) => n + 1)}
+      onClick={() => {
+        setRun((n) => n + 1);
+        acquireNode("decode-replay");
+      }}
       className="group text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-lime"
       aria-label="Decode animáció újraindítása"
     >

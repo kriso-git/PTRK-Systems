@@ -19,6 +19,7 @@ import { LiveTerminalTypers } from "@/components/LiveTerminalTypers";
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { CustomCursor } from "@/components/CustomCursor";
 import { RevealObserver } from "@/components/RevealObserver";
+import { NodeToast } from "@/components/NodeToast";
 import { RouteTransition } from "@/components/RouteTransition";
 import { BootSequence } from "@/components/BootSequence";
 import "./globals.css";
@@ -106,6 +107,7 @@ export default function RootLayout({
           <Footer />
         </div>
         <BootSequence />
+        <NodeToast />
         <Analytics />
         <SpeedInsights />
       </body>

@@ -752,6 +752,7 @@ function GoliathShowcase() {
 export default function FontPreviewPage() {
   return (
     <main className="max-w-[1700px] mx-auto px-6 md:px-10 py-12 md:py-20">
+      <AcquireOnMount id="font-preview" />
       {/* Header */}
       <header className="mb-16 md:mb-24 max-w-3xl">
         <div
