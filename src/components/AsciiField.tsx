@@ -39,6 +39,15 @@ export function AsciiField() {
 
     const rand = () => CHARS[(Math.random() * CHARS.length) | 0];
 
+    // ctx.font does NOT resolve CSS custom properties — an unparseable
+    // assignment is silently ignored (default 10px sans-serif). Resolve
+    // the next/font family name once at setup.
+    const monoFam =
+      getComputedStyle(document.documentElement)
+        .getPropertyValue("--font-monospec")
+        .trim() || "monospace";
+    const FONT = `11px ${monoFam}, monospace`;
+
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
       w = canvas.width = Math.max(1, Math.floor(rect.width));
@@ -58,7 +67,7 @@ export function AsciiField() {
       const t = now / 1000;
 
       ctx.clearRect(0, 0, w, h);
-      ctx.font = `11px var(--font-monospec), monospace`;
+      ctx.font = FONT;
       ctx.textBaseline = "top";
 
       for (let r = 0; r < rows; r += 1) {

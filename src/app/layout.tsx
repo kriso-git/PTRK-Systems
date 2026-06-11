@@ -87,7 +87,7 @@ export default function RootLayout({
               "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")",
           }}
         />
-        <div className="min-h-screen text-primary flex flex-col relative pb-9 md:pb-0">
+        <div className="min-h-screen text-primary flex flex-col relative pb-[calc(2.25rem+env(safe-area-inset-bottom))] md:pb-0">
           {/* Scatter + live typers are both sized to the full document
               height (not the viewport) — they stay anchored to page
               content and scroll naturally with it instead of trailing

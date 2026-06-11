@@ -63,6 +63,7 @@ export function HudSystem() {
         return;
       }
       if (isTypingTarget(e.target)) return;
+      if (e.metaKey || e.ctrlKey || e.altKey || e.repeat) return;
       if (e.key === "`" || e.key === "~") {
         e.preventDefault();
         setTerminal((t) => !t);

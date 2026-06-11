@@ -40,7 +40,10 @@ export function OperatorTerminal({ onClose }: { onClose: () => void }) {
 
   function go(path: string, label: string) {
     print({ text: `▶ routing → ${label}`, tone: "cyan" });
-    setTimeout(() => router.push(path), 350);
+    setTimeout(() => {
+      router.push(path);
+      onClose();
+    }, 350);
   }
 
   function run(raw: string) {
@@ -68,9 +71,17 @@ export function OperatorTerminal({ onClose }: { onClose: () => void }) {
         break;
       case "open": {
         const id = rest[0];
-        const p = PROJECTS.find((x) => x.id === id || x.id.startsWith(id ?? ""));
+        if (!id) {
+          print({ text: "usage: open <id> — pl. open molekulax", tone: "dim" });
+          break;
+        }
+        const p = PROJECTS.find((x) => x.id === id || x.id.startsWith(id));
         if (p) go(`/work/${p.id}`, `${p.name} · mission debrief`);
-        else print({ text: `✗ ismeretlen projekt: ${id ?? "?"} — próbáld: projects`, tone: "magenta" });
+        else
+          print({
+            text: `✗ ismeretlen projekt: ${id} — próbáld: projects`,
+            tone: "magenta",
+          });
         break;
       }
       case "work":
@@ -124,6 +135,13 @@ export function OperatorTerminal({ onClose }: { onClose: () => void }) {
         break;
       }
       case "sudo": {
+        if (rest[0] !== "hire") {
+          print({
+            text: `sudo: ${rest[0] ?? "?"}: permission denied — ez nem az a fajta rendszer.`,
+            tone: "magenta",
+          });
+          break;
+        }
         const budget = cmd.match(/--budget\s+(\S+)/)?.[1];
         print(
           { text: "sudo: jogosultság megadva. ✓", tone: "lime" },
@@ -134,7 +152,10 @@ export function OperatorTerminal({ onClose }: { onClose: () => void }) {
             tone: "cyan",
           },
         );
-        setTimeout(() => router.push("/connect"), 700);
+        setTimeout(() => {
+          router.push("/connect");
+          onClose();
+        }, 700);
         break;
       }
       case "boot":

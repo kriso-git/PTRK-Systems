@@ -19,6 +19,12 @@
 - Minden overlay/effekt: SSR null (mounted-gate), reduced-motion tisztelet, 0 új runtime dependency.
 - Node-acquire integrációk szerver-komponensekben: pici client trigger-komponensek (`NodeTrigger`, `AcquireOnMount`).
 
+## Tudatos korlátok (review-ben megerősítve)
+
+- **Mobil node-plafon:** a terminál desktop-eszköz (tray + billentyű), így mobilon max 5/7 node szerezhető (`whoami`, `konami` nem) — elfogadva; ha később 7/7 kell mobilon, a dock kaphat terminál-megnyitó gombot.
+- **Konami ↔ B ütközés:** a Konami-szekvencia `b` betűje a blueprintet is kapcsolja — lore-szinten elfogadva ("a legacy protokoll mellékhatása").
+- **Visszatérő SND·ON user:** az első kattintásig nem szól hang (autoplay-policy) — elfogadott degradáció.
+
 ## Verifikáció
 
 `npm run build` + `npm run smoke` (8 route) + headless funkcionális próbák (terminál-parancs futtatás, blueprint-attr flip, node-acquire → localStorage, dock jelenlét mobil-viewporton) + vizuális screenshotok + code-review agent.
