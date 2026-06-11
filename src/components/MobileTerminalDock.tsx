@@ -8,6 +8,7 @@ import {
   type LineTag,
 } from "@/lib/terminal-pool";
 import { enableGyro, gyroSupported, gyroState } from "@/lib/gyro";
+import { reducedMotion } from "@/lib/motion";
 
 function pickLine() {
   return COMMAND_POOL[(Math.random() * COMMAND_POOL.length) | 0];
@@ -40,7 +41,7 @@ export function MobileTerminalDock() {
     if (window.matchMedia("(min-width: 768px)").matches) return;
     setMounted(true);
     if (!gyroSupported()) setGyro("unavailable");
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (reducedMotion()) {
       setTyped(lineRef.current);
       return;
     }

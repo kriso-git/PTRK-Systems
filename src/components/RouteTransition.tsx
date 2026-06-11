@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
+import { reducedMotion } from "@/lib/motion";
 
 const SWEEP_MS = 380;
 
@@ -21,7 +22,7 @@ export function RouteTransition() {
       firstMount.current = false;
       return;
     }
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (reducedMotion()) {
       return;
     }
     setActive(true);

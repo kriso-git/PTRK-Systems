@@ -118,7 +118,7 @@ export default function LabPage() {
     <>
       {/* ─────────────────────────────  HERO  ───────────────────────────── */}
       <section className="relative z-10 px-6 md:px-10 pt-24 md:pt-40 pb-20 md:pb-28 overflow-hidden">
-        <div className="max-w-[1500px] mx-auto">
+        <div className="max-w-[1500px]">
           <div className="font-monospec text-[10px] uppercase tracking-[0.4em] text-lime mb-6 flex items-center gap-3">
             <span className="inline-block w-8 h-px bg-lime" />
             <span>§ 05 · Lab</span>
@@ -138,7 +138,7 @@ export default function LabPage() {
 
       {/* ─────────────────────────────  EXPERIMENTS  ───────────────────────────── */}
       <section className="relative z-10 border-t border-white/10 px-6 md:px-10 py-24 md:py-36">
-        <div className="max-w-[1500px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+        <div className="max-w-[1500px] grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
           {EXPERIMENTS.map((exp, i) => (
             <article
               key={exp.code}
@@ -173,7 +173,7 @@ export default function LabPage() {
 
       {/* ─────────────────────────────  CTA  ───────────────────────────── */}
       <section className="relative z-10 border-t border-white/10 px-6 md:px-10 py-24 md:py-32">
-        <div className="max-w-[1500px] mx-auto flex flex-wrap items-baseline justify-between gap-8">
+        <div className="max-w-[1500px] flex flex-wrap items-baseline justify-between gap-8">
           <p className="font-shorai text-lg md:text-xl text-secondary max-w-[48ch] leading-relaxed">
             Ugyanez a kraft megy az ügyfél-projektekbe is — nézd meg az archívumot.
           </p>

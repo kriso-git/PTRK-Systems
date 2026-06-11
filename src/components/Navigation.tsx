@@ -46,7 +46,7 @@ export function Navigation() {
   return (
     <header className="fixed top-0 left-0 right-0 z-40 border-b border-white/10 bg-void/85 backdrop-blur-md supports-[backdrop-filter]:bg-void/70">
       {/* ─── Top row: brand + (desktop) nav + coords ─── */}
-      <div className="max-w-[1500px] mx-auto px-5 md:px-10 py-3.5 md:py-9 flex items-center justify-between font-monospec text-[11px] md:text-[12px] tracking-[0.35em] uppercase text-secondary gap-4 md:gap-6">
+      <div className="max-w-[1500px] px-5 md:px-10 py-3.5 md:py-9 flex items-center justify-between font-monospec text-[11px] md:text-[12px] tracking-[0.35em] uppercase text-secondary gap-4 md:gap-6">
         <div className="flex items-center gap-4 shrink-0">
           <Link
             href="/"

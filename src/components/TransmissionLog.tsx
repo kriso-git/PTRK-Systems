@@ -31,7 +31,7 @@ export function TransmissionLog() {
       data-label="Visszajelzés"
       className="relative z-10 border-t border-white/10 px-6 md:px-10 py-32 md:py-44"
     >
-      <div className="max-w-[1500px] mx-auto">
+      <div className="max-w-[1500px]">
         <div className="font-monospec text-[10px] uppercase tracking-[0.4em] text-cyan mb-14 flex items-center gap-3">
           <span className="w-1.5 h-1.5 bg-cyan cursor-blink" />
           <span>▓ Incoming transmission</span>

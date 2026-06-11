@@ -6,7 +6,7 @@ const COORD = "47.4979°N · 19.0402°E";
 export function Footer() {
   return (
     <footer className="border-t border-white/10 bg-void px-6 md:pl-10 md:pr-[260px] pb-10 md:pb-14 relative z-10">
-      <div className="max-w-[1500px] mx-auto">
+      <div className="max-w-[1500px]">
         {/* Oversized outline wordmark finale — bleeds off the bottom edge
             of its clipping band, classic editorial closing chord */}
         <div aria-hidden className="overflow-hidden pointer-events-none">

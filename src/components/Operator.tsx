@@ -17,7 +17,7 @@ export function Operator() {
       data-label="Operátor"
       className="relative z-10 border-t border-white/10 px-6 md:px-10 py-32 md:py-48"
     >
-      <div className="max-w-[1500px] mx-auto grid grid-cols-12 gap-y-12 md:gap-x-10">
+      <div className="max-w-[1500px] grid grid-cols-12 gap-y-12 md:gap-x-10">
         <div className="col-span-12 md:col-span-4">
           <div className="relative border border-lime/25 bg-surface/40 aspect-[4/5] overflow-hidden">
             <Crosshair position="tl" color="lime" />

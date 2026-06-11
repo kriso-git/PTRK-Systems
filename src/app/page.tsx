@@ -55,7 +55,7 @@ export default function Home() {
           className="absolute top-0 right-0 h-[200%] w-[1px] bg-gradient-to-b from-transparent via-lime/40 to-transparent rotate-[18deg] origin-top-right translate-x-[-25vw]"
         />
 
-        <div className="max-w-[1500px] mx-auto grid grid-cols-12 gap-y-12 md:gap-x-10">
+        <div className="max-w-[1500px] grid grid-cols-12 gap-y-12 md:gap-x-10">
           <aside className="col-span-12 md:col-span-3 lg:col-span-2 md:pt-4">
             <div className="font-monospec text-[10px] tracking-[0.35em] uppercase text-lime mb-6">
               Vol. IV
@@ -145,7 +145,7 @@ export default function Home() {
         data-label="Metrika"
         className="relative z-10 border-y border-white/10 bg-void/30 backdrop-blur-[1px]"
       >
-        <div className="max-w-[1500px] mx-auto px-6 md:px-10 py-16 md:py-20 grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-white/10">
+        <div className="max-w-[1500px] px-6 md:px-10 py-16 md:py-20 grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-white/10">
           {STATS.map((s, i) => {
             const isLong = s.n.length > 3;
             const sizeClass = isLong
@@ -213,7 +213,7 @@ export default function Home() {
           ACCESS
         </span>
 
-        <div className="max-w-[1500px] mx-auto grid grid-cols-12 gap-y-14 md:gap-x-10 relative">
+        <div className="max-w-[1500px] grid grid-cols-12 gap-y-14 md:gap-x-10 relative">
           <aside className="col-span-12 md:col-span-3">
             <div className="font-monospec text-[10px] tracking-[0.4em] uppercase text-orange mb-6 flex items-center gap-3">
               <span className="inline-block w-8 h-px bg-orange" />
@@ -296,7 +296,7 @@ export default function Home() {
         data-label="Alapkövek"
         className="relative z-10 px-6 md:px-10 py-36 md:py-56 border-t border-white/10"
       >
-        <div className="max-w-[1500px] mx-auto grid grid-cols-12 gap-y-14 md:gap-x-10">
+        <div className="max-w-[1500px] grid grid-cols-12 gap-y-14 md:gap-x-10">
           <aside className="col-span-12 md:col-span-3">
             <div className="md:sticky md:top-32">
               <div className="font-monospec text-[10px] tracking-[0.35em] uppercase text-cyan mb-6">
@@ -348,7 +348,7 @@ export default function Home() {
         data-label="Munkák"
         className="relative z-10 border-t border-white/10 bg-transparent"
       >
-        <div className="max-w-[1500px] mx-auto px-6 md:px-10 py-32 md:py-48">
+        <div className="max-w-[1500px] px-6 md:px-10 py-32 md:py-48">
           <div className="flex items-end justify-between flex-wrap gap-6 mb-16">
             <div>
               <div className="font-monospec text-[10px] tracking-[0.35em] uppercase text-magenta mb-4">
@@ -434,7 +434,7 @@ export default function Home() {
         >
           PROCESS
         </span>
-        <div className="max-w-[1500px] mx-auto">
+        <div className="max-w-[1500px]">
           <div className="font-monospec text-[10px] tracking-[0.35em] uppercase text-orange mb-6">
             § 03 · Process · 06 phases
           </div>
@@ -477,7 +477,7 @@ export default function Home() {
         data-label="Stack"
         className="relative z-10 border-t border-white/10 px-6 md:px-10 py-32 md:py-48 bg-void/30"
       >
-        <div className="max-w-[1500px] mx-auto grid grid-cols-12 gap-y-10 md:gap-x-10 items-end">
+        <div className="max-w-[1500px] grid grid-cols-12 gap-y-10 md:gap-x-10 items-end">
           <div className="col-span-12 md:col-span-5">
             <div className="font-monospec text-[10px] tracking-[0.35em] uppercase text-cyan mb-4">
               § 04 · Stack
@@ -513,7 +513,7 @@ export default function Home() {
         data-label="Kérdések"
         className="relative z-10 border-t border-white/10 px-6 md:px-10 py-36 md:py-56"
       >
-        <div className="max-w-[1500px] mx-auto grid grid-cols-12 gap-y-14 md:gap-x-10">
+        <div className="max-w-[1500px] grid grid-cols-12 gap-y-14 md:gap-x-10">
           <aside className="col-span-12 md:col-span-4">
             <div className="font-monospec text-[10px] tracking-[0.35em] uppercase text-magenta mb-6">
               § 05 · Dialogue
@@ -561,7 +561,7 @@ export default function Home() {
         data-label="Engage"
         className="relative z-10 border-t border-white/10 px-6 md:px-10 py-36 md:py-56 overflow-hidden"
       >
-        <div className="max-w-[1500px] mx-auto relative">
+        <div className="max-w-[1500px] relative">
           <div className="font-monospec text-[10px] tracking-[0.35em] uppercase text-lime mb-6">
             § 06 · Engage
           </div>

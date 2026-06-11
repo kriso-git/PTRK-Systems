@@ -56,7 +56,7 @@ export default function MethodPage() {
     <>
       {/* ─────────────────────────────  HERO  ───────────────────────────── */}
       <section className="relative z-10 px-6 md:px-10 pt-32 md:pt-48 pb-32 md:pb-44 overflow-hidden">
-        <div className="max-w-[1500px] mx-auto grid grid-cols-12 gap-y-10 md:gap-x-10">
+        <div className="max-w-[1500px] grid grid-cols-12 gap-y-10 md:gap-x-10">
           <aside className="col-span-12 md:col-span-3 lg:col-span-2 md:pt-4">
             <div className="font-monospec text-[10px] tracking-[0.4em] uppercase text-cyan mb-6 flex items-center gap-3">
               <span className="inline-block w-8 h-px bg-cyan" />
@@ -100,7 +100,7 @@ export default function MethodPage() {
 
       {/* ─────────────────────────────  PROCESS LADDER (single Marathon tile)  ───────────────────────────── */}
       <section className="relative z-10 border-t border-white/10 px-6 md:px-10 py-24 md:py-32">
-        <div className="max-w-[1500px] mx-auto">
+        <div className="max-w-[1500px]">
           {/* Section label */}
           <div className="mb-10 flex items-baseline gap-4">
             <span className="font-monospec text-[10px] tracking-[0.4em] uppercase text-cyan">
@@ -187,7 +187,7 @@ export default function MethodPage() {
 
       {/* ─────────────────────────────  DELIVERABLES  ───────────────────────────── */}
       <section className="relative z-10 border-t border-white/10 px-6 md:px-10 py-40 md:py-64">
-        <div className="max-w-[1500px] mx-auto grid grid-cols-12 gap-y-20 md:gap-x-10">
+        <div className="max-w-[1500px] grid grid-cols-12 gap-y-20 md:gap-x-10">
           <aside className="col-span-12 md:col-span-4">
             <div className="md:sticky md:top-32">
               <div className="font-monospec text-[10px] uppercase tracking-[0.4em] text-magenta mb-6 flex items-center gap-3">
@@ -234,7 +234,7 @@ export default function MethodPage() {
 
       {/* ─────────────────────────────  STACK TABLE  ───────────────────────────── */}
       <section className="relative z-10 border-t border-white/10 bg-void/30 px-6 md:px-10 py-40 md:py-56">
-        <div className="max-w-[1500px] mx-auto">
+        <div className="max-w-[1500px]">
           <div className="grid grid-cols-12 gap-y-12 md:gap-x-10 items-end mb-20">
             <div className="col-span-12 md:col-span-7">
               <div className="font-monospec text-[10px] uppercase tracking-[0.4em] text-orange mb-4 flex items-center gap-3">
@@ -277,7 +277,7 @@ export default function MethodPage() {
 
       {/* ─────────────────────────────  CTA  ───────────────────────────── */}
       <section className="relative z-10 border-t border-white/10 px-6 md:px-10 py-40 md:py-56">
-        <div className="max-w-[1500px] mx-auto grid grid-cols-12 gap-y-12 md:gap-x-10 items-end">
+        <div className="max-w-[1500px] grid grid-cols-12 gap-y-12 md:gap-x-10 items-end">
           <h2 className="col-span-12 md:col-span-8 font-khinterference uppercase tracking-[-0.005em] text-[clamp(48px,9vw,144px)] leading-[0.86] text-primary">
             Készen állsz egy
             <br />

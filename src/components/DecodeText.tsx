@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { reducedMotion } from "@/lib/motion";
 
 const GLYPHS = "01<>/_\\|#▓░23456789ABCDEF";
 
@@ -24,7 +25,7 @@ export function DecodeText({
   const [display, setDisplay] = useState(text);
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (reducedMotion()) {
       return;
     }
     let raf = 0;

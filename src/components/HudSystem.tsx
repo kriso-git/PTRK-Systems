@@ -5,6 +5,12 @@ import { usePathname } from "next/navigation";
 import { OperatorTerminal } from "@/components/OperatorTerminal";
 import { acquireNode } from "@/lib/nodes";
 import { setSfxEnabled, tick, blip } from "@/lib/sfx";
+import {
+  applyMotionAttr,
+  motionForced,
+  osReducedMotion,
+  setMotionForce,
+} from "@/lib/motion";
 
 const TOKENS = [
   { hex: "#c2fe0c", name: "lime" },
@@ -35,15 +41,16 @@ export function HudSystem() {
   const [terminal, setTerminal] = useState(false);
   const [blueprint, setBlueprint] = useState(false);
   const [sound, setSound] = useState(false);
-  const [reducedMotion, setReducedMotion] = useState(false);
+  const [osReduce, setOsReduce] = useState(false);
+  const [motForce, setMotForce] = useState(false);
   const pathname = usePathname();
   const firstPath = useRef(true);
 
   useEffect(() => {
     setMounted(true);
-    setReducedMotion(
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches,
-    );
+    applyMotionAttr();
+    setOsReduce(osReducedMotion());
+    setMotForce(motionForced());
     try {
       if (localStorage.getItem("ptrk-snd") === "1") {
         // Stored preference — context resumes on first gesture anyway
@@ -140,7 +147,7 @@ export function HudSystem() {
         >
           BLU <span className="opacity-50">[B]</span>
         </button>
-        {!reducedMotion && (
+        {(!osReduce || motForce) && (
           <button
             type="button"
             aria-pressed={sound}
@@ -154,6 +161,27 @@ export function HudSystem() {
             SND·{sound ? "ON" : "OFF"}
           </button>
         )}
+        {osReduce && (
+          <button
+            type="button"
+            aria-pressed={motForce}
+            title="A rendszered csökkentett animációt kér — itt explicit bekapcsolhatod a teljes motion-réteget"
+            onClick={() => {
+              const next = !motForce;
+              setMotionForce(next);
+              setMotForce(next);
+              // Clean re-init: every mounted effect re-reads the gate
+              window.location.reload();
+            }}
+            className={`${chip} ${
+              motForce
+                ? "border-magenta bg-magenta/15 text-magenta"
+                : "border-white/20 bg-void/80 text-secondary hover:border-magenta/50 hover:text-magenta"
+            }`}
+          >
+            MOT·{motForce ? "ON" : "OFF"}
+          </button>
+        )}
       </div>
 
       {/* Blueprint overlays */}
@@ -164,7 +192,7 @@ export function HudSystem() {
             aria-hidden
             className="fixed inset-0 z-[3] pointer-events-none px-6 md:px-10"
           >
-            <div className="max-w-[1500px] mx-auto h-full grid grid-cols-12 gap-x-10">
+            <div className="max-w-[1500px] h-full grid grid-cols-12 gap-x-10">
               {Array.from({ length: 12 }, (_, i) => (
                 <div key={i} className="border-x border-cyan/10 bg-cyan/[0.015]" />
               ))}

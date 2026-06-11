@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { reducedMotion } from "@/lib/motion";
 
 const CHARS = "01<>/_\\|#▓░·";
 
@@ -20,9 +21,7 @@ export function AsciiField() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const reduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
+    const reduced = reducedMotion();
     const coarse = window.matchMedia("(pointer: coarse)").matches;
 
     const CELL = 14;

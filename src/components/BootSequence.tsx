@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { reducedMotion } from "@/lib/motion";
 
 const LINES = [
   "PTRK SYSTEMS BIOS v4.07.26",
@@ -29,10 +30,7 @@ export function BootSequence() {
     // sessionStorage throws SecurityError when site data is blocked —
     // treat that as "already booted" instead of crashing the root.
     try {
-      if (
-        sessionStorage.getItem("ptrk-booted") ||
-        window.matchMedia("(prefers-reduced-motion: reduce)").matches
-      ) {
+      if (sessionStorage.getItem("ptrk-booted") || reducedMotion()) {
         sessionStorage.setItem("ptrk-booted", "1");
         return;
       }

@@ -72,7 +72,7 @@ export default async function CaseStudyPage({
     <>
       {/* ─────────────────────────────  DEBRIEF HERO  ───────────────────────────── */}
       <section className="relative z-10 px-6 md:px-10 pt-24 md:pt-40 pb-20 md:pb-28 overflow-hidden">
-        <div className="max-w-[1500px] mx-auto">
+        <div className="max-w-[1500px]">
           <div className="mb-8 flex flex-wrap items-center gap-3">
             <span
               className={`font-monospec text-[11px] ${tx} border ${border} px-3 py-1.5 tracking-[0.25em] uppercase`}
@@ -122,7 +122,7 @@ export default async function CaseStudyPage({
 
       {/* ─────────────────────────────  D.01 BRIEFING  ───────────────────────────── */}
       <section className="relative z-10 border-t border-white/10 px-6 md:px-10 py-24 md:py-36">
-        <div className="max-w-[1500px] mx-auto grid grid-cols-12 gap-y-10 md:gap-x-10">
+        <div className="max-w-[1500px] grid grid-cols-12 gap-y-10 md:gap-x-10">
           <aside className="col-span-12 md:col-span-3">
             <div
               className={`font-monospec text-[10px] uppercase tracking-[0.4em] ${tx} flex items-center gap-3`}
@@ -146,7 +146,7 @@ export default async function CaseStudyPage({
 
       {/* ─────────────────────────────  D.02 EXECUTION  ───────────────────────────── */}
       <section className="relative z-10 border-t border-white/10 px-6 md:px-10 py-24 md:py-36">
-        <div className="max-w-[1500px] mx-auto grid grid-cols-12 gap-y-10 md:gap-x-10">
+        <div className="max-w-[1500px] grid grid-cols-12 gap-y-10 md:gap-x-10">
           <aside className="col-span-12 md:col-span-3">
             <div className="md:sticky md:top-32">
               <div
@@ -191,7 +191,7 @@ export default async function CaseStudyPage({
 
       {/* ─────────────────────────────  D.03 DEBRIEF  ───────────────────────────── */}
       <section className="relative z-10 border-t border-white/10 px-6 md:px-10 py-24 md:py-36">
-        <div className="max-w-[1500px] mx-auto grid grid-cols-12 gap-y-10 md:gap-x-10">
+        <div className="max-w-[1500px] grid grid-cols-12 gap-y-10 md:gap-x-10">
           <aside className="col-span-12 md:col-span-3">
             <div
               className={`font-monospec text-[10px] uppercase tracking-[0.4em] ${tx} flex items-center gap-3`}
@@ -215,7 +215,7 @@ export default async function CaseStudyPage({
 
       {/* ─────────────────────────────  D.04 ARTIFACTS  ───────────────────────────── */}
       <section className="relative z-10 border-t border-white/10 px-6 md:px-10 py-24 md:py-36">
-        <div className="max-w-[1500px] mx-auto grid grid-cols-12 gap-y-12 md:gap-x-10">
+        <div className="max-w-[1500px] grid grid-cols-12 gap-y-12 md:gap-x-10">
           <div className="col-span-12 md:col-span-5">
             <div
               className={`font-monospec text-[10px] uppercase tracking-[0.4em] ${tx} flex items-center gap-3 mb-8`}
@@ -259,7 +259,7 @@ export default async function CaseStudyPage({
 
       {/* ─────────────────────────────  CTA  ───────────────────────────── */}
       <section className="relative z-10 border-t border-white/10 px-6 md:px-10 py-28 md:py-40">
-        <div className="max-w-[1500px] mx-auto grid grid-cols-12 gap-y-10 md:gap-x-10 items-end">
+        <div className="max-w-[1500px] grid grid-cols-12 gap-y-10 md:gap-x-10 items-end">
           <h2 className="col-span-12 md:col-span-8 font-khinterference uppercase tracking-[-0.005em] text-[clamp(44px,8vw,120px)] leading-[0.88] text-primary">
             Hasonló
             <br />
