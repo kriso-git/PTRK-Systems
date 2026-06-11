@@ -78,9 +78,15 @@ input, textarea, select, option {
      UNLAYERED so it would beat Tailwind's layered text-* utilities — with
      color overridden, currentColor (the stroke) resolves transparent too
      and the whole layer disappears. fill-color leaves `color` to the
-     utility, so the stroke inherits the intended tint. */
+     utility, so the stroke inherits the intended tint.
+
+     text-shadow: none is CRITICAL — the global readability shield would
+     paint its dark halo from the glyph shape even with transparent fill,
+     turning the ghost outline into solid dark letterforms that occlude
+     content underneath. */
   -webkit-text-stroke: 1px currentColor;
   -webkit-text-fill-color: transparent;
+  text-shadow: none;
   user-select: none;
 }
 
