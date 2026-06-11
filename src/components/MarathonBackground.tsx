@@ -747,7 +747,7 @@ function RightDataStream() {
   return (
     <aside
       aria-hidden
-      className="fixed right-0 top-[88px] bottom-4 w-[230px] z-[40] pointer-events-none hidden md:flex flex-col font-monospec"
+      className="fixed right-0 top-[88px] bottom-4 w-[230px] z-[12] pointer-events-none hidden md:flex flex-col font-monospec"
     >
       {/* Header chip */}
       <div className="mx-2 px-3 py-2 border border-b-0 border-lime/30 bg-void/85 backdrop-blur-sm flex items-center gap-2 text-[10px] tracking-[0.25em] uppercase">

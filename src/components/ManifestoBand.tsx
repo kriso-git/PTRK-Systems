@@ -11,7 +11,7 @@ export function ManifestoBand() {
     <section
       data-section="§ 03"
       data-label="Kiáltvány"
-      className="relative z-10 bg-lime text-black overflow-hidden"
+      className="relative z-10 bg-lime text-black overflow-hidden md:-mr-[260px]"
     >
       {/* Inverse corner markers — black on lime */}
       <div className="absolute top-0 left-0 w-16 h-16 border-t-4 border-l-4 border-black/80 pointer-events-none" />
@@ -41,7 +41,7 @@ export function ManifestoBand() {
           live deployig.
         </h2>
         <p className="mt-5 font-khinterference uppercase tracking-[0.01em] text-[clamp(26px,4vw,56px)] text-black/75">
-          Egy kézben.
+          Egy megbízható vertikális tervvel.
         </p>
 
         <div className="mt-14 flex flex-wrap items-center justify-between gap-6">

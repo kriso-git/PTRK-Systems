@@ -191,7 +191,7 @@ export default function Home() {
       <section
         data-section="§ 02"
         data-label="Hozzáférés"
-        className="relative z-10 border-b border-white/10 px-6 md:px-10 py-32 md:py-48 overflow-hidden"
+        className="relative z-20 border-b border-white/10 px-6 md:px-10 py-32 md:py-48 overflow-hidden md:-mr-[260px]"
       >
         <GoliathOrnament
           seed="2026"
@@ -199,9 +199,16 @@ export default function Home() {
           size="clamp(110px, 17vw, 320px)"
           className="absolute -bottom-24 -right-12 text-lime/[0.04] pointer-events-none"
         />
+        {/* 3D-extruded ghost word — the §02 section sits at z-20 so the
+            whole slab (including this) paints ABOVE the right terminal
+            aside (z-12); inline textShadow overrides .text-ghost's none */}
         <span
           aria-hidden
-          className="text-ghost font-khinterference uppercase absolute -right-8 top-10 -z-10 text-lime/15 text-[clamp(90px,15vw,240px)] leading-none pointer-events-none hidden lg:block"
+          className="text-ghost font-khinterference uppercase absolute right-2 top-10 -z-10 text-lime/35 text-[clamp(90px,15vw,240px)] leading-none pointer-events-none hidden lg:block"
+          style={{
+            textShadow:
+              "3px 3px 0 rgba(194,254,12,0.14), 6px 6px 0 rgba(194,254,12,0.09), 9px 9px 0 rgba(194,254,12,0.05), 12px 12px 0 rgba(194,254,12,0.03)",
+          }}
         >
           ACCESS
         </span>

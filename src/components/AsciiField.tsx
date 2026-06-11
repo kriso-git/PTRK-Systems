@@ -105,11 +105,8 @@ export function AsciiField() {
     resize();
 
     if (reduced) {
-      // Single static frame, no loop
-      last = -100;
-      visible = true;
-      draw(0);
-      cancelAnimationFrame(raf);
+      // Reduced motion: render NOTHING — a frozen character frame reads
+      // as dirt/noise stuck on the page, worse than absence.
       return;
     }
 

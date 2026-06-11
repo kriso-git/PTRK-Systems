@@ -23,11 +23,10 @@
   --radius: 0px;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* NOTE: no universal `* { margin/padding: 0 }` reset here — Tailwind v4
+   preflight already does it INSIDE @layer base. An unlayered duplicate
+   beats every layered padding/margin utility and collapses the whole
+   layout (same cascade-layer trap as the text-ghost incident). */
 
 html,
 body {
@@ -246,8 +245,9 @@ html[data-blueprint] section[data-section]::before {
   left: 0;
   z-index: 30;
   padding: 3px 10px;
-  background: rgba(1, 255, 255, 0.12);
-  border: 1px solid rgba(1, 255, 255, 0.4);
+  /* Opaque chip — translucent bg let underlying text mash with the label */
+  background: #050508;
+  border: 1px solid rgba(1, 255, 255, 0.5);
   border-top: none;
   border-left: none;
   color: #01ffff;
@@ -256,6 +256,7 @@ html[data-blueprint] section[data-section]::before {
   letter-spacing: 0.3em;
   text-transform: uppercase;
   text-shadow: none;
+  white-space: nowrap;
 }
 /* X-ray: dim the decorative canvas layers so structure reads */
 html[data-blueprint] canvas {
