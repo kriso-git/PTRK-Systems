@@ -9,6 +9,7 @@ import {
   type LineTag,
   type SlotColor,
 } from "@/lib/terminal-pool";
+import { gyroState } from "@/lib/gyro";
 
 /**
  * Viewport-fixed Marathon background.
@@ -57,9 +58,15 @@ export function MarathonBackground() {
       // curve so the bg keeps breathing without a cursor. The curve crosses
       // the viewport every ~30s on x, ~40s on y, so the motion is calm.
       if (coarsePointer) {
-        const t = (performance.now() - startedAt) / 1000;
-        targetX = 0.5 + 0.32 * Math.sin(t * 0.21);
-        targetY = 0.5 + 0.28 * Math.sin(t * 0.17 + 1.4);
+        if (gyroState.active) {
+          // Device tilt drives the lens (GyroChip enabled it)
+          targetX = gyroState.x;
+          targetY = gyroState.y;
+        } else {
+          const t = (performance.now() - startedAt) / 1000;
+          targetX = 0.5 + 0.32 * Math.sin(t * 0.21);
+          targetY = 0.5 + 0.28 * Math.sin(t * 0.17 + 1.4);
+        }
         setCrisp(targetX, targetY);
       }
       // Snappier lerp than before so the soft glow visibly tracks.
@@ -279,9 +286,14 @@ function WarpMesh() {
       // On coarse-pointer devices: drive the lens center along a slow
       // Lissajous path so the mesh still warps without a cursor.
       if (coarsePointer) {
-        const t = (performance.now() - startedAt) / 1000;
-        mx = w * (0.5 + 0.32 * Math.sin(t * 0.21));
-        my = h * (0.5 + 0.28 * Math.sin(t * 0.17 + 1.4));
+        if (gyroState.active) {
+          mx = w * gyroState.x;
+          my = h * gyroState.y;
+        } else {
+          const t = (performance.now() - startedAt) / 1000;
+          mx = w * (0.5 + 0.32 * Math.sin(t * 0.21));
+          my = h * (0.5 + 0.28 * Math.sin(t * 0.17 + 1.4));
+        }
       }
       // Lerp smoothed cursor toward raw cursor.
       smx += (mx - smx) * 0.22;

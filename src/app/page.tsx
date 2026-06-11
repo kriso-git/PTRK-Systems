@@ -6,6 +6,7 @@ import { ManifestoBand } from "@/components/ManifestoBand";
 import { DecodeText } from "@/components/DecodeText";
 import { TransmissionLog } from "@/components/TransmissionLog";
 import { Operator } from "@/components/Operator";
+import { AsciiField } from "@/components/AsciiField";
 
 const COORD = "47.4979°N · 19.0402°E";
 
@@ -43,6 +44,12 @@ export default function Home() {
         data-label="Introduction"
         className="relative z-10 px-6 md:px-10 pt-24 md:pt-40 pb-32 md:pb-56 overflow-hidden"
       >
+        {/* Cursor-reactive ASCII field — behind static content (-z-10,
+            see the ghost paint-order lesson) */}
+        <div aria-hidden className="absolute inset-0 -z-10 pointer-events-none">
+          <AsciiField />
+        </div>
+
         <div
           aria-hidden
           className="absolute top-0 right-0 h-[200%] w-[1px] bg-gradient-to-b from-transparent via-lime/40 to-transparent rotate-[18deg] origin-top-right translate-x-[-25vw]"

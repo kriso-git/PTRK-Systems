@@ -232,6 +232,36 @@ html.ptrk-cursor-on textarea {
   animation: fadeUp 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
+/* ── BLUEPRINT MODE — design-system X-ray (HudSystem.tsx toggles
+      html[data-blueprint]; the grid overlay + token legend are React) ── */
+html[data-blueprint] section {
+  outline: 1px dashed rgba(1, 255, 255, 0.4);
+  outline-offset: -1px;
+  position: relative;
+}
+html[data-blueprint] section[data-section]::before {
+  content: attr(data-section) " · " attr(data-label);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 30;
+  padding: 3px 10px;
+  background: rgba(1, 255, 255, 0.12);
+  border: 1px solid rgba(1, 255, 255, 0.4);
+  border-top: none;
+  border-left: none;
+  color: #01ffff;
+  font-family: var(--font-monospec);
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  text-shadow: none;
+}
+/* X-ray: dim the decorative canvas layers so structure reads */
+html[data-blueprint] canvas {
+  opacity: 0.15;
+}
+
 /* Route-transition scanline sweep (RouteTransition.tsx) */
 @keyframes routeSweep {
   0% { transform: translateY(-2px); opacity: 1; }
