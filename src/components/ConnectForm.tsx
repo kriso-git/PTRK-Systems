@@ -218,7 +218,7 @@ export function ConnectForm() {
                 Host · Protocol
               </div>
               <p className="font-shorai text-base md:text-lg text-primary leading-relaxed max-w-md">
-                Nem ügynökség. Kis csapat, közös kontextus, egy időterv.{" "}
+                Nem ügynökség. Stúdió, közös kontextus, egy időterv.{" "}
                 <span className="text-lime">Discovery → design → kód → deploy.</span>
               </p>
             </div>

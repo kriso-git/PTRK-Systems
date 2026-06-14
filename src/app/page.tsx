@@ -20,8 +20,8 @@ const STATS = [
 const PRINCIPLES = [
   {
     n: "I.",
-    head: "Vertikális csapat, közös kontextus.",
-    body: "Stratégia, design, frontend és deploy egy csapaton belül. Nincs handoff-veszteség, nincs szilo, nincs lefordított szándék — a kontextus a discovery-től a launchig velünk marad.",
+    head: "Vertikális stúdió, közös kontextus.",
+    body: "Stratégia, design, frontend és deploy egy kézben. Nincs handoff-veszteség, nincs szilo, nincs lefordított szándék — a kontextus a discovery-től a launchig velem marad.",
   },
   {
     n: "II.",
@@ -107,7 +107,7 @@ export default function Home() {
             </div>
 
             <p className="mt-10 font-shorai text-xl md:text-2xl lg:text-3xl text-secondary leading-[1.35] max-w-[58ch] tracking-[-0.005em]">
-              Egy fókuszált, vertikális csapat termék-felületekre, design rendszerekre és
+              Egy fókuszált, vertikális stúdió termék-felületekre, design rendszerekre és
               frontend architektúrára. Stratégiától live deployig{" "}
               <span className="text-primary">összehangolt kontextusban</span> — mert a felület{" "}
               <span className="italic text-lime">a termék</span>.
