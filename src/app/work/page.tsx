@@ -58,7 +58,7 @@ export default function WorkPage() {
             <p className="mt-10 font-shorai text-xl md:text-2xl text-secondary leading-[1.4] max-w-[58ch] tracking-[-0.005em]">
               Minden tétel a teljes design → engineering láncot mutatja: kutatás,
               információs architektúra, vizuális rendszer, frontend, deploy.{" "}
-              <span className="text-primary">Vertikális csapat</span>, end-to-end.
+              <span className="text-primary">Vertikális stúdió</span>, end-to-end.
             </p>
           </div>
         </div>

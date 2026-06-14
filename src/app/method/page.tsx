@@ -90,7 +90,7 @@ export default function MethodPage() {
               </span>
             </h1>
             <p className="mt-10 font-shorai text-xl md:text-2xl text-secondary leading-[1.4] max-w-[58ch] tracking-[-0.005em]">
-              Hat fázis, négy szállítható, egy vertikális csapat. A folyamat nem
+              Hat fázis, négy szállítható, egy vertikális stúdió. A folyamat nem
               szilóban dolgozó egységeket próbál összevarrni, hanem{" "}
               <span className="text-primary">eleve közös kontextusban</span> tartja a teljes láncot.
             </p>

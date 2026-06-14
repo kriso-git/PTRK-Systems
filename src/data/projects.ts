@@ -238,8 +238,8 @@ export const TECH_STACK = [
 
 export const FAQ = [
   {
-    q: "Miért egy csapat, és nem egy ügynökség?",
-    a: "Vertikális egység — design, frontend és deploy egy kézben. Nincs szilo, nincs handoff-veszteség, gyorsabb iteráció.",
+    q: "Miért stúdió, és nem ügynökség?",
+    a: "Vertikális egység: design, frontend és deploy egy kézben. Nincs szilo, nincs handoff-veszteség, gyorsabb iteráció.",
   },
   {
     q: "Milyen projektméret optimális?",
