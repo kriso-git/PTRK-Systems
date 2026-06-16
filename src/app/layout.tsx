@@ -14,6 +14,7 @@ import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { StageBackgroundLazy } from "@/components/r3f/StageBackgroundLazy";
+import { StageViewsLazy } from "@/components/r3f/StageViewsLazy";
 import { ScrollSignalBridge } from "@/components/r3f/ScrollSignalBridge";
 import { MarathonBackground } from "@/components/MarathonBackground";
 import { MarathonScatter } from "@/components/MarathonScatter";
@@ -77,6 +78,7 @@ export default function RootLayout({
         <ScrollSignalBridge />
         <RevealObserver />
         <StageBackgroundLazy />
+        <StageViewsLazy />
         <MarathonBackground />
         <ScrollProgress />
         <CustomCursor />

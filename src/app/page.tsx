@@ -7,8 +7,7 @@ import { DecodeText } from "@/components/DecodeText";
 import { TransmissionLog } from "@/components/TransmissionLog";
 import { Operator } from "@/components/Operator";
 import { AsciiField } from "@/components/AsciiField";
-import { HeroBackdrop } from "@/components/HeroBackdrop";
-import { Text3DLazy } from "@/components/Text3DLazy";
+import { HeroViewLazy } from "@/components/r3f/HeroViewLazy";
 import { ScrollJourneyLazy } from "@/components/ScrollJourneyLazy";
 
 const COORD = "47.4979°N · 19.0402°E";
@@ -47,9 +46,10 @@ export default function Home() {
         data-label="Introduction"
         className="relative z-10 px-6 md:px-10 pt-24 md:pt-40 pb-32 md:pb-56 overflow-hidden"
       >
-        {/* 3D node-network backdrop (Three.js, lazy + motion-gated) — deepest layer */}
+        {/* Hero data-constellation, rendered by the shared R3F Stage (lazy +
+            motion-gated; static wash on mobile-lite) — deepest layer */}
         <div aria-hidden className="absolute inset-0 -z-20 pointer-events-none">
-          <HeroBackdrop />
+          <HeroViewLazy />
         </div>
 
         {/* Cursor-reactive ASCII field — behind static content (-z-10,
@@ -212,16 +212,6 @@ export default function Home() {
           size="clamp(110px, 17vw, 320px)"
           className="absolute -bottom-24 -right-12 text-lime/[0.04] pointer-events-none"
         />
-        {/* 3D-extruded ghost word — the §02 section sits at z-20 so the
-            whole slab (including this) paints ABOVE the right terminal
-            aside (z-12); inline textShadow overrides .text-ghost's none */}
-        {/* 3D extruded brand-font ghost word (replaces the CSS textShadow fake-3D) */}
-        <div
-          aria-hidden
-          className="absolute right-[-40px] top-2 -z-10 w-[620px] h-[320px] opacity-80 pointer-events-none hidden lg:block"
-        >
-          <Text3DLazy word="ACCESS" color="lime" />
-        </div>
 
         <div className="max-w-[1500px] grid grid-cols-12 gap-y-14 md:gap-x-10 relative">
           <aside className="col-span-12 md:col-span-3">
@@ -438,13 +428,6 @@ export default function Home() {
         data-label="Folyamat"
         className="relative z-10 border-t border-white/10 px-6 md:px-10 py-36 md:py-56 overflow-hidden"
       >
-        {/* 3D extruded brand-font ghost word (replaces the CSS textShadow fake-3D) */}
-        <div
-          aria-hidden
-          className="absolute -left-8 bottom-0 -z-10 w-[700px] h-[300px] opacity-80 pointer-events-none hidden lg:block"
-        >
-          <Text3DLazy word="PROCESS" color="orange" />
-        </div>
         <div className="max-w-[1500px]">
           <div className="font-monospec text-[10px] tracking-[0.35em] uppercase text-orange mb-6">
             § 03 · Process · 06 phases
