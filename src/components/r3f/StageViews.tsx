@@ -2,18 +2,23 @@
 
 import { Canvas } from "@react-three/fiber";
 import { View } from "@react-three/drei";
-import { EffectComposer, Bloom } from "@react-three/postprocessing";
 
 /**
  * StageViews — the transparent canvas that hosts every DOM-placed <View> (the
- * hero now; per-project signature cards in Phase C) via <View.Port/>, plus one
- * shared subtle Bloom. It sits BEHIND the DOM content (z-2) and ABOVE the nebula
- * bg canvas (z-0), so a <View> tracking a transparent slot shows the 3D behind
- * the page text. Desktop/full ONLY — mobile-lite never mounts this (a second
- * WebGL context throttles the bg context on mobile Safari, per the validation).
+ * hero; the per-project signatures) via <View.Port/>. It sits BEHIND the DOM
+ * content (z-2) and ABOVE the nebula bg canvas (z-0), so a <View> tracking a
+ * transparent slot shows the 3D behind the page text. Desktop/full ONLY (mobile
+ * never mounts a second WebGL context, per the validation).
  *
- * Two-canvas split (bg here is a separate canvas) is deliberate: a fullscreen bg
- * mesh sharing a canvas with drei <View>s flickers (scissor fight, proven).
+ * NO EffectComposer here: a shared Bloom pass renders the View scissor regions
+ * OPAQUE BLACK (the composer does not preserve the transparent clear), which is
+ * invisible on a black page but PUNCHES A BLACK RECTANGLE over the lit nebula in
+ * production (the hero View was a full-width black box). Raw <View> compositing
+ * with alpha:true clears transparent, so the nebula shows through. If bloom is
+ * ever wanted back, it must be an alpha-preserving / selective setup.
+ *
+ * Two-canvas split (bg is a separate canvas) is deliberate: a fullscreen bg mesh
+ * sharing a canvas with drei <View>s flickers (scissor fight, proven).
  */
 export function StageViews() {
   return (
@@ -28,9 +33,6 @@ export function StageViews() {
       aria-hidden
     >
       <View.Port />
-      <EffectComposer>
-        <Bloom intensity={0.4} luminanceThreshold={0.35} mipmapBlur />
-      </EffectComposer>
     </Canvas>
   );
 }
