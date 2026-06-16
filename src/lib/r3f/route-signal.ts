@@ -1,30 +1,44 @@
 // Route-transition signal — a module singleton pulsed on every client route
-// change by <RouteSignalBridge/>. The veil canvas's <RouteVeil/> reads it each
-// frame (no React re-render) and plays a single nebula-wash. Velocity is sampled
-// from the scroll-signal at pulse time so a fast scroll into a nav-click washes
-// slightly brighter. Dependency-free; safe to import on the server (guards).
-import { readSignal } from "./scroll-signal";
+// change by <RouteSignalBridge/>. The veil canvas's <RouteVeil/> subscribes via
+// onPulse() to drive a short on-demand render burst, and reads veilProgress()
+// for the 0..1 wash envelope. Dependency-free; safe to import on the server.
 
 const VEIL_MS = 700; // wash duration
-const FIRST_LOAD_SUPPRESS_MS = 400; // do not wash on the very first mount
+const FIRST_LOAD_SUPPRESS_MS = 400; // ignore pulses this close to module init
 
-type RouteState = { startedAt: number; intensity: number; firstDone: boolean };
+type RouteState = { startedAt: number; intensity: number };
 
-const state: RouteState = { startedAt: -1e9, intensity: 0, firstDone: false };
+const state: RouteState = { startedAt: -1e9, intensity: 0 };
+const listeners = new Set<() => void>();
 
-/** Pulse a transition. Called by the bridge on pathname change. The first call
- *  (initial mount) is suppressed so a hard refresh does not flash a veil. */
+// Captured at client module init. Any pulse within FIRST_LOAD_SUPPRESS_MS of it
+// is treated as the initial mount (this covers React Strict Mode's dev
+// double-invoke too, which a one-shot boolean latch did NOT) and suppressed, so a
+// fresh page load never flashes a veil.
+const initAt = typeof window === "undefined" ? 0 : performance.now();
+
+/** Subscribe to genuine route pulses. Returns an unsubscribe. The veil uses this
+ *  to kick an on-demand render burst so its canvas can idle at 0 fps otherwise. */
+export function onPulse(fn: () => void): () => void {
+  listeners.add(fn);
+  return () => {
+    listeners.delete(fn);
+  };
+}
+
+/** Pulse a transition. Called by the bridge on pathname change. Pulses inside the
+ *  initial-mount window are suppressed (no wash, no notify). */
 export function pulseRoute() {
   if (typeof window === "undefined") return;
-  if (!state.firstDone) {
-    state.firstDone = true;
-    // suppress the mount pulse but record a baseline so timing math is sane
-    state.startedAt = performance.now() - FIRST_LOAD_SUPPRESS_MS - VEIL_MS;
+  const now = performance.now();
+  if (now - initAt < FIRST_LOAD_SUPPRESS_MS) {
+    // backdate so veilProgress/isWashing both read "finished" immediately
+    state.startedAt = now - FIRST_LOAD_SUPPRESS_MS - VEIL_MS;
     return;
   }
-  const v = Math.min(1, Math.abs(readSignal().velocity) * 14);
-  state.intensity = 0.85 + v * 0.15; // 0.85..1.0
-  state.startedAt = performance.now();
+  state.intensity = 0.95;
+  state.startedAt = now;
+  listeners.forEach((fn) => fn());
 }
 
 /** 0..1 wash progress for `now` (performance.now()). 0 when idle/finished. */
@@ -38,4 +52,9 @@ export function veilProgress(now: number): number {
 
 export function veilIntensity(): number {
   return state.intensity;
+}
+
+/** True while a wash is still playing — drives the veil's on-demand render burst. */
+export function isWashing(now: number): boolean {
+  return now - state.startedAt < VEIL_MS;
 }

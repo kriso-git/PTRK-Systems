@@ -44,11 +44,16 @@ export function ProjectSignature({
   className,
 }: Props) {
   const ref = useRef<HTMLDivElement>(null!);
-  const [mounted, setMounted] = useState(false);
+  // Quality + motion are FROZEN once at mount (like StageViewsLazy's gate), not
+  // re-read per render, so the canvas gate and this host can never disagree if the
+  // viewport later crosses the 820px tier boundary (resize/zoom/devtools).
+  const [gate, setGate] = useState<{ full: boolean; reduced: boolean } | null>(null);
   const [near, setNear] = useState(false);
   const [selfHover, setSelfHover] = useState(false);
 
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    setGate({ full: getQuality() === "full", reduced: reducedMotion() });
+  }, []);
 
   useEffect(() => {
     const el = ref.current;
@@ -62,8 +67,8 @@ export function ProjectSignature({
 
   const hex = accentHex(color);
   const kind = signatureKind(projectId);
-  const reduced = mounted ? reducedMotion() : false;
-  const full = mounted && getQuality() === "full";
+  const reduced = gate?.reduced ?? false;
+  const full = gate?.full ?? false;
   const isActive = (active ?? false) || selfHover;
   const shouldReveal = reveal === undefined ? true : reveal;
   const showView = full && near && shouldReveal;

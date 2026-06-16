@@ -1,9 +1,9 @@
 "use client";
 
-// The three per-project signature objects, validated in /r3f-validate. Each is
-// lights-only (NO per-view <Environment> — 8 environments tanked mobile FPS) and
-// respects `reduced` (one static pose, no spin/float) and `active` (hover: faster
-// spin + scale up). Composited by StageViews' <View.Port/>.
+// The three per-project signature objects, validated in the Phase C prototype.
+// Each is lights-only (NO per-view <Environment>; 8 environments tanked mobile
+// FPS) and respects `reduced` (one static pose, no spin/float) and `active`
+// (hover: faster spin + scale up). Composited by StageViews' <View.Port/>.
 
 import * as THREE from "three";
 import { useRef } from "react";

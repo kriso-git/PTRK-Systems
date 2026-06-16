@@ -57,10 +57,15 @@ function Ladder({ reduced }: { reduced: boolean }) {
  */
 export function MethodSignature() {
   const ref = useRef<HTMLDivElement>(null!);
-  const [mounted, setMounted] = useState(false);
+  // Quality + motion FROZEN once at mount (like StageViewsLazy's gate), not
+  // re-read per render, so this host and the StageViews canvas gate can never
+  // disagree if the viewport later crosses the 820px tier boundary.
+  const [gate, setGate] = useState<{ full: boolean; reduced: boolean } | null>(null);
   const [near, setNear] = useState(false);
 
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    setGate({ full: getQuality() === "full", reduced: reducedMotion() });
+  }, []);
 
   useEffect(() => {
     const el = ref.current;
@@ -72,8 +77,8 @@ export function MethodSignature() {
     return () => io.disconnect();
   }, []);
 
-  const reduced = mounted ? reducedMotion() : false;
-  const full = mounted && getQuality() === "full";
+  const reduced = gate?.reduced ?? false;
+  const full = gate?.full ?? false;
   const showView = full && near;
   const showGlow = !full;
 

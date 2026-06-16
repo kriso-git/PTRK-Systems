@@ -9,8 +9,10 @@ import { RouteVeil } from "./RouteVeil";
  * the terminal asides (z-12) and the progress chips (z-30), but BELOW the nav
  * (z-40) so the header stays clean and usable through the wash. pointer-events
  * none + a shader that returns a fully transparent pixel at rest means it never
- * blocks interaction and costs ~nothing when idle. Full-quality (desktop) only,
- * via StageVeilLazy, so reduced-motion / mobile never spins up this 3rd context.
+ * blocks interaction. frameloop="demand" keeps the context at 0 fps between
+ * navigations; RouteVeil kicks an on-demand render burst (via onPulse) only for
+ * the ~700ms wash, so idle truly costs ~nothing. Full-quality (desktop) only, via
+ * StageVeilLazy, so reduced-motion / mobile never spins up this 3rd context.
  */
 export function StageVeil() {
   return (
@@ -19,7 +21,7 @@ export function StageVeil() {
       style={{ zIndex: 39, pointerEvents: "none" }}
       dpr={[1, 1.5]}
       gl={{ alpha: true, antialias: false, powerPreference: "high-performance" }}
-      frameloop="always"
+      frameloop="demand"
       aria-hidden
     >
       <RouteVeil />

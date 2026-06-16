@@ -58,6 +58,9 @@ export const VEIL_FRAG = /* glsl */ `
 
     vec3 col = tint * (0.35 + cloud * 0.9);
     float env = band * uAmp * smoothstep(0.0, 0.12, uVeil) * smoothstep(1.0, 0.85, uVeil);
-    gl_FragColor = vec4(col * env, env * 0.88);
+    // premultiplied alpha (three defaults premultipliedAlpha:true): RGB must track
+    // the final alpha, so scale colour by the same a to avoid RGB above A clamping.
+    float a = env * 0.88;
+    gl_FragColor = vec4(col * a, a);
   }
 `;
