@@ -13,6 +13,8 @@ import { JsonLd } from "@/components/JsonLd";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { SmoothScroll } from "@/components/SmoothScroll";
+import { StageBackgroundLazy } from "@/components/r3f/StageBackgroundLazy";
+import { ScrollSignalBridge } from "@/components/r3f/ScrollSignalBridge";
 import { MarathonBackground } from "@/components/MarathonBackground";
 import { MarathonScatter } from "@/components/MarathonScatter";
 import { LiveTerminalTypers } from "@/components/LiveTerminalTypers";
@@ -72,7 +74,9 @@ export default function RootLayout({
       <body>
         <JsonLd />
         <SmoothScroll />
+        <ScrollSignalBridge />
         <RevealObserver />
+        <StageBackgroundLazy />
         <MarathonBackground />
         <ScrollProgress />
         <CustomCursor />

@@ -10,7 +10,6 @@ import {
   type SlotColor,
 } from "@/lib/terminal-pool";
 import { gyroState } from "@/lib/gyro";
-import { BgNebulaLazy } from "./BgNebulaLazy";
 
 /**
  * Viewport-fixed Marathon background.
@@ -104,9 +103,8 @@ export function MarathonBackground() {
         ["--cy" as string]: "50%",
       }}
     >
-      {/* Volumetric nebula backdrop (replaces the WarpMesh grid) — backmost layer,
-          cursor-reactive (swells + glows toward the pointer). Lazy + motion-gated. */}
-      <BgNebulaLazy />
+      {/* Nebula moved to the R3F StageBackground (mounted in layout.tsx, backmost).
+          This wrapper now layers only the code-rain / scanlines / grain over it. */}
 
       {/* Cursor-following radial glows removed — the nebula's own "torch"
           (it brightens + reveals toward the pointer) is now the cursor light. */}
