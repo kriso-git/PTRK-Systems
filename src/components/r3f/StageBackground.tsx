@@ -43,27 +43,31 @@ function NebulaMesh({ reduced }: { reduced: boolean }) {
   const matRef = useRef<THREE.ShaderMaterial>(null);
   const lastP = useRef(0);
   const energy = useRef(0);
+  const scrollEased = useRef(0);
 
-  useFrame((state) => {
+  useFrame((state, dt) => {
     // Write through the material's OWN uniforms object (via the ref), not a
     // separately-held object: passing `uniforms={obj}` and mutating `obj` did
     // NOT propagate uScroll/uEnergy to the GLSL (verified), so go through the ref.
     const u = matRef.current?.uniforms;
     if (!u) return;
+    const d = Math.min(dt, 0.05); // clamp dt so a stutter cannot jump the easing
     u.uTime.value = reduced ? 4.2 : state.clock.elapsedTime;
     u.uRes.value.set(state.size.width, state.size.height);
     const s = readSignal();
     target.set(s.mx, s.my);
-    u.uMouse.value.lerp(target, 0.14);
+    u.uMouse.value.lerp(target, 0.1);
 
-    // scroll position drives the colour journey; a decaying per-frame scroll
-    // delta drives the energy surge (settles to 0 when you stop scrolling).
     if (!reduced) {
       const p = s.progress;
-      const delta = Math.abs(p - lastP.current);
+      const dp = Math.abs(p - lastP.current);
       lastP.current = p;
-      energy.current = Math.min(1, energy.current * 0.92 + delta * 38 * 0.18);
-      u.uScroll.value = p;
+      // EASE the scroll value the shader sees (damped follow) so the colour
+      // journey + nebula flow GLIDE instead of snapping on fast scroll.
+      scrollEased.current = THREE.MathUtils.damp(scrollEased.current, p, 2.2, d);
+      // energy: build gently, settle slowly -> a soft swell, not a fast flash.
+      energy.current = Math.min(1, energy.current * 0.95 + dp * 14 * 0.1);
+      u.uScroll.value = scrollEased.current;
       u.uEnergy.value = energy.current;
     }
   });

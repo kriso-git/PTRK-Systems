@@ -55,8 +55,9 @@ export const NEBULA_FRAG = /* glsl */ `
   void main(){
     vec2 uv0 = (vUv * uRes - 0.5 * uRes) / uRes.y;
     // scroll advances the noise field (it morphs/streams as you travel the page)
-    // and energy speeds the drift, so fast scrolling makes the nebula surge.
-    float t = uTime * (0.075 + uEnergy * 0.10) + uScroll * 2.2;
+    // and energy speeds the drift. Kept gentle so the field GLIDES on scroll
+    // rather than racing (the eased uScroll on the JS side smooths it further).
+    float t = uTime * (0.06 + uEnergy * 0.05) + uScroll * 1.25;
 
     vec2 m = (uMouse - 0.5) * 2.0;
     vec2 uv = uv0 + m * 0.30;
@@ -95,12 +96,12 @@ export const NEBULA_FRAG = /* glsl */ `
     vec3 col = vec3(0.011, 0.012, 0.017);
     // ambient presence (raised from 0.10 so the field reads without the cursor)
     // plus a scroll-energy surge that brightens the whole field on fast scroll.
-    col += tint * cloud * (0.20 + uEnergy * 0.55);
+    col += tint * cloud * (0.20 + uEnergy * 0.40);
     col += tint * cloud * torch * 1.05;
     col += tint * torch * 0.10;
     col += jtint * pow(cloud, 3.0) * torch * 0.28;
-    // bright streaming pulse pushed through the clouds while scrolling
-    col += jtint * pow(cloud, 2.0) * uEnergy * 0.5;
+    // soft streaming pulse pushed through the clouds while scrolling
+    col += jtint * pow(cloud, 2.0) * uEnergy * 0.32;
 
     float vig = smoothstep(1.3, 0.2, length(uv));
     col *= 0.5 + 0.5 * vig;
