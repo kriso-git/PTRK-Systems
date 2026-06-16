@@ -17,10 +17,13 @@ export const NEBULA_FRAG = /* glsl */ `
   uniform float uTime;
   uniform vec2  uRes;
   uniform vec2  uMouse;
+  uniform float uScroll;   // 0..1 page scroll progress (drives the colour journey + flow)
+  uniform float uEnergy;   // 0..1 smoothed scroll energy (fast scroll surges the field)
 
   const vec3 LIME    = vec3(0.761, 0.996, 0.047);
   const vec3 CYAN    = vec3(0.004, 1.0,   1.0);
   const vec3 MAGENTA = vec3(0.918, 0.008, 0.494);
+  const vec3 ORANGE  = vec3(1.0,   0.55,  0.16);
 
   float hash(vec2 p){
     p = fract(p * vec2(123.34, 345.45));
@@ -51,7 +54,9 @@ export const NEBULA_FRAG = /* glsl */ `
 
   void main(){
     vec2 uv0 = (vUv * uRes - 0.5 * uRes) / uRes.y;
-    float t = uTime * 0.075;
+    // scroll advances the noise field (it morphs/streams as you travel the page)
+    // and energy speeds the drift, so fast scrolling makes the nebula surge.
+    float t = uTime * (0.075 + uEnergy * 0.10) + uScroll * 2.2;
 
     vec2 m = (uMouse - 0.5) * 2.0;
     vec2 uv = uv0 + m * 0.30;
@@ -65,22 +70,37 @@ export const NEBULA_FRAG = /* glsl */ `
       fbm(uv * 1.6 + 3.4 * q + vec2(8.3, 2.8 + t * 0.6) + m * 0.9)
     );
     float cloud = fbm(uv * 1.6 + 4.0 * r + vec2(t * 0.45, -t * 0.35));
-    cloud = smoothstep(0.32, 0.95, cloud);
-    cloud = pow(cloud, 1.4);
+    cloud = smoothstep(0.28, 0.95, cloud);
+    cloud = pow(cloud, 1.3);
 
     vec2 mAC = (uMouse * uRes - 0.5 * uRes) / uRes.y;
     float md = length(uv0 - mAC);
     float torch = exp(-md * md * 1.8);
 
+    // noise-driven hue, kept for local variation
     float hue = clamp(0.5 + 0.5 * (q.x - r.y), 0.0, 1.0);
-    vec3 tint = mix(LIME, CYAN, smoothstep(0.0, 0.7, hue));
-    tint = mix(tint, MAGENTA, smoothstep(0.85, 1.0, hue) * 0.45);
+    vec3 ntint = mix(LIME, CYAN, smoothstep(0.0, 0.7, hue));
+    ntint = mix(ntint, MAGENTA, smoothstep(0.85, 1.0, hue) * 0.45);
+
+    // scroll JOURNEY across the brand palette: lime -> cyan -> magenta -> orange
+    // as you travel down the page, so each section reads in its own light.
+    vec3 jtint = mix(LIME, CYAN, smoothstep(0.0, 0.40, uScroll));
+    jtint = mix(jtint, MAGENTA, smoothstep(0.40, 0.72, uScroll));
+    jtint = mix(jtint, ORANGE, smoothstep(0.72, 1.0, uScroll));
+
+    // journey colour dominates so each section reads in its own light; the noise
+    // tint only adds 20% local variation (otherwise its cyan/lime washes it green).
+    vec3 tint = mix(ntint, jtint, 0.80);
 
     vec3 col = vec3(0.011, 0.012, 0.017);
-    col += tint * cloud * 0.10;
+    // ambient presence (raised from 0.10 so the field reads without the cursor)
+    // plus a scroll-energy surge that brightens the whole field on fast scroll.
+    col += tint * cloud * (0.20 + uEnergy * 0.55);
     col += tint * cloud * torch * 1.05;
     col += tint * torch * 0.10;
-    col += CYAN * pow(cloud, 3.0) * torch * 0.28;
+    col += jtint * pow(cloud, 3.0) * torch * 0.28;
+    // bright streaming pulse pushed through the clouds while scrolling
+    col += jtint * pow(cloud, 2.0) * uEnergy * 0.5;
 
     float vig = smoothstep(1.3, 0.2, length(uv));
     col *= 0.5 + 0.5 * vig;

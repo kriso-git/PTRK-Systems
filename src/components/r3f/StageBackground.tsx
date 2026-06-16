@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { reducedMotion } from "@/lib/motion";
@@ -33,23 +33,45 @@ function NebulaMesh({ reduced }: { reduced: boolean }) {
       uTime: { value: 0 },
       uRes: { value: new THREE.Vector2(1, 1) },
       uMouse: { value: new THREE.Vector2(0.5, 0.5) },
+      uScroll: { value: 0 },
+      uEnergy: { value: 0 },
     }),
     []
   );
 
   const target = useMemo(() => new THREE.Vector2(0.5, 0.5), []);
+  const matRef = useRef<THREE.ShaderMaterial>(null);
+  const lastP = useRef(0);
+  const energy = useRef(0);
 
   useFrame((state) => {
-    uniforms.uTime.value = reduced ? 4.2 : state.clock.elapsedTime;
-    uniforms.uRes.value.set(state.size.width, state.size.height);
+    // Write through the material's OWN uniforms object (via the ref), not a
+    // separately-held object: passing `uniforms={obj}` and mutating `obj` did
+    // NOT propagate uScroll/uEnergy to the GLSL (verified), so go through the ref.
+    const u = matRef.current?.uniforms;
+    if (!u) return;
+    u.uTime.value = reduced ? 4.2 : state.clock.elapsedTime;
+    u.uRes.value.set(state.size.width, state.size.height);
     const s = readSignal();
     target.set(s.mx, s.my);
-    uniforms.uMouse.value.lerp(target, 0.14);
+    u.uMouse.value.lerp(target, 0.14);
+
+    // scroll position drives the colour journey; a decaying per-frame scroll
+    // delta drives the energy surge (settles to 0 when you stop scrolling).
+    if (!reduced) {
+      const p = s.progress;
+      const delta = Math.abs(p - lastP.current);
+      lastP.current = p;
+      energy.current = Math.min(1, energy.current * 0.92 + delta * 38 * 0.18);
+      u.uScroll.value = p;
+      u.uEnergy.value = energy.current;
+    }
   });
 
   return (
     <mesh geometry={geometry} frustumCulled={false}>
       <shaderMaterial
+        ref={matRef}
         vertexShader={NEBULA_VERT}
         fragmentShader={NEBULA_FRAG}
         uniforms={uniforms}
