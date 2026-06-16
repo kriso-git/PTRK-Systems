@@ -28,8 +28,15 @@ export function StageViews() {
       eventSource={typeof document !== "undefined" ? document.body : undefined}
       eventPrefix="client"
       dpr={[1, 1.75]}
-      gl={{ alpha: true, antialias: true, powerPreference: "high-performance" }}
+      gl={{ alpha: true, antialias: true, premultipliedAlpha: false, powerPreference: "high-performance" }}
       camera={{ position: [0, 0, 5], fov: 50 }}
+      onCreated={({ gl }) => {
+        // Force a fully transparent clear: on real GPUs the View scissor regions
+        // were clearing OPAQUE black (a black box over the nebula); swiftshader
+        // hid it. clearAlpha 0 + non-premultiplied keeps the regions see-through.
+        gl.setClearColor(0x000000, 0);
+        gl.setClearAlpha(0);
+      }}
       aria-hidden
     >
       <View.Port />
