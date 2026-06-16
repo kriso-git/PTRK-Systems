@@ -3,6 +3,7 @@ import Link from "next/link";
 import { PROJECTS, ENGAGEMENT } from "@/data/projects";
 import { BrowserPreview } from "@/components/BrowserPreview";
 import { DecodeText } from "@/components/DecodeText";
+import { WorkCaseSignature } from "@/components/WorkCaseSignature";
 
 export const metadata: Metadata = {
   title: "Work — Selected Projects",
@@ -107,6 +108,7 @@ export default function WorkPage() {
                     <div className="mt-3 text-secondary/60 leading-relaxed max-w-[18ch]">
                       Stilizált landing snapshot — kattints a debriefhez.
                     </div>
+                    <WorkCaseSignature project={p} />
                   </div>
                   <div className="col-span-12 md:col-span-9 lg:col-span-10">
                     {/* asLink=false: the whole card is a Link to the
