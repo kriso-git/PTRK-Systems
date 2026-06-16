@@ -4,7 +4,6 @@ import { PROCESS_STEPS, TECH_STACK } from "@/data/projects";
 import { Crosshair } from "@/components/Crosshair";
 import { GoliathOrnament } from "@/components/GoliathSymbols";
 import { DecodeText } from "@/components/DecodeText";
-import { MethodSignatureLazy } from "@/components/r3f/MethodSignatureLazy";
 
 export const metadata: Metadata = {
   title: "Method — Hogyan dolgozom",
@@ -57,7 +56,6 @@ export default function MethodPage() {
     <>
       {/* ─────────────────────────────  HERO  ───────────────────────────── */}
       <section className="relative z-10 px-6 md:px-10 pt-32 md:pt-48 pb-32 md:pb-44 overflow-hidden">
-        <MethodSignatureLazy />
         <div className="max-w-[1500px] grid grid-cols-12 gap-y-10 md:gap-x-10">
           <aside className="col-span-12 md:col-span-3 lg:col-span-2 md:pt-4">
             <div className="font-monospec text-[10px] tracking-[0.4em] uppercase text-cyan mb-6 flex items-center gap-3">
