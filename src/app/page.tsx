@@ -9,6 +9,7 @@ import { Operator } from "@/components/Operator";
 import { AsciiField } from "@/components/AsciiField";
 import { HeroViewLazy } from "@/components/r3f/HeroViewLazy";
 import { ScrollJourneyLazy } from "@/components/ScrollJourneyLazy";
+import { WorkIndexRow } from "@/components/WorkIndexRow";
 
 const COORD = "47.4979°N · 19.0402°E";
 
@@ -369,52 +370,9 @@ export default function Home() {
           </div>
 
           <ol className="border-t border-white/15">
-            {PROJECTS.map((p, i) => {
-              const colorClass =
-                p.color === "lime"
-                  ? "text-lime"
-                  : p.color === "cyan"
-                  ? "text-cyan"
-                  : p.color === "magenta"
-                  ? "text-magenta"
-                  : "text-orange";
-              return (
-                <li
-                  key={p.id}
-                  data-reveal
-                  style={{ transitionDelay: `${i * 70}ms` }}
-                  className="border-b border-white/15"
-                >
-                  <Link href="/work" className="block group">
-                    <div className="grid grid-cols-12 gap-4 py-8 md:py-12 items-baseline transition-colors group-hover:bg-surface/40">
-                      <div className="col-span-2 md:col-span-1 font-monospec text-xs md:text-sm text-secondary tracking-[0.2em]">
-                        {String(i + 1).padStart(2, "0")} /
-                      </div>
-                      <div className="col-span-10 md:col-span-5">
-                        <div
-                          className={`font-khinterference uppercase tracking-[0.01em] text-5xl md:text-7xl leading-none ${colorClass} transition-transform duration-500 group-hover:translate-x-2`}
-                        >
-                          {p.name}
-                        </div>
-                        <div className="font-shorai text-secondary mt-3 text-base md:text-lg">
-                          {p.client} · {p.role}
-                        </div>
-                      </div>
-                      <div className="col-span-7 md:col-span-4 font-shorai text-secondary/90 text-sm md:text-base leading-snug max-w-[44ch]">
-                        {p.desc}
-                      </div>
-                      <div className="col-span-5 md:col-span-2 text-right font-monospec text-[10px] uppercase tracking-[0.3em] text-secondary">
-                        <div className={`${colorClass} font-sequel text-2xl md:text-3xl tracking-[-0.02em] leading-none mb-2`}>
-                          {p.metric}
-                        </div>
-                        <div>{p.metricLabel}</div>
-                        <div className="mt-2 opacity-60">{p.year}</div>
-                      </div>
-                    </div>
-                  </Link>
-                </li>
-              );
-            })}
+            {PROJECTS.map((p, i) => (
+              <WorkIndexRow key={p.id} project={p} index={i} />
+            ))}
           </ol>
         </div>
       </section>
