@@ -233,6 +233,7 @@ export const TECH_STACK = [
   { name: "Vercel", category: "Hosting" },
   { name: "Resend", category: "Email" },
   { name: "Lenis", category: "Motion" },
+  { name: "Three.js", category: "WebGL" },
   { name: "Figma", category: "Design" },
 ] as const;
 

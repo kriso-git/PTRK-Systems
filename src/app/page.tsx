@@ -7,6 +7,9 @@ import { DecodeText } from "@/components/DecodeText";
 import { TransmissionLog } from "@/components/TransmissionLog";
 import { Operator } from "@/components/Operator";
 import { AsciiField } from "@/components/AsciiField";
+import { HeroBackdrop } from "@/components/HeroBackdrop";
+import { Text3DLazy } from "@/components/Text3DLazy";
+import { ScrollJourneyLazy } from "@/components/ScrollJourneyLazy";
 
 const COORD = "47.4979°N · 19.0402°E";
 
@@ -44,6 +47,11 @@ export default function Home() {
         data-label="Introduction"
         className="relative z-10 px-6 md:px-10 pt-24 md:pt-40 pb-32 md:pb-56 overflow-hidden"
       >
+        {/* 3D node-network backdrop (Three.js, lazy + motion-gated) — deepest layer */}
+        <div aria-hidden className="absolute inset-0 -z-20 pointer-events-none">
+          <HeroBackdrop />
+        </div>
+
         {/* Cursor-reactive ASCII field — behind static content (-z-10,
             see the ghost paint-order lesson) */}
         <div aria-hidden className="absolute inset-0 -z-10 pointer-events-none">
@@ -139,6 +147,11 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ─────────────────────  SCROLL JOURNEY (pinned camera)  ───────────────────── */}
+      {/* Cinematic fly-through: ENTER → STRATEGY → BUILD → SHIP. Lazy three.js,
+          motion-gated, self-pinning via a fixed canvas over a 300vh wrap. */}
+      <ScrollJourneyLazy />
+
       {/* ─────────────────────────────  RUNNING METER  ───────────────────────────── */}
       <section
         data-section="§ 01"
@@ -202,16 +215,13 @@ export default function Home() {
         {/* 3D-extruded ghost word — the §02 section sits at z-20 so the
             whole slab (including this) paints ABOVE the right terminal
             aside (z-12); inline textShadow overrides .text-ghost's none */}
-        <span
+        {/* 3D extruded brand-font ghost word (replaces the CSS textShadow fake-3D) */}
+        <div
           aria-hidden
-          className="text-ghost font-khinterference uppercase absolute right-2 top-10 -z-10 text-lime/35 text-[clamp(90px,15vw,240px)] leading-none pointer-events-none hidden lg:block"
-          style={{
-            textShadow:
-              "3px 3px 0 rgba(194,254,12,0.14), 6px 6px 0 rgba(194,254,12,0.09), 9px 9px 0 rgba(194,254,12,0.05), 12px 12px 0 rgba(194,254,12,0.03)",
-          }}
+          className="absolute right-[-40px] top-2 -z-10 w-[620px] h-[320px] opacity-80 pointer-events-none hidden lg:block"
         >
-          ACCESS
-        </span>
+          <Text3DLazy word="ACCESS" color="lime" />
+        </div>
 
         <div className="max-w-[1500px] grid grid-cols-12 gap-y-14 md:gap-x-10 relative">
           <aside className="col-span-12 md:col-span-3">
@@ -428,12 +438,13 @@ export default function Home() {
         data-label="Folyamat"
         className="relative z-10 border-t border-white/10 px-6 md:px-10 py-36 md:py-56 overflow-hidden"
       >
-        <span
+        {/* 3D extruded brand-font ghost word (replaces the CSS textShadow fake-3D) */}
+        <div
           aria-hidden
-          className="text-ghost font-khinterference uppercase absolute -left-6 bottom-4 -z-10 text-orange/15 text-[clamp(90px,15vw,240px)] leading-none pointer-events-none hidden lg:block"
+          className="absolute -left-8 bottom-0 -z-10 w-[700px] h-[300px] opacity-80 pointer-events-none hidden lg:block"
         >
-          PROCESS
-        </span>
+          <Text3DLazy word="PROCESS" color="orange" />
+        </div>
         <div className="max-w-[1500px]">
           <div className="font-monospec text-[10px] tracking-[0.35em] uppercase text-orange mb-6">
             § 03 · Process · 06 phases

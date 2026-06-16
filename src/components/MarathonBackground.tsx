@@ -10,6 +10,7 @@ import {
   type SlotColor,
 } from "@/lib/terminal-pool";
 import { gyroState } from "@/lib/gyro";
+import { BgNebulaLazy } from "./BgNebulaLazy";
 
 /**
  * Viewport-fixed Marathon background.
@@ -103,31 +104,12 @@ export function MarathonBackground() {
         ["--cy" as string]: "50%",
       }}
     >
-      {/* Wide, lerped lime glow — feels weighty, drags slightly behind. */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(circle 700px at var(--mx) var(--my), rgba(194,254,12,0.18) 0%, rgba(194,254,12,0.06) 30%, transparent 70%)",
-        }}
-      />
-      {/* Mid-size cyan glow — also lerped, so it trails by a few frames. */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(circle 320px at var(--mx) var(--my), rgba(1,255,255,0.18) 0%, rgba(1,255,255,0.06) 50%, transparent 75%)",
-        }}
-      />
-      {/* Crisp inner spotlight — anchored to the *raw* cursor position so
-          it feels glued under the pointer with zero lag. */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(circle 130px at var(--cx) var(--cy), rgba(255,255,255,0.12) 0%, rgba(194,254,12,0.18) 30%, transparent 75%)",
-        }}
-      />
+      {/* Volumetric nebula backdrop (replaces the WarpMesh grid) — backmost layer,
+          cursor-reactive (swells + glows toward the pointer). Lazy + motion-gated. */}
+      <BgNebulaLazy />
+
+      {/* Cursor-following radial glows removed — the nebula's own "torch"
+          (it brightens + reveals toward the pointer) is now the cursor light. */}
 
       {/* Code rain — JS-driven canvas, immune to the global CSS reduced-motion
           override. Falling hex/binary across the entire viewport at low
@@ -165,13 +147,6 @@ export function MarathonBackground() {
         }}
       />
 
-      {/* Single mesh layer rendered to a <canvas>. Every grid line is
-          drawn as a series of short segments whose endpoints are pushed
-          radially outward from the cursor when within a lens radius — so
-          the mesh visibly bends/curves under the pointer as it moves
-          across the viewport. Cell size scales with viewport for
-          responsiveness. */}
-      <WarpMesh />
 
       {/* Radial dot noise */}
       <div

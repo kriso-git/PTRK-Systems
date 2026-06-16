@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Tanács Verdiktje · 2026-06-16 19:45</title>
+<style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body {
+  margin: 0; padding: 0 16px 64px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: #0f172a; background: #f1f5f9; line-height: 1.6;
+}
+.wrap { max-width: 820px; margin: 0 auto; }
+header.top {
+  padding: 40px 0 24px; text-align: center;
+}
+header.top .badge {
+  display: inline-block; font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
+  color: #64748b; font-weight: 600;
+}
+header.top h1 { font-size: 30px; margin: 8px 0 6px; letter-spacing: -.02em; }
+header.top .sub { color: #64748b; font-size: 14px; margin: 0; }
+.card {
+  background: #fff; border: 1px solid #e2e8f0; border-radius: 14px;
+  padding: 22px 24px; margin: 16px 0; box-shadow: 0 1px 2px rgba(15,23,42,.04);
+}
+.label {
+  font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
+  color: #94a3b8; font-weight: 700; margin: 0 0 8px;
+}
+.question .q { font-size: 19px; font-weight: 600; margin: 0; }
+.question .framed { color: #475569; font-size: 14px; margin: 12px 0 0; padding-top: 12px; border-top: 1px dashed #e2e8f0; }
+.verdict { border: 1px solid #cbd5e1; border-top: 4px solid #0f172a; }
+.verdict h2 { font-size: 22px; margin: 2px 0 18px; letter-spacing: -.01em; }
+.vsec { margin: 18px 0; }
+.vsec h3 {
+  font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: #334155;
+  margin: 0 0 6px; display: flex; align-items: center; gap: 8px;
+}
+.vsec h3::before { content: ""; width: 8px; height: 8px; border-radius: 2px; background: #cbd5e1; }
+.vsec.agrees h3::before { background: #16a34a; }
+.vsec.clashes h3::before { background: #dc2626; }
+.vsec.blind h3::before { background: #d97706; }
+.vsec.rec h3::before { background: #2563eb; }
+.vsec.first h3::before { background: #0f172a; }
+.vsec.rec { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px 16px; }
+.vsec.first { background: #0f172a; color: #f8fafc; border-radius: 10px; padding: 16px 18px; }
+.vsec.first h3 { color: #cbd5e1; }
+.vsec.first p { margin: 0; font-size: 16px; font-weight: 500; }
+.vsec p { margin: 0 0 8px; }
+.vsec ul { margin: 6px 0; padding-left: 22px; }
+.grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px;
+}
+.pos {
+  border: 1px solid #e2e8f0; border-left: 4px solid #64748b; border-radius: 8px;
+  padding: 10px 12px; background: #f8fafc;
+}
+.pos .name { font-weight: 700; font-size: 13px; display: flex; align-items: center; gap: 6px; }
+.pos .dot { width: 8px; height: 8px; border-radius: 50%; background: #64748b; flex: none; }
+.pos .stance { font-size: 13px; color: #475569; margin-top: 4px; }
+details { border: 1px solid #e2e8f0; border-radius: 10px; margin: 8px 0; background: #fff; overflow: hidden; }
+details > summary {
+  cursor: pointer; padding: 12px 16px; font-weight: 600; list-style: none;
+  display: flex; justify-content: space-between; align-items: center; gap: 10px;
+}
+details > summary::-webkit-details-marker { display: none; }
+details > summary .tag { font-size: 11px; color: #94a3b8; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; }
+details[open] > summary { border-bottom: 1px solid #f1f5f9; }
+details .body { padding: 4px 16px 16px; color: #1e293b; }
+details .body code { background: #f1f5f9; padding: 1px 5px; border-radius: 4px; font-size: 90%; }
+.adv-summary .badge { font-size: 11px; padding: 2px 8px; border-radius: 999px; font-weight: 700; }
+.sub-note { color: #64748b; font-size: 13px; margin: 0 0 14px; }
+.members { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; }
+.member { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; border: 1px solid #e2e8f0; border-radius: 10px; background: #fbfcfe; }
+.member .num {
+  flex: none; width: 26px; height: 26px; border-radius: 50%; background: #0f172a; color: #fff;
+  font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center;
+}
+.member .m-name { font-weight: 700; font-size: 14px; margin: 0 0 3px; }
+.member .m-blurb { font-size: 13px; color: #475569; margin: 0; line-height: 1.5; }
+.tldr { border: 1px solid #cbd5e1; border-left: 4px solid #2563eb; background: #f8fafc; }
+.tldr > summary { font-size: 15px; }
+.tldr .tldr-k { font-weight: 700; color: #1d4ed8; }
+.tldr .tldr-best { font-size: 16px; margin: 6px 0 10px; }
+.tldr .tldr-body { color: #1e293b; margin: 0 0 8px; }
+.tldr .tldr-first { margin: 8px 0 0; padding-top: 8px; border-top: 1px dashed #e2e8f0; }
+footer { text-align: center; color: #94a3b8; font-size: 13px; margin-top: 28px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <span class="badge">LLM Council</span>
+    <h1>A Tanács Verdiktje</h1>
+    <p class="sub">5 tanácsadó · független elemzés · anonim kollegiális értékelés · összegzett verdikt</p>
+  </header>
+
+  <section class="card question">
+    <p class="label">A Kérdés</p>
+    <p class="q">nem lehetne hogy megcsináljuk az összes tervet és utána futtatsz egy LLM-Council skillt hogy mit gondolnak a tervről és az átdesignolásról? (PTRK-Systems portfólió teljes react-three-fiber WebGL-réteg újratervezése + 4 fázisú terv)</p>
+    <p class="framed"><em>Ahogy a Tanács értelmezte:</em> Jó irány-e a PTRK-Systems design-engineering portfólió teljes react-three-fiber (R3F) WebGL-réteg újratervezése, és helyes-e a 4 fázisú megvalósítási terv (A: alap/Stage, B: hero-utazás, C: projektenkénti 3D-szignók, D: WebGL-átmenetek)? A PTRK egy budapesti, egyszemélyes design-engineering stúdió; prémium, gyors weboldalakat ad el KKV-knak, a portfólió maga a képesség-bizonyíték. Ma az oldal egy működő DOM-oldal szétszórt, izolált WebGL-canvasokkal. A cél: a TARTALOM és az ÜZENET változatlan marad, csak a prezentáció kap egy WOW three.js-réteget (közös R3F Stage a DOM mögött, hero-belépő, projekt-szignók, átmenetek). A tulajdonos kimondta: ha kliens fancy 3D-t kér, megcsinálja, tehát a 98 Lighthouse nem abszolút korlát. Tét: több napnyi build egy MŰKÖDŐ kirakaton, egyedül. Mi a legnagyobb kockázat, mi hiányzik, mit kéne másképp, egyáltalán bele kell-e vágni?</p>
+  </section>
+
+  <details class="tldr" open><summary><span>Tömör válasz és tanács</span><span class="tag">elrejt</span></summary><div class="body"><p class="tldr-best"><span class="tldr-k">Legjobb irány:</span> Csináld a Phase A konszolidációt + a hero-t (B) branch/feature-flag mögött, valódi GPU/mobil prototípus-validáció UTÁN, és mérj, mielőtt C/D-be vágsz.</p><div class="tldr-body"><p>A tanács 4:1 arányban óvatosságra int: a teljes 4 fázis egy törékeny drei-View-láncra épül, amit headless szoftver-GPU-n nem tudsz hitelesen tesztelni, és napokat kockáztatsz egy MŰKÖDŐ gyors-oldal bizonyítékon. Csináld a Phase A konszolidációt (jogos tech-adósság) + a hero-t branch mögött, igazold a View+Bloom láncot eldobható prototípuson VALÓDI GPU-n/mobilon ELŐSZÖR, és a C/D-t tartsd vissza, amíg van mérhető jel vagy fizető kliens. A legértékesebb új belátás: a portfólió KÉT közönséget szolgál, ezt route-szinten szegmentáld.</p></div></div></details>
+
+  <section class="card">
+    <p class="label">A Tanács tagjai</p>
+    <p class="sub-note">Öt gondolkodási lencse, egymással szándékos feszültségben. Mindenki a saját szögét képviseli, amilyen erősen csak tudja; az összegzés utána jön.</p>
+    <div class="members"><div class="member"><div class="num">1</div><div><p class="m-name">A Kontrárius</p><p class="m-blurb">Azt keresi, mi a hibás, mi hiányzik, mi fog elbukni. Nem pesszimista: ő a barát, aki megóv egy rossz döntéstől azzal, hogy felteszi a kérdéseket, amiket kerülsz.</p></div></div><div class="member"><div class="num">2</div><div><p class="m-name">Az Alapelvek Gondolkodó</p><p class="m-blurb">Lehántja a feltételezéseket és megkérdezi: mit oldunk meg valójában? A legértékesebb, amikor kimondja, hogy egyáltalán rossz kérdést teszel fel.</p></div></div><div class="member"><div class="num">3</div><div><p class="m-name">Az Expanzionista</p><p class="m-blurb">A felfelé mutató lehetőséget keresi, amit mindenki más kihagy. Nem a kockázat érdekli (az a Kontrárius dolga), hanem hogy mi van, ha ez a vártnál is jobban sül el.</p></div></div><div class="member"><div class="num">4</div><div><p class="m-name">A Kívülálló</p><p class="m-blurb">Nulla kontextussal érkezik: csak arra reagál, ami eléd kerül. Elkapja a tudás átkát - azt, ami neked nyilvánvaló, de kívülről zavaros.</p></div></div><div class="member"><div class="num">5</div><div><p class="m-name">A Végrehajtó</p><p class="m-blurb">Egyetlen dolog érdekli: meg lehet-e ezt valójában csinálni, és mi a leggyorsabb út odáig? Ha egy ötletnek nincs világos első lépése, kimondja.</p></div></div></div>
+  </section>
+
+  <section class="card">
+    <p class="label">A Tanács Álláspontjai</p>
+    <div class="grid"><div class="pos" style="border-left-color:#b91c1c"><div class="name"><span class="dot" style="background:#dc2626"></span>A Kontrárius</div><div class="stance">A teljes roadmap egyetlen törékeny View-patternen lóg; validáld előbb valódi GPU-n</div></div><div class="pos" style="border-left-color:#1d4ed8"><div class="name"><span class="dot" style="background:#2563eb"></span>Az Alapelvek Gondolkodó</div><div class="stance">Rossz kérdés: csak Phase A kell, B/C/D backlogba kliensfizetésig</div></div><div class="pos" style="border-left-color:#15803d"><div class="name"><span class="dot" style="background:#16a34a"></span>Az Expanzionista</div><div class="stance">Ne portfóliót, újrahasznosítható WOW-engine-t építs (quality/theme a startról)</div></div><div class="pos" style="border-left-color:#b91c1c"><div class="name"><span class="dot" style="background:#dc2626"></span>A Kívülálló</div><div class="stance">A WOW rossz közönségnek szól; csak A+B élesbe, aztán mérj</div></div><div class="pos" style="border-left-color:#15803d"><div class="name"><span class="dot" style="background:#16a34a"></span>A Végrehajtó</div><div class="stance">Jó és végrehajtható terv; első lépés Phase A Task 1, de valódi-GPU check kötelező</div></div></div>
+  </section>
+
+  <section class="card verdict">
+    <p class="label">A Tanács Verdiktje</p>
+    <h2>A Tanács Verdiktje</h2>
+    <div class="vsec agrees"><h3>Miben ért egyet a Tanács</h3><ul><li><strong>Phase A jogos és alacsony kockázatú.</strong> A szétszórt, izolált WebGL-kontextusok EGY Stage-re vonása valós tech-adósság-törlesztés (context-limit, perf). Ezt még a legszkeptikusabb tanácsadó (Alapelvek) is támogatja, akár önmagában.</li><li><strong>A sorrend helyes.</strong> A Phase A a kockázatmentes tracer bullet (nebula 1:1 + üres View.Port), ami bizonyítja az architektúrát, mielőtt bármi látványosba kezdesz.</li><li><strong>A terv kivitelezhetősége erős.</strong> Bite-size taskok, tsc+smoke kapu, a már ismert csapdák (backtick, DOM-placed View, transmission) explicit beírva. A Végrehajtó és a Kontrárius is elismeri: a terv technikailag őszinte és követhető.</li></ul></div><div class="vsec clashes"><h3>Hol ütközik a Tanács</h3><ul><li><strong>A scope.</strong> Az Alapelvek + Kívülálló: állj meg Phase A-nál (esetleg +B), a C/D feleslegesen ég el a saját idődön egy nem-szűk keresztmetszetre. Az Expanzionista szöges ellentétben: ne kevesebbet, hanem TÖBBET, mert amit építesz az egy újrahasznosítható WOW-engine, ami minden jövőbeli kliens-build árát feljebb tolja (egyszer építed, sokszor adod el).</li><li><strong>Kinek szól.</strong> Az Alapelvek/Kívülálló: a dabasi KKV-vevő a WOW-tól drágát és lassút érez, tehát kontraproduktív. Az Expanzionista (és a peer-review konszenzus): a portfólió valódi nézője NEM a pék, hanem a magasabb értékű kliens, az Awwwards/peer-kredibilitás, és maga az engine. A feszültség feloldása a peer-review-ban emergált: két közönség, két útvonal.</li></ul></div><div class="vsec blind"><h3>Vakfoltok, amiket a Tanács elkapott</h3><ul><li><strong>A portfólió két közönséget szolgál, és szét lehet választani</strong> (a peer-review legerősebb emergens belátása, 3 értékelő egymástól függetlenül): nehéz WOW-showcase a high-end kliensnek/kredibilitásnak, könnyű/gyors út a KKV-demókhoz, UGYANABBÓL a Stage-ből (route-szegmentált bizonyíték). Ez feloldja a gyors-ígéret vs nehéz-kirakat ellentmondást, amit mindenki külön panaszolt, de senki nem oldott meg.</li><li><strong>Kockázat-aszimmetria + nincs védőháló.</strong> A MŰKÖDŐ 98-Lighthouse oldal a fő gyors eladási bizonyítékod; a refaktor ezt élő veszélybe sodorja, és a terv nem említ branch/feature-flag/rollback kaput. Senki nem kérdezte: panaszkodott-e valaha akár egy lead, hogy nem elég WOW? (tünet nélkül kezelsz.)</li><li><strong>Nincs megéri-e kapu és kész-definíció.</strong> Nincs üzleti metrika (megkeresés, mobil-bounce), nincs forintban számolt alternatíva-költség (X nap szor elmaradt demó = MRR), és nincs kilépési pont, ha A+B után nincs mérhető emelkedés.</li><li><strong>A teljes vízió egyetlen törékeny drei-patternen lóg</strong> (Kontrárius), amit headless szoftver-GPU-n nem tudsz hitelesen verifikálni (a smoke-kapu zöld lehet úgy, hogy valódi mobilon rohad).</li></ul></div><div class="vsec rec"><h3>Az Ajánlás</h3><p>Menj tovább, de okosabban, nem vakon mind a 4 fázissal:</p>
+<p>1. <strong>Validáld előbb a kockázatot.</strong> A working oldal érintése ELŐTT igazold a teljes B+C+D drei-View + Bloom láncot a már meglévő eldobható concept-preview prototípusban, VALÓDI GPU-n ÉS VALÓDI MOBILON. Ha ott laggol vagy törik, az egész roadmap kérdéses. (Ezt csak egy tanácsadó mondta, de falszifikálható és a legdrágább hibát fogja meg, ezért a kisebbség mellé állok.) 2. <strong>Védd a működő oldalt.</strong> Branch + feature-flag; a régi DOM-háttér maradjon fallbackként; minden fázis végén KÖTELEZŐ valódi-böngészős/mobil manuális check (a headless screenshot hazudik). 3. <strong>Építsd inkrementálisan, mérve.</strong> Phase A (a jogos konszolidáció) + hero (B) élesbe a flag mögött, aztán MÉRJ (megkeresés, mobil-bounce). C/D csak akkor, ha van jel, vagy ha egy kliens FIZET fancy 3D-ért. 4. <strong>Hedge-eld az upside-t olcsón.</strong> Ha tovább mész, tervezd a Stage API-t újrahasznosíthatónak (quality/theme prop): olcsó biztosítás, és a WOW-engine mint termék pont a te valódi célodhoz illik (kliensek, akik fancy 3D-t kérnek). De ne hagyd scope-ot inflálni. 5. <strong>Vedd komolyan a két-közönség szegmentálást.</strong> A KKV-felé mutató fő útvonal maradjon gyors/józan, a showcase (lab/case-study route) lehet nehéz.</p></div><div class="vsec first"><h3>Az első dolog, amit tegyél</h3><p>Mielőtt egy sort is hozzáírsz a működő oldalhoz: bővítsd ki a már meglévő eldobható concept-preview prototípust a teljes B+C+D View+Bloom lánccal, és nyisd meg VALÓDI GPU-s böngészőben ÉS egy VALÓDI MOBILON. Ha sima és gyors, mehet az A→B branch mögött; ha laggol vagy törik, állj meg és gondold újra a C/D-t, mielőtt a kirakatodat kockáztatod.</p></div>
+  </section>
+
+  <section class="card">
+    <p class="label">Tanácsadói válaszok</p>
+    <details><summary class="adv-summary"><span><span class="badge" style="background:#fef2f2;color:#b91c1c">A Kontrárius</span></span><span class="tag">mutasd</span></summary><div class="body"><p>Elolvastam a specet és a négy fázist. Megvan, ahol ennek a tervnek vér csorog.</p>
+<p>A végzetes hiba nincs a kockázat-listátokon: a <code>&lt;View&gt;</code>-architektúra, amire mind a négy fázis épül, már most billeg. A saját specetek vallja be, hogy a Canvas-belső multi-<code>&lt;View track&gt;</code> variáns NEM renderelt a preview-ban, és egy bővebb EffectComposer (ChromaticAberration/Noise) ELTÖRTE a view-kompozitálást. Tehát az egész vízió (per-projekt szignók, hero, route-veil, tunnel) EGYETLEN, törékeny, "csak ez az egy variáns működik" drei-pattern-en lóg. Phase B/C/D mind ugyanazt a single point of failure-t terheli. Ha a drei <code>&lt;View&gt;</code> + Bloom kombó bárhol elcsúszik (és headless SwiftShaderben már most fekete a glass, opaque a transmission), nem egy effekt bukik, hanem a fél roadmap.</p>
+<p>Másodszor: a teszt-kapu vakon repül. A <code>smoke</code> "0 console error + nem fekete pixel"-t ellenőriz, de a vizuális verifikáció headless szoftveres GL-en fut, ahol ti magatok írjátok, hogy a glass fekete, a transmission opaque, és "valódi böngészőben nézd meg". Vagyis a gate ZÖLD lehet úgy, hogy a tényleges WOW-élmény fél böngészőn rohad. Ez pontosan a fajta csapda, ami a memóriátokban már szerepel (arrowBase white-screen, Tailwind-v4 transparent-stroke): build+smoke átment, a user fehér oldalt kapott.</p>
+<p>Harmadszor, az üzleti döntés: a "WOW" itt egy hipotézis ÜGYFÉL nélkül. Egy működő képesség-bizonyítékot napokra kockáztatsz egy nem-mért feltevésért. A 98 Lighthouse egy ELADHATÓ szám egy "gyors oldalakat építek" pitch-ben; egy laggos R3F-réteg ezt aktívan rombolja a saját kirakatodon.</p>
+<p>Kérdés, amit kerülgettek: ha egyetlen <code>&lt;View&gt;</code>-variáns bukik valódi mobil-GPU-n, mi a kilépési terv, és miért nem egy izolált, throwaway prototípuson igazoljátok a teljes B+C+D <code>&lt;View&gt;</code>+Bloom láncot MIELŐTT a működő oldalhoz nyúltok?</p></div></details><details><summary class="adv-summary"><span><span class="badge" style="background:#eff6ff;color:#1d4ed8">Az Alapelvek Gondolkodó</span></span><span class="tag">mutasd</span></summary><div class="body"><p>Rossz kérdést teszel fel. Nem az a kérdés, hogy "jó-e a 4 fázisú R3F-terv", hanem hogy mit ad el ez a portfólió, és kinek.</p>
+<p>A portfólió funkciója nem az, hogy WebGL-t mutasson. A funkciója, hogy egy Dabas környéki KKV-tulajdonos, aki sosem hallott a react-three-fiberről, 8 másodperc alatt érezze: "ez az ember ért valamihez, amihez én nem, és gyors". A célközönséged döntéshozója nem az Awwwards-zsűri. Egy R3F-perzisztens-Stage post-processing-passzal pontosan annyira fogja meggyőzni a pékséget Dabason, mint egy jól megírt CSS-transition. A "WOW" itt egy belső, mérnöki örömforrás, nem ügyfél-konverziós tényező.</p>
+<p>Most bontsuk le, mi a VALÓDI tét. Egyszemélyes stúdió vagy. A legszűkösebb erőforrásod nem a render-perf, hanem a saját órád. Több napnyi build egy MÁR MŰKÖDŐ oldalon nulla új ügyfelet termel, miközben ugyanaz a néhány nap egy ELSŐ fizető kliens demójára (lásd: demo-generator, Dabas-vertikál) közvetlenül MRR-t hoz. A portfólió-átépítés a klasszikus "csiszolom a kést, ahelyett hogy vágnék vele" csapda.</p>
+<p>Egy dolog viszont legitim: a szétszórt, izolált WebGL-kontextusok valós technikai adósság (context-limit, perf). Az EGY-Stage-re konszolidálás mint refaktor védhető. De ez nem 4 fázis és nem "filmes hero-utazás". Ez Fázis A, egyedül, fél nap, és KÉSZ.</p>
+<p>A helyes kérdés: "Mi a legkisebb beavatkozás, ami megszünteti a multi-context adósságot anélkül, hogy egy hetet ölnék egy nem-szűk keresztmetszetbe?" Csináld meg az A-t. B, C, D maradjon backlogban, amíg egy igazi kliens fancy 3D-t nem KÉR és FIZET érte. Akkor az élesben épül, nem a kirakatban.</p></div></details><details><summary class="adv-summary"><span><span class="badge" style="background:#f0fdf4;color:#15803d">Az Expanzionista</span></span><span class="tag">mutasd</span></summary><div class="body"><p>Az R3F-átállás nem költség, hanem a termék upgrade-je. Gondolj bele: a PTRK fő érve az, hogy "én olyan webet építek, amilyet más nem tud". Egy perzisztens Stage egyetlen post-passzal pontosan ezt a nem-replikálható különbséget kódolja a portfólióba. A szétszórt canvasok ma azt üzenik: "tudok WebGL-t". Az egy-Stage azt üzeni: "rendszert tervezek". Ez a kettő nem azonos árkategória.</p>
+<p>Hol nagyobb a felfelé, mint hiszed: ez a Stage NEM egyszer-használatos. Ez egy újrahasznosítható "WOW-engine". Amit itt megépítesz (Lenis-szinkronizált scroll-állapot, drei View-perprojekt-szignó, route-átmenet shader), az egy az egyben a kliens-build differenciátorod lesz. Vagyis a több napnyi meló nem a portfólióba ég el, hanem egy értékesíthető komponenskönyvtárba, ami minden jövőbeli prémium build árát feljebb tolja. Egyszer építed, sokszor adod el.</p>
+<p>Második, alulértékelt vektor: a szignó-objektumok. Projektenként egy 3D-jel pontosan az a "minden kártya egy mini-élmény" formátum, ami screenshot-olható, Twitter/Awwwards-beadható, esettanulmányosítható. A portfólió hirtelen nem egy oldal, hanem N+1 megosztható tárgy.</p>
+<p>Egyetlen expanzív kérés: a 4 fázis jó, de tegyél a Stage API-ba egy <code>quality</code> és egy <code>theme</code> propot a START-tól. Akkor a kliens-demókhoz percek alatt re-skinnelhető, és a WebGPU/TSL út is nyitva marad. Ne portfóliót építs. Engine-t építs, aminek a portfólió az első demója.</p></div></details><details><summary class="adv-summary"><span><span class="badge" style="background:#fef2f2;color:#b91c1c">A Kívülálló</span></span><span class="tag">mutasd</span></summary><div class="body"><p>Ez a terv technikailag profi és őszinte (még a "ez a variáns nem renderelt" buktatókat is dokumentálja). De kívülállóként két dolog zavar.</p>
+<p>1. Kinek szól a WOW? A tulajdonos prémium, GYORS weboldalakat ad el kisvállalkozóknak. Egy dabasi pékség vagy fogorvos a vásárló. Az ő szemükben a "scroll-reaktív 3D adat-konstelláció + forgó üvegcsomó projektenként + nebula-átmenet" nem azt üzeni, hogy "ez a fickó gyors, megbízható weboldalt csinál nekem", hanem hogy "ez drága lesz és lassú". A kirakat azt bizonyítsa, amit eladsz. Itt épp az ellenkezőjét bizonyítja: technodemót, nem üzleti eszközt. A célközönséged nem egy másik design engineer, akit lenyűgöz az R3F.</p>
+<p>2. A "gyors" ígéret és a saját kirakat ellentmondása. Egyetlen perzisztens WebGL context valóban jobb a soknál, de a terv maga is kimondja, hogy "performance no longer an absolute ceiling". A kirakatodon a Lighthouse-szám MARKETING. Ha a portfóliód lassabb mobilon mint a kliens-oldalak amiket eladsz, az hiteltelen.</p>
+<p>Ami homályos: nincs sehol "megéri-e" kapu. A 4 fázis "hogyan" épít, de nincs egyetlen mondat sem arról, MIBŐL fogod tudni, hogy ez több lead-et vagy ügyfelet hozott. Több nap munka egy MÁR MŰKÖDŐ kirakatra, mérhető üzleti hipotézis nélkül.</p>
+<p>Javaslat: csináld meg CSAK a Phase A-t és a hero belépőt (B), tedd élesbe, és nézd a mobil-bounce-ot meg a megkereséseket. A C és D (projektenkénti forgó objektum, átmenetek) a "tudás átka" zóna: neked látványos, a vevődnek zaj. Ne építsd meg vakon mind a négyet.</p></div></details><details><summary class="adv-summary"><span><span class="badge" style="background:#f0fdf4;color:#15803d">A Végrehajtó</span></span><span class="tag">mutasd</span></summary><div class="body"><p>Igen, jó irány, és a terv ritka módon végrehajtható: nem elméletről szól, hanem arról, hogy hétfő reggel melyik fájlt hozod létre és mit pötyögsz a terminálba. A task-ok bite-size-ok (1 fájl/task), mindegyik végén ugyanaz a kapu: <code>tsc</code> tiszta, commit, fázis végén <code>build</code>+<code>smoke</code>. Ez pont az a granularitás, ami egyedül, megbízhatatlan dev-watcherrel működik: ha valami elromlik, max egy commitnyit kell visszagörgetni.</p>
+<p>A sorrend helyes. Phase A a kockázatmentes alap (nebula 1:1 átköltöztetés + egy üres <code>&lt;View.Port/&gt;</code>), ami semmit nem ront el a látványon, de megépíti a perzisztens Canvas-t. Ez a helyes "tracer bullet": ha A zöld smoke-kal landol, az egész architektúra bizonyított, mielőtt bármi látványosba kezdesz.</p>
+<p>Amit a tervek jól csinálnak: minden ismert csapdát explicit beírtak a kódba. Backtick-tilalom kommentként a shader fölött; csak DOM-placed <code>&lt;View track&gt;</code> (a Canvas-belső multi-View tiltva); MeshTransmissionMaterial szándékosan kihagyva (hogy a screenshot megbízható legyen); a dev-restart helper készen bemásolva.</p>
+<p>A valódi kockázati pont egy van, és a terv tudja: Phase D, az EffectComposer bővítése. A ChromaticAberration/Noise korábban kiütötte a View-kompozitálást. Itt jó, hogy ez ONE small step, commit előtt screenshot-verifikációval és dokumentált visszavonási úttal (Bloom-only). Ezt tartsd is be: ne nyúlj a composerhez a tunnel+method View-k landolása előtt.</p>
+<p>Egyetlen valós lassító: a screenshot-verifikáció szoftver-GPU-n hazudhat (üveg/transmission feketén). A terv ezt kerüli, de a Phase C/D végén a "valódi böngészős" manuális check nem opcionális, futtasd le valódi GPU-n, mielőtt "kész"-t mondasz. Első lépés tiszta: Phase A Task 1, <code>nebulaShader.ts</code>. Csináld.</p></div></details>
+  </section>
+
+  <section class="card">
+    <p class="label">Egymás értékelése (anonim körben)</p>
+    <p class="sub-note">Miután a tanácsadók egymástól függetlenül válaszoltak, anonimizálva (A-E) megkapták egymás válaszait, és értékelték: melyik a legerősebb, hol a legnagyobb vakfolt, és mit hagyott ki mind az öt. Így nem a tekintélyt, hanem az érvet díjazzák.</p>
+    <details><summary><span>Egymás értékelése (anonim körben)</span><span class="tag">mutasd</span></summary><div class="body" style="padding-top:10px"><p class="lead"><strong>A Kontrárius (mint értékelő)</strong></p><p>1. A legerősebb: B. Egyetlen technikai single-point-of-failure-t talált, amit a többi átsiklott: a teljes 4 fázis a billegő <code>&lt;View&gt;</code>-architektúrára épül, amit a spec maga is törött állapotúnak vall (multi-View nem renderelt, EffectComposer eltörte a kompozitálást). Ehhez hozzáteszi a vakon-zöld teszt-kapu kockázatát (headless szoftver-GL hazudik) és konkrét akciót ad: throwaway proto, valódi GPU, a működő oldal érintése ELŐTT. Falszifikálható, bizonyítékkal alátámasztott, nem motiváció.</p>
+<p>2. A legnagyobb vakfolt: A. Tiszta cheerleading, nulla bukási mód. "Engine-t építs" hangzatos, de feltételezi a re-skinelhetőséget anélkül, hogy egyetlen technikai vagy üzleti kockázatot megnevezne. Hiányzik: ki fizet érte, mikor bukik, mérőszám. A "sokszor adod el" állítást egyetlen kliens sem validálta.</p>
+<p>3. MIND kihagyta: a befejezett-állapot és a megfordíthatatlanság kérdését. Egy WOW-portfólió beemeli az elvárás-szintet, amit MINDEN jövőbeli kliens-build örököl (scope-infláció saját időre), és bekeríti a karbantartási adósságot (r3f/drei major-bump törékenység). Senki nem kérdezte: mi a "kész" definíciója és a kilépési pont, ha A fázis után nincs mérhető megkeresés-emelkedés.</p></div><hr style='border:none;border-top:1px solid #f1f5f9;margin:4px 0'><div class="body" style="padding-top:10px"><p class="lead"><strong>Az Alapelvek Gondolkodó (mint értékelő)</strong></p><p>1. D a legerősebb. Egyedül ő mozdítja el a kérdést az alapelvek szintjére: nem "jó-e a 4 fázis", hanem mit és kinek ad el a kirakat, és mi az egyszemélyes stúdió tényleges szűkös erőforrása (a saját órája). Konkrét döntést is hoz: Stage-refaktor Fázis A fél nap, B/C/D backlogba amíg kliens fizet. Helyes problémát tesz fel, nem a megadottat fogadja el.</p>
+<p>2. A-nak a legnagyobb a vakfoltja. Tisztán a termék-belső logikán belül marad ("engine, ne portfólió"), és feltételezi a sokszori újraeladást anélkül, hogy egyetlen fizető klienst vagy keresletet igazolna. Hiányzik belőle a vevő (a pékség nem WOW-engine-t vesz) és az alternatívköltség. A jövőbeli ROI-t adottnak veszi.</p>
+<p>3. MIND kihagyta: a kockázat-aszimmetriát. A jelenlegi oldal 98 Lighthouse-szal MŰKÖDIK és bizonyítja a "gyors" ígéretet; ez a fő értékesítési bizonyíték, amit a refaktor élő veszélybe sodor. Senki nem javasolt branch/feature-flag/visszagörgetési kaput, és senki nem kérdezte: panaszkodott-e valaha akár egy lead, hogy az oldal nem elég WOW? Tünet nélkül oldanak meg problémát.</p></div><hr style='border:none;border-top:1px solid #f1f5f9;margin:4px 0'><div class="body" style="padding-top:10px"><p class="lead"><strong>Az Expanzionista (mint értékelő)</strong></p><p>1. A legerősebb: D. Egyedüliként a kérdést magát támadja meg, és a tényleges szűk keresztmetszetet nevezi meg: az egyszemélyes stúdió legszűkösebb erőforrása a saját ideje, a vevő pedig (pékség, fogorvos) nem a 3D-től vásárol. Ad konkrét döntést is: Phase A védhető (fél nap, tech-adósság), B/C/D backlogba kliensfizetésig. Üzleti és technikai realitást egyszerre köt össze.</p>
+<p>2. A legnagyobb vakfolt: D (és E). Mindketten feltételezik, hogy a portfólió közvetlenül a péknek ad el. Pont az expanzionista felfelé hiányzik: a portfólió valódi vevője nem a KKV, hanem a drágább, igényesebb kliens, az Awwwards-zsűri, a beszállító/ügynökségi partner és maga az újrahasznosítható engine (amit A jól lát). D a "nulla MRR" keretben elszámolja a stúdió legnagyobb fel nem ismert eszközét: egy WOW-engine, ami minden jövőbeli build árát feljebb tolja.</p>
+<p>3. Amit MIND kihagyott: kétféle kirakat kell, nem egy. Senki nem mondta ki, hogy a péknek menő demó és az engineering-hitelt bizonyító portfólió szétválasztható (eltérő route, eltérő pozícionálás). Hiányzik a bizonyíték: nincs javaslat a WOW-hipotézis olcsó tesztelésére (A/B, valódi lead-reakció) a teljes átépítés előtt. És senki nem említette, hogy a 3D maga az áru demója lehet, amit prémium feláron eladhatsz.</p></div><hr style='border:none;border-top:1px solid #f1f5f9;margin:4px 0'><div class="body" style="padding-top:10px"><p class="lead"><strong>A Kívülálló (mint értékelő)</strong></p><p>1. Legerősebb: B. Egyetlenként technikai single-point-of-failure-t azonosít (billegő View-architektúra), és leleplezi a teszt-kapu hamis zöldjét (szoftver-GL nem mutat glass/transmission hibát). Konkrét, verifikálható, megelőzi a kárt: throwaway prototípus valódi GPU-n a működő oldal érintése ELŐTT.</p>
+<p>2. Legnagyobb vakfolt: A. Tiszta termékvízió ("ne portfóliót, engine-t"), de nulla validáció: feltételezi, hogy a WOW-engine elad, hogy az újrahasznosíthatóság megtérül, hogy van Awwwards-közönség. Hiányzik a kliens, a megéri-e kapu, a kockázat. Ez a "tudás átka" tiszta formája: a mérnök szemszöge, nem a vevőé.</p>
+<p>3. Amit MIND az öt kihagyott: a tényleges üzleti veszteség-számítás és a kétoldalú demó-stratégia. D/E érinti az "elad-e a pékségnek" kérdést, de senki nem mondja ki, hogy a portfólió két KÜLÖNBÖZŐ közönséget szolgál (Awwwards/peer-kredibilitás vs fizető KKV), és ezeket szét lehet választani: a 3D-s kirakat a magas értékű kliensekhez és a kredibilitáshoz szól, a gyors/józan demó a KKV-hez. Senki nem javasol A/B mérést a portfólión magán, és senki nem számszerűsíti az alternatíva-költséget forintban (X nap szor elmaradt demó = konkrét MRR).</p></div><hr style='border:none;border-top:1px solid #f1f5f9;margin:4px 0'><div class="body" style="padding-top:10px"><p class="lead"><strong>A Végrehajtó (mint értékelő)</strong></p><p>1. Legerősebb: B. Egyetlenként a kritikus láncot támadja, nem a stratégiát: a <code>&lt;View&gt;</code>-architektúra single point of failure, és a teszt-kapu hamis-zöld (headless szoftver-GL feketén rendereli az üveget/transmissiont, így a smoke átmehet, miközben fél böngészőn rohad). Konkrét, megelőzhető, végrehajtható következtetés: throwaway prototípuson igazold a teljes láncot valódi GPU-n, MIELŐTT a működő oldalhoz nyúlsz. Ez a tudható-most legdrágább hibát fogja meg.</p>
+<p>2. Legnagyobb vakfolt: A. Az "engine, nem portfólió" csábító, de feltételezi, hogy a kockázatos lánc egyáltalán működik, és átugorja, hogy egy törött, újrahasznosíthatatlan Stage = negatív eszköz. Hiányzik belőle bármilyen kapu vagy bukási feltétel; tiszta upside-narratíva.</p>
+<p>3. Amit MIND kihagyott: senki sem mondja ki, hogy a portfólió nézője nem a fizető pékség, hanem a következő premium kliens vagy Awwwards-zsűri, tehát kétfunkciós eszköz, eltérő közönséggel. D/E félig odaér, de "vagy-vagy"-ként kezeli WOW vs gyors helyett a valódi megoldást: route-szegmentált bizonyíték (nehéz showcase a high-end leadnek, könnyű/statikus a KKV-demókhoz, ugyanabból a Stage-ből).</p></div></details>
+  </section>
+
+  <footer>Tanácsülés: 2026-06-16 19:45</footer>
+</div>
+</body>
+</html>

@@ -263,12 +263,6 @@ html[data-blueprint] canvas {
   opacity: 0.15;
 }
 
-/* Route-transition scanline sweep (RouteTransition.tsx) */
-@keyframes routeSweep {
-  0% { transform: translateY(-2px); opacity: 1; }
-  100% { transform: translateY(100vh); opacity: 0.6; }
-}
-
 /* Scroll-reveal — hidden state ONLY when JS is live (html[data-js] set by
    an inline script in layout.tsx) and the user allows motion. No-JS and
    reduced-motion visitors always see the content. */

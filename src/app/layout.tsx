@@ -22,7 +22,6 @@ import { RevealObserver } from "@/components/RevealObserver";
 import { NodeToast } from "@/components/NodeToast";
 import { HudSystem } from "@/components/HudSystem";
 import { MobileTerminalDock } from "@/components/MobileTerminalDock";
-import { RouteTransition } from "@/components/RouteTransition";
 import { BootSequence } from "@/components/BootSequence";
 import "./globals.css";
 
@@ -74,7 +73,6 @@ export default function RootLayout({
         <JsonLd />
         <SmoothScroll />
         <RevealObserver />
-        <RouteTransition />
         <MarathonBackground />
         <ScrollProgress />
         <CustomCursor />

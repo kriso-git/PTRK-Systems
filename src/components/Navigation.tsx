@@ -9,9 +9,9 @@ type Accent = "lime" | "magenta" | "cyan" | "orange";
 
 const NAV: { href: string; label: string; section: string; accent: Accent }[] = [
   { href: "/", label: "Intro", section: "§ 00", accent: "lime" },
-  { href: "/work", label: "Work", section: "§ 02", accent: "magenta" },
-  { href: "/method", label: "Method", section: "§ 03", accent: "cyan" },
-  { href: "/connect", label: "Connect", section: "§ 06", accent: "orange" },
+  { href: "/work", label: "Work", section: "§ 01", accent: "magenta" },
+  { href: "/method", label: "Method", section: "§ 02", accent: "cyan" },
+  { href: "/connect", label: "Connect", section: "§ 03", accent: "orange" },
 ];
 
 /* Static lookups — Tailwind JIT only sees literal class strings */

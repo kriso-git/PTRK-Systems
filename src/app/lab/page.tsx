@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Crosshair } from "@/components/Crosshair";
 import { GoliathOrnament } from "@/components/GoliathSymbols";
 import { DecodeReplay, BootReplay } from "@/components/LabDemos";
+import { LabEffectLazy } from "@/components/LabEffectLazy";
 
 export const metadata: Metadata = {
   title: "Lab — Experiments Archive",
@@ -62,6 +63,17 @@ const EXPERIMENTS: Experiment[] = [
     demo: "reveal",
   },
 ];
+
+const WEBGL_EXPERIMENTS = [
+  { code: "GL_001", title: "Raymarch", fx: "raymarch", color: "lime", tech: "1 fullscreen háromszög · gyroid SDF", desc: "Volumetrikus glow-raymarch egy animált gyroid-héjon, neon lime/cyan, scanline + vignette. Nulla geometria, tiszta fragment-matek." },
+  { code: "GL_002", title: "Hologram", fx: "hologram", color: "cyan", tech: "Fresnel + scanline shader", desc: "Forgó knot fresnel-peremmel és scanline-villódzással, additív glow. HUD-hologram hangulat." },
+  { code: "GL_003", title: "Voronoi", fx: "voronoi", color: "magenta", tech: "Cellular F1/F2 · domain-warp", desc: "Animált Voronoi-cellák izzó élekkel, fbm domain-warppal és kurzor-torzítással. Tiszta fragment-shader." },
+  { code: "GL_004", title: "HUD-rács", fx: "grid", color: "orange", tech: "InstancedMesh · per-instance vertex", desc: "Instanced dot-matrix hullám-felszín: a kockák fbm-zajra hullámzanak, az egér hullámot küld a rácson." },
+  { code: "GL_005", title: "Galaxis", fx: "galaxy", color: "lime", tech: "16k additív pont", desc: "Spirál-galaxis pont-felhő, lime-mag a cyan/magenta karokig, lassú forgás, kurzor-parallax." },
+  { code: "GL_006", title: "Mátrix-eső", fx: "matrixrain", color: "cyan", tech: "Glyph-atlasz · InstancedMesh", desc: "Eső-glifák 3D mélységben, runtime canvas-atlaszból; a fej fehéren izzik, a csóva lime→cyan." },
+  { code: "GL_007", title: "HUD-alagút", fx: "tunnel", color: "magenta", tech: "TubeGeometry · kamera-repülés", desc: "Repülés egy önmagát nem metsző wireframe HUD-alagútban, mélység-foggal. Tron/Marathon DNS." },
+  { code: "GL_008", title: "Warp-mező", fx: "starfield", color: "orange", tech: "Streak-pontok · pointer-sebesség", desc: "Warp-sebességű csillagmező csíkokká nyújtott pontokkal; a sebesség a kurzor-távolságra reagál." },
+] as const;
 
 const ACCENT_TEXT: Record<string, string> = {
   lime: "text-lime",
@@ -168,6 +180,56 @@ export default function LabPage() {
               </div>
             </article>
           ))}
+        </div>
+      </section>
+
+      {/* ─────────────────────────────  WEBGL / THREE.JS  ───────────────────────────── */}
+      <section className="relative z-10 border-t border-white/10 px-6 md:px-10 py-24 md:py-36">
+        <div className="max-w-[1500px]">
+          <div className="font-monospec text-[10px] uppercase tracking-[0.4em] text-cyan mb-6 flex items-center gap-3">
+            <span className="inline-block w-8 h-px bg-cyan" />
+            <span>§ 05 · WebGL · Three.js</span>
+          </div>
+          <h2 className="font-khinterference uppercase tracking-[-0.005em] text-primary text-[clamp(40px,7vw,128px)] leading-[0.88]">
+            Real-time
+            <br />
+            <span className="text-cyan">render.</span>
+          </h2>
+          <p className="mt-8 font-shorai text-lg md:text-xl text-secondary leading-[1.45] max-w-[56ch]">
+            Élő WebGL-réteg, izolált modulokként (init / frame / resize / dispose). Minden kártya
+            csak akkor renderel, ha látszik, és <span className="text-primary">lazy töltődik</span> —
+            a kritikus bundle érintetlen marad.
+          </p>
+
+          <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            {WEBGL_EXPERIMENTS.map((exp, i) => (
+              <article
+                key={exp.code}
+                data-reveal
+                style={{ transitionDelay: `${(i % 3) * 70}ms` }}
+                className={`relative border ${ACCENT_BORDER[exp.color]} bg-surface/40 backdrop-blur-sm flex flex-col`}
+              >
+                <Crosshair position="tr" color={exp.color} />
+                <div className="relative h-44 md:h-52 border-b border-white/10 overflow-hidden bg-void/50">
+                  <LabEffectLazy fx={exp.fx} />
+                </div>
+                <div className="p-6 flex flex-col gap-3">
+                  <div className="flex items-baseline justify-between gap-3">
+                    <span className={`font-monospec text-[10px] tracking-[0.35em] uppercase ${ACCENT_TEXT[exp.color]}`}>
+                      {exp.code}
+                    </span>
+                    <span className="font-monospec text-[9px] tracking-[0.25em] uppercase text-secondary/60 text-right">
+                      {exp.tech}
+                    </span>
+                  </div>
+                  <h3 className="font-sequel text-2xl tracking-[-0.02em] text-primary leading-none">
+                    {exp.title}
+                  </h3>
+                  <p className="font-shorai text-sm text-secondary leading-relaxed">{exp.desc}</p>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
