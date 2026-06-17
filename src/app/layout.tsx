@@ -36,12 +36,12 @@ export const metadata: Metadata = {
     template: "PTRK-Systems - %s",
   },
   description:
-    "Prémium, modern weboldalak helyi magyar vállalkozásoknak, jó áron. A weboldal csak a kezdet: havi Élő Gondozással karbantartjuk, figyeljük és mindig a versenytársaid felett tartjuk. Közvetlen kapcsolat, AAM (nincs ÁFA).",
+    "Prémium, modern weboldalak magyar vállalkozásoknak, jó áron. A weboldal csak a kezdet: havi Élő Gondozással karbantartjuk, figyeljük és mindig a versenytársaid felett tartjuk. Közvetlen kapcsolat, AAM (nincs ÁFA).",
   metadataBase: new URL("https://ptrksystems.com"),
   openGraph: {
     title: "PTRK-Systems – Prémium weboldal + Élő Gondozás",
     description:
-      "Prémium, modern weboldalak helyi vállalkozásoknak. A weboldal csak a kezdet: havi gondozás, közvetlen kapcsolat, a domain a tiéd.",
+      "Prémium, modern weboldalak vállalkozásoknak. A weboldal csak a kezdet: havi gondozás, közvetlen kapcsolat, a domain a tiéd.",
     locale: "hu_HU",
     type: "website",
   },
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "PTRK-Systems – Prémium weboldal + Élő Gondozás",
     description:
-      "Prémium, modern weboldalak helyi vállalkozásoknak. A weboldal csak a kezdet: havi gondozás, közvetlen kapcsolat, a domain a tiéd.",
+      "Prémium, modern weboldalak vállalkozásoknak. A weboldal csak a kezdet: havi gondozás, közvetlen kapcsolat, a domain a tiéd.",
   },
 };
 

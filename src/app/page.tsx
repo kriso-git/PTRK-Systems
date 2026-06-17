@@ -50,7 +50,7 @@ export default function Home() {
             <div className="font-monospec text-[10px] tracking-[0.3em] uppercase text-secondary leading-relaxed">
               Prémium weboldal
               <br />
-              <span className="text-orange">Élő gondozás</span>
+              <span className="text-orange">Gyors, modern</span>
               <br />
               <span className="block mt-3 text-cyan/70">AAM · nincs ÁFA</span>
             </div>
@@ -58,23 +58,21 @@ export default function Home() {
 
           <div className="col-span-12 md:col-span-9">
             <h2 className="font-khinterference uppercase tracking-[-0.005em] text-[clamp(48px,9vw,144px)] leading-[0.88] text-primary">
-              A weboldal
+              Mai áron,
               <br />
-              <span className="text-lime">csak a kezdet.</span>
+              <span className="text-lime">mai minőségben.</span>
             </h2>
 
             <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8 max-w-[78ch]">
               <p className="font-shorai text-lg md:text-xl text-secondary leading-[1.55]">
-                Először egy <span className="text-primary">prémium, modern weboldal</span>: gyorsan,
-                tiszta scope-pal, felesleges ügynökségi marzs nélkül, a te igényedre szabva.
-                AAM-ben dolgozunk, így nálunk <span className="text-primary">400.000 Ft tényleg 400.000 Ft</span>;
-                egy ÁFÁ-s versenytársnál ugyanez 508.000 Ft, mert nem tudja visszaigényelni.
+                Egy <span className="text-primary">prémium, modern weboldal</span>: gyorsan, tiszta
+                scope-pal, felesleges ügynökségi marzs nélkül, a te igényedre szabva.
+                Egyoldalas bemutatkozótól az egyedi, többoldalas megoldásig.
               </p>
               <p className="font-shorai text-lg md:text-xl text-secondary leading-[1.55]">
-                <span className="text-lime">De a weboldal csak a horog. A valódi érték a havi Élő Gondozás.</span>{" "}
-                Karbantartjuk, figyeljük, mérjük a forgalmad, igény szerint fejlesztjük, és
-                mindig a versenytársaid felett tartjuk. Az oldalad sosem marad magára, és
-                sosem avul el.
+                <span className="text-lime">Nem sablon és nem makett.</span>{" "}
+                Működő, gyors oldal, ami komolyan veszi a céged jelenlétét. Ez az első hely,
+                ahol az érdeklődő találkozik veled, megéri hát jól csinálni.
               </p>
             </div>
 
@@ -82,8 +80,8 @@ export default function Home() {
             <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-4 border-t border-white/15 pt-10">
               {[
                 { n: "Élő", label: "Havi gondozás", icon: "interface-essential-cog-double", text: "text-lime", bg: "bg-lime", border: "hover:border-lime/40" },
-                { n: "Tiéd", label: "Domain az 1. naptól", icon: "interface-essential-key-lock", text: "text-cyan", bg: "bg-cyan", border: "hover:border-cyan/40" },
-                { n: "+0%", label: "AAM · nincs ÁFA", icon: "business-product-price-tag", text: "text-magenta", bg: "bg-magenta", border: "hover:border-magenta/40" },
+                { n: "98", label: "Lighthouse pont", icon: "interface-essential-wifi-signal", text: "text-cyan", bg: "bg-cyan", border: "hover:border-cyan/40" },
+                { n: "0", label: "Rejtett tétel", icon: "business-product-price-tag", text: "text-magenta", bg: "bg-magenta", border: "hover:border-magenta/40" },
                 { n: "<24h", label: "Közvetlen válasz", icon: "interface-essential-clock", text: "text-orange", bg: "bg-orange", border: "hover:border-orange/40" },
               ].map((m, i) => (
                 <div

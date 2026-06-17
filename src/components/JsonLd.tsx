@@ -6,7 +6,7 @@ const SCHEMA = {
       "@id": "https://ptrksystems.com/#org",
       name: "PTRK-Systems",
       description:
-        "Prémium, modern weboldalak helyi magyar vállalkozásoknak, havi Élő Gondozással: karbantartás, figyelés, forgalom-mérés és igény szerinti fejlesztés. Weboldal-stúdió, közvetlen kapcsolat.",
+        "Prémium, modern weboldalak magyar vállalkozásoknak, havi Élő Gondozással: karbantartás, figyelés, forgalom-mérés és igény szerinti fejlesztés. Weboldal-stúdió, közvetlen kapcsolat.",
       url: "https://ptrksystems.com",
       email: "hello@ptrksystems.com",
       areaServed: { "@type": "Country", name: "Hungary" },
@@ -19,7 +19,7 @@ const SCHEMA = {
         "weboldal készítés",
         "weboldal karbantartás",
         "weboldal gondozás",
-        "helyi vállalkozás weboldal",
+        "céges weboldal",
         "SEO",
         "Next.js",
       ],

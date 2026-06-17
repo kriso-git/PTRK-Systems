@@ -9,9 +9,9 @@ import { PixelIcon } from "@/components/PixelIcon";
 const ALAP = [
   { icon: "interface-essential-cog-double", t: "Karbantartás és figyelés", d: "domain, hosting, SSL, biztonsági frissítés, uptime, mentés" },
   { icon: "coding-apps-websites-shield-lock", t: "Modern, biztonságos, Google-safe", d: "mindig friss megoldások, hogy a versenytársaid felett maradj" },
-  { icon: "interface-essential-cursor-click-point", t: "Havi 1 módosítás", d: "igény szerint, amikor kéred, nem mi ajánljuk fel" },
+  { icon: "interface-essential-cursor-click-point", t: "Havi 1 módosítás", d: "igény szerint, amikor kéred" },
   { icon: "interface-essential-satellite", t: "Közvetlen kapcsolat", d: "minket érsz el gyorsan, nem egy ügyfélszolgálatot" },
-  { icon: "interface-essential-wifi-signal", t: "Forgalom-mérés a háttérben", d: "havonta informálisan jelezzük, mi történt" },
+  { icon: "interface-essential-wifi-signal", t: "Forgalom-mérés a háttérben", d: "részletes havi jelentésért lásd a Max csomagot" },
 ];
 
 const MAX_EXTRA = [
@@ -54,8 +54,9 @@ export function LiveCare() {
             </h2>
           </div>
           <p className="max-w-md font-shorai text-base leading-relaxed text-secondary md:text-lg">
-            Két csomag, egy cél: az oldalad gyors, megtalálható és friss maradjon, te pedig
-            mindig elöl. A keret egyszerű és becsületes: <span className="text-primary">mérünk és megmutatunk, de nem ígérgetünk.</span>
+            A weboldal elkészülte csak a kezdet. A valódi érték a folyamatos gondozás: havonta
+            karbantartjuk, figyeljük és frissen tartjuk az oldalad, hogy mindig elöl légy.
+            Becsületesen: <span className="text-primary">mérünk és megmutatunk, de nem ígérgetünk.</span>
           </p>
         </div>
 

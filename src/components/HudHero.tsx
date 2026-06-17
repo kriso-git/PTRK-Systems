@@ -188,7 +188,7 @@ export function HudHero() {
             </div>
 
             <p className="mt-8 max-w-[54ch] font-shorai text-lg leading-[1.4] tracking-[-0.005em] text-secondary md:text-2xl">
-              Prémium, modern weboldalak helyi vállalkozásoknak: gyorsan, jó áron, a te
+              Prémium, modern weboldalak vállalkozásoknak: gyorsan, jó áron, a te
               igényedre szabva. De a weboldal csak a kezdet, a havi{" "}
               <span className="text-primary">Élő Gondozással</span> utána is veled maradunk, és
               mindig <span className="italic text-lime">a versenytársaid felett</span> tartunk.
