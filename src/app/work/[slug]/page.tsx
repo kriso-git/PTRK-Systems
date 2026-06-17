@@ -5,6 +5,7 @@ import { PROJECTS } from "@/data/projects";
 import { BrowserPreview } from "@/components/BrowserPreview";
 import { Crosshair } from "@/components/Crosshair";
 import { DecodeText } from "@/components/DecodeText";
+import { WorkDataWeb } from "@/components/WorkDataWeb";
 
 const ACCENT_TEXT: Record<string, string> = {
   lime: "text-lime",
@@ -72,7 +73,13 @@ export default async function CaseStudyPage({
     <>
       {/* ─────────────────────────────  DEBRIEF HERO  ───────────────────────────── */}
       <section className="relative z-10 px-6 md:px-10 pt-24 md:pt-40 pb-20 md:pb-28 overflow-hidden">
-        <div className="max-w-[1500px]">
+        {/* per-project themed data web, top-right */}
+        <WorkDataWeb
+          projectId={p.id}
+          color={p.color}
+          className="pointer-events-none absolute right-6 top-28 z-0 hidden h-[clamp(220px,28vw,400px)] w-[clamp(300px,40vw,600px)] md:right-10 md:top-36 lg:block"
+        />
+        <div className="relative z-[1] max-w-[1500px]">
           <div className="mb-8 flex flex-wrap items-center gap-3">
             <span
               className={`font-monospec text-[11px] ${tx} border ${border} px-3 py-1.5 tracking-[0.25em] uppercase`}
