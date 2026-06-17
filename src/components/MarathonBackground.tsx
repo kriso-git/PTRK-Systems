@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import { gyroState } from "@/lib/gyro";
-import { ReactiveConsole } from "@/components/ReactiveConsole";
 
 /**
  * Viewport-fixed Marathon background.
@@ -168,13 +167,6 @@ export function MarathonBackground() {
       />
     </div>
 
-    {/* Right-edge datastream — SIBLING of the z-0 wrapper, not a child:
-        inside it the aside's own z-index is trapped in the z-0 stacking
-        context and any z-10 content (e.g. the manifesto band bleeding
-        into the gutter) paints over it. At root z-[15] it sits above
-        content (10), below the nav (40); the §02 slab (z-20) with the
-        ACCESS ghost intentionally stays above it. */}
-    <ReactiveConsole />
   </>
   );
 }

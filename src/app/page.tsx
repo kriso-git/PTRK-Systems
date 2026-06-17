@@ -37,7 +37,7 @@ export default function Home() {
       <section
         data-section="§ 02"
         data-label="Hozzáférés"
-        className="relative z-20 border-b border-white/10 px-6 md:px-10 py-32 md:py-48 overflow-hidden md:-mr-[260px]"
+        className="relative z-20 border-b border-white/10 px-6 md:px-10 py-32 md:py-48 overflow-hidden"
       >
         <GoliathOrnament
           seed="2026"

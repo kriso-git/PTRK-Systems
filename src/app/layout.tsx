@@ -118,12 +118,7 @@ export default function RootLayout({
               taller (~96px) because the header has a brand row + a 4-tab
               nav row stacked underneath it. */}
           <div aria-hidden className="h-[96px] md:h-[94px] shrink-0" />
-          {/* Reserve 260px on the right (md+) so content never collides
-              with the fixed RightDataStream terminal aside (230px wide +
-              8px mx-2 = 246px footprint). Without this, FHD-class monitors
-              (~1920px and narrower) push body copy and headings under the
-              terminal column; only ≥~2200px viewports had enough gutter. */}
-          <main className="flex-1 relative z-10 md:pr-[260px]">{children}</main>
+          <main className="flex-1 relative z-10">{children}</main>
           <Footer />
         </div>
         <SystemBoot />

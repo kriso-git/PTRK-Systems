@@ -11,7 +11,7 @@ export function ManifestoBand() {
     <section
       data-section="§ 03"
       data-label="Kiáltvány"
-      className="relative z-10 bg-lime text-black overflow-hidden md:-mr-[260px]"
+      className="relative z-10 bg-lime text-black overflow-hidden"
     >
       {/* Inverse corner markers — black on lime */}
       <div className="absolute top-0 left-0 w-10 h-10 border-t-4 border-l-4 border-black/80 pointer-events-none" />
