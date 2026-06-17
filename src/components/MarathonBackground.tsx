@@ -516,6 +516,7 @@ type FlowLine = {
   tag: LineTag;
   color: SlotColor;
   cmd: string;
+  body: string; // cmd minus its tag prefix — the tag renders as a badge, the body types out
   typed: number;
   state: FlowLineState;
 };
@@ -544,17 +545,56 @@ function makeLine(id: number, prevCmd: string | null): FlowLine {
   for (let attempt = 0; attempt < 4 && cmd === prevCmd; attempt++) {
     cmd = COMMAND_POOL[Math.floor(Math.random() * COMMAND_POOL.length)];
   }
-  const tag = detectTag(cmd) ?? "$";
+  const detected = detectTag(cmd);
+  const tag = detected ?? "$";
   const color = TAG_COLOR[tag];
+  const body = detected ? cmd.slice(detected.length).trimStart() : cmd;
   return {
     id,
     ts: fmtTs(new Date()),
     tag,
     color,
     cmd,
+    body,
     typed: 0,
     state: "typing",
   };
+}
+
+/** Live throughput sparkline for the terminal chrome — bars scroll left as new
+ *  samples push in. Newest bar is bright; pure canvas, client-only. */
+function Sparkline() {
+  const ref = useRef<HTMLCanvasElement>(null);
+  useEffect(() => {
+    const cv = ref.current;
+    if (!cv) return;
+    const ctx = cv.getContext("2d");
+    if (!ctx) return;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const size = () => { cv.width = cv.clientWidth * dpr; cv.height = cv.clientHeight * dpr; };
+    size();
+    const N = 34;
+    const vals: number[] = Array.from({ length: N }, (_, i) => 0.2 + 0.25 * Math.abs(Math.sin(i * 0.7)));
+    let raf = 0, last = performance.now(), acc = 0;
+    const draw = (now: number) => {
+      raf = requestAnimationFrame(draw);
+      acc += now - last; last = now;
+      if (acc > 130) { acc = 0; vals.push(0.12 + Math.random() * 0.85); if (vals.length > N) vals.shift(); }
+      const w = cv.width, h = cv.height;
+      ctx.clearRect(0, 0, w, h);
+      const bw = w / N;
+      for (let i = 0; i < vals.length; i++) {
+        const bh = Math.max(1 * dpr, vals[i] * h * 0.92);
+        ctx.fillStyle = i === vals.length - 1 ? "#c2fe0c" : "#c2fe0c5c";
+        ctx.fillRect(i * bw + 0.5 * dpr, h - bh, bw - 1 * dpr, bh);
+      }
+    };
+    raf = requestAnimationFrame(draw);
+    const onR = () => size();
+    window.addEventListener("resize", onR);
+    return () => { cancelAnimationFrame(raf); window.removeEventListener("resize", onR); };
+  }, []);
+  return <canvas ref={ref} className="h-3.5 min-w-0 flex-1" />;
 }
 
 function RightDataStream() {
@@ -675,8 +715,8 @@ function RightDataStream() {
           return;
         }
         const last = arr[lastIdx];
-        const nextTyped = Math.min(last.typed + 1, last.cmd.length);
-        const settled = nextTyped >= last.cmd.length;
+        const nextTyped = Math.min(last.typed + 1, last.body.length);
+        const settled = nextTyped >= last.body.length;
         const updated: FlowLine = {
           ...last,
           typed: nextTyped,
@@ -729,15 +769,22 @@ function RightDataStream() {
       aria-hidden
       className="fixed right-0 top-[88px] bottom-4 w-[230px] z-[12] pointer-events-none hidden md:flex flex-col font-monospec"
     >
-      {/* Header chip */}
-      <div className="mx-2 px-3 py-2 border border-b-0 border-lime/30 bg-void/85 backdrop-blur-sm flex items-center gap-2 text-[10px] tracking-[0.25em] uppercase">
-        <span className="w-1.5 h-1.5 bg-lime cursor-blink shrink-0" />
-        <span className="text-lime">TX·LIVE</span>
-        <span className="text-secondary/40">/</span>
-        <span className="text-secondary/70">LANE·A</span>
-        <span className="ml-auto text-secondary/50 text-[9px]">{`${latency
-          .toString()
-          .padStart(2, "0")}ms`}</span>
+      {/* Terminal window chrome */}
+      <div className="mx-2 border border-b-0 border-lime/30 bg-void/85 backdrop-blur-sm">
+        {/* title bar: HUD control dots + node prompt + live dot */}
+        <div className="flex items-center gap-1.5 border-b border-lime/15 px-3 py-1.5">
+          <span className="h-2 w-2 bg-lime/80" />
+          <span className="h-2 w-2 bg-cyan/70" />
+          <span className="h-2 w-2 bg-magenta/70" />
+          <span className="ml-2 truncate text-[9px] tracking-[0.12em] text-secondary/70">ptrk@node·0a20</span>
+          <span className="ml-auto h-1.5 w-1.5 shrink-0 bg-lime cursor-blink" />
+        </div>
+        {/* status strip: TX·LIVE + live throughput sparkline + latency */}
+        <div className="flex items-center gap-2 px-3 py-1.5 text-[10px] uppercase tracking-[0.25em]">
+          <span className="shrink-0 text-lime">TX·LIVE</span>
+          <Sparkline />
+          <span className="shrink-0 text-[9px] text-secondary/50">{`${latency.toString().padStart(2, "0")}ms`}</span>
+        </div>
       </div>
 
       {/* Log body — newest at the bottom. Lines fill the column to the
@@ -748,11 +795,15 @@ function RightDataStream() {
         ref={bodyRef}
         className="relative flex-1 mx-2 overflow-hidden border border-lime/30 bg-void/60 backdrop-blur-sm"
       >
+        {/* CRT scanlines */}
+        <div aria-hidden className="pointer-events-none absolute inset-0 z-20 opacity-[0.05]" style={{ backgroundImage: "repeating-linear-gradient(0deg,#c2fe0c 0 1px,transparent 1px 3px)" }} />
+        {/* top dissolve gradient — older rows fade up into the chrome */}
+        <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 z-20 h-12 bg-gradient-to-b from-void/95 to-transparent" />
         <div className="absolute inset-0 flex flex-col justify-end px-2 pb-1 pt-1">
           {lines.map((ln, i) => {
             const isLast = i === lines.length - 1;
             const isTyping = ln.state === "typing";
-            const visible = ln.cmd.slice(0, ln.typed);
+            const visible = ln.body.slice(0, ln.typed);
             // Distance from the top of the rendered stack — i=0 is the
             // oldest visible row, closest to being pushed off. A 7-step
             // gradient gives an elegant fade-out as rows drift up toward
@@ -780,15 +831,21 @@ function RightDataStream() {
               <div
                 key={ln.id}
                 data-flow-line
-                className="text-[10px] leading-[1.5] tracking-[0.04em] text-left py-[1px] flex items-center gap-1.5 overflow-hidden"
-                style={{
-                  opacity,
-                  color: hex,
-                  textShadow: `0 0 5px ${hex}55`,
-                }}
+                className={`relative flex items-center gap-1.5 overflow-hidden py-[1px] pl-2 text-left text-[10px] leading-[1.5] tracking-[0.04em] ${isLast ? "bg-white/[0.03]" : ""}`}
+                style={{ opacity }}
               >
-                <span className="text-secondary/40 shrink-0">{ln.ts}</span>
-                <span className="truncate min-w-0 flex-1">{visible}</span>
+                {/* severity rail */}
+                <span aria-hidden className="absolute left-0 top-0 h-full w-[2px]" style={{ background: hex, opacity: isLast ? 1 : 0.55 }} />
+                {/* tag badge */}
+                <span
+                  className="shrink-0 border px-1 text-[8px] leading-[1.5] tracking-normal"
+                  style={{ color: hex, borderColor: `${hex}66`, background: `${hex}14` }}
+                >
+                  {ln.tag}
+                </span>
+                <span className="min-w-0 flex-1 truncate" style={{ color: hex, textShadow: `0 0 5px ${hex}55` }}>
+                  {visible}
+                </span>
                 {isLast && (
                   <span
                     aria-hidden
