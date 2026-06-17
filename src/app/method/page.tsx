@@ -4,6 +4,8 @@ import { PROCESS_STEPS, TECH_STACK } from "@/data/projects";
 import { Crosshair } from "@/components/Crosshair";
 import { GoliathOrnament } from "@/components/GoliathSymbols";
 import { DecodeText } from "@/components/DecodeText";
+import { PixelIcon } from "@/components/PixelIcon";
+import { PHASE_ICONS } from "@/lib/process-icons";
 
 export const metadata: Metadata = {
   title: "Method",
@@ -15,21 +17,25 @@ export const metadata: Metadata = {
 const DELIVERABLES = [
   {
     code: "D.01",
+    icon: "computers-devices-electronics-chipset",
     title: "Production kódbázis",
     desc: "Next.js 16 / Vite 5 + TypeScript strict, CI/CD-vel, Vercel / Cloudflare deploy ready.",
   },
   {
     code: "D.02",
+    icon: "computers-devices-electronics-monitor",
     title: "Design rendszer",
     desc: "Design token export, komponens-leírás és teljes weboldal-dokumentáció.",
   },
   {
     code: "D.03",
+    icon: "coding-apps-websites-database",
     title: "Adatréteg",
     desc: "Supabase PostgreSQL séma, Drizzle migrációk, RLS policy-k minden táblán.",
   },
   {
     code: "D.04",
+    icon: "content-files-archive-books-1",
     title: "Knowledge transfer",
     desc: "Architektúra dokumentum, runbook, 30 napos hyper-care, tech onboarding.",
   },
@@ -59,8 +65,8 @@ export default function MethodPage() {
         <div className="max-w-[1500px] grid grid-cols-12 gap-y-10 md:gap-x-10">
           <aside className="col-span-12 md:col-span-3 lg:col-span-2 md:pt-4">
             <div className="font-monospec text-[10px] tracking-[0.4em] uppercase text-cyan mb-6 flex items-center gap-3">
-              <span className="inline-block w-8 h-px bg-cyan" />
-              <span>§ 03 · Method</span>
+              <PixelIcon name="interface-essential-cog-double" width={15} height={15} aria-hidden />
+              <span>Method</span>
             </div>
             <div className="font-monospec text-[10px] tracking-[0.3em] uppercase text-secondary leading-relaxed">
               Process
@@ -102,9 +108,10 @@ export default function MethodPage() {
       <section className="relative z-10 border-t border-white/10 px-6 md:px-10 py-24 md:py-32">
         <div className="max-w-[1500px]">
           {/* Section label */}
-          <div className="mb-10 flex items-baseline gap-4">
-            <span className="font-monospec text-[10px] tracking-[0.4em] uppercase text-cyan">
-              § 03 / PROCESS
+          <div className="mb-10 flex items-center gap-4">
+            <span className="flex items-center gap-3 font-monospec text-[10px] tracking-[0.4em] uppercase text-cyan">
+              <PixelIcon name="interface-essential-cog-double" width={14} height={14} aria-hidden />
+              Process
             </span>
             <span className="h-px flex-1 bg-lime/20" />
             <span className="font-monospec text-[10px] tracking-[0.3em] uppercase text-secondary">
@@ -154,7 +161,8 @@ export default function MethodPage() {
                   </div>
 
                   {/* Title */}
-                  <h3 className="col-span-9 md:col-span-5 font-khinterference uppercase text-base md:text-2xl text-primary tracking-[0.005em] leading-tight">
+                  <h3 className="col-span-9 md:col-span-5 flex items-center gap-3 font-khinterference uppercase text-base md:text-2xl text-primary tracking-[0.005em] leading-tight">
+                    <PixelIcon name={PHASE_ICONS[i]} width={18} height={18} className="hidden shrink-0 text-lime/70 md:block" aria-hidden />
                     {step.title}
                   </h3>
 
@@ -191,8 +199,8 @@ export default function MethodPage() {
           <aside className="col-span-12 md:col-span-4">
             <div className="md:sticky md:top-32">
               <div className="font-monospec text-[10px] uppercase tracking-[0.4em] text-magenta mb-6 flex items-center gap-3">
-                <span className="inline-block w-8 h-px bg-magenta" />
-                <span>§ 04 · Deliverables</span>
+                <PixelIcon name="shopping-shipping-box" width={15} height={15} aria-hidden />
+                <span>Deliverables</span>
               </div>
               <h2 className="font-khinterference uppercase tracking-[0.005em] text-5xl md:text-7xl leading-[0.92] text-primary mb-6">
                 Mit
@@ -212,13 +220,17 @@ export default function MethodPage() {
                 key={d.code}
                 data-reveal
                 style={{ transitionDelay: `${i * 70}ms` }}
-                className={`py-16 md:py-20 ${
+                className={`group py-16 md:py-20 ${
                   i !== DELIVERABLES.length - 1 ? "border-b border-white/15" : ""
                 }`}
               >
-                <div className="font-monospec text-[10px] uppercase tracking-[0.35em] text-magenta mb-4 flex items-center gap-3">
-                  <span className="inline-block w-6 h-px bg-magenta" />
-                  <span>{d.code}</span>
+                <div className="mb-5 flex items-center gap-4">
+                  <div className="grid h-12 w-12 shrink-0 place-items-center border border-white/12 text-magenta transition-colors group-hover:border-magenta/50">
+                    <PixelIcon name={d.icon} width={22} height={22} aria-hidden />
+                  </div>
+                  <span className="font-monospec text-[10px] uppercase tracking-[0.35em] text-magenta">
+                    {d.code}
+                  </span>
                 </div>
                 <h3 className="font-sequel text-3xl md:text-5xl tracking-[-0.02em] text-primary leading-[1.05] mb-5 max-w-[24ch]">
                   {d.title}
@@ -238,8 +250,8 @@ export default function MethodPage() {
           <div className="grid grid-cols-12 gap-y-12 md:gap-x-10 items-end mb-20">
             <div className="col-span-12 md:col-span-7">
               <div className="font-monospec text-[10px] uppercase tracking-[0.4em] text-orange mb-4 flex items-center gap-3">
-                <span className="inline-block w-8 h-px bg-orange" />
-                <span>§ 05 · Stack</span>
+                <PixelIcon name="computers-devices-electronics-chipset" width={15} height={15} aria-hidden />
+                <span>Stack</span>
               </div>
               <h2 className="font-khinterference uppercase tracking-[-0.005em] text-[clamp(48px,8vw,128px)] leading-[0.88] text-primary">
                 Eszköz<span className="text-orange">·</span>

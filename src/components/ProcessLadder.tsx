@@ -1,16 +1,6 @@
 import { PixelIcon } from "@/components/PixelIcon";
 import { PROCESS_STEPS } from "@/data/projects";
-
-// One pixel icon per phase, mapped to the nature of the step. Copy stays verbatim
-// from PROCESS_STEPS — this only adds the HUD treatment.
-const PHASE_ICONS = [
-  "map-navigation-pin-location-1", // 01 Kutatás & Stratégia
-  "coding-apps-websites-database", // 02 Információs Architektúra
-  "computers-devices-electronics-monitor", // 03 Vizuális Design
-  "computers-devices-electronics-chipset", // 04 Frontend Fejlesztés
-  "interface-essential-cog-double", // 05 Tesztelés & Iteráció
-  "social-rewards-flag", // 06 Launch & Support
-];
+import { PHASE_ICONS } from "@/lib/process-icons";
 
 /**
  * ProcessLadder — the home §05 process, rebuilt as a ladder of HUD nodes. Each
