@@ -254,8 +254,9 @@ export default function Home() {
         className="relative z-10 border-t border-white/10 px-6 md:px-10 py-36 md:py-56 overflow-hidden"
       >
         <div className="max-w-[1500px] relative">
-          <div className="font-monospec text-[10px] tracking-[0.35em] uppercase text-lime mb-6">
-            § 06 · Engage
+          <div className="mb-6 flex items-center gap-3 font-monospec text-[10px] uppercase tracking-[0.35em] text-lime">
+            <PixelIcon name="social-rewards-flag" width={15} height={15} aria-hidden />
+            <span>§ 08 · Engage</span>
           </div>
 
           <div className="relative">
@@ -295,9 +296,11 @@ export default function Home() {
               </a>
               <Link
                 href="/lab"
-                className="font-monospec text-xs tracking-[0.25em] uppercase text-secondary hover:text-lime transition-colors"
+                className="group inline-flex items-center gap-2 font-monospec text-xs tracking-[0.25em] uppercase text-secondary transition-colors hover:text-lime"
               >
-                § 05 · Experiments lab →
+                <PixelIcon name="interface-essential-cog-double" width={13} height={13} aria-hidden />
+                Experiments lab
+                <span className="transition-transform group-hover:translate-x-1">→</span>
               </Link>
             </div>
           </div>
