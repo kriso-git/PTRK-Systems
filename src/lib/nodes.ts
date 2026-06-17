@@ -8,7 +8,6 @@ export const NODES: Record<string, string> = {
   "nod-code": "NOD·0A20070A megfejtve",
   konami: "Legacy protokoll elfogadva",
   whoami: "Operátor azonosítva",
-  "font-preview": "Rejtett archívum felfedezve",
   "signal-lost": "Jelvesztés túlélve",
   blueprint: "Tervrajz-hozzáférés",
   "decode-replay": "Dekóder újraindítva",
