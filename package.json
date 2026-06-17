@@ -14,6 +14,8 @@
     }
   },
   "dependencies": {
+    "@iconify-json/streamline-pixel": "^1.2.0",
+    "@iconify/react": "^6.0.2",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.6.1",
     "@react-three/postprocessing": "^3.0.4",
