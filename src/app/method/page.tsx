@@ -80,7 +80,7 @@ export default function MethodPage() {
             <div className="font-monospec text-[10px] uppercase tracking-[0.3em] text-secondary mb-4">
               <span className="text-cyan">Methodology</span> · how we operate
             </div>
-            <h1 className="font-khinterference uppercase leading-[0.86] tracking-[-0.005em] text-primary text-[clamp(60px,12vw,200px)] relative">
+            <h1 className="font-khinterference uppercase leading-[0.86] tracking-[-0.005em] text-primary text-[clamp(42px,12vw,200px)] relative">
               <GoliathOrnament
                 seed="METHOD"
                 count={6}

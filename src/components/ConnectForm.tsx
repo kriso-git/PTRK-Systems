@@ -106,7 +106,7 @@ export function ConnectForm() {
             <div className="font-monospec text-[10px] uppercase tracking-[0.3em] text-secondary mb-4">
               <span className="text-orange">Open dispatch</span> · talk before you brief
             </div>
-            <h1 className="font-khinterference uppercase leading-[0.86] tracking-[-0.005em] text-primary text-[clamp(56px,11vw,184px)] relative">
+            <h1 className="font-khinterference uppercase leading-[0.86] tracking-[-0.005em] text-primary text-[clamp(40px,11vw,184px)] relative">
               <GoliathOrnament
                 seed="HELLO"
                 count={5}

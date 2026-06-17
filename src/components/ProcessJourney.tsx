@@ -144,7 +144,7 @@ export function ProcessJourney() {
           {/* CENTER/RIGHT */}
           <div className="relative flex h-[58vh] flex-1 items-center">
             {/* right-side animated HUD forms + ghost number */}
-            <div aria-hidden className="pointer-events-none absolute right-0 top-1/2 hidden h-[78vh] w-[58%] -translate-y-1/2 lg:block">
+            <div aria-hidden className="pointer-events-none absolute inset-0 opacity-60 lg:inset-auto lg:right-0 lg:top-1/2 lg:h-[78vh] lg:w-[58%] lg:-translate-y-1/2 lg:opacity-100">
               <div className="absolute inset-0 z-0"><PhaseVisual activeRef={activeRef} accentRef={accentRef} enterRef={enterRef} /></div>
               <span
                 key={`ghost-${active}`}
