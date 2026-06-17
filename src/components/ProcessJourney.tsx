@@ -75,7 +75,7 @@ export function ProcessJourney() {
   const ghostOpacity = (0.06 + pulse * 0.05) * (0.4 + enter * 0.6);
 
   return (
-    <section ref={ref} data-section="§ 05" data-label="Folyamat" style={{ height: "360vh" }} className="relative z-10 w-full">
+    <section ref={ref} data-section="§ 06" data-label="Folyamat" style={{ height: "360vh" }} className="relative z-10 w-full">
       <div className="sticky top-0 h-screen overflow-hidden">
         {/* soft scrim for legibility over the nebula (kept light so the bg shows) */}
         <div aria-hidden className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(125% 100% at 50% 50%, rgba(5,5,8,0.35), rgba(5,5,8,0.7) 100%)" }} />
@@ -114,7 +114,7 @@ export function ProcessJourney() {
 
         {/* top label */}
         <div className="absolute left-0 right-0 top-0 flex items-center justify-between px-6 py-6 md:px-10">
-          <span className="font-monospec text-[10px] uppercase tracking-[0.4em] text-secondary">§ 05 · Folyamat · 06 fázis</span>
+          <span className="font-monospec text-[10px] uppercase tracking-[0.4em] text-secondary">§ 06 · Folyamat · 06 fázis</span>
           <span className="font-monospec text-[10px] uppercase tracking-[0.4em]" style={{ color: accent, transition: "color 600ms ease" }}>// studio process</span>
         </div>
 

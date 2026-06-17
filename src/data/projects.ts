@@ -255,6 +255,6 @@ export const FAQ = [
   },
   {
     q: "Miért veled dolgozzak, és ne egy ügynökséggel?",
-    a: "Mert közvetlenül a döntéshozóval dolgozol, nem veszel el egy gépezetben, és nincs ügyfélszolgálati lánc. Gyorsabb, személyesebb, és pontosan azt kapod, amire szükséged van.",
+    a: "Mert közvetlenül a döntéshozóval dolgozol, nem veszel el egy gépezetben, és nincs ügyfélszolgálati lánc. Gyorsabb, személyesebb, és pontosan azt kapod, amire szükséged van. Ráadásul egy 5-15 fős ügynökség rezsije és felárai nélkül a prémium minőség jóval kedvezőbb áron jön ki.",
   },
 ];

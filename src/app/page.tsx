@@ -7,6 +7,7 @@ import { Operator } from "@/components/Operator";
 import { WorkIndexRow } from "@/components/WorkIndexRow";
 import { HudHero } from "@/components/HudHero";
 import { Cornerstones } from "@/components/Cornerstones";
+import { LiveCare } from "@/components/LiveCare";
 import { StatsBar } from "@/components/StatsBar";
 import { ProcessJourney } from "@/components/ProcessJourney";
 import { PixelIcon } from "@/components/PixelIcon";
@@ -108,6 +109,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ─────────────────────────────  ÉLŐ GONDOZÁS (§03 · the care offer)  ───────────────────────────── */}
+      <LiveCare />
+
       {/* ─────────────────────────────  CORNERSTONES (why better)  ───────────────────────────── */}
       <Cornerstones />
 
@@ -115,7 +119,7 @@ export default function Home() {
 
       {/* ─────────────────────────────  PROJECT INDEX (preview)  ───────────────────────────── */}
       <section
-        data-section="§ 04"
+        data-section="§ 05"
         data-label="Munkák"
         className="relative z-10 border-t border-white/10 bg-transparent"
       >
@@ -124,7 +128,7 @@ export default function Home() {
             <div>
               <div className="mb-4 flex items-center gap-3 font-monospec text-[10px] uppercase tracking-[0.35em] text-magenta">
                 <PixelIcon name="content-files-archive-books-1" width={15} height={15} aria-hidden />
-                <span>§ 04 · Index</span>
+                <span>§ 05 · Index</span>
               </div>
               <h2 className="font-khinterference uppercase tracking-[-0.005em] text-[clamp(56px,10vw,168px)] leading-[0.85] text-primary">
                 Selected
@@ -156,7 +160,7 @@ export default function Home() {
 
       {/* ─────────────────────────────  STACK MARGINALIA  ───────────────────────────── */}
       <section
-        data-section="§ 06"
+        data-section="§ 07"
         data-label="Stack"
         className="relative z-10 border-t border-white/10 px-6 md:px-10 py-32 md:py-48 bg-void/30"
       >
@@ -164,7 +168,7 @@ export default function Home() {
           <div className="col-span-12 md:col-span-5">
             <div className="mb-4 flex items-center gap-3 font-monospec text-[10px] uppercase tracking-[0.35em] text-cyan">
               <PixelIcon name="computers-devices-electronics-chipset" width={15} height={15} aria-hidden />
-              <span>§ 06 · Stack</span>
+              <span>§ 07 · Stack</span>
             </div>
             <h2 className="font-khinterference uppercase tracking-[-0.005em] text-[clamp(56px,10vw,168px)] leading-[0.85] text-primary">
               Eszköz<span className="text-cyan">·</span>
@@ -194,7 +198,7 @@ export default function Home() {
 
       {/* ─────────────────────────────  FAQ DIALOGUE  ───────────────────────────── */}
       <section
-        data-section="§ 07"
+        data-section="§ 08"
         data-label="Kérdések"
         className="relative z-10 border-t border-white/10 px-6 md:px-10 py-36 md:py-56"
       >
@@ -202,7 +206,7 @@ export default function Home() {
           <aside className="col-span-12 md:col-span-4">
             <div className="mb-6 flex items-center gap-3 font-monospec text-[10px] uppercase tracking-[0.35em] text-magenta">
               <PixelIcon name="interface-essential-cog-search" width={15} height={15} aria-hidden />
-              <span>§ 07 · Dialogue</span>
+              <span>§ 08 · Dialogue</span>
             </div>
             <h2 className="font-khinterference uppercase tracking-[0.02em] text-5xl md:text-7xl leading-[0.92] text-primary mb-6">
               Gyakori
@@ -243,14 +247,14 @@ export default function Home() {
 
       {/* ─────────────────────────────  COLOPHON / CTA  ───────────────────────────── */}
       <section
-        data-section="§ 08"
+        data-section="§ 09"
         data-label="Engage"
         className="relative z-10 border-t border-white/10 px-6 md:px-10 py-36 md:py-56 overflow-hidden"
       >
         <div className="max-w-[1500px] relative">
           <div className="mb-6 flex items-center gap-3 font-monospec text-[10px] uppercase tracking-[0.35em] text-lime">
             <PixelIcon name="social-rewards-flag" width={15} height={15} aria-hidden />
-            <span>§ 08 · Engage</span>
+            <span>§ 09 · Engage</span>
           </div>
 
           <div className="relative">

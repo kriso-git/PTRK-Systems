@@ -9,7 +9,7 @@ import { NodeTrigger } from "@/components/NodeTrigger";
 export function ManifestoBand() {
   return (
     <section
-      data-section="§ 03"
+      data-section="§ 04"
       data-label="Kiáltvány"
       className="relative z-10 bg-lime text-black overflow-hidden"
     >

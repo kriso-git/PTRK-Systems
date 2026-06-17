@@ -88,11 +88,11 @@ export default function MethodPage() {
                 className="absolute -top-8 -left-2 text-cyan/[0.04] pointer-events-none"
               />
               <span className="relative">
-                <DecodeText text="A kutatástól" />
+                <DecodeText text="Kutatástól" />
               </span>
               <br />
               <span className="text-cyan relative">
-                <DecodeText text="a gondozásig." delayMs={150} />
+                <DecodeText text="gondozásig." delayMs={150} />
               </span>
             </h1>
             <p className="mt-10 font-shorai text-xl md:text-2xl text-secondary leading-[1.4] max-w-[58ch] tracking-[-0.005em]">

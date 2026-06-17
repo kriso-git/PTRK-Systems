@@ -7,10 +7,10 @@ import { PixelIcon } from "@/components/PixelIcon";
 const ITEMS = [
   {
     n: "I",
-    icon: "interface-essential-key-lock",
+    icon: "interface-essential-wifi-signal",
     accent: "lime" as const,
-    head: "A weboldal a tiéd – nem túsz.",
-    body: "A domain az első naptól a te neveden, írásos tulajdonjogi garanciával. Ha bármikor továbblépnél, 48 órán belül, 0 forintért átadunk mindent. A havidíj a gondozásért van, sosem zsarolásért.",
+    head: "Mérünk, nem ígérgetünk.",
+    body: "Mások garantált csodaszámokat ígérnek, amit egy új oldalnál tisztességesen nem lehet. Mi nem. Havonta megmérjük és átláthatóan megmutatjuk, mi történik az oldaladdal: gyors-e, megtalálható-e, friss-e. Becsületesen, valós számokkal.",
   },
   {
     n: "II",
@@ -37,7 +37,7 @@ const A = {
 export function Cornerstones() {
   return (
     <section
-      data-section="§ 03"
+      data-section="§ 04"
       data-label="Alapkövek"
       className="relative z-10 border-t border-white/10 px-6 py-32 md:px-10 md:py-48"
     >
@@ -47,7 +47,7 @@ export function Cornerstones() {
           <div>
             <div className="mb-5 flex items-center gap-3 font-monospec text-[10px] uppercase tracking-[0.35em] text-cyan">
               <PixelIcon name="interface-essential-cog-double" width={15} height={15} aria-hidden />
-              <span>§ 03 · Cornerstones</span>
+              <span>§ 04 · Cornerstones</span>
             </div>
             <h2 className="font-khinterference uppercase leading-[0.85] tracking-[-0.005em] text-primary text-[clamp(48px,9vw,150px)]">
               Három
