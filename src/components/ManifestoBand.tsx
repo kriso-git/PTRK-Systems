@@ -9,7 +9,7 @@ import { NodeTrigger } from "@/components/NodeTrigger";
 export function ManifestoBand() {
   return (
     <section
-      data-section="§ 04"
+      data-section="§ 03"
       data-label="Kiáltvány"
       className="relative z-10 bg-lime text-black overflow-hidden"
     >
@@ -36,7 +36,7 @@ export function ManifestoBand() {
         </div>
 
         <h2 className="font-khinterference uppercase leading-[0.9] tracking-[-0.01em] text-[clamp(34px,5vw,76px)]">
-          Te birtokolod, mi gondozzuk.
+          Te birtoklod, mi gondozzuk.
         </h2>
         <p className="mt-3 font-khinterference uppercase tracking-[0.01em] text-[clamp(20px,2.6vw,38px)] text-black/75">
           A weboldalad sosem marad magára, és sosem avul el.

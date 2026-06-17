@@ -17,7 +17,6 @@ const ROUTES = [
   "/work/f3xykee-terminal",
   "/work/nemletezik",
   "/method",
-  "/lab",
   "/connect",
   "/nemletezik",
 ];

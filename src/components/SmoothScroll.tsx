@@ -8,9 +8,11 @@ export function SmoothScroll() {
     if (typeof window === "undefined") return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
+    // lerp mode (not duration): each frame eases a fixed fraction toward the
+    // target, so even single mouse-wheel notches glide smoothly instead of
+    // snapping. Lower lerp = more glide; 0.1 is the balanced sweet spot.
     const lenis = new Lenis({
-      duration: 1.05,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      lerp: 0.1,
       smoothWheel: true,
       wheelMultiplier: 1,
       touchMultiplier: 1.5,

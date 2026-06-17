@@ -43,3 +43,6 @@ next-env.d.ts
 .vercel
 
 scripts/_shots/
+
+# local `next start` logs (verification workflow)
+/.next-start*.log

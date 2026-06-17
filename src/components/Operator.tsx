@@ -13,7 +13,7 @@ export function Operator() {
 
   return (
     <section
-      data-section="§ 05"
+      data-section="§ 04"
       data-label="Operátor"
       className="relative z-10 border-t border-white/10 px-6 md:px-10 py-32 md:py-48"
     >

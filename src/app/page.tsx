@@ -15,9 +15,6 @@ import { PixelIcon } from "@/components/PixelIcon";
 // Root page is NOT subject to the layout title.template, so set the full string.
 export const metadata = { title: "PTRK-Systems - Introduction" };
 
-const COORD = "47.4979°N · 19.0402°E";
-
-
 
 export default function Home() {
   return (
@@ -28,86 +25,8 @@ export default function Home() {
       {/* ─────────────────────────────  LIVE METRICS (§01)  ───────────────────────────── */}
       <StatsBar />
 
-      {/* ─────────────────────────────  ACCESS / PRICING NOTE  ───────────────────────────── */}
-      <section
-        data-section="§ 02"
-        data-label="Hozzáférés"
-        className="relative z-20 border-b border-white/10 px-6 md:px-10 py-32 md:py-48 overflow-hidden"
-      >
-        <GoliathOrnament
-          seed="2026"
-          count={4}
-          size="clamp(110px, 17vw, 320px)"
-          className="absolute -bottom-24 -right-12 text-lime/[0.04] pointer-events-none"
-        />
 
-        <div className="max-w-[1500px] grid grid-cols-12 gap-y-14 md:gap-x-10 relative">
-          <aside className="col-span-12 md:col-span-3">
-            <div className="font-monospec text-[10px] tracking-[0.4em] uppercase text-orange mb-6 flex items-center gap-3">
-              <PixelIcon name="business-product-price-tag" width={15} height={15} aria-hidden />
-              <span>§ 02 · Ajánlat</span>
-            </div>
-            <div className="font-monospec text-[10px] tracking-[0.3em] uppercase text-secondary leading-relaxed">
-              Prémium weboldal
-              <br />
-              <span className="text-orange">Gyors, modern</span>
-              <br />
-              <span className="block mt-3 text-cyan/70">AAM · nincs ÁFA</span>
-            </div>
-          </aside>
-
-          <div className="col-span-12 md:col-span-9">
-            <h2 className="font-khinterference uppercase tracking-[-0.005em] text-[clamp(48px,9vw,144px)] leading-[0.88] text-primary">
-              Mai áron,
-              <br />
-              <span className="text-lime">mai minőségben.</span>
-            </h2>
-
-            <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8 max-w-[78ch]">
-              <p className="font-shorai text-lg md:text-xl text-secondary leading-[1.55]">
-                Egy <span className="text-primary">prémium, modern weboldal</span>: gyorsan, tiszta
-                scope-pal, felesleges ügynökségi marzs nélkül, a te igényedre szabva.
-                Egyoldalas bemutatkozótól az egyedi, többoldalas megoldásig.
-              </p>
-              <p className="font-shorai text-lg md:text-xl text-secondary leading-[1.55]">
-                <span className="text-lime">Nem sablon és nem makett.</span>{" "}
-                Működő, gyors oldal, ami komolyan veszi a céged jelenlétét. Ez az első hely,
-                ahol az érdeklődő találkozik veled, megéri hát jól csinálni.
-              </p>
-            </div>
-
-            {/* Inline meter row – HUD chips */}
-            <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-4 border-t border-white/15 pt-10">
-              {[
-                { n: "Élő", label: "Havi gondozás", icon: "interface-essential-cog-double", text: "text-lime", bg: "bg-lime", border: "hover:border-lime/40" },
-                { n: "98", label: "Lighthouse pont", icon: "interface-essential-wifi-signal", text: "text-cyan", bg: "bg-cyan", border: "hover:border-cyan/40" },
-                { n: "0", label: "Rejtett tétel", icon: "business-product-price-tag", text: "text-magenta", bg: "bg-magenta", border: "hover:border-magenta/40" },
-                { n: "<24h", label: "Közvetlen válasz", icon: "interface-essential-clock", text: "text-orange", bg: "bg-orange", border: "hover:border-orange/40" },
-              ].map((m, i) => (
-                <div
-                  key={i}
-                  data-reveal
-                  style={{ transitionDelay: `${i * 70}ms` }}
-                  className={`group flex flex-col gap-2 border border-white/12 bg-void/30 p-4 backdrop-blur-[1px] transition-colors ${m.border}`}
-                >
-                  <div className={`flex items-center gap-2 ${m.text}`}>
-                    <PixelIcon name={m.icon} width={15} height={15} aria-hidden />
-                    <span className={`inline-block h-px w-5 ${m.bg} opacity-50`} />
-                  </div>
-                  <span className={`font-sequel text-4xl md:text-5xl leading-none tracking-[-0.04em] ${m.text}`}>
-                    {m.n}
-                  </span>
-                  <span className="font-shorai text-sm text-secondary tracking-tight">
-                    {m.label}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ─────────────────────────────  ÉLŐ GONDOZÁS (§03 · the care offer)  ───────────────────────────── */}
+      {/* ─────────────────────────────  ÉLŐ GONDOZÁS (§02 · the full offer: build + care)  ───────────────────────────── */}
       <LiveCare />
 
       {/* ─────────────────────────────  CORNERSTONES (why better)  ───────────────────────────── */}
@@ -117,7 +36,7 @@ export default function Home() {
 
       {/* ─────────────────────────────  PROJECT INDEX (preview)  ───────────────────────────── */}
       <section
-        data-section="§ 05"
+        data-section="§ 04"
         data-label="Munkák"
         className="relative z-10 border-t border-white/10 bg-transparent"
       >
@@ -126,7 +45,7 @@ export default function Home() {
             <div>
               <div className="mb-4 flex items-center gap-3 font-monospec text-[10px] uppercase tracking-[0.35em] text-magenta">
                 <PixelIcon name="content-files-archive-books-1" width={15} height={15} aria-hidden />
-                <span>§ 05 · Index</span>
+                <span>§ 04 · Index</span>
               </div>
               <h2 className="font-khinterference uppercase tracking-[-0.005em] text-[clamp(56px,10vw,168px)] leading-[0.85] text-primary">
                 Selected
@@ -158,7 +77,7 @@ export default function Home() {
 
       {/* ─────────────────────────────  STACK MARGINALIA  ───────────────────────────── */}
       <section
-        data-section="§ 07"
+        data-section="§ 06"
         data-label="Stack"
         className="relative z-10 border-t border-white/10 px-6 md:px-10 py-32 md:py-48 bg-void/30"
       >
@@ -166,7 +85,7 @@ export default function Home() {
           <div className="col-span-12 md:col-span-5">
             <div className="mb-4 flex items-center gap-3 font-monospec text-[10px] uppercase tracking-[0.35em] text-cyan">
               <PixelIcon name="computers-devices-electronics-chipset" width={15} height={15} aria-hidden />
-              <span>§ 07 · Stack</span>
+              <span>§ 06 · Stack</span>
             </div>
             <h2 className="font-khinterference uppercase tracking-[-0.005em] text-[clamp(56px,10vw,168px)] leading-[0.85] text-primary">
               Eszköz<span className="text-cyan">·</span>
@@ -196,7 +115,7 @@ export default function Home() {
 
       {/* ─────────────────────────────  FAQ DIALOGUE  ───────────────────────────── */}
       <section
-        data-section="§ 08"
+        data-section="§ 07"
         data-label="Kérdések"
         className="relative z-10 border-t border-white/10 px-6 md:px-10 py-36 md:py-56"
       >
@@ -204,7 +123,7 @@ export default function Home() {
           <aside className="col-span-12 md:col-span-4">
             <div className="mb-6 flex items-center gap-3 font-monospec text-[10px] uppercase tracking-[0.35em] text-magenta">
               <PixelIcon name="interface-essential-cog-search" width={15} height={15} aria-hidden />
-              <span>§ 08 · Dialogue</span>
+              <span>§ 07 · Dialogue</span>
             </div>
             <h2 className="font-khinterference uppercase tracking-[0.02em] text-5xl md:text-7xl leading-[0.92] text-primary mb-6">
               Gyakori
@@ -245,14 +164,14 @@ export default function Home() {
 
       {/* ─────────────────────────────  COLOPHON / CTA  ───────────────────────────── */}
       <section
-        data-section="§ 09"
+        data-section="§ 08"
         data-label="Engage"
         className="relative z-10 border-t border-white/10 px-6 md:px-10 py-36 md:py-56 overflow-hidden"
       >
         <div className="max-w-[1500px] relative">
           <div className="mb-6 flex items-center gap-3 font-monospec text-[10px] uppercase tracking-[0.35em] text-lime">
             <PixelIcon name="social-rewards-flag" width={15} height={15} aria-hidden />
-            <span>§ 09 · Engage</span>
+            <span>§ 08 · Engage</span>
           </div>
 
           <div className="relative">
@@ -291,25 +210,6 @@ export default function Home() {
               >
                 hello@ptrksystems.com
               </a>
-            </div>
-          </div>
-
-          <div className="mt-24 pt-8 border-t border-white/15 grid grid-cols-2 md:grid-cols-4 gap-6 font-monospec text-[10px] uppercase tracking-[0.3em] text-secondary/80">
-            <div>
-              <div className="text-cyan mb-2">Display</div>
-              KH Interference · Sequel
-            </div>
-            <div>
-              <div className="text-cyan mb-2">Body</div>
-              Shorai · Fraktion
-            </div>
-            <div>
-              <div className="text-cyan mb-2">Mono</div>
-              Monospec · MS PGothic
-            </div>
-            <div>
-              <div className="text-cyan mb-2">Coords</div>
-              {COORD}
             </div>
           </div>
         </div>
