@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { PixelIcon } from "@/components/PixelIcon";
+import { projectAccent } from "@/lib/project-accent";
 import type { Project } from "@/data/projects";
 
 // ssr:false (View + three are browser-only) — a Server Component can't load it
@@ -13,13 +14,6 @@ const ProjectSignature = dynamic(
   { ssr: false }
 );
 
-const ACCENT: Record<string, { text: string; bg: string; border: string; icon: string }> = {
-  lime: { text: "text-lime", bg: "bg-lime", border: "border-lime/40", icon: "computers-devices-electronics-monitor" },
-  cyan: { text: "text-cyan", bg: "bg-cyan", border: "border-cyan/40", icon: "internet-network-wifi-monitor" },
-  magenta: { text: "text-magenta", bg: "bg-magenta", border: "border-magenta/40", icon: "coding-apps-websites-shield-lock" },
-  orange: { text: "text-orange", bg: "bg-orange", border: "border-orange/40", icon: "computers-devices-electronics-harddisk" },
-};
-
 /**
  * WorkIndexRow — a single home §04 index row, rebuilt as a HUD readout: a growing
  * accent rail + corner ticks light up on hover, a per-project pixel icon flags the
@@ -28,7 +22,7 @@ const ACCENT: Record<string, { text: string; bg: string; border: string; icon: s
  */
 export function WorkIndexRow({ project: p, index: i }: { project: Project; index: number }) {
   const [hover, setHover] = useState(false);
-  const a = ACCENT[p.color] ?? ACCENT.orange;
+  const a = projectAccent(p.color);
 
   return (
     <li

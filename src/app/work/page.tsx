@@ -4,26 +4,14 @@ import { PROJECTS, ENGAGEMENT } from "@/data/projects";
 import { BrowserPreview } from "@/components/BrowserPreview";
 import { DecodeText } from "@/components/DecodeText";
 import { WorkCaseSignature } from "@/components/WorkCaseSignature";
+import { PixelIcon } from "@/components/PixelIcon";
+import { projectAccent } from "@/lib/project-accent";
 
 export const metadata: Metadata = {
   title: "Work",
   description:
     "Válogatott design engineering projektek 2024–2026 között: F3XYKEE Terminal, MolekulaX, Donna Pizza. Stack, role, metrika, mission debrief aloldalak.",
   alternates: { canonical: "/work" },
-};
-
-const ACCENT_TEXT: Record<string, string> = {
-  lime: "text-lime",
-  cyan: "text-cyan",
-  magenta: "text-magenta",
-  orange: "text-orange",
-};
-
-const ACCENT_BG: Record<string, string> = {
-  lime: "bg-lime",
-  cyan: "bg-cyan",
-  magenta: "bg-magenta",
-  orange: "bg-orange",
 };
 
 export default function WorkPage() {
@@ -34,8 +22,8 @@ export default function WorkPage() {
         <div className="max-w-[1500px] grid grid-cols-12 gap-y-10 md:gap-x-10">
           <aside className="col-span-12 md:col-span-3 lg:col-span-2 md:pt-4">
             <div className="font-monospec text-[10px] tracking-[0.4em] uppercase text-magenta mb-6 flex items-center gap-3">
-              <span className="inline-block w-8 h-px bg-magenta" />
-              <span>§ 02 · Index</span>
+              <PixelIcon name="content-files-archive-books-1" width={15} height={15} aria-hidden />
+              <span>Work · Archive</span>
             </div>
             <div className="font-monospec text-[10px] tracking-[0.3em] uppercase text-secondary leading-relaxed">
               Selected
@@ -69,19 +57,26 @@ export default function WorkPage() {
       <section className="relative z-10 border-t border-white/10">
         <div className="max-w-[1500px]">
           {PROJECTS.map((p, i) => {
-            const tx = ACCENT_TEXT[p.color];
-            const bg = ACCENT_BG[p.color];
+            const a = projectAccent(p.color);
+            const tx = a.text;
+            const bg = a.bg;
             const isLast = i === PROJECTS.length - 1;
 
             const articleContent = (
               <article
                 data-reveal
-                className={`px-6 md:px-10 py-28 md:py-40 ${
+                className={`relative px-6 md:px-10 py-28 md:py-40 ${
                   !isLast ? "border-b border-white/10" : ""
                 } transition-colors group-hover:bg-surface/20`}
               >
+                {/* HUD corner ticks (hover) */}
+                <span aria-hidden className={`pointer-events-none absolute right-3 top-3 h-4 w-4 border-r-2 border-t-2 opacity-0 transition-opacity duration-300 group-hover:opacity-50 ${tx}`} style={{ borderColor: "currentColor" }} />
+                <span aria-hidden className={`pointer-events-none absolute bottom-3 left-3 h-4 w-4 border-b-2 border-l-2 opacity-0 transition-opacity duration-300 group-hover:opacity-50 ${tx}`} style={{ borderColor: "currentColor" }} />
                 <div className="grid grid-cols-12 gap-y-8 md:gap-x-10 mb-12 md:mb-14">
                   <aside className="col-span-12 md:col-span-3 lg:col-span-2 flex md:flex-col items-baseline md:items-start gap-6 md:gap-3">
+                    <div className={`hidden md:grid h-11 w-11 place-items-center border border-white/12 ${tx} transition-colors group-hover:border-current`}>
+                      <PixelIcon name={a.icon} width={20} height={20} aria-hidden />
+                    </div>
                     <div className="font-sequel text-5xl md:text-7xl leading-none tracking-[-0.04em]">
                       <span className={tx}>{String(i + 1).padStart(2, "0")}</span>
                       <span className="text-secondary/40">/{String(PROJECTS.length).padStart(2, "0")}</span>
@@ -181,8 +176,8 @@ export default function WorkPage() {
         <div className="max-w-[1500px] grid grid-cols-12 gap-y-8 md:gap-x-10 items-end">
           <div className="col-span-12 md:col-span-8">
             <div className="font-monospec text-[10px] uppercase tracking-[0.4em] text-lime mb-6 flex items-center gap-3">
-              <span className="inline-block w-8 h-px bg-lime" />
-              <span>Slot · 04 · Open</span>
+              <PixelIcon name="social-rewards-flag" width={15} height={15} aria-hidden />
+              <span>Slot · Open</span>
             </div>
             <h2 className="font-khinterference uppercase tracking-[-0.005em] text-[clamp(48px,9vw,144px)] leading-[0.86] text-primary">
               A következő
