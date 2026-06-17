@@ -13,7 +13,7 @@ import { ProcessJourney } from "@/components/ProcessJourney";
 import { PixelIcon } from "@/components/PixelIcon";
 
 // Root page is NOT subject to the layout title.template, so set the full string.
-export const metadata = { title: "PTRK-Systems - Introduction" };
+export const metadata = { title: "PTRK-Systems - Introduction", alternates: { canonical: "/" } };
 
 
 export default function Home() {
@@ -205,10 +205,10 @@ export default function Home() {
                 </span>
               </Link>
               <a
-                href="mailto:hello@ptrksystems.com"
+                href="mailto:hello@ptrksystems.hu"
                 className="font-monospec text-xs tracking-[0.25em] uppercase text-secondary hover:text-cyan transition-colors"
               >
-                hello@ptrksystems.com
+                hello@ptrksystems.hu
               </a>
             </div>
           </div>

@@ -3,12 +3,12 @@ const SCHEMA = {
   "@graph": [
     {
       "@type": "ProfessionalService",
-      "@id": "https://ptrksystems.com/#org",
+      "@id": "https://ptrksystems.hu/#org",
       name: "PTRK-Systems",
       description:
         "Prémium, modern weboldalak magyar vállalkozásoknak, havi Élő Gondozással: karbantartás, figyelés, forgalom-mérés és igény szerinti fejlesztés. Weboldal-stúdió, közvetlen kapcsolat.",
-      url: "https://ptrksystems.com",
-      email: "hello@ptrksystems.com",
+      url: "https://ptrksystems.hu",
+      email: "hello@ptrksystems.hu",
       areaServed: { "@type": "Country", name: "Hungary" },
       address: {
         "@type": "PostalAddress",
@@ -26,11 +26,11 @@ const SCHEMA = {
     },
     {
       "@type": "WebSite",
-      "@id": "https://ptrksystems.com/#website",
-      url: "https://ptrksystems.com",
+      "@id": "https://ptrksystems.hu/#website",
+      url: "https://ptrksystems.hu",
       name: "PTRK Systems",
       inLanguage: "hu",
-      publisher: { "@id": "https://ptrksystems.com/#org" },
+      publisher: { "@id": "https://ptrksystems.hu/#org" },
     },
   ],
 };

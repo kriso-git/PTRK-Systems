@@ -187,7 +187,7 @@ export function HudHero() {
               <span className="font-monospec text-[10px] uppercase tracking-[0.4em] text-secondary">Budapest · v4·07·26</span>
             </div>
 
-            <p className="mt-8 max-w-[54ch] font-shorai text-lg leading-[1.4] tracking-[-0.005em] text-secondary md:text-2xl">
+            <p className="mt-8 max-w-[40rem] font-shorai text-lg leading-[1.4] tracking-[-0.005em] text-secondary md:text-2xl">
               Prémium, modern weboldalak vállalkozásoknak: gyorsan, jó áron, a te
               igényedre szabva. De a weboldal csak a kezdet, a havi{" "}
               <span className="text-primary">Élő Gondozással</span> utána is veled maradunk, és

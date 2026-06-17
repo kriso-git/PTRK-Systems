@@ -139,6 +139,8 @@ export default function MethodPage() {
               </span>
             </div>
 
+            <h2 className="sr-only">A folyamat hat fázisa</h2>
+
             {/* 6 phase rows */}
             <ul className="divide-y divide-lime/15">
               {PROCESS_STEPS.map((step, i) => (
@@ -304,10 +306,10 @@ export default function MethodPage() {
               Beszéljünk
             </Link>
             <a
-              href="mailto:hello@ptrksystems.com"
+              href="mailto:hello@ptrksystems.hu"
               className="font-monospec text-xs uppercase tracking-[0.3em] text-secondary hover:text-cyan transition-colors"
             >
-              hello@ptrksystems.com
+              hello@ptrksystems.hu
             </a>
           </div>
         </div>

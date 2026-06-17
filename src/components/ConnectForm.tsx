@@ -16,19 +16,11 @@ const SLA = [
 const CHANNELS = [
   {
     label: "Email",
-    value: "hello@ptrksystems.com",
-    href: "mailto:hello@ptrksystems.com",
+    value: "hello@ptrksystems.hu",
+    href: "mailto:hello@ptrksystems.hu",
     color: "lime" as const,
     icon: "email-envelope",
     sub: "Általában 24 órán belül érkezik válasz.",
-  },
-  {
-    label: "Phone",
-    value: "+36 70 000 0000",
-    href: "tel:+36700000000",
-    color: "cyan" as const,
-    icon: "mobile-phone",
-    sub: "Munkaidőben hívható, CET – vagy ütemezz callt mailben.",
   },
   {
     label: "Discord",
@@ -37,14 +29,6 @@ const CHANNELS = [
     color: "magenta" as const,
     icon: "logo-discord",
     sub: "Aszinkron beszélgetés, képek, gyors visszajelzés.",
-  },
-  {
-    label: "Slack",
-    value: "ptrksystems.slack.com",
-    href: "https://ptrksystems.slack.com",
-    color: "orange" as const,
-    icon: "interface-essential-message",
-    sub: "Ügyfél-csatorna közös munkához – meghívóra.",
   },
   {
     label: "Budapest",
@@ -77,7 +61,7 @@ export function ConnectForm() {
         "type",
       )}\n\n${data.get("message")}`,
     );
-    window.location.href = `mailto:hello@ptrksystems.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:hello@ptrksystems.hu?subject=${subject}&body=${body}`;
     setSubmitted(true);
   }
 
@@ -119,7 +103,7 @@ export function ConnectForm() {
                 <DecodeText text="weboldaladról." />
               </span>
             </h1>
-            <p className="mt-10 font-shorai text-xl md:text-2xl text-secondary leading-[1.4] max-w-[58ch] tracking-[-0.005em]">
+            <p className="mt-10 font-shorai text-xl md:text-2xl text-secondary leading-[1.4] max-w-[42rem] tracking-[-0.005em]">
               Új weboldal kell, vagy a mostanit frissítenéd? Egy 30 perces hívásban
               megnézzük, <span className="text-primary">mire van szükséged</span>, és akár
               egy kész mintát is mutatunk a cégedről. Kötelezettség nélkül.

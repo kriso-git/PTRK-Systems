@@ -61,6 +61,7 @@ export const fraktion = DM_Mono({
   weight: ["400"],
   variable: "--font-fraktion",
   display: "swap",
+  preload: false, // single below-the-fold watermark spot; keep it off the LCP path
 });
 
 // Roboto Flex – variable wdth (25-151) + wght (100-1000). Replaces

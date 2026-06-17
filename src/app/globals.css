@@ -287,7 +287,7 @@ html[data-blueprint] canvas {
    src/lib/motion.ts); the MOT chip's explicit opt-out
    (html[data-motion-reduce]) and missing JS both keep content visible.
    Print always shows everything. */
-@media screen {
+@media screen and (prefers-reduced-motion: no-preference) {
   html[data-js]:not([data-motion-reduce]) [data-reveal] {
     transition:
       clip-path 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
@@ -308,4 +308,37 @@ html[data-motion-reduce] *::after {
   animation-duration: 0.01ms !important;
   animation-iteration-count: 1 !important;
   transition-duration: 0.01ms !important;
+}
+
+/* OS-level reduced-motion request, honored as a real accessibility opt-out
+   (mirrors the html[data-motion-reduce] kill-switch). Visitors who set their
+   OS to "reduce" get a static experience; everyone else keeps the full brand
+   layer by default. The scroll-reveal hidden-state is also gated off above
+   via (prefers-reduced-motion: no-preference), so content stays visible. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Visible keyboard focus, only on keyboard navigation (:focus-visible), so
+   pointer users see no change. Restores a focus ring for the form fields and
+   nav links that suppress it via outline-none. */
+@media screen {
+  a:focus-visible,
+  button:focus-visible,
+  [role="button"]:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid #01ffff;
+    outline-offset: 2px;
+    border-radius: 1px;
+  }
 }

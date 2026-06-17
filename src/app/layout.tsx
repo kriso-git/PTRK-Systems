@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   },
   description:
     "Prémium, modern weboldalak magyar vállalkozásoknak, jó áron. A weboldal csak a kezdet: havi Élő Gondozással karbantartjuk, figyeljük és mindig a versenytársaid felett tartjuk. Közvetlen kapcsolat, AAM (nincs ÁFA).",
-  metadataBase: new URL("https://ptrksystems.com"),
+  metadataBase: new URL("https://ptrksystems.hu"),
   openGraph: {
     title: "PTRK-Systems – Prémium weboldal + Élő Gondozás",
     description:
