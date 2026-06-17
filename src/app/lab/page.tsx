@@ -4,6 +4,7 @@ import { Crosshair } from "@/components/Crosshair";
 import { GoliathOrnament } from "@/components/GoliathSymbols";
 import { DecodeReplay, BootReplay } from "@/components/LabDemos";
 import { LabEffectLazy } from "@/components/LabEffectLazy";
+import { PixelIcon } from "@/components/PixelIcon";
 
 export const metadata: Metadata = {
   title: "Lab",
@@ -19,6 +20,7 @@ type Experiment = {
   desc: string;
   color: "lime" | "cyan" | "magenta" | "orange";
   demo: "decode" | "goliath" | "boot" | "ambient" | "reveal";
+  icon: string;
 };
 
 const EXPERIMENTS: Experiment[] = [
@@ -29,6 +31,7 @@ const EXPERIMENTS: Experiment[] = [
     desc: "Hex-scramble címsor-animáció: a karakterek HUD-glifákból pörögnek a végleges szövegig, balról jobbra settle-ölve. SSR és reduced-motion mindig a kész szöveget kapja.",
     color: "lime",
     demo: "decode",
+    icon: "coding-apps-websites-programming-hold-code",
   },
   {
     code: "EXP_002",
@@ -37,6 +40,7 @@ const EXPERIMENTS: Experiment[] = [
     desc: "Saját geometrikus szimbólum-készlet — a site dekoratív marginália-rétege. Seed-alapú determinisztikus szórás, prose-overlap védelemmel.",
     color: "cyan",
     demo: "goliath",
+    icon: "computers-devices-electronics-chipset",
   },
   {
     code: "EXP_003",
@@ -45,6 +49,7 @@ const EXPERIMENTS: Experiment[] = [
     desc: "BIOS-stílusú nyitány: 5 gépelt log-sor + scanline-wipe. Session-önként egyszer fut, bármely input skippeli, reduced-motion sosem látja.",
     color: "magenta",
     demo: "boot",
+    icon: "computers-devices-electronics-monitor",
   },
   {
     code: "EXP_004",
@@ -53,6 +58,7 @@ const EXPERIMENTS: Experiment[] = [
     desc: "A háttér-rendszer: kurzor-követett warp-mesh rács, kód-eső és élő terminál-aside — most is fut e mögött az oldal mögött. Touch-eszközön Lissajous auto-pan tartja életben.",
     color: "orange",
     demo: "ambient",
+    icon: "internet-network-wifi-monitor",
   },
   {
     code: "EXP_005",
@@ -61,6 +67,7 @@ const EXPERIMENTS: Experiment[] = [
     desc: "Clip-path alapú scroll-reveal: a tartalmi klaszterek balról jobbra húzódnak be. No-JS és reduced-motion látogatónál a tartalom mindig azonnal látható.",
     color: "lime",
     demo: "reveal",
+    icon: "video-movies-play",
   },
 ];
 
@@ -132,8 +139,8 @@ export default function LabPage() {
       <section className="relative z-10 px-6 md:px-10 pt-24 md:pt-40 pb-20 md:pb-28 overflow-hidden">
         <div className="max-w-[1500px]">
           <div className="font-monospec text-[10px] uppercase tracking-[0.4em] text-lime mb-6 flex items-center gap-3">
-            <span className="inline-block w-8 h-px bg-lime" />
-            <span>§ 05 · Lab</span>
+            <PixelIcon name="interface-essential-cog-double" width={15} height={15} aria-hidden />
+            <span>Lab</span>
           </div>
           <h1 className="font-khinterference uppercase leading-[0.86] tracking-[-0.005em] text-primary text-[clamp(56px,11vw,184px)]">
             Experiments
@@ -169,7 +176,10 @@ export default function LabPage() {
                   {exp.tech}
                 </span>
               </div>
-              <h2 className="font-sequel text-3xl md:text-4xl tracking-[-0.02em] text-primary leading-none">
+              <h2 className="flex items-center gap-4 font-sequel text-3xl md:text-4xl tracking-[-0.02em] text-primary leading-none">
+                <span className={`grid h-11 w-11 shrink-0 place-items-center border ${ACCENT_BORDER[exp.color]} ${ACCENT_TEXT[exp.color]}`}>
+                  <PixelIcon name={exp.icon} width={20} height={20} aria-hidden />
+                </span>
                 {exp.title}
               </h2>
               <p className="font-shorai text-base text-secondary leading-relaxed max-w-[52ch]">
@@ -187,8 +197,8 @@ export default function LabPage() {
       <section className="relative z-10 border-t border-white/10 px-6 md:px-10 py-24 md:py-36">
         <div className="max-w-[1500px]">
           <div className="font-monospec text-[10px] uppercase tracking-[0.4em] text-cyan mb-6 flex items-center gap-3">
-            <span className="inline-block w-8 h-px bg-cyan" />
-            <span>§ 05 · WebGL · Three.js</span>
+            <PixelIcon name="computers-devices-electronics-monitor" width={15} height={15} aria-hidden />
+            <span>WebGL · Three.js</span>
           </div>
           <h2 className="font-khinterference uppercase tracking-[-0.005em] text-primary text-[clamp(40px,7vw,128px)] leading-[0.88]">
             Real-time
