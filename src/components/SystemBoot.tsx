@@ -90,29 +90,38 @@ export function SystemBoot() {
   if (phase === "hidden") return null;
 
   const online = pct >= 100;
+  const clearing = phase === "clear";
 
   return (
-    <div
-      aria-hidden
-      className="fixed inset-0 z-[200] overflow-hidden bg-[#050508] text-lime"
-      style={
-        phase === "clear"
-          ? { opacity: 0, transform: "scale(1.04)", transition: `opacity ${CLEAR_MS}ms ease, transform ${CLEAR_MS}ms ease` }
-          : undefined
-      }
-    >
-      {/* faint scanlines */}
+    <div aria-hidden className="fixed inset-0 z-[200]">
+      {/* the dark HUD overlay COLLAPSES to a centre scanline on reveal (CRT-style),
+          splitting open to the page with a bright lime edge */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.06]"
-        style={{ backgroundImage: "repeating-linear-gradient(0deg, #c2fe0c 0 1px, transparent 1px 3px)" }}
-      />
-      {/* corner HUD frame */}
-      <div className="pointer-events-none absolute left-5 top-5 h-10 w-10 border-l-2 border-t-2 border-lime/40" />
-      <div className="pointer-events-none absolute right-5 top-5 h-10 w-10 border-r-2 border-t-2 border-lime/40" />
-      <div className="pointer-events-none absolute bottom-5 left-5 h-10 w-10 border-b-2 border-l-2 border-lime/40" />
-      <div className="pointer-events-none absolute bottom-5 right-5 h-10 w-10 border-b-2 border-r-2 border-lime/40" />
+        className="absolute inset-0 overflow-hidden bg-[#050508] text-lime"
+        style={
+          clearing
+            ? {
+                transform: "scaleY(0)",
+                transformOrigin: "center",
+                transition: `transform ${CLEAR_MS}ms cubic-bezier(0.76,0,0.24,1)`,
+                boxShadow: "0 0 60px 6px rgba(194,254,12,0.75)",
+              }
+            : undefined
+        }
+      >
+        <div style={clearing ? { opacity: 0, transition: "opacity 150ms ease" } : undefined}>
+          {/* faint scanlines */}
+          <div
+            className="pointer-events-none absolute inset-0 opacity-[0.06]"
+            style={{ backgroundImage: "repeating-linear-gradient(0deg, #c2fe0c 0 1px, transparent 1px 3px)" }}
+          />
+          {/* corner HUD frame */}
+          <div className="pointer-events-none absolute left-5 top-5 h-10 w-10 border-l-2 border-t-2 border-lime/40" />
+          <div className="pointer-events-none absolute right-5 top-5 h-10 w-10 border-r-2 border-t-2 border-lime/40" />
+          <div className="pointer-events-none absolute bottom-5 left-5 h-10 w-10 border-b-2 border-l-2 border-lime/40" />
+          <div className="pointer-events-none absolute bottom-5 right-5 h-10 w-10 border-b-2 border-r-2 border-lime/40" />
 
-      <div className="absolute inset-0 flex flex-col justify-center px-[7vw]">
+          <div className="absolute inset-0 flex flex-col justify-center px-[7vw]">
         {/* header */}
         <div className="mb-8 flex items-center gap-3 font-monospec text-[11px] uppercase tracking-[0.4em] text-lime/70">
           <Image src="/logo-mark.png" alt="" width={22} height={22} className="h-5 w-5" />
@@ -158,9 +167,20 @@ export function SystemBoot() {
         </div>
       </div>
 
-      <div className="absolute bottom-7 left-0 right-0 text-center font-monospec text-[9px] uppercase tracking-[0.35em] text-secondary/40">
-        Press any key to skip
+          <div className="absolute bottom-7 left-0 right-0 text-center font-monospec text-[9px] uppercase tracking-[0.35em] text-secondary/40">
+            Press any key to skip
+          </div>
+        </div>
       </div>
+
+      {/* reveal flash: a brief lime glow as the HUD opens to the page */}
+      <div
+        className="pointer-events-none absolute inset-0 bg-lime"
+        style={{
+          opacity: clearing ? 0 : online ? 0.14 : 0,
+          transition: clearing ? `opacity ${CLEAR_MS}ms ease` : "opacity 120ms ease",
+        }}
+      />
     </div>
   );
 }

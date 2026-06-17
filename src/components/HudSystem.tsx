@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { OperatorTerminal } from "@/components/OperatorTerminal";
 import { acquireNode } from "@/lib/nodes";
-import { applyMotionAttr, motionOff, setMotionOff } from "@/lib/motion";
+import { applyMotionAttr } from "@/lib/motion";
 
 const TOKENS = [
   { hex: "#c2fe0c", name: "lime" },
@@ -33,12 +33,10 @@ export function HudSystem() {
   const [mounted, setMounted] = useState(false);
   const [terminal, setTerminal] = useState(false);
   const [blueprint, setBlueprint] = useState(false);
-  const [motOff, setMotOff] = useState(false);
 
   useEffect(() => {
     setMounted(true);
     applyMotionAttr();
-    setMotOff(motionOff());
   }, []);
 
   // Keyboard shortcuts
@@ -70,58 +68,12 @@ export function HudSystem() {
 
   if (!mounted) return null;
 
-  const chip =
-    "inline-flex items-center gap-2 border px-3 py-2 font-monospec text-[10px] tracking-[0.25em] uppercase transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-lime";
+  // NOTE: the visible bottom-left toggle tray (TRM / BLU / MOT chips) was removed
+  // at the owner's request for the redesign. The features stay reachable by
+  // keyboard easter-egg: ` / ~ opens the Operator Terminal, B toggles Blueprint.
 
   return (
     <>
-      {/* System tray — desktop only */}
-      <div className="fixed bottom-4 left-4 z-[94] hidden md:flex gap-2">
-        <button
-          type="button"
-          aria-pressed={terminal}
-          onClick={() => setTerminal((t) => !t)}
-          className={`${chip} ${
-            terminal
-              ? "border-lime bg-lime/15 text-lime"
-              : "border-white/20 bg-void/80 text-secondary hover:border-lime/50 hover:text-lime"
-          }`}
-        >
-          TRM <span className="opacity-50">[~]</span>
-        </button>
-        <button
-          type="button"
-          aria-pressed={blueprint}
-          onClick={() => setBlueprint((b) => !b)}
-          className={`${chip} ${
-            blueprint
-              ? "border-cyan bg-cyan/15 text-cyan"
-              : "border-white/20 bg-void/80 text-secondary hover:border-cyan/50 hover:text-cyan"
-          }`}
-        >
-          BLU <span className="opacity-50">[B]</span>
-        </button>
-        <button
-          type="button"
-          aria-pressed={!motOff}
-          title="Motion-réteg (decode, reveal, boot, effektek) ki/be"
-          onClick={() => {
-            const next = !motOff;
-            setMotionOff(next);
-            setMotOff(next);
-            // Clean re-init: every mounted effect re-reads the gate
-            window.location.reload();
-          }}
-          className={`${chip} ${
-            !motOff
-              ? "border-magenta bg-magenta/15 text-magenta"
-              : "border-white/20 bg-void/80 text-secondary hover:border-magenta/50 hover:text-magenta"
-          }`}
-        >
-          MOT·{motOff ? "OFF" : "ON"}
-        </button>
-      </div>
-
       {/* Blueprint overlays */}
       {blueprint && (
         <>
