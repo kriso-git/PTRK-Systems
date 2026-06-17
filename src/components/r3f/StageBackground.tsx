@@ -6,6 +6,7 @@ import * as THREE from "three";
 import { reducedMotion } from "@/lib/motion";
 import { readSignal } from "@/lib/r3f/scroll-signal";
 import { NEBULA_VERT, NEBULA_FRAG } from "./nebulaShader";
+import { ATMOS_VERT, ATMOS_FRAG } from "./atmosphereShader";
 import type { Quality } from "@/lib/r3f/useQuality";
 
 /**
@@ -18,7 +19,7 @@ import type { Quality } from "@/lib/r3f/useQuality";
  * Reactive to the cursor (the "torch") via the scroll-signal; motion-gated
  * (one static frame on reduce); DPR capped lower on `lite` (touch / small / RM).
  */
-function NebulaMesh({ reduced }: { reduced: boolean }) {
+function FieldMesh({ reduced, vert, frag }: { reduced: boolean; vert: string; frag: string }) {
   const geometry = useMemo(() => {
     const g = new THREE.BufferGeometry();
     g.setAttribute(
@@ -76,8 +77,8 @@ function NebulaMesh({ reduced }: { reduced: boolean }) {
     <mesh geometry={geometry} frustumCulled={false}>
       <shaderMaterial
         ref={matRef}
-        vertexShader={NEBULA_VERT}
-        fragmentShader={NEBULA_FRAG}
+        vertexShader={vert}
+        fragmentShader={frag}
         uniforms={uniforms}
         depthTest={false}
         depthWrite={false}
@@ -88,7 +89,12 @@ function NebulaMesh({ reduced }: { reduced: boolean }) {
 
 export function StageBackground({ quality }: { quality: Quality }) {
   const reduced = reducedMotion();
-  const dpr: [number, number] = quality === "lite" ? [1, 1.25] : [1, 1.75];
+  const full = quality === "full";
+  // full = raymarched volumetric atmosphere (heavy) at a reduced DPR; lite = the
+  // cheap flat 2D nebula at a slightly higher DPR.
+  const vert = full ? ATMOS_VERT : NEBULA_VERT;
+  const frag = full ? ATMOS_FRAG : NEBULA_FRAG;
+  const dpr: [number, number] = full ? [0.85, 1.1] : [1, 1.25];
   return (
     <Canvas
       className="!fixed !inset-0"
@@ -98,7 +104,7 @@ export function StageBackground({ quality }: { quality: Quality }) {
       frameloop={reduced ? "demand" : "always"}
       aria-hidden
     >
-      <NebulaMesh reduced={reduced} />
+      <FieldMesh reduced={reduced} vert={vert} frag={frag} />
     </Canvas>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 const COORD = "47.4979°N · 19.0402°E";
@@ -50,9 +51,19 @@ export function Navigation() {
         <div className="flex items-center gap-4 shrink-0">
           <Link
             href="/"
-            className="text-primary hover:text-lime transition-colors"
+            className="flex items-center gap-2.5 text-primary hover:text-lime transition-colors"
           >
-            PTRK <span className="text-lime">Systems</span>
+            <Image
+              src="/logo-mark.png"
+              alt="PTRK Systems"
+              width={28}
+              height={28}
+              priority
+              className="h-6 w-6 md:h-7 md:w-7"
+            />
+            <span className="hidden sm:inline">
+              PTRK <span className="text-lime">Systems</span>
+            </span>
           </Link>
           <span
             aria-hidden
