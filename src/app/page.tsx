@@ -8,18 +8,13 @@ import { ScrollJourneyLazy } from "@/components/ScrollJourneyLazy";
 import { WorkIndexRow } from "@/components/WorkIndexRow";
 import { HudHero } from "@/components/HudHero";
 import { Cornerstones } from "@/components/Cornerstones";
+import { StatsBar } from "@/components/StatsBar";
 
 // Root page is NOT subject to the layout title.template, so set the full string.
 export const metadata = { title: "PTRK-Systems - Introduction" };
 
 const COORD = "47.4979°N · 19.0402°E";
 
-const STATS = [
-  { n: "03", label: "Élesben futó rendszer", color: "lime" },
-  { n: "98", label: "Lighthouse átlag", color: "cyan" },
-  { n: "24h", label: "Maximum válaszidő", color: "magenta" },
-  { n: ENGAGEMENT.launchRange, label: "Discovery → élesben", color: "orange" },
-] as const;
 
 
 export default function Home() {
@@ -33,53 +28,8 @@ export default function Home() {
           motion-gated, self-pinning via a fixed canvas over a 300vh wrap. */}
       <ScrollJourneyLazy />
 
-      {/* ─────────────────────────────  RUNNING METER  ───────────────────────────── */}
-      <section
-        data-section="§ 01"
-        data-label="Metrika"
-        className="relative z-10 border-y border-white/10 bg-void/30 backdrop-blur-[1px]"
-      >
-        <div className="max-w-[1500px] px-6 md:px-10 py-16 md:py-20 grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-white/10">
-          {STATS.map((s, i) => {
-            const isLong = s.n.length > 3;
-            const sizeClass = isLong
-              ? "text-[clamp(38px,5vw,84px)] tracking-[-0.05em]"
-              : "text-[clamp(60px,8vw,128px)] tracking-[-0.04em]";
-            return (
-              <div
-                key={s.label}
-                data-reveal
-                style={{ transitionDelay: `${i * 70}ms` }}
-                className="px-2 md:px-8 py-6 md:py-2 flex flex-col items-start gap-3 min-w-0"
-              >
-                <span className="font-monospec text-[10px] tracking-[0.35em] uppercase text-secondary/60">
-                  {String(i + 1).padStart(2, "0")} ·
-                </span>
-                {/* Fixed-height container so all numbers share the same baseline,
-                    regardless of font-size differences */}
-                <div className="flex items-end h-[clamp(60px,8vw,128px)]">
-                  <span
-                    className={`font-sequel ${sizeClass} leading-[0.85] whitespace-nowrap ${
-                      s.color === "lime"
-                        ? "text-lime"
-                        : s.color === "cyan"
-                        ? "text-cyan"
-                        : s.color === "magenta"
-                        ? "text-magenta"
-                        : "text-orange"
-                    }`}
-                  >
-                    {s.n}
-                  </span>
-                </div>
-                <span className="font-shorai text-sm md:text-base text-secondary tracking-tight max-w-[20ch]">
-                  {s.label}
-                </span>
-              </div>
-            );
-          })}
-        </div>
-      </section>
+      {/* ─────────────────────────────  LIVE METRICS (§01)  ───────────────────────────── */}
+      <StatsBar />
 
       {/* ─────────────────────────────  ACCESS / PRICING NOTE  ───────────────────────────── */}
       <section
