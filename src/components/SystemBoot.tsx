@@ -94,22 +94,36 @@ export function SystemBoot() {
 
   return (
     <div aria-hidden className="fixed inset-0 z-[200]">
-      {/* the dark HUD overlay COLLAPSES to a centre scanline on reveal (CRT-style),
-          splitting open to the page with a bright lime edge */}
+      {/* dark cover split into two halves that OPEN from the centre on reveal,
+          a bright lime edge sweeping outward as the page is exposed */}
       <div
-        className="absolute inset-0 overflow-hidden bg-[#050508] text-lime"
+        className="absolute inset-x-0 top-0 h-1/2 bg-[#050508]"
         style={
           clearing
             ? {
-                transform: "scaleY(0)",
-                transformOrigin: "center",
+                transform: "translateY(-100%)",
                 transition: `transform ${CLEAR_MS}ms cubic-bezier(0.76,0,0.24,1)`,
-                boxShadow: "0 0 60px 6px rgba(194,254,12,0.75)",
+                borderBottom: "2px solid rgba(194,254,12,0.9)",
+                boxShadow: "0 10px 45px rgba(194,254,12,0.5)",
               }
             : undefined
         }
-      >
-        <div style={clearing ? { opacity: 0, transition: "opacity 150ms ease" } : undefined}>
+      />
+      <div
+        className="absolute inset-x-0 bottom-0 h-1/2 bg-[#050508]"
+        style={
+          clearing
+            ? {
+                transform: "translateY(100%)",
+                transition: `transform ${CLEAR_MS}ms cubic-bezier(0.76,0,0.24,1)`,
+                borderTop: "2px solid rgba(194,254,12,0.9)",
+                boxShadow: "0 -10px 45px rgba(194,254,12,0.5)",
+              }
+            : undefined
+        }
+      />
+      {/* content layer (transparent), fades fast on reveal so nothing squishes */}
+      <div className="absolute inset-0 overflow-hidden text-lime" style={clearing ? { opacity: 0, transition: "opacity 150ms ease" } : undefined}>
           {/* faint scanlines */}
           <div
             className="pointer-events-none absolute inset-0 opacity-[0.06]"
@@ -170,7 +184,6 @@ export function SystemBoot() {
           <div className="absolute bottom-7 left-0 right-0 text-center font-monospec text-[9px] uppercase tracking-[0.35em] text-secondary/40">
             Press any key to skip
           </div>
-        </div>
       </div>
 
       {/* reveal flash: a brief lime glow as the HUD opens to the page */}
