@@ -59,8 +59,9 @@ export function ProcessLadder() {
                 {step.desc}
               </p>
 
-              {/* progress strip — fills up to this phase */}
-              <div className="mt-7 flex gap-1" aria-hidden>
+              {/* progress strip — pinned to the card bottom (mt-auto) so every
+                  card's strip sits on one baseline regardless of body length */}
+              <div className="mt-auto flex gap-1 pt-7" aria-hidden>
                 {Array.from({ length: total }).map((_, k) => (
                   <span key={k} className={`h-1 flex-1 ${k <= i ? "bg-lime" : "bg-white/10"}`} />
                 ))}
