@@ -74,6 +74,17 @@ export default function RootLayout({
   return (
     <html lang="hu" className={fontVars}>
       <body>
+        {/* Pre-paint flash guard: BEFORE the page content paints, mark <html> as
+            `booting` for a first-visit-this-session viewer so a full-screen dark
+            cover hides the page until the React SystemBoot overlay mounts. The
+            boot/skip logic in SystemBoot removes the class. Returning visitors
+            (sessionStorage set) skip the cover entirely — no flash either way. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{if(!sessionStorage.getItem('ptrk-booted'))document.documentElement.classList.add('booting')}catch(e){}",
+          }}
+        />
         <JsonLd />
         <SmoothScroll />
         <ScrollSignalBridge />

@@ -38,6 +38,21 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Pre-paint boot cover: a first-visit-this-session viewer gets `html.booting`
+   from the inline script in layout BEFORE content paints, so this full-screen
+   dark panel hides the page until the React SystemBoot overlay (z-200) mounts
+   and covers it. SystemBoot removes the class. Kept unlayered so nothing in the
+   utility cascade can suppress it (the Tailwind-v4 unlayered-beats-layered rule
+   works in our favour here). z-199 sits just under the boot overlay. */
+html.booting::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 199;
+  background: var(--color-void);
+  pointer-events: none;
+}
+
 /* Default rendering for the replaced display fonts so existing usages
    (which only set the family via Tailwind class, no explicit weight or
    stretch) keep their visual weight after the live-site swap.

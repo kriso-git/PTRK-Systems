@@ -3,7 +3,16 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { reducedMotion } from "@/lib/motion";
+import { markBootReady } from "@/lib/boot-ready";
 import { PixelIcon } from "./PixelIcon";
+
+// Removes the pre-paint black cover (added by the inline script in layout) that
+// prevents the page from flashing before this React overlay mounts.
+const dropPreCover = () => {
+  try {
+    document.documentElement.classList.remove("booting");
+  } catch {}
+};
 
 /**
  * SystemBoot — the new loading screen. A borealis-style sci-fi boot: pixel-icon
@@ -38,10 +47,16 @@ export function SystemBoot() {
     try {
       if (sessionStorage.getItem("ptrk-booted") || reducedMotion()) {
         sessionStorage.setItem("ptrk-booted", "1");
+        // returning / reduced-motion visitor: no boot -> reveal the page now and
+        // let the one-shot load animations (hero count-ups) run immediately.
+        dropPreCover();
+        markBootReady();
         return;
       }
       sessionStorage.setItem("ptrk-booted", "1");
     } catch {
+      dropPreCover();
+      markBootReady();
       return;
     }
     setPhase("boot");
@@ -50,6 +65,10 @@ export function SystemBoot() {
   // step reveal + counter + skip
   useEffect(() => {
     if (phase !== "boot") return;
+    // The React boot overlay (z-200) is now committed and covering, so the
+    // pre-paint cover can go — when the halves split open they reveal the PAGE,
+    // not the cover.
+    dropPreCover();
     const t0 = performance.now();
     const total = STEPS.length * STEP_MS;
     let stepTimer = 0 as unknown as ReturnType<typeof setInterval>;
@@ -83,6 +102,9 @@ export function SystemBoot() {
 
   useEffect(() => {
     if (phase !== "clear") return;
+    // the halves are now opening -> the hero is being revealed, so let its
+    // count-ups start exactly as the user sees them.
+    markBootReady();
     const t = setTimeout(() => setPhase("hidden"), CLEAR_MS);
     return () => clearTimeout(t);
   }, [phase]);

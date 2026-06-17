@@ -5,7 +5,15 @@ import Link from "next/link";
 import { DecodeText } from "@/components/DecodeText";
 import { ScrollCue } from "@/components/ScrollCue";
 import { PixelIcon } from "@/components/PixelIcon";
+import { onBootReady } from "@/lib/boot-ready";
 import { PROJECTS, ENGAGEMENT } from "@/data/projects";
+
+/* ---------- fires true once the boot loader has revealed the page ---------- */
+function useBootReady() {
+  const [ready, setReady] = useState(false);
+  useEffect(() => onBootReady(() => setReady(true)), []);
+  return ready;
+}
 
 /* ---------- smoothed cursor parallax (-0.5..0.5) ---------- */
 function useParallax() {
@@ -27,10 +35,12 @@ function useParallax() {
   return p;
 }
 
-/* ---------- count-up number (animates to target on mount) ---------- */
+/* ---------- count-up number (animates AFTER the boot loader reveals) ---------- */
 function CountUp({ to, pad = 0, className }: { to: number; pad?: number; className?: string }) {
   const [v, setV] = useState(0);
+  const ready = useBootReady();
   useEffect(() => {
+    if (!ready) return; // wait so it counts up WHEN THE USER SEES IT, not behind the boot
     let raf = 0; const t0 = performance.now(); const dur = 1100;
     const tick = (now: number) => {
       const p = Math.min(1, (now - t0) / dur);
@@ -40,7 +50,7 @@ function CountUp({ to, pad = 0, className }: { to: number; pad?: number; classNa
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [to]);
+  }, [to, ready]);
   return <span className={className}>{String(v).padStart(pad, "0")}</span>;
 }
 
