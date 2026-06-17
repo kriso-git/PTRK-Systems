@@ -12,10 +12,10 @@ import {
 } from "@/lib/terminal-pool";
 import { gyroState } from "@/lib/gyro";
 
-// The right console upgrades to a holographic 3D data-stream when WebGL is
+// The right console upgrades to a CRT-terminal 3D shader when WebGL is
 // available; the DOM RightDataStream below stays as the zero-GPU fallback.
-const DataStream3D = dynamic(
-  () => import("@/components/r3f/DataStream3D").then((m) => m.DataStream3D),
+const CrtTerminal3D = dynamic(
+  () => import("@/components/r3f/CrtTerminal3D").then((m) => m.CrtTerminal3D),
   { ssr: false }
 );
 
@@ -44,22 +44,23 @@ function RightConsole() {
       aria-hidden
       className="fixed right-0 top-[88px] bottom-4 z-[12] hidden w-[230px] pointer-events-none font-monospec md:block"
     >
-      <div className="absolute inset-0 overflow-hidden border border-lime/30 bg-void/40 backdrop-blur-[1px]">
-        <DataStream3D />
+      {/* CRT monitor bezel: dark rounded plastic + inner shadow + faint phosphor halo */}
+      <div className="absolute inset-0 overflow-hidden rounded-[12px] border-2 border-[#15180f] bg-black shadow-[inset_0_0_44px_rgba(0,0,0,0.95),0_0_30px_rgba(194,254,12,0.07)]">
+        <CrtTerminal3D />
       </div>
       {/* chrome header */}
       <div className="absolute inset-x-0 top-0 flex items-center gap-2 border border-b-0 border-lime/30 bg-void/85 px-3 py-1.5 text-[10px] uppercase tracking-[0.25em] backdrop-blur-sm">
         <span className="h-1.5 w-1.5 shrink-0 bg-lime cursor-blink" />
         <span className="text-lime">TX·LIVE</span>
         <span className="text-secondary/40">/</span>
-        <span className="text-secondary/70">3D·STREAM</span>
-        <span className="ml-auto text-[9px] text-secondary/50">HOLO</span>
+        <span className="text-secondary/70">CRT·TERM</span>
+        <span className="ml-auto text-[9px] text-secondary/50">PHOSPHOR</span>
       </div>
       {/* chrome footer */}
-      <div className="absolute inset-x-0 bottom-0 flex items-center gap-2 border border-t-0 border-cyan/40 bg-void/85 px-3 py-1.5 text-[10px] uppercase tracking-[0.25em] backdrop-blur-sm">
-        <span className="inline-block h-1.5 w-1.5 rounded-full bg-cyan" style={{ animation: "blink 1.1s steps(1) infinite" }} />
-        <span className="text-cyan">SYNC</span>
-        <span className="ml-auto text-[9px] text-secondary/50">R3F·LANE·A</span>
+      <div className="absolute inset-x-0 bottom-0 flex items-center gap-2 border border-t-0 border-lime/30 bg-void/85 px-3 py-1.5 text-[10px] uppercase tracking-[0.25em] backdrop-blur-sm">
+        <span className="inline-block h-1.5 w-1.5 rounded-full bg-lime" style={{ animation: "blink 1.1s steps(1) infinite" }} />
+        <span className="text-lime">ONLINE</span>
+        <span className="ml-auto text-[9px] text-secondary/50">CRT·LANE·A</span>
       </div>
     </aside>
   );
