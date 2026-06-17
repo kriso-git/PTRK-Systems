@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { PROJECTS, PROCESS_STEPS, FAQ, TECH_STACK, ENGAGEMENT } from "@/data/projects";
+import { PROJECTS, FAQ, TECH_STACK, ENGAGEMENT } from "@/data/projects";
 import { GoliathOrnament } from "@/components/GoliathSymbols";
 import { ManifestoBand } from "@/components/ManifestoBand";
 import { TransmissionLog } from "@/components/TransmissionLog";
@@ -9,6 +9,7 @@ import { WorkIndexRow } from "@/components/WorkIndexRow";
 import { HudHero } from "@/components/HudHero";
 import { Cornerstones } from "@/components/Cornerstones";
 import { StatsBar } from "@/components/StatsBar";
+import { ProcessLadder } from "@/components/ProcessLadder";
 import { PixelIcon } from "@/components/PixelIcon";
 
 // Root page is NOT subject to the layout title.template, so set the full string.
@@ -165,48 +166,8 @@ export default function Home() {
       <Operator />
       <TransmissionLog />
 
-      {/* ─────────────────────────────  PROCESS LADDER  ───────────────────────────── */}
-      <section
-        data-section="§ 05"
-        data-label="Folyamat"
-        className="relative z-10 border-t border-white/10 px-6 md:px-10 py-36 md:py-56 overflow-hidden"
-      >
-        <div className="max-w-[1500px]">
-          <div className="font-monospec text-[10px] tracking-[0.35em] uppercase text-orange mb-6">
-            § 03 · Process · 06 phases
-          </div>
-          <h2 className="font-khinterference uppercase tracking-[0.02em] text-[clamp(48px,8vw,140px)] leading-[0.9] mb-20">
-            <span className="block text-primary">Hat</span>
-            <span className="block text-lime">fázis.</span>
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14">
-            {PROCESS_STEPS.map((step, i) => (
-              <div
-                key={step.number}
-                data-reveal
-                style={{ transitionDelay: `${(i % 3) * 70}ms` }}
-                className="border-t border-white/15 pt-6 group"
-              >
-                <div className="flex items-baseline justify-between mb-4">
-                  <span className="font-sequel text-7xl md:text-8xl text-lime leading-none tracking-[-0.04em]">
-                    {step.number}
-                  </span>
-                  <span className="font-monospec text-[10px] uppercase tracking-[0.3em] text-secondary opacity-0 group-hover:opacity-100 transition-opacity">
-                    Phase
-                  </span>
-                </div>
-                <h3 className="font-sequel text-2xl md:text-3xl tracking-[-0.02em] text-primary mb-3 leading-tight">
-                  {step.title}
-                </h3>
-                <p className="font-shorai text-base text-secondary leading-relaxed max-w-[36ch]">
-                  {step.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* ─────────────────────────────  PROCESS LADDER (§05)  ───────────────────────────── */}
+      <ProcessLadder />
 
       {/* ─────────────────────────────  STACK MARGINALIA  ───────────────────────────── */}
       <section
