@@ -9,6 +9,7 @@ import { WorkIndexRow } from "@/components/WorkIndexRow";
 import { HudHero } from "@/components/HudHero";
 import { Cornerstones } from "@/components/Cornerstones";
 import { StatsBar } from "@/components/StatsBar";
+import { PixelIcon } from "@/components/PixelIcon";
 
 // Root page is NOT subject to the layout title.template, so set the full string.
 export const metadata = { title: "PTRK-Systems - Introduction" };
@@ -135,8 +136,9 @@ export default function Home() {
         <div className="max-w-[1500px] px-6 md:px-10 py-32 md:py-48">
           <div className="flex items-end justify-between flex-wrap gap-6 mb-16">
             <div>
-              <div className="font-monospec text-[10px] tracking-[0.35em] uppercase text-magenta mb-4">
-                § 02 · Index
+              <div className="mb-4 flex items-center gap-3 font-monospec text-[10px] uppercase tracking-[0.35em] text-magenta">
+                <PixelIcon name="content-files-archive-books-1" width={15} height={15} aria-hidden />
+                <span>§ 04 · Index</span>
               </div>
               <h2 className="font-khinterference uppercase tracking-[-0.005em] text-[clamp(56px,10vw,168px)] leading-[0.85] text-primary">
                 Selected
