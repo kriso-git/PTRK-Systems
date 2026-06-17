@@ -4,7 +4,6 @@ import { GoliathOrnament } from "@/components/GoliathSymbols";
 import { ManifestoBand } from "@/components/ManifestoBand";
 import { TransmissionLog } from "@/components/TransmissionLog";
 import { Operator } from "@/components/Operator";
-import { ScrollJourneyLazy } from "@/components/ScrollJourneyLazy";
 import { WorkIndexRow } from "@/components/WorkIndexRow";
 import { HudHero } from "@/components/HudHero";
 import { Cornerstones } from "@/components/Cornerstones";
@@ -24,11 +23,6 @@ export default function Home() {
     <>
       {/* ─────────────────────────────  HERO (immersive HUD-world)  ───────────────────────────── */}
       <HudHero />
-
-      {/* ─────────────────────  SCROLL JOURNEY (pinned camera)  ───────────────────── */}
-      {/* Cinematic fly-through: ENTER → STRATEGY → BUILD → SHIP. Lazy three.js,
-          motion-gated, self-pinning via a fixed canvas over a 300vh wrap. */}
-      <ScrollJourneyLazy />
 
       {/* ─────────────────────────────  LIVE METRICS (§01)  ───────────────────────────── */}
       <StatsBar />
