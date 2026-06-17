@@ -4,12 +4,13 @@ import { useState } from "react";
 import Link from "next/link";
 import { GoliathOrnament } from "@/components/GoliathSymbols";
 import { DecodeText } from "@/components/DecodeText";
+import { PixelIcon } from "@/components/PixelIcon";
 import { ENGAGEMENT } from "@/data/projects";
 
 const SLA = [
-  { code: "01", label: "Válaszidő", value: ENGAGEMENT.responseTime, color: "lime" as const },
-  { code: "02", label: "Elérhető", value: ENGAGEMENT.nextSlotCompact, color: "cyan" as const },
-  { code: "03", label: "Sprint", value: ENGAGEMENT.sprintRange, color: "magenta" as const },
+  { code: "01", label: "Válaszidő", value: ENGAGEMENT.responseTime, color: "lime" as const, icon: "interface-essential-clock" },
+  { code: "02", label: "Elérhető", value: ENGAGEMENT.nextSlotCompact, color: "cyan" as const, icon: "interface-essential-calendar-appointment" },
+  { code: "03", label: "Sprint", value: ENGAGEMENT.sprintRange, color: "magenta" as const, icon: "interface-essential-cog-double" },
 ];
 
 const CHANNELS = [
@@ -18,6 +19,7 @@ const CHANNELS = [
     value: "hello@ptrksystems.com",
     href: "mailto:hello@ptrksystems.com",
     color: "lime" as const,
+    icon: "email-envelope",
     sub: "Általában 24 órán belül érkezik válasz.",
   },
   {
@@ -25,6 +27,7 @@ const CHANNELS = [
     value: "+36 70 000 0000",
     href: "tel:+36700000000",
     color: "cyan" as const,
+    icon: "mobile-phone",
     sub: "Munkaidőben hívható, CET — vagy ütemezz callt mailben.",
   },
   {
@@ -32,6 +35,7 @@ const CHANNELS = [
     value: "ptrksystems",
     href: "https://discord.gg/ptrksystems",
     color: "magenta" as const,
+    icon: "logo-discord",
     sub: "Aszinkron beszélgetés, képek, gyors visszajelzés.",
   },
   {
@@ -39,6 +43,7 @@ const CHANNELS = [
     value: "ptrksystems.slack.com",
     href: "https://ptrksystems.slack.com",
     color: "orange" as const,
+    icon: "interface-essential-message",
     sub: "Ügyfél-csatorna közös munkához — meghívóra.",
   },
   {
@@ -46,6 +51,7 @@ const CHANNELS = [
     value: "Budapest, HU",
     href: undefined,
     color: "lime" as const,
+    icon: "map-navigation-pin-location-1",
     sub: "CET (UTC+1) — távmunka világszerte.",
   },
 ];
@@ -55,13 +61,6 @@ const COLOR_TEXT = {
   cyan: "text-cyan",
   magenta: "text-magenta",
   orange: "text-orange",
-} as const;
-
-const COLOR_BG = {
-  lime: "bg-lime",
-  cyan: "bg-cyan",
-  magenta: "bg-magenta",
-  orange: "bg-orange",
 } as const;
 
 export function ConnectForm() {
@@ -89,8 +88,8 @@ export function ConnectForm() {
         <div className="max-w-[1500px] grid grid-cols-12 gap-y-10 md:gap-x-10">
           <aside className="col-span-12 md:col-span-3 lg:col-span-2 md:pt-4">
             <div className="font-monospec text-[10px] tracking-[0.4em] uppercase text-orange mb-6 flex items-center gap-3">
-              <span className="inline-block w-8 h-px bg-orange" />
-              <span>§ 06 · Connect</span>
+              <PixelIcon name="interface-essential-satellite" width={15} height={15} aria-hidden />
+              <span>Connect</span>
             </div>
             <div className="font-monospec text-[10px] tracking-[0.3em] uppercase text-secondary leading-relaxed">
               Status
@@ -137,7 +136,8 @@ export function ConnectForm() {
               key={s.code}
               className="px-0 sm:px-3 md:px-8 py-5 sm:py-2 flex flex-col gap-2 sm:gap-3"
             >
-              <span className="font-monospec text-[10px] uppercase tracking-[0.35em] text-secondary/60">
+              <span className="flex items-center gap-2 font-monospec text-[10px] uppercase tracking-[0.35em] text-secondary/60">
+                <PixelIcon name={s.icon} width={13} height={13} className={COLOR_TEXT[s.color]} aria-hidden />
                 SLA · {s.code} · {s.label}
               </span>
               <span
@@ -155,7 +155,7 @@ export function ConnectForm() {
         <div className="max-w-[1500px] grid grid-cols-12 gap-y-16 md:gap-x-12">
           <aside className="col-span-12 md:col-span-5">
             <div className="font-monospec text-[10px] uppercase tracking-[0.4em] text-cyan mb-6 flex items-center gap-3">
-              <span className="inline-block w-8 h-px bg-cyan" />
+              <PixelIcon name="interface-essential-wifi-signal" width={15} height={15} aria-hidden />
               <span>Channels · live</span>
             </div>
             <h2 className="font-khinterference uppercase tracking-[0.005em] text-5xl md:text-6xl leading-[0.92] text-primary mb-12">
@@ -167,12 +167,11 @@ export function ConnectForm() {
             <ul>
               {CHANNELS.map((ch, i) => {
                 const tx = COLOR_TEXT[ch.color];
-                const bg = COLOR_BG[ch.color];
                 const isLast = i === CHANNELS.length - 1;
                 const Inner = (
                   <div className="grid grid-cols-12 gap-4 py-7 md:py-9 items-baseline group">
-                    <div className="col-span-12 md:col-span-3 font-monospec text-[10px] uppercase tracking-[0.35em] text-secondary flex items-center gap-2">
-                      <span className={`inline-block w-1.5 h-1.5 ${bg}`} />
+                    <div className="col-span-12 md:col-span-3 font-monospec text-[10px] uppercase tracking-[0.35em] text-secondary flex items-center gap-2.5">
+                      <PixelIcon name={ch.icon} width={15} height={15} className={tx} aria-hidden />
                       {ch.label}
                     </div>
                     <div className="col-span-12 md:col-span-9 min-w-0">
@@ -226,7 +225,7 @@ export function ConnectForm() {
 
           <div className="col-span-12 md:col-span-7">
             <div className="font-monospec text-[10px] uppercase tracking-[0.4em] text-magenta mb-6 flex items-center gap-3">
-              <span className="inline-block w-8 h-px bg-magenta" />
+              <PixelIcon name="interface-essential-send-mail" width={15} height={15} aria-hidden />
               <span>TX · Quick message</span>
             </div>
             <h2 className="font-khinterference uppercase tracking-[0.005em] text-5xl md:text-6xl leading-[0.92] text-primary mb-4">
@@ -310,11 +309,11 @@ export function ConnectForm() {
       <section className="relative z-10 border-t border-white/10 px-6 md:px-10 py-24 md:py-32">
         <div className="max-w-[1500px] flex flex-wrap items-baseline justify-between gap-6 font-monospec text-[10px] uppercase tracking-[0.35em] text-secondary">
           <Link href="/" className="hover:text-lime transition-colors">
-            ← § 00 · Index
+            ← Index
           </Link>
           <span className="text-secondary/60">PTRK Systems · 2026 · Budapest</span>
           <Link href="/work" className="hover:text-lime transition-colors">
-            § 02 · Work →
+            Work →
           </Link>
         </div>
       </section>
