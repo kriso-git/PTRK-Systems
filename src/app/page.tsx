@@ -49,8 +49,8 @@ export default function Home() {
         <div className="max-w-[1500px] grid grid-cols-12 gap-y-14 md:gap-x-10 relative">
           <aside className="col-span-12 md:col-span-3">
             <div className="font-monospec text-[10px] tracking-[0.4em] uppercase text-orange mb-6 flex items-center gap-3">
-              <span className="inline-block w-8 h-px bg-orange" />
-              <span>▓ Access · Price</span>
+              <PixelIcon name="business-product-price-tag" width={15} height={15} aria-hidden />
+              <span>§ 02 · Access · Price</span>
             </div>
             <div className="font-monospec text-[10px] tracking-[0.3em] uppercase text-secondary leading-relaxed">
               Tiszta scope
@@ -83,34 +83,25 @@ export default function Home() {
               </p>
             </div>
 
-            {/* Inline meter row */}
-            <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-6 border-t border-white/15 pt-10">
+            {/* Inline meter row — HUD chips */}
+            <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-4 border-t border-white/15 pt-10">
               {[
-                { n: ENGAGEMENT.launchRange, label: "Átlag launch", color: "lime" },
-                { n: "1×", label: "Fix ár, nem óradíj", color: "cyan" },
-                { n: "0", label: "Rejtett tétel", color: "magenta" },
-                { n: "30d", label: "Hyper-care launch után", color: "orange" },
+                { n: ENGAGEMENT.launchRange, label: "Átlag launch", icon: "interface-essential-clock", text: "text-lime", bg: "bg-lime", border: "hover:border-lime/40" },
+                { n: "1×", label: "Fix ár, nem óradíj", icon: "business-product-price-tag", text: "text-cyan", bg: "bg-cyan", border: "hover:border-cyan/40" },
+                { n: "0", label: "Rejtett tétel", icon: "interface-essential-lock-shield", text: "text-magenta", bg: "bg-magenta", border: "hover:border-magenta/40" },
+                { n: "30d", label: "Hyper-care launch után", icon: "single-user-shield", text: "text-orange", bg: "bg-orange", border: "hover:border-orange/40" },
               ].map((m, i) => (
                 <div
                   key={i}
                   data-reveal
                   style={{ transitionDelay: `${i * 70}ms` }}
-                  className="flex flex-col gap-2"
+                  className={`group flex flex-col gap-2 border border-white/12 bg-void/30 p-4 backdrop-blur-[1px] transition-colors ${m.border}`}
                 >
-                  <span className="font-monospec text-[10px] tracking-[0.35em] uppercase text-secondary/60">
-                    {String(i + 1).padStart(2, "0")} ·
-                  </span>
-                  <span
-                    className={`font-sequel text-4xl md:text-5xl leading-none tracking-[-0.04em] ${
-                      m.color === "lime"
-                        ? "text-lime"
-                        : m.color === "cyan"
-                        ? "text-cyan"
-                        : m.color === "magenta"
-                        ? "text-magenta"
-                        : "text-orange"
-                    }`}
-                  >
+                  <div className={`flex items-center gap-2 ${m.text}`}>
+                    <PixelIcon name={m.icon} width={15} height={15} aria-hidden />
+                    <span className={`inline-block h-px w-5 ${m.bg} opacity-50`} />
+                  </div>
+                  <span className={`font-sequel text-4xl md:text-5xl leading-none tracking-[-0.04em] ${m.text}`}>
                     {m.n}
                   </span>
                   <span className="font-shorai text-sm text-secondary tracking-tight">
@@ -177,8 +168,9 @@ export default function Home() {
       >
         <div className="max-w-[1500px] grid grid-cols-12 gap-y-10 md:gap-x-10 items-end">
           <div className="col-span-12 md:col-span-5">
-            <div className="font-monospec text-[10px] tracking-[0.35em] uppercase text-cyan mb-4">
-              § 04 · Stack
+            <div className="mb-4 flex items-center gap-3 font-monospec text-[10px] uppercase tracking-[0.35em] text-cyan">
+              <PixelIcon name="computers-devices-electronics-chipset" width={15} height={15} aria-hidden />
+              <span>§ 06 · Stack</span>
             </div>
             <h2 className="font-khinterference uppercase tracking-[-0.005em] text-[clamp(56px,10vw,168px)] leading-[0.85] text-primary">
               Eszköz<span className="text-cyan">·</span>
@@ -186,16 +178,17 @@ export default function Home() {
             </h2>
           </div>
           <div className="col-span-12 md:col-span-7">
-            <ul className="grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-3 font-monospec text-sm tracking-[0.05em]">
+            <ul className="grid grid-cols-2 md:grid-cols-3 gap-2.5 font-monospec text-sm tracking-[0.05em]">
               {TECH_STACK.filter(
                 (t) => t.category !== "Hosting" && t.category !== "Design"
               ).map((t) => (
                 <li
                   key={t.name}
-                  className="flex items-baseline justify-between border-b border-white/10 pb-2 hover:border-lime/60 transition-colors"
+                  className="group flex items-center gap-2.5 border border-white/10 bg-void/20 px-3 py-2.5 transition-colors hover:border-cyan/40 hover:bg-void/40"
                 >
-                  <span className="text-primary uppercase">{t.name}</span>
-                  <span className="text-secondary text-[10px] tracking-[0.25em] uppercase">
+                  <span className="h-1.5 w-1.5 shrink-0 bg-cyan/50 transition-colors group-hover:bg-cyan" />
+                  <span className="truncate uppercase text-primary">{t.name}</span>
+                  <span className="ml-auto shrink-0 text-[9px] uppercase tracking-[0.2em] text-secondary/70">
                     {t.category}
                   </span>
                 </li>
@@ -213,8 +206,9 @@ export default function Home() {
       >
         <div className="max-w-[1500px] grid grid-cols-12 gap-y-14 md:gap-x-10">
           <aside className="col-span-12 md:col-span-4">
-            <div className="font-monospec text-[10px] tracking-[0.35em] uppercase text-magenta mb-6">
-              § 05 · Dialogue
+            <div className="mb-6 flex items-center gap-3 font-monospec text-[10px] uppercase tracking-[0.35em] text-magenta">
+              <PixelIcon name="interface-essential-cog-search" width={15} height={15} aria-hidden />
+              <span>§ 07 · Dialogue</span>
             </div>
             <h2 className="font-khinterference uppercase tracking-[0.02em] text-5xl md:text-7xl leading-[0.92] text-primary mb-6">
               Gyakori

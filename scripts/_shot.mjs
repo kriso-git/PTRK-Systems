@@ -3,6 +3,7 @@ import puppeteer from "puppeteer";
 
 const section = process.argv[2] ?? "§ 00";
 const out = process.argv[3] ?? "scripts/_shot.png";
+const extra = Number(process.argv[4] ?? 0);
 
 const b = await puppeteer.launch({
   headless: "shell",
@@ -18,6 +19,9 @@ await pg.evaluate((sel) => {
   const el = document.querySelector(`[data-section="${sel}"]`);
   if (el) el.scrollIntoView({ block: "start" });
 }, section);
+if (extra) {
+  await pg.evaluate((px) => window.scrollBy(0, px), extra);
+}
 await new Promise((r) => setTimeout(r, 1200));
 await pg.screenshot({ path: out });
 console.log("shot", section, "->", out, "errors", errs.length, errs.slice(0, 4));
