@@ -5,7 +5,15 @@ import Link from "next/link";
 import { DecodeText } from "@/components/DecodeText";
 import { ScrollCue } from "@/components/ScrollCue";
 import { PixelIcon } from "@/components/PixelIcon";
-import { HeroTelemetry } from "@/components/HeroTelemetry";
+import { onBootReady } from "@/lib/boot-ready";
+import { PROJECTS, ENGAGEMENT } from "@/data/projects";
+
+/* ---------- fires true once the boot loader has revealed the page ---------- */
+function useBootReady() {
+  const [ready, setReady] = useState(false);
+  useEffect(() => onBootReady(() => setReady(true)), []);
+  return ready;
+}
 
 /* ---------- smoothed cursor parallax (-0.5..0.5) ---------- */
 function useParallax() {
@@ -27,11 +35,109 @@ function useParallax() {
   return p;
 }
 
+/* ---------- count-up number (animates AFTER the boot loader reveals) ---------- */
+function CountUp({ to, pad = 0, className }: { to: number; pad?: number; className?: string }) {
+  const [v, setV] = useState(0);
+  const ready = useBootReady();
+  useEffect(() => {
+    if (!ready) return; // wait so it counts up WHEN THE USER SEES IT, not behind the boot
+    let raf = 0; const t0 = performance.now(); const dur = 1100;
+    const tick = (now: number) => {
+      const p = Math.min(1, (now - t0) / dur);
+      const e = 1 - Math.pow(1 - p, 3);
+      setV(Math.round(e * to));
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [to, ready]);
+  return <span className={className}>{String(v).padStart(pad, "0")}</span>;
+}
+
+/* ---------- live CET clock (client-only -> no hydration mismatch) ---------- */
+function LiveClock() {
+  const [t, setT] = useState<string | null>(null);
+  useEffect(() => {
+    const fmt = () =>
+      new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit", timeZone: "Europe/Budapest", hour12: false }).format(new Date());
+    setT(fmt());
+    const id = setInterval(() => setT(fmt()), 1000);
+    return () => clearInterval(id);
+  }, []);
+  return <span className="tabular-nums">{t ?? "--:--:--"}</span>;
+}
+
+/* ---------- live oscilloscope waveform (canvas) ---------- */
+function Waveform() {
+  const ref = useRef<HTMLCanvasElement>(null);
+  useEffect(() => {
+    const cv = ref.current;
+    if (!cv) return;
+    const ctx = cv.getContext("2d");
+    if (!ctx) return;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const resize = () => { cv.width = cv.clientWidth * dpr; cv.height = cv.clientHeight * dpr; };
+    resize();
+    let raf = 0; const t0 = performance.now();
+    const draw = (now: number) => {
+      raf = requestAnimationFrame(draw);
+      const w = cv.width, h = cv.height, t = (now - t0) / 1000;
+      ctx.clearRect(0, 0, w, h);
+      // grid baseline
+      ctx.strokeStyle = "rgba(194,254,12,0.12)"; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(0, h / 2); ctx.lineTo(w, h / 2); ctx.stroke();
+      // waveform
+      ctx.strokeStyle = "#c2fe0c"; ctx.lineWidth = 1.6 * dpr;
+      ctx.shadowColor = "rgba(194,254,12,0.6)"; ctx.shadowBlur = 6 * dpr;
+      ctx.beginPath();
+      for (let x = 0; x <= w; x += 2 * dpr) {
+        const u = x / w;
+        const y = h / 2 +
+          Math.sin(u * 22 + t * 3) * h * 0.16 * (0.5 + 0.5 * Math.sin(u * 7 - t * 1.3)) +
+          Math.sin(u * 60 - t * 6) * h * 0.05;
+        if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+    };
+    raf = requestAnimationFrame(draw);
+    window.addEventListener("resize", resize);
+    return () => { cancelAnimationFrame(raf); window.removeEventListener("resize", resize); };
+  }, []);
+  return <canvas ref={ref} className="h-14 w-full" />;
+}
+
+/* ---------- cycling "now shipping" project ticker ---------- */
+const ACCENT: Record<string, string> = { lime: "text-lime", cyan: "text-cyan", magenta: "text-magenta", orange: "text-orange" };
+function ProjectTicker() {
+  const [i, setI] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setI((n) => (n + 1) % PROJECTS.length), 2600);
+    return () => clearInterval(id);
+  }, []);
+  const p = PROJECTS[i];
+  return (
+    <div className="flex items-center gap-2.5 font-monospec text-[11px] uppercase tracking-[0.25em]">
+      <PixelIcon name="video-movies-play" width={14} height={14} className={ACCENT[p.color]} aria-hidden />
+      <span className="text-secondary/70">Now shipping</span>
+      <span key={p.id} className={ACCENT[p.color]}>{p.name}</span>
+    </div>
+  );
+}
+
+type Metric = { label: string; icon: string; num?: number; pad?: number; static?: string };
+const METRICS: Metric[] = [
+  { num: 3, pad: 2, label: "Systems live", icon: "computers-devices-electronics-monitor" },
+  { num: 98, pad: 0, label: "Lighthouse avg", icon: "interface-essential-wifi-signal" },
+  { static: "<24h", label: "Response", icon: "interface-essential-clock" },
+  { static: ENGAGEMENT.nextSlotCompact, label: "Next slot", icon: "social-rewards-flag" },
+];
+
 /**
  * HudHero — the immersive Marathon HUD-world hero. Big PTRK.SYSTEMS wordmark as the
- * focal point on the left; a WOW live-telemetry console (sonar radar of the live
- * systems, a Lighthouse gauge, real metrics, a ticking status feed) parallaxes
- * with the cursor on the right. All the original §00 copy is preserved.
+ * focal point; a LIVE TELEMETRY console (real metrics that count up, a running
+ * oscilloscope, a cycling project ticker, a CET clock) parallaxes with the cursor
+ * over the reactive field. All the original §00 copy is preserved.
  */
 export function HudHero() {
   const p = useParallax();
@@ -101,10 +207,46 @@ export function HudHero() {
             </div>
           </div>
 
-          {/* WOW live-telemetry console (parallax) — desktop */}
+          {/* LIVE TELEMETRY console (parallax) — desktop */}
           <div className="col-span-12 hidden lg:col-span-5 lg:block">
-            <div style={t(-16)} className="ml-auto w-[380px] max-w-full">
-              <HeroTelemetry />
+            <div style={t(-16)} className="ml-auto w-[360px] max-w-full">
+              {/* header */}
+              <div className="flex items-center justify-between font-monospec text-[10px] uppercase tracking-[0.3em]">
+                <span className="flex items-center gap-2 text-lime">
+                  <span className="h-1.5 w-1.5 bg-lime cursor-blink" />
+                  Live telemetry
+                </span>
+                <span className="text-secondary/70"><LiveClock /></span>
+              </div>
+
+              {/* oscilloscope */}
+              <div className="mt-3 border-y border-lime/15 py-2">
+                <Waveform />
+              </div>
+
+              {/* metric grid */}
+              <div className="mt-4 grid grid-cols-2 gap-px bg-white/5">
+                {METRICS.map((m) => (
+                  <div key={m.label} className="bg-void/70 p-3.5 backdrop-blur-sm">
+                    <div className="mb-1.5 flex items-center gap-2 font-monospec text-[9px] uppercase tracking-[0.25em] text-secondary/70">
+                      <PixelIcon name={m.icon} width={13} height={13} aria-hidden />
+                      {m.label}
+                    </div>
+                    <div className="font-sequel text-4xl leading-none tracking-[-0.03em] text-primary">
+                      {m.static ? (
+                        <span>{m.static}</span>
+                      ) : (
+                        <CountUp to={m.num!} pad={m.pad} />
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* ticker */}
+              <div className="mt-4 border-t border-lime/15 pt-3">
+                <ProjectTicker />
+              </div>
             </div>
           </div>
         </div>
