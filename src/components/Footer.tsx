@@ -26,16 +26,13 @@ export function Footer() {
               § 00 · Index
             </Link>
             <Link href="/work" className="hover:text-lime transition-colors">
-              § 02 · Work
+              § 01 · Work
             </Link>
             <Link href="/method" className="hover:text-lime transition-colors">
-              § 03 · Method
-            </Link>
-            <Link href="/lab" className="hover:text-lime transition-colors">
-              § 05 · Lab
+              § 02 · Method
             </Link>
             <Link href="/connect" className="hover:text-lime transition-colors">
-              § 06 · Connect
+              § 03 · Connect
             </Link>
           </nav>
 

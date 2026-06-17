@@ -294,14 +294,6 @@ export default function Home() {
               >
                 hello@ptrksystems.com
               </a>
-              <Link
-                href="/lab"
-                className="group inline-flex items-center gap-2 font-monospec text-xs tracking-[0.25em] uppercase text-secondary transition-colors hover:text-lime"
-              >
-                <PixelIcon name="interface-essential-cog-double" width={13} height={13} aria-hidden />
-                Experiments lab
-                <span className="transition-transform group-hover:translate-x-1">→</span>
-              </Link>
             </div>
           </div>
 

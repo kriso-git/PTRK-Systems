@@ -56,7 +56,7 @@ export function OperatorTerminal({ onClose }: { onClose: () => void }) {
       case "help":
         print(
           { text: "help · elérhető parancsok", tone: "dim" },
-          { text: "projects · open <id> · work · method · lab · connect · home" },
+          { text: "projects · open <id> · work · method · connect · home" },
           { text: "stack · status · whoami · nodes · boot · clear · exit" },
           { text: "sudo hire --budget <összeg> · ha komolyan gondolod", tone: "dim" },
         );
@@ -89,9 +89,6 @@ export function OperatorTerminal({ onClose }: { onClose: () => void }) {
         break;
       case "method":
         go("/method", "§ 03 · method");
-        break;
-      case "lab":
-        go("/lab", "§ 05 · lab");
         break;
       case "connect":
         go("/connect", "§ 06 · connect");
