@@ -32,7 +32,9 @@ html,
 body {
   background: var(--color-void);
   color: var(--color-primary);
-  overflow-x: hidden;
+  /* `clip` (not `hidden`) prevents horizontal scroll WITHOUT creating a scroll
+     container — so `position: sticky` keeps working for scroll-pinned sections. */
+  overflow-x: clip;
   font-family: var(--font-ui);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
