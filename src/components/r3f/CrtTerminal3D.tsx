@@ -44,15 +44,15 @@ void main(){
   if (uv.x < 0.0 || uv.x > 1.0 || uv.y < 0.0 || uv.y > 1.0) { gl_FragColor = vec4(0.0); return; }
 
   // chromatic aberration: split the channels of the lime phosphor at the edges
-  float ca = 0.0008 + 0.0012 * length(uv - 0.5);
+  float ca = 0.0005 + 0.0009 * length(uv - 0.5);
   vec3 col;
   col.r = texture2D(uTex, vec2(uv.x + ca, uv.y)).r;
   col.g = texture2D(uTex, uv).g;
   col.b = texture2D(uTex, vec2(uv.x - ca, uv.y)).b;
 
-  // boost the phosphor text so it pops, then floor with a powered-screen base
-  col *= 1.5;
-  col = max(col, vec3(0.02, 0.05, 0.015));
+  // gentle boost so the thin phosphor text stays crisp (not bloomed), then floor
+  col *= 1.22;
+  col = max(col, vec3(0.018, 0.045, 0.013));
 
   // rolling scanlines (gentle)
   float scan = 0.84 + 0.16 * sin(uv.y * uRes.y * 1.55 - uTime * 9.0);
@@ -113,8 +113,8 @@ export function CrtTerminal3D() {
   // is dynamically imported with ssr:false).
   const tex = useMemo(() => {
     const cv = document.createElement("canvas");
-    cv.width = 340;
-    cv.height = 1240;
+    cv.width = 400;
+    cv.height = 1460;
     const t = new THREE.CanvasTexture(cv);
     t.minFilter = THREE.LinearFilter;
     t.magFilter = THREE.LinearFilter;
@@ -128,7 +128,7 @@ export function CrtTerminal3D() {
     const cv = tex.image as HTMLCanvasElement;
     const ctx = cv.getContext("2d")!;
     const W = cv.width, H = cv.height;
-    const FS = 34, LH = 52, PAD = 22;
+    const FS = 38, LH = 60, PAD = 26;
     const MAX = Math.ceil(H / LH) + 1;
 
     let idx = 0;
@@ -149,6 +149,8 @@ export function CrtTerminal3D() {
       ctx.clearRect(0, 0, W, H);
       ctx.font = `${FS}px ${FONT}`;
       ctx.textBaseline = "alphabetic";
+      // letter spacing keeps thin glyphs from merging into blobs
+      try { (ctx as CanvasRenderingContext2D & { letterSpacing: string }).letterSpacing = "2px"; } catch {}
       for (let i = lines.length - 1; i >= 0; i--) {
         const fromBottom = lines.length - 1 - i;
         const y = H - PAD - fromBottom * LH;
@@ -158,7 +160,7 @@ export function CrtTerminal3D() {
         ctx.globalAlpha = isNew ? 1 : Math.max(0.1, 1 - fromBottom * 0.055);
         ctx.fillStyle = PHOSPHOR;
         ctx.shadowColor = PHOSPHOR;
-        ctx.shadowBlur = 4;
+        ctx.shadowBlur = 0;
         const shown = ln.text.slice(0, ln.typed);
         ctx.fillText(shown, PAD, y);
         if (isNew) {
