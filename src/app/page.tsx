@@ -1,15 +1,12 @@
 import Link from "next/link";
 import { PROJECTS, PROCESS_STEPS, FAQ, TECH_STACK, ENGAGEMENT } from "@/data/projects";
-import { ScrollCue } from "@/components/ScrollCue";
 import { GoliathOrnament } from "@/components/GoliathSymbols";
 import { ManifestoBand } from "@/components/ManifestoBand";
-import { DecodeText } from "@/components/DecodeText";
 import { TransmissionLog } from "@/components/TransmissionLog";
 import { Operator } from "@/components/Operator";
-import { AsciiField } from "@/components/AsciiField";
-import { HeroViewLazy } from "@/components/r3f/HeroViewLazy";
 import { ScrollJourneyLazy } from "@/components/ScrollJourneyLazy";
 import { WorkIndexRow } from "@/components/WorkIndexRow";
+import { HudHero } from "@/components/HudHero";
 
 // Root page is NOT subject to the layout title.template, so set the full string.
 export const metadata = { title: "PTRK-Systems - Introduction" };
@@ -44,112 +41,8 @@ const PRINCIPLES = [
 export default function Home() {
   return (
     <>
-      {/* ─────────────────────────────  HERO MANIFESTO  ───────────────────────────── */}
-      <section
-        data-section="§ 00"
-        data-label="Introduction"
-        className="relative z-10 px-6 md:px-10 pt-24 md:pt-40 pb-32 md:pb-56 overflow-hidden"
-      >
-        {/* Hero data-constellation, rendered by the shared R3F Stage (lazy +
-            motion-gated; static wash on mobile-lite) — deepest layer */}
-        <div aria-hidden className="absolute inset-0 -z-20 pointer-events-none">
-          <HeroViewLazy />
-        </div>
-
-        {/* Cursor-reactive ASCII field — behind static content (-z-10,
-            see the ghost paint-order lesson) */}
-        <div aria-hidden className="absolute inset-0 -z-10 pointer-events-none">
-          <AsciiField />
-        </div>
-
-        <div
-          aria-hidden
-          className="absolute top-0 right-0 h-[200%] w-[1px] bg-gradient-to-b from-transparent via-lime/40 to-transparent rotate-[18deg] origin-top-right translate-x-[-25vw]"
-        />
-
-        <div className="max-w-[1500px] grid grid-cols-12 gap-y-12 md:gap-x-10">
-          <aside className="col-span-12 md:col-span-3 lg:col-span-2 md:pt-4">
-            <div className="font-monospec text-[10px] tracking-[0.35em] uppercase text-lime mb-6">
-              Vol. IV
-              <br />
-              Issue 07
-            </div>
-            <div className="font-monospec text-[10px] tracking-[0.3em] uppercase text-secondary leading-relaxed">
-              Design
-              <br />
-              Engineering
-              <br />
-              Unit
-              <span className="block mt-3 text-cyan/70">— Budapest</span>
-            </div>
-          </aside>
-
-          <div className="col-span-12 md:col-span-9 lg:col-span-10">
-            <div className="flex flex-wrap items-baseline gap-x-6 gap-y-2 mb-4 font-monospec text-[10px] uppercase tracking-[0.3em] text-secondary">
-              <span className="text-lime">Design Engineering Unit</span>
-              <span className="text-secondary/60">est. 2026 · Budapest</span>
-            </div>
-
-            <h1 className="font-khinterference uppercase leading-[0.82] tracking-[-0.015em] text-primary relative">
-              {/* Decorative ornament marginalia (replaces font-goliath ·26· watermark) */}
-              <GoliathOrnament
-                seed="·26·"
-                count={4}
-                size="clamp(28px, 3.5vw, 64px)"
-                className="text-lime/[0.06] absolute top-3 right-0 pointer-events-none hidden md:inline-flex"
-              />
-
-              <span className="block text-[clamp(72px,17vw,296px)] relative">
-                <DecodeText text="PTRK" />
-                <span className="text-lime">.</span>
-              </span>
-              <span className="block text-[clamp(72px,17vw,296px)] text-lime -mt-[0.05em]">
-                <DecodeText text="Systems" delayMs={150} />
-                <span className="text-cyan">·</span>
-              </span>
-            </h1>
-
-            {/* Brand mark sub-rule */}
-            <div className="mt-6 flex items-center gap-3" aria-hidden>
-              <span className="block w-3 h-3 bg-lime" />
-              <span className="block w-32 md:w-48 h-px bg-lime/40" />
-              <span className="font-monospec text-[10px] uppercase tracking-[0.4em] text-secondary">
-                Budapest · v4·07·26
-              </span>
-            </div>
-
-            <p className="mt-10 font-shorai text-xl md:text-2xl lg:text-3xl text-secondary leading-[1.35] max-w-[58ch] tracking-[-0.005em]">
-              Egy fókuszált, vertikális stúdió termék-felületekre, design rendszerekre és
-              frontend architektúrára. Stratégiától live deployig{" "}
-              <span className="text-primary">összehangolt kontextusban</span> — mert a felület{" "}
-              <span className="italic text-lime">a termék</span>.
-            </p>
-
-            <div className="mt-14 flex flex-wrap items-center gap-x-10 gap-y-5">
-              <Link
-                href="/work"
-                className="group font-khinterference uppercase tracking-[0.04em] text-3xl md:text-4xl text-primary border-b-2 border-lime pb-1 hover:text-lime transition-colors"
-              >
-                <span className="text-lime mr-3">→</span>View projects
-              </Link>
-              <Link
-                href="/method"
-                className="font-khinterference uppercase tracking-[0.04em] text-2xl md:text-3xl text-secondary hover:text-cyan transition-colors"
-              >
-                Methodology
-              </Link>
-              <Link
-                href="/connect"
-                className="font-khinterference uppercase tracking-[0.04em] text-2xl md:text-3xl text-secondary hover:text-magenta transition-colors"
-              >
-                Connect
-              </Link>
-            </div>
-
-            <ScrollCue label="Tovább a metrikákhoz" />
-          </div>
-        </div>
-      </section>
+      {/* ─────────────────────────────  HERO (immersive HUD-world)  ───────────────────────────── */}
+      <HudHero />
 
       {/* ─────────────────────  SCROLL JOURNEY (pinned camera)  ───────────────────── */}
       {/* Cinematic fly-through: ENTER → STRATEGY → BUILD → SHIP. Lazy three.js,
