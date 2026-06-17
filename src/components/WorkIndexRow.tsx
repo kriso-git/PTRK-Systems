@@ -5,6 +5,7 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { PixelIcon } from "@/components/PixelIcon";
 import { projectAccent } from "@/lib/project-accent";
+import { pushConsole } from "@/lib/console-bus";
 import type { Project } from "@/data/projects";
 
 // ssr:false (View + three are browser-only) — a Server Component can't load it
@@ -29,7 +30,7 @@ export function WorkIndexRow({ project: p, index: i }: { project: Project; index
       data-reveal
       style={{ transitionDelay: `${i * 70}ms` }}
       className="group relative border-b border-white/12"
-      onMouseEnter={() => setHover(true)}
+      onMouseEnter={() => { setHover(true); pushConsole(`▸ open ${p.id} · prefetch`); }}
       onMouseLeave={() => setHover(false)}
     >
       {/* growing accent rail */}
