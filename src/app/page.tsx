@@ -8,7 +8,7 @@ import { WorkIndexRow } from "@/components/WorkIndexRow";
 import { HudHero } from "@/components/HudHero";
 import { Cornerstones } from "@/components/Cornerstones";
 import { StatsBar } from "@/components/StatsBar";
-import { ProcessLadder } from "@/components/ProcessLadder";
+import { ProcessJourney } from "@/components/ProcessJourney";
 import { PixelIcon } from "@/components/PixelIcon";
 
 // Root page is NOT subject to the layout title.template, so set the full string.
@@ -151,8 +151,8 @@ export default function Home() {
       <Operator />
       <TransmissionLog />
 
-      {/* ─────────────────────────────  PROCESS LADDER (§05)  ───────────────────────────── */}
-      <ProcessLadder />
+      {/* ─────────────────────────────  PROCESS JOURNEY (§05 · pinned scrollytelling)  ───────────────────────────── */}
+      <ProcessJourney />
 
       {/* ─────────────────────────────  STACK MARGINALIA  ───────────────────────────── */}
       <section
