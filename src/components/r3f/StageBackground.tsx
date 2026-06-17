@@ -41,8 +41,6 @@ function FieldMesh({ reduced, vert, frag }: { reduced: boolean; vert: string; fr
 
   const target = useMemo(() => new THREE.Vector2(0.5, 0.5), []);
   const matRef = useRef<THREE.ShaderMaterial>(null);
-  const lastP = useRef(0);
-  const energy = useRef(0);
   const scrollEased = useRef(0);
 
   useFrame((state, dt) => {
@@ -59,16 +57,13 @@ function FieldMesh({ reduced, vert, frag }: { reduced: boolean; vert: string; fr
     u.uMouse.value.lerp(target, 0.1);
 
     if (!reduced) {
-      const p = s.progress;
-      const dp = Math.abs(p - lastP.current);
-      lastP.current = p;
-      // EASE the scroll value the shader sees (damped follow) so the colour
-      // journey + nebula flow GLIDE instead of snapping on fast scroll.
-      scrollEased.current = THREE.MathUtils.damp(scrollEased.current, p, 2.2, d);
-      // energy: build gently, settle slowly -> a soft swell, not a fast flash.
-      energy.current = Math.min(1, energy.current * 0.95 + dp * 14 * 0.1);
+      // Heavily-damped follow of scroll progress so the colour journey + flow
+      // GLIDE smoothly; no velocity term (that was what jittered on scroll).
+      scrollEased.current = THREE.MathUtils.damp(scrollEased.current, s.progress, 1.4, d);
+      // gentle constant breathing instead of a scroll-velocity surge -> alive but
+      // never jittery on scroll.
       u.uScroll.value = scrollEased.current;
-      u.uEnergy.value = energy.current;
+      u.uEnergy.value = 0.12 + 0.08 * Math.sin(state.clock.elapsedTime * 0.4);
     }
   });
 
