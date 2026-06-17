@@ -7,6 +7,7 @@ import { Operator } from "@/components/Operator";
 import { ScrollJourneyLazy } from "@/components/ScrollJourneyLazy";
 import { WorkIndexRow } from "@/components/WorkIndexRow";
 import { HudHero } from "@/components/HudHero";
+import { Cornerstones } from "@/components/Cornerstones";
 
 // Root page is NOT subject to the layout title.template, so set the full string.
 export const metadata = { title: "PTRK-Systems - Introduction" };
@@ -20,23 +21,6 @@ const STATS = [
   { n: ENGAGEMENT.launchRange, label: "Discovery → élesben", color: "orange" },
 ] as const;
 
-const PRINCIPLES = [
-  {
-    n: "I.",
-    head: "Vertikális stúdió, közös kontextus.",
-    body: "Stratégia, design, frontend és deploy egy kézben. Nincs handoff-veszteség, nincs szilo, nincs lefordított szándék — a kontextus a discovery-től a launchig velem marad.",
-  },
-  {
-    n: "II.",
-    head: "Visszaszólunk, ha kell.",
-    body: "Nem végrehajtók vagyunk. Ha egy brief logikai hibát rejt, egy design rosszul skálázódik, vagy egy stack-választás később megfojtja a terméket — szólunk. Stratégiai partnerek, nem yes-man-ek.",
-  },
-  {
-    n: "III.",
-    head: "Production-grade vagy semmi.",
-    body: "98+ Lighthouse, RLS-szigorú adatréteg, edge runtime, akadálymentesség. A demo és az éles kód ugyanaz a kód.",
-  },
-];
 
 export default function Home() {
   return (
@@ -187,55 +171,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─────────────────────────────  PRINCIPLES  ───────────────────────────── */}
-      <section
-        data-section="§ 03"
-        data-label="Alapkövek"
-        className="relative z-10 px-6 md:px-10 py-36 md:py-56 border-t border-white/10"
-      >
-        <div className="max-w-[1500px] grid grid-cols-12 gap-y-14 md:gap-x-10">
-          <aside className="col-span-12 md:col-span-3">
-            <div className="md:sticky md:top-32">
-              <div className="font-monospec text-[10px] tracking-[0.35em] uppercase text-cyan mb-6">
-                § 01 · Cornerstones
-              </div>
-              <h2 className="font-khinterference uppercase tracking-[0.02em] text-5xl md:text-6xl leading-[0.92] text-primary">
-                Három
-                <br />
-                <span className="text-lime">alapkő.</span>
-              </h2>
-              <p className="mt-8 font-shorai text-base text-secondary max-w-xs leading-relaxed">
-                A működésünket nem ügynökségi katalógus, hanem három non-negotiable
-                alapkő tartja össze.
-              </p>
-            </div>
-          </aside>
-
-          <div className="col-span-12 md:col-span-9 flex flex-col">
-            {PRINCIPLES.map((p, i) => (
-              <article
-                key={p.n}
-                data-reveal
-                style={{ transitionDelay: `${i * 70}ms` }}
-                className={`py-14 md:py-20 ${
-                  i !== PRINCIPLES.length - 1 ? "border-b border-white/10" : ""
-                }`}
-              >
-                <div className="font-monospec text-[10px] uppercase tracking-[0.4em] text-lime mb-6 flex items-center gap-3">
-                  <span className="inline-block w-8 h-px bg-lime" />
-                  <span>Alapkő {p.n}</span>
-                </div>
-                <h3 className="font-sequel text-3xl md:text-5xl tracking-[-0.02em] text-primary leading-[1.05] mb-6 max-w-[24ch]">
-                  {p.head}
-                </h3>
-                <p className="font-shorai text-lg md:text-xl text-secondary leading-[1.55] max-w-[62ch]">
-                  {p.body}
-                </p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* ─────────────────────────────  CORNERSTONES (why better)  ───────────────────────────── */}
+      <Cornerstones />
 
       <ManifestoBand />
 
