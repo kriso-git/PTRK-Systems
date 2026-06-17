@@ -5,6 +5,7 @@ import { PROCESS_STEPS } from "@/data/projects";
 import { PixelIcon } from "@/components/PixelIcon";
 import { PHASE_ICONS } from "@/lib/process-icons";
 import { reducedMotion } from "@/lib/motion";
+import { PhaseVisual } from "@/components/PhaseVisual";
 
 /**
  * ProcessJourney — the home §05 process as a pinned scroll-through. Each scroll
@@ -38,96 +39,6 @@ function useSectionProgress<T extends HTMLElement>() {
   return { ref, progress };
 }
 
-/* right-side animated HUD form: a morphing polygon (sides = phase+3) + reticle
- * rings + orbiting nodes + a sweep, all in the active accent. */
-function PhaseForms({ activeRef, accentRef }: { activeRef: { current: number }; accentRef: { current: string } }) {
-  const ref = useRef<HTMLCanvasElement>(null);
-  useEffect(() => {
-    const cv = ref.current;
-    if (!cv) return;
-    const ctx = cv.getContext("2d");
-    if (!ctx) return;
-    const reduced = reducedMotion();
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    let W = 0, H = 0;
-    const resize = () => { W = cv.clientWidth; H = cv.clientHeight; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); };
-    resize();
-    let raf = 0, last = performance.now(), rot = 0, ring = 0;
-    const draw = (now: number) => {
-      raf = requestAnimationFrame(draw);
-      const dt = Math.min((now - last) / 1000, 0.05);
-      last = now;
-      const hex = accentRef.current;
-      const active = activeRef.current;
-      if (!reduced) { rot += dt * 0.28; ring -= dt * 0.45; }
-      ctx.clearRect(0, 0, W, H);
-      const cx = W * 0.5, cy = H * 0.5, R = Math.min(W, H) * 0.3;
-
-      // concentric reticle rings
-      ctx.strokeStyle = hex + "22";
-      ctx.lineWidth = 1;
-      for (let k = 1; k <= 3; k++) { ctx.beginPath(); ctx.arc(cx, cy, R * (0.5 + k * 0.24), 0, Math.PI * 2); ctx.stroke(); }
-      // ticked outer ring
-      ctx.strokeStyle = hex + "55";
-      const ticks = 48;
-      for (let t = 0; t < ticks; t++) {
-        const a = (t / ticks) * Math.PI * 2 + ring;
-        const r1 = R * 1.2, r2 = R * (t % 4 === 0 ? 1.3 : 1.25);
-        ctx.beginPath();
-        ctx.moveTo(cx + Math.cos(a) * r1, cy + Math.sin(a) * r1);
-        ctx.lineTo(cx + Math.cos(a) * r2, cy + Math.sin(a) * r2);
-        ctx.stroke();
-      }
-      // morphing polygon — sides grow with the phase (3..8)
-      const verts = active + 3;
-      ctx.strokeStyle = hex;
-      ctx.lineWidth = 1.6;
-      ctx.shadowColor = hex;
-      ctx.shadowBlur = 12;
-      ctx.beginPath();
-      for (let i = 0; i <= verts; i++) {
-        const a = (i / verts) * Math.PI * 2 + rot - Math.PI / 2;
-        const x = cx + Math.cos(a) * R, y = cy + Math.sin(a) * R;
-        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-      }
-      ctx.stroke();
-      ctx.shadowBlur = 0;
-      // vertex nodes
-      for (let i = 0; i < verts; i++) {
-        const a = (i / verts) * Math.PI * 2 + rot - Math.PI / 2;
-        const x = cx + Math.cos(a) * R, y = cy + Math.sin(a) * R;
-        ctx.fillStyle = hex;
-        ctx.shadowColor = hex;
-        ctx.shadowBlur = 8;
-        ctx.beginPath();
-        ctx.arc(x, y, 3, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.shadowBlur = 0;
-      }
-      // sweep + orbiting node
-      ctx.strokeStyle = hex + "55";
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(cx, cy);
-      ctx.lineTo(cx + Math.cos(rot * 1.5) * R * 1.12, cy + Math.sin(rot * 1.5) * R * 1.12);
-      ctx.stroke();
-      const oa = ring * -2;
-      ctx.fillStyle = hex;
-      ctx.shadowColor = hex;
-      ctx.shadowBlur = 8;
-      ctx.beginPath();
-      ctx.arc(cx + Math.cos(oa) * R * 1.25, cy + Math.sin(oa) * R * 1.25, 2.6, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.shadowBlur = 0;
-      if (reduced) cancelAnimationFrame(raf);
-    };
-    raf = requestAnimationFrame(draw);
-    const onR = () => resize();
-    window.addEventListener("resize", onR);
-    return () => { cancelAnimationFrame(raf); window.removeEventListener("resize", onR); };
-  }, [activeRef, accentRef]);
-  return <canvas ref={ref} className="h-full w-full" aria-hidden />;
-}
 
 export function ProcessJourney() {
   const { ref, progress } = useSectionProgress<HTMLDivElement>();
@@ -153,10 +64,11 @@ export function ProcessJourney() {
   // live refs for the canvas
   const activeRef = useRef(0);
   const accentRef = useRef<string>(ACCENTS[0]);
-  useEffect(() => { activeRef.current = active; accentRef.current = accent; }, [active, accent]);
+  const enterRef = useRef(0);
 
   const railFill = ((active + localT) / PHASE_COUNT) * 100;
   const enter = Math.min(1, localT * 3);
+  useEffect(() => { activeRef.current = active; accentRef.current = accent; enterRef.current = enter; }, [active, accent, enter]);
   const contentOpacity = 0.15 + enter * 0.85;
   const contentY = (1 - enter) * 34;
   const ghostScale = 0.92 + enter * 0.08;
@@ -233,7 +145,7 @@ export function ProcessJourney() {
           <div className="relative flex h-[58vh] flex-1 items-center">
             {/* right-side animated HUD forms + ghost number */}
             <div aria-hidden className="pointer-events-none absolute right-0 top-1/2 hidden h-[78vh] w-[58%] -translate-y-1/2 lg:block">
-              <div className="absolute inset-0 z-0"><PhaseForms activeRef={activeRef} accentRef={accentRef} /></div>
+              <div className="absolute inset-0 z-0"><PhaseVisual activeRef={activeRef} accentRef={accentRef} enterRef={enterRef} /></div>
               <span
                 key={`ghost-${active}`}
                 className="absolute right-2 top-1/2 z-[1] select-none font-sequel leading-none"
