@@ -1,5 +1,6 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
   COMMAND_POOL,
@@ -10,6 +11,59 @@ import {
   type SlotColor,
 } from "@/lib/terminal-pool";
 import { gyroState } from "@/lib/gyro";
+
+// The right console upgrades to a holographic 3D data-stream when WebGL is
+// available; the DOM RightDataStream below stays as the zero-GPU fallback.
+const DataStream3D = dynamic(
+  () => import("@/components/r3f/DataStream3D").then((m) => m.DataStream3D),
+  { ssr: false }
+);
+
+/** WebGL feature-detect — no canvas for visitors without GPU acceleration. */
+function consoleWebglAvailable(): boolean {
+  try {
+    const c = document.createElement("canvas");
+    return !!(window.WebGLRenderingContext && (c.getContext("webgl") || c.getContext("experimental-webgl")));
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * RightConsole — picks the holographic 3D stream when WebGL is available,
+ * otherwise the DOM terminal fallback. Pre-mount renders nothing (avoids
+ * spinning up the DOM terminal's timers only to tear them down on upgrade).
+ */
+function RightConsole() {
+  const [gl, setGl] = useState<boolean | null>(null);
+  useEffect(() => setGl(consoleWebglAvailable()), []);
+  if (gl === null) return null;
+  if (!gl) return <RightDataStream />;
+  return (
+    <aside
+      aria-hidden
+      className="fixed right-0 top-[88px] bottom-4 z-[12] hidden w-[230px] pointer-events-none font-monospec md:block"
+    >
+      <div className="absolute inset-0 overflow-hidden border border-lime/30 bg-void/40 backdrop-blur-[1px]">
+        <DataStream3D />
+      </div>
+      {/* chrome header */}
+      <div className="absolute inset-x-0 top-0 flex items-center gap-2 border border-b-0 border-lime/30 bg-void/85 px-3 py-1.5 text-[10px] uppercase tracking-[0.25em] backdrop-blur-sm">
+        <span className="h-1.5 w-1.5 shrink-0 bg-lime cursor-blink" />
+        <span className="text-lime">TX·LIVE</span>
+        <span className="text-secondary/40">/</span>
+        <span className="text-secondary/70">3D·STREAM</span>
+        <span className="ml-auto text-[9px] text-secondary/50">HOLO</span>
+      </div>
+      {/* chrome footer */}
+      <div className="absolute inset-x-0 bottom-0 flex items-center gap-2 border border-t-0 border-cyan/40 bg-void/85 px-3 py-1.5 text-[10px] uppercase tracking-[0.25em] backdrop-blur-sm">
+        <span className="inline-block h-1.5 w-1.5 rounded-full bg-cyan" style={{ animation: "blink 1.1s steps(1) infinite" }} />
+        <span className="text-cyan">SYNC</span>
+        <span className="ml-auto text-[9px] text-secondary/50">R3F·LANE·A</span>
+      </div>
+    </aside>
+  );
+}
 
 /**
  * Viewport-fixed Marathon background.
@@ -181,7 +235,7 @@ export function MarathonBackground() {
         into the gutter) paints over it. At root z-[15] it sits above
         content (10), below the nav (40); the §02 slab (z-20) with the
         ACCESS ghost intentionally stays above it. */}
-    <RightDataStream />
+    <RightConsole />
   </>
   );
 }
