@@ -6,7 +6,7 @@ import { DecodeReplay, BootReplay } from "@/components/LabDemos";
 import { LabEffectLazy } from "@/components/LabEffectLazy";
 
 export const metadata: Metadata = {
-  title: "Lab — Experiments Archive",
+  title: "Lab",
   description:
     "A PTRK Systems site-on élő craft-komponensek kiállítva: decode-animáció, Goliath szimbólum-készlet, boot-szekvencia, ambient HUD-réteg. Zéró extra runtime dependency, CSS + canvas + rAF.",
   alternates: { canonical: "/lab" },

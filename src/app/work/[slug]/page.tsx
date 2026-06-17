@@ -48,7 +48,7 @@ export async function generateMetadata({
   const p = PROJECTS.find((x) => x.id === slug);
   if (!p) return {};
   return {
-    title: `${p.name} — Mission Debrief`,
+    title: p.name,
     description: p.caseStudy.lead,
     alternates: { canonical: `/work/${p.id}` },
   };

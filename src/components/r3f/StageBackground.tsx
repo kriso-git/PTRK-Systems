@@ -6,7 +6,6 @@ import * as THREE from "three";
 import { reducedMotion } from "@/lib/motion";
 import { readSignal } from "@/lib/r3f/scroll-signal";
 import { NEBULA_VERT, NEBULA_FRAG } from "./nebulaShader";
-import { ATMOS_VERT, ATMOS_FRAG } from "./atmosphereShader";
 import type { Quality } from "@/lib/r3f/useQuality";
 
 /**
@@ -89,12 +88,9 @@ function FieldMesh({ reduced, vert, frag }: { reduced: boolean; vert: string; fr
 
 export function StageBackground({ quality }: { quality: Quality }) {
   const reduced = reducedMotion();
-  const full = quality === "full";
-  // full = raymarched volumetric atmosphere (heavy) at a reduced DPR; lite = the
-  // cheap flat 2D nebula at a slightly higher DPR.
-  const vert = full ? ATMOS_VERT : NEBULA_VERT;
-  const frag = full ? ATMOS_FRAG : NEBULA_FRAG;
-  const dpr: [number, number] = full ? [0.85, 1.1] : [1, 1.25];
+  // The scroll-reactive 2D nebula (kept: the owner preferred it over the
+  // volumetric atmosphere). DPR capped lower on lite.
+  const dpr: [number, number] = quality === "lite" ? [1, 1.25] : [1, 1.75];
   return (
     <Canvas
       className="!fixed !inset-0"
@@ -104,7 +100,7 @@ export function StageBackground({ quality }: { quality: Quality }) {
       frameloop={reduced ? "demand" : "always"}
       aria-hidden
     >
-      <FieldMesh reduced={reduced} vert={vert} frag={frag} />
+      <FieldMesh reduced={reduced} vert={NEBULA_VERT} frag={NEBULA_FRAG} />
     </Canvas>
   );
 }

@@ -6,7 +6,7 @@ import { GoliathOrnament } from "@/components/GoliathSymbols";
 import { DecodeText } from "@/components/DecodeText";
 
 export const metadata: Metadata = {
-  title: "Method — Hogyan dolgozom",
+  title: "Method",
   description:
     "6 lépéses design engineering folyamat — kutatás, IA, design, frontend, tesztelés, launch. Stratégiai, felhasználó-centrikus, technikailag kifogástalan.",
   alternates: { canonical: "/method" },

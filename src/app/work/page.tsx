@@ -6,7 +6,7 @@ import { DecodeText } from "@/components/DecodeText";
 import { WorkCaseSignature } from "@/components/WorkCaseSignature";
 
 export const metadata: Metadata = {
-  title: "Work — Selected Projects",
+  title: "Work",
   description:
     "Válogatott design engineering projektek 2024–2026 között: F3XYKEE Terminal, MolekulaX, Donna Pizza. Stack, role, metrika, mission debrief aloldalak.",
   alternates: { canonical: "/work" },

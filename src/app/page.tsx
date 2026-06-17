@@ -11,6 +11,9 @@ import { HeroViewLazy } from "@/components/r3f/HeroViewLazy";
 import { ScrollJourneyLazy } from "@/components/ScrollJourneyLazy";
 import { WorkIndexRow } from "@/components/WorkIndexRow";
 
+// Root page is NOT subject to the layout title.template, so set the full string.
+export const metadata = { title: "PTRK-Systems - Introduction" };
+
 const COORD = "47.4979°N · 19.0402°E";
 
 const STATS = [

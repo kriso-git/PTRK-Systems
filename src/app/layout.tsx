@@ -32,8 +32,8 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "PTRK Systems — Design Engineering Unit",
-    template: "%s · PTRK Systems",
+    default: "PTRK-Systems",
+    template: "PTRK-Systems - %s",
   },
   description:
     "Design engineering unit Budapesten. Termék-felületek, design rendszerek és frontend architektúra — egyetlen fókuszált operátortól.",
@@ -51,7 +51,6 @@ export const metadata: Metadata = {
     description:
       "Termék-felületek, design rendszerek és frontend architektúra Budapestről.",
   },
-  icons: { icon: "/favicon.ico" },
 };
 
 export const viewport: Viewport = {
