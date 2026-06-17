@@ -85,7 +85,7 @@ export function ScrollProgress() {
         />
       </div>
 
-      {/* Active section chip — bottom-left (clear of the right terminal aside) */}
+      {/* Active section chip – bottom-left (clear of the right terminal aside) */}
       <div
         aria-hidden
         className="fixed bottom-6 left-6 z-30 pointer-events-none hidden md:flex flex-col items-start gap-2"

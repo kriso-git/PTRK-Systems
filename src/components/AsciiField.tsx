@@ -6,7 +6,7 @@ import { reducedMotion } from "@/lib/motion";
 const CHARS = "01<>/_\\|#▓░·";
 
 /**
- * Cursor-reactive ASCII character field (Codrops "Efecto" lineage) —
+ * Cursor-reactive ASCII character field (Codrops "Efecto" lineage) –
  * canvas 2D, zero dependencies. Cells brighten + rescramble near the
  * cursor; idle cells drift on a slow sine wave. 24fps cap, DPR locked
  * to 1, sparse checkerboard grid, pauses when offscreen/hidden.
@@ -38,7 +38,7 @@ export function AsciiField() {
 
     const rand = () => CHARS[(Math.random() * CHARS.length) | 0];
 
-    // ctx.font does NOT resolve CSS custom properties — an unparseable
+    // ctx.font does NOT resolve CSS custom properties – an unparseable
     // assignment is silently ignored (default 10px sans-serif). Resolve
     // the next/font family name once at setup.
     const monoFam =
@@ -77,7 +77,7 @@ export function AsciiField() {
           const x = c * CELL;
           const y = r * CELL;
 
-          // Fine pointer: INVISIBLE at rest — the field only materializes
+          // Fine pointer: INVISIBLE at rest – the field only materializes
           // around the cursor (the resting speckle layer read as "dirt").
           // Coarse pointer (touch): a very faint breathing wave instead.
           let alpha = coarse
@@ -89,7 +89,7 @@ export function AsciiField() {
             const dy = y - my;
             const distSq = dx * dx + dy * dy;
             if (distSq < 32400) {
-              // within 180px — materialize + rescramble
+              // within 180px – materialize + rescramble
               const p = 1 - Math.sqrt(distSq) / 180;
               alpha = Math.min(0.34, p * 0.34);
               if (Math.random() < p * 0.35) cell.ch = rand();
@@ -108,7 +108,7 @@ export function AsciiField() {
     resize();
 
     if (reduced) {
-      // Reduced motion: render NOTHING — a frozen character frame reads
+      // Reduced motion: render NOTHING – a frozen character frame reads
       // as dirt/noise stuck on the page, worse than absence.
       return;
     }

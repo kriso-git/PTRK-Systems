@@ -8,7 +8,7 @@ import { drawResearch, drawArchitecture, drawDesign, drawDevelopment, drawTestin
 const DRAWS = [drawResearch, drawArchitecture, drawDesign, drawDevelopment, drawTesting, drawLaunch] as const;
 
 /**
- * PhaseVisual — the right-side hero canvas for ProcessJourney. Each phase gets a
+ * PhaseVisual – the right-side hero canvas for ProcessJourney. Each phase gets a
  * completely distinct animated visual (radar / node-tree / composition / circuit
  * / oscilloscope / launch-burst). The host owns the rAF + sizing and calls the
  * active phase's stateless draw(ctx,W,H,t,p,accent); `p` (enter progress) lets

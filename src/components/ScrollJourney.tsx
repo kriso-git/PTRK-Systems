@@ -5,11 +5,11 @@ import { createPortal } from "react-dom";
 import { reducedMotion } from "@/lib/motion";
 
 /**
- * ScrollJourney — a scroll-driven flight down a nebula-plasma tunnel.
+ * ScrollJourney – a scroll-driven flight down a nebula-plasma tunnel.
  *
  * A tall (300vh) section supplies the scroll distance; a `fixed` WebGL canvas
  * pins to the viewport and a single fullscreen fragment shader renders a
- * domain-warped fbm tunnel in the site palette (lime / cyan / magenta) — the
+ * domain-warped fbm tunnel in the site palette (lime / cyan / magenta) – the
  * SAME nebula language as the page background, so it reads as the base bg
  * pulled into a tunnel rather than a black box. Scroll advances the tunnel
  * depth (fly-forward); four station overlays cross-fade ENTER → STRATEGY →
@@ -17,7 +17,7 @@ import { reducedMotion } from "@/lib/motion";
  *
  * Full cinematic takeover: the canvas + overlays are portaled to <body> at a
  * z ABOVE the live terminal aside + progress chips (root z-12 / z-30) but
- * BELOW the nav (z-40), so during the flight only the nav remains — no HUD
+ * BELOW the nav (z-40), so during the flight only the nav remains – no HUD
  * bleed over the tunnel. We use `fixed` + manual active-gating rather than
  * `position: sticky` because the Lenis smooth-scroll layer makes sticky
  * unreliable; the gate reads getBoundingClientRect (which Lenis's native
@@ -39,7 +39,7 @@ const STATIONS = [
 const STATION_W = 0.17; // cross-fade half-width
 const RAMP = 0.55; // edge crossfade as a fraction of viewport height (long = smooth dissolve)
 
-// RawShaderMaterial — used verbatim (no Three prefix injection), so it renders
+// RawShaderMaterial – used verbatim (no Three prefix injection), so it renders
 // byte-for-byte like a hand-written WebGL program. Hence the explicit precision
 // + attribute declarations here.
 const VERT = /* glsl */ `
@@ -74,7 +74,7 @@ const FRAG = /* glsl */ `
     return v;
   }
 
-  // Nebula tunnel — same visual theme as the site background (BgNebula): a
+  // Nebula tunnel – same visual theme as the site background (BgNebula): a
   // dark base with domain-warped lime/cyan wisps (whisper of magenta) revealed
   // by the cursor torch, only pulled into a 1/r tunnel perspective. The angular
   // basis is the closed-loop unit vector dir = p/r (= cos/sin), so the wall
@@ -86,7 +86,7 @@ const FRAG = /* glsl */ `
     vec2 m = uMouse;
     p -= m * 0.12;                                 // cursor parallaxes the vanishing point
     float r = length(p) + 1e-4;
-    vec2 dir = p / r;                              // closed-loop angular basis (= cos,sin) — seamless
+    vec2 dir = p / r;                              // closed-loop angular basis (= cos,sin) – seamless
     float depth = uProgress * 4.0 + uTime * 0.06;
     float flow = 0.42 / r + depth;                 // forward: features rush OUTWARD on scroll-down
 
@@ -99,7 +99,7 @@ const FRAG = /* glsl */ `
     cloud = smoothstep(0.30, 0.95, cloud);
     cloud = pow(cloud, 1.3);
 
-    // cursor torch — the reveal light, same as BgNebula
+    // cursor torch – the reveal light, same as BgNebula
     vec2 cur = m * vec2(uRes.x / uRes.y, 1.0) * 0.5;
     float md = length(p - cur);
     float torch = exp(-md * md * 1.7);
@@ -142,13 +142,13 @@ export function ScrollJourney() {
   useEffect(() => {
     const canvas = canvasRef.current;
     const wrap = wrapRef.current;
-    if (!canvas || !wrap) return; // animated canvas is portaled — waits for mounted
+    if (!canvas || !wrap) return; // animated canvas is portaled – waits for mounted
 
-    // Plain raw WebGL — this is a single fullscreen fragment-shader pass, so a
+    // Plain raw WebGL – this is a single fullscreen fragment-shader pass, so a
     // hand-written program is lighter and clearer than wiring up a three.js
     // scene/camera/material just to draw one triangle.
     const gl = canvas.getContext("webgl", { alpha: true, antialias: true, powerPreference: "high-performance" });
-    if (!gl) return; // no WebGL — the section just shows its bg + station text
+    if (!gl) return; // no WebGL – the section just shows its bg + station text
 
     const compile = (type: number, src: string) => {
       const sh = gl.createShader(type);
@@ -242,7 +242,7 @@ export function ScrollJourney() {
     const readScroll = () => {
       const vh = window.innerHeight;
       // long crossfade (over ~half a screen) so the tube DISSOLVES in/out of the
-      // page instead of snapping — fixes the abrupt "jump into the tube" feel.
+      // page instead of snapping – fixes the abrupt "jump into the tube" feel.
       const ramp = vh * RAMP;
       const rect = wrap.getBoundingClientRect();
       const total = wrap.offsetHeight - vh;
@@ -259,14 +259,14 @@ export function ScrollJourney() {
     const loop = (now: number) => {
       raf = requestAnimationFrame(loop);
       canvas.style.opacity = String(vis);
-      // Stations track the (Lenis-smoothed) scroll directly — no extra easing,
+      // Stations track the (Lenis-smoothed) scroll directly – no extra easing,
       // which would lag the cross-fade and ghost two stations at once.
       for (let i = 0; i < STATIONS.length; i++) {
         const el = stationRefs.current[i];
         if (el) el.style.opacity = String(vis * Math.max(0, 1 - Math.abs(progress - STATIONS[i].center) / STATION_W));
       }
       if (hintRef.current) hintRef.current.style.opacity = String(vis * Math.max(0, 1 - progress / 0.12));
-      if (vis <= 0.001) return; // off-screen — skip only the expensive draw
+      if (vis <= 0.001) return; // off-screen – skip only the expensive draw
       mx += (tx - mx) * 0.08; // eased parallax (cursor only)
       my += (ty - my) * 0.08;
       drawFrame(progress, (now - start) / 1000);
@@ -350,7 +350,7 @@ export function ScrollJourney() {
         createPortal(
           <>
             {/* z-[35]: above the live terminal aside (z-12) + progress chips
-                (z-30), below the nav (z-40) — full takeover, nav stays usable */}
+                (z-30), below the nav (z-40) – full takeover, nav stays usable */}
             <canvas ref={canvasRef} className="pointer-events-none fixed inset-0 z-[35] h-full w-full" style={{ opacity: 0 }} aria-hidden />
             {STATIONS.map((s, i) => station(s, i, "z-[36]"))}
             <div

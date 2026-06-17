@@ -2,29 +2,29 @@
 
 import { PixelIcon } from "@/components/PixelIcon";
 
-// The "why we are better" cornerstones — copy preserved verbatim from the old
+// The "why we are better" cornerstones – copy preserved verbatim from the old
 // §03 PRINCIPLES, rebuilt as striking HUD nodes with pixel icons.
 const ITEMS = [
   {
     n: "I",
-    icon: "interface-essential-cog-double",
+    icon: "interface-essential-key-lock",
     accent: "lime" as const,
-    head: "Vertikális stúdió, közös kontextus.",
-    body: "Stratégia, design, frontend és deploy egy kézben. Nincs handoff-veszteség, nincs szilo, nincs lefordított szándék — a kontextus a discovery-től a launchig velem marad.",
+    head: "A weboldal a tiéd – nem túsz.",
+    body: "A domain az első naptól a te neveden, írásos tulajdonjogi garanciával. Ha bármikor továbblépnél, 48 órán belül, 0 forintért átadunk mindent. A havidíj a gondozásért van, sosem zsarolásért.",
   },
   {
     n: "II",
-    icon: "social-rewards-flag",
+    icon: "interface-essential-cog-double",
     accent: "cyan" as const,
-    head: "Visszaszólunk, ha kell.",
-    body: "Nem végrehajtók vagyunk. Ha egy brief logikai hibát rejt, egy design rosszul skálázódik, vagy egy stack-választás később megfojtja a terméket — szólunk. Stratégiai partnerek, nem yes-man-ek.",
+    head: "Élő gondozás, nem magára hagyott oldal.",
+    body: "A weboldalad nem egyszeri munka, amit átadunk és elfelejtünk. Havonta karbantartjuk, figyeljük, mérjük a forgalmát, igény szerint fejlesztjük, és mindig a versenytársaid felett tartjuk. A felső szinten havi láthatósági jelentést is kapsz.",
   },
   {
     n: "III",
-    icon: "coding-apps-websites-shield-lock",
+    icon: "interface-essential-satellite",
     accent: "magenta" as const,
-    head: "Production-grade vagy semmi.",
-    body: "98+ Lighthouse, RLS-szigorú adatréteg, edge runtime, akadálymentesség. A demo és az éles kód ugyanaz a kód.",
+    head: "Közvetlenül a döntéshozóval.",
+    body: "Nem egy ügynökségi gépezetbe kerülsz, és nincs ügyfélszolgálati lánc. Közvetlenül velünk dolgozol, gyorsan: azzal, aki építi és gondozza az oldaladat.",
   },
 ];
 
@@ -56,8 +56,8 @@ export function Cornerstones() {
             </h2>
           </div>
           <p className="max-w-sm font-shorai text-base leading-relaxed text-secondary md:text-lg">
-            A működésünket nem ügynökségi katalógus, hanem három non-negotiable alapkő tartja
-            össze — ezért dolgozunk másképp, mint a többiek.
+            Nem ügynökség vagyunk. Három dolog, amit a többség nem ad meg, ezért
+            biztonságosabb és jobb veled dolgozni, mint a megszokottal.
           </p>
         </div>
 

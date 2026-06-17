@@ -1,4 +1,4 @@
-// Route-transition signal — a module singleton pulsed on every client route
+// Route-transition signal – a module singleton pulsed on every client route
 // change by <RouteSignalBridge/>. The veil canvas's <RouteVeil/> subscribes via
 // onPulse() to drive a short on-demand render burst, and reads veilProgress()
 // for the 0..1 wash envelope. Dependency-free; safe to import on the server.
@@ -54,7 +54,7 @@ export function veilIntensity(): number {
   return state.intensity;
 }
 
-/** True while a wash is still playing — drives the veil's on-demand render burst. */
+/** True while a wash is still playing – drives the veil's on-demand render burst. */
 export function isWashing(now: number): boolean {
   return now - state.startedAt < VEIL_MS;
 }

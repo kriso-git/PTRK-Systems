@@ -4,7 +4,7 @@ import { Crosshair } from "@/components/Crosshair";
 import { GoliathOrnament } from "@/components/GoliathSymbols";
 
 /**
- * THE OPERATOR — personal brand section. Hidden until real data exists
+ * THE OPERATOR – personal brand section. Hidden until real data exists
  * in src/data/operator.ts (name is the render gate). No fake placeholder
  * content ever ships.
  */

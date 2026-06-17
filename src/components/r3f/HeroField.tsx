@@ -29,7 +29,7 @@ const PULSE_COUNT = 24;
 const LINK_DIST = 1.35;
 
 /**
- * HeroField — the §00 hero data-constellation rendered IN the shared Stage via a
+ * HeroField – the §00 hero data-constellation rendered IN the shared Stage via a
  * DOM-placed <View>. A glowing lime node cloud with cyan/magenta/orange accents,
  * faint links between near neighbours, and data PULSES travelling those links
  * (the signature carried over from the retired NetworkField). It FORMS while the

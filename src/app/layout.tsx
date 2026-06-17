@@ -36,20 +36,20 @@ export const metadata: Metadata = {
     template: "PTRK-Systems - %s",
   },
   description:
-    "Design engineering unit Budapesten. Termék-felületek, design rendszerek és frontend architektúra — egyetlen fókuszált operátortól.",
+    "Prémium, modern weboldalak helyi magyar vállalkozásoknak, jó áron. A weboldal csak a kezdet: havi Élő Gondozással karbantartjuk, figyeljük és mindig a versenytársaid felett tartjuk. Közvetlen kapcsolat, AAM (nincs ÁFA).",
   metadataBase: new URL("https://ptrksystems.com"),
   openGraph: {
-    title: "PTRK Systems — Design Engineering",
+    title: "PTRK-Systems – Prémium weboldal + Élő Gondozás",
     description:
-      "Termék-felületek, design rendszerek és frontend architektúra Budapestről.",
+      "Prémium, modern weboldalak helyi vállalkozásoknak. A weboldal csak a kezdet: havi gondozás, közvetlen kapcsolat, a domain a tiéd.",
     locale: "hu_HU",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "PTRK Systems — Design Engineering",
+    title: "PTRK-Systems – Prémium weboldal + Élő Gondozás",
     description:
-      "Termék-felületek, design rendszerek és frontend architektúra Budapestről.",
+      "Prémium, modern weboldalak helyi vállalkozásoknak. A weboldal csak a kezdet: havi gondozás, közvetlen kapcsolat, a domain a tiéd.",
   },
 };
 
@@ -78,7 +78,7 @@ export default function RootLayout({
             `booting` for a first-visit-this-session viewer so a full-screen dark
             cover hides the page until the React SystemBoot overlay mounts. The
             boot/skip logic in SystemBoot removes the class. Returning visitors
-            (sessionStorage set) skip the cover entirely — no flash either way. */}
+            (sessionStorage set) skip the cover entirely – no flash either way. */}
         <script
           dangerouslySetInnerHTML={{
             __html:
@@ -107,7 +107,7 @@ export default function RootLayout({
         />
         <div className="min-h-screen text-primary flex flex-col relative pb-[calc(2.25rem_+_env(safe-area-inset-bottom))] md:pb-0">
           {/* Scatter + live typers are both sized to the full document
-              height (not the viewport) — they stay anchored to page
+              height (not the viewport) – they stay anchored to page
               content and scroll naturally with it instead of trailing
               the viewport. */}
           <MarathonScatter />

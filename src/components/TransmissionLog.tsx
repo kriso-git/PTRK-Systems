@@ -16,7 +16,7 @@ const ACCENT_BORDER: Record<string, string> = {
 };
 
 /**
- * Social-proof section — renders NOTHING until at least one project
+ * Social-proof section – renders NOTHING until at least one project
  * carries a real `testimonial` in src/data/projects.ts. Never ship
  * fabricated quotes; add real ones as:
  *   testimonial: { quote: "…", name: "…", role: "…" }

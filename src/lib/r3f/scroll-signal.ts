@@ -1,5 +1,5 @@
 // A tiny, dependency-free signal that bridges native scroll + cursor into the
-// R3F Stage. Lenis drives NATIVE scroll, so window.scrollY is already smoothed —
+// R3F Stage. Lenis drives NATIVE scroll, so window.scrollY is already smoothed –
 // no need to expose the Lenis instance. Read synchronously inside useFrame.
 type Signal = { progress: number; velocity: number; mx: number; my: number };
 

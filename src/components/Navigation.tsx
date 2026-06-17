@@ -15,7 +15,7 @@ const NAV: { href: string; label: string; section: string; accent: Accent }[] = 
   { href: "/connect", label: "Connect", section: "§ 03", accent: "orange" },
 ];
 
-/* Static lookups — Tailwind JIT only sees literal class strings */
+/* Static lookups – Tailwind JIT only sees literal class strings */
 const ACTIVE_DESKTOP: Record<Accent, string> = {
   lime: "border-lime bg-lime/10 text-lime",
   magenta: "border-magenta bg-magenta/10 text-magenta",
@@ -76,7 +76,7 @@ export function Navigation() {
           </span>
         </div>
 
-        {/* Desktop nav — hidden below md */}
+        {/* Desktop nav – hidden below md */}
         <nav
           className="hidden md:flex items-center gap-2 md:gap-3"
           aria-label="Primary"
@@ -117,12 +117,12 @@ export function Navigation() {
           })}
         </nav>
 
-        {/* Coords — desktop only */}
+        {/* Coords – desktop only */}
         <span className="hidden md:inline shrink-0 text-secondary/60 font-monospec text-[10px] md:text-[11px] tracking-[0.3em]">
           {COORD}
         </span>
 
-        {/* Mobile mini status (replaces coord block) — kept on the same row
+        {/* Mobile mini status (replaces coord block) – kept on the same row
             as the brand so the nav row below has the full width for buttons. */}
         <span
           aria-hidden
@@ -133,7 +133,7 @@ export function Navigation() {
         </span>
       </div>
 
-      {/* ─── Mobile nav row — fixed under the brand row, 4 equal-width
+      {/* ─── Mobile nav row – fixed under the brand row, 4 equal-width
           buttons, no scroll, no toggle. Always visible. ─── */}
       <nav
         aria-label="Primary mobile"

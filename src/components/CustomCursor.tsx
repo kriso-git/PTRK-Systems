@@ -6,16 +6,16 @@ import { useEffect, useRef, useState } from "react";
  * Custom Marathon-style cursor.
  *
  * Renders a tiny precision dot with a soft lime aura, plus a continuous
- * motion-trail line behind the cursor — drawn as a smoothed polyline of
+ * motion-trail line behind the cursor – drawn as a smoothed polyline of
  * the last N positions with a tapering width and alpha so the trail
  * reads as one connected stroke, not a string of separate dots.
  *
- * The native cursor is hidden by injecting a <style> tag at runtime — this
+ * The native cursor is hidden by injecting a <style> tag at runtime – this
  * beats any class-based approach because the injected rule lives in <head>
  * with `!important` and cannot be lost to Tailwind utility specificity or
  * SSR/hydration timing issues.
  */
-const TRAIL_LENGTH = 22; // points retained — longer for a continuous feel
+const TRAIL_LENGTH = 22; // points retained – longer for a continuous feel
 
 export function CustomCursor() {
   const dotRef = useRef<HTMLDivElement>(null);
@@ -30,7 +30,7 @@ export function CustomCursor() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    // Activate cursor hiding IMMEDIATELY — no early return for reduced
+    // Activate cursor hiding IMMEDIATELY – no early return for reduced
     // motion, because the cursor itself is interaction not animation.
     document.documentElement.classList.add("ptrk-cursor-on");
 
@@ -143,7 +143,7 @@ export function CustomCursor() {
         ringRef.current.style.transform = `translate3d(${rx}px, ${ry}px, 0)`;
       }
 
-      // Sample EVERY frame — keeps consecutive points close enough that the
+      // Sample EVERY frame – keeps consecutive points close enough that the
       // line connecting them reads as one continuous curve, not segments.
       trail.unshift({ x: cx, y: cy, age: 0 });
       if (trail.length > TRAIL_LENGTH) trail.length = TRAIL_LENGTH;
@@ -155,7 +155,7 @@ export function CustomCursor() {
       // motion-line rather than a string of beads.
       if (ctx && cw > 0 && ch > 0) {
         // Hard-clear every frame so the trail only ever shows the live
-        // buffer of recent positions — no accumulated streak left behind.
+        // buffer of recent positions – no accumulated streak left behind.
         ctx.clearRect(0, 0, cw, ch);
 
         ctx.globalCompositeOperation = "lighter";
@@ -191,7 +191,7 @@ export function CustomCursor() {
 
     return () => {
       document.documentElement.classList.remove("ptrk-cursor-on");
-      // Keep the injected style cached — it's idempotent and a re-mount
+      // Keep the injected style cached – it's idempotent and a re-mount
       // (route change, HMR) shouldn't flash the native cursor.
       window.removeEventListener("resize", resize);
       window.removeEventListener("pointermove", onPointerMove);
@@ -208,7 +208,7 @@ export function CustomCursor() {
 
   return (
     <>
-      {/* Trail canvas — full viewport, additive blending, fades each frame */}
+      {/* Trail canvas – full viewport, additive blending, fades each frame */}
       <canvas
         ref={trailCanvasRef}
         aria-hidden
@@ -217,7 +217,7 @@ export function CustomCursor() {
         }`}
       />
 
-      {/* Soft outer ring — only visible on interactive elements */}
+      {/* Soft outer ring – only visible on interactive elements */}
       <div
         ref={ringRef}
         aria-hidden
@@ -233,7 +233,7 @@ export function CustomCursor() {
         />
       </div>
 
-      {/* Soft aura — always under the dot, gives the cursor weight */}
+      {/* Soft aura – always under the dot, gives the cursor weight */}
       <div
         ref={auraRef}
         aria-hidden

@@ -4,7 +4,7 @@ import { Canvas } from "@react-three/fiber";
 import { RouteVeil } from "./RouteVeil";
 
 /**
- * StageVeil — a dedicated, transparent, top-of-stack canvas whose only job is the
+ * StageVeil – a dedicated, transparent, top-of-stack canvas whose only job is the
  * one-shot route-transition wash. It sits at z-39: ABOVE the page content (z-10),
  * the terminal asides (z-12) and the progress chips (z-30), but BELOW the nav
  * (z-40) so the header stays clean and usable through the wash. pointer-events

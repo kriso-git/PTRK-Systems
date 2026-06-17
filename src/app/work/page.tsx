@@ -10,7 +10,7 @@ import { projectAccent } from "@/lib/project-accent";
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "Válogatott design engineering projektek 2024–2026 között: F3XYKEE Terminal, MolekulaX, Donna Pizza. Stack, role, metrika, mission debrief aloldalak.",
+    "Válogatott munkák: F3XYKEE Terminal, MolekulaX, Donna Pizza. Élesben futó, prémium weboldalak, teljes mission debrief aloldalakkal.",
   alternates: { canonical: "/work" },
 };
 
@@ -29,7 +29,7 @@ export default function WorkPage() {
               Selected
               <br />
               live · 2026
-              <span className="block mt-3 text-cyan/70">— {PROJECTS.length} entries</span>
+              <span className="block mt-3 text-cyan/70">– {PROJECTS.length} entries</span>
             </div>
           </aside>
 
@@ -101,13 +101,13 @@ export default function WorkPage() {
                       <span>Preview</span>
                     </div>
                     <div className="mt-3 text-secondary/60 leading-relaxed max-w-[18ch]">
-                      Stilizált landing snapshot — kattints a debriefhez.
+                      Stilizált landing snapshot – kattints a debriefhez.
                     </div>
                     <WorkCaseSignature project={p} />
                   </div>
                   <div className="col-span-12 md:col-span-9 lg:col-span-10">
                     {/* asLink=false: the whole card is a Link to the
-                        debrief page — no nested anchors */}
+                        debrief page – no nested anchors */}
                     <BrowserPreview project={p} asLink={false} />
                   </div>
                 </div>
@@ -187,7 +187,7 @@ export default function WorkPage() {
           </div>
           <div className="col-span-12 md:col-span-4 flex flex-col gap-5 md:items-end">
             <p className="font-shorai text-base md:text-lg text-secondary leading-relaxed max-w-sm md:text-right">
-              {ENGAGEMENT.nextSlot} nyit a következő retainer slot. Discovery call 30 perc.
+              {ENGAGEMENT.nextSlot} nyit a következő szabad kapacitás. Egy 30 perces hívás, kötelezettség nélkül.
             </p>
             <Link
               href="/connect"

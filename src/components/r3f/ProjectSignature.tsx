@@ -8,11 +8,11 @@ import { signatureKind, accentHex } from "@/lib/r3f/signature-kind";
 import { Signature } from "./signatureObjects";
 
 interface Props {
-  /** real project id (src/data/projects.ts) — picks the signature kind */
+  /** real project id (src/data/projects.ts) – picks the signature kind */
   projectId: string;
   /** brand accent color name from the project (lime | cyan | magenta | orange) */
   color: string;
-  /** external "energised" signal (e.g. row / card hover) — drives the object's
+  /** external "energised" signal (e.g. row / card hover) – drives the object's
    *  spin + scale. Falls back to the box's own hover when omitted. */
   active?: boolean;
   /** when defined, the View only renders while true (home index reveals on hover);
@@ -26,10 +26,10 @@ interface Props {
 }
 
 /**
- * ProjectSignature — a DOM-placed drei <View> hosting the project's signature
+ * ProjectSignature – a DOM-placed drei <View> hosting the project's signature
  * object, composited by StageViews' <View.Port/> (the z-2 canvas, full-quality
  * only). The View mounts only when (a) the device is `full`, (b) the box is near
- * the viewport (IntersectionObserver), and (c) `reveal` is not gating it off — so
+ * the viewport (IntersectionObserver), and (c) `reveal` is not gating it off – so
  * offscreen / idle rows cost nothing. On `lite` (mobile / reduced) the StageViews
  * canvas does not exist, so a View would never composite; we render a static CSS
  * accent-glow instead (when showFallback), never an empty box. Quality + motion

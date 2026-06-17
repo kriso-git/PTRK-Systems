@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { getAcquired, NODE_COUNT } from "@/lib/nodes";
 
-/** Discreet footer progress — renders only after mount (hydration-safe)
+/** Discreet footer progress – renders only after mount (hydration-safe)
     and only once the visitor found at least one node. */
 export function NodesCounter() {
   const [count, setCount] = useState<number | null>(null);

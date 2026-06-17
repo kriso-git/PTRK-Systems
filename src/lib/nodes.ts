@@ -1,5 +1,5 @@
 /**
- * NODES — hidden lore-hunt layer. 7 acquirable nodes scattered across the
+ * NODES – hidden lore-hunt layer. 7 acquirable nodes scattered across the
  * site; progress lives in localStorage, acquisitions fire a `ptrk:node`
  * CustomEvent consumed by <NodeToast /> and <NodesCounter />.
  */
@@ -42,6 +42,6 @@ export function acquireNode(id: string) {
       }),
     );
   } catch {
-    /* storage blocked — the hunt silently doesn't track */
+    /* storage blocked – the hunt silently doesn't track */
   }
 }

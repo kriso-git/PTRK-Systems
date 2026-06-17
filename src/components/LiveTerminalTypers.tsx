@@ -10,12 +10,12 @@ import {
 } from "@/lib/terminal-pool";
 
 /**
- * Document-anchored scattered live typers — background decoration.
+ * Document-anchored scattered live typers – background decoration.
  *
  * Each typer:
  *  - Picks a random position somewhere across the FULL document (not the
  *    viewport) every cycle, so they stay anchored to the page and scroll
- *    away naturally as the user scrolls — they don't trail the viewport.
+ *    away naturally as the user scrolls – they don't trail the viewport.
  *  - Types out a command character by character with a blinking block cursor
  *  - Holds, erases, then teleports somewhere new with a fresh command
  *
@@ -193,7 +193,7 @@ function Typer({
       } else {
         // gap → pick a fresh command + colour and start typing again at the
         // SAME position. Typers stay anchored where they spawned for the
-        // duration of the route — fresh positions only happen on route
+        // duration of the route – fresh positions only happen on route
         // change (the parent remounts via key={pathname}). This reads as
         // "background log activity at fixed terminals" rather than
         // teleporting overlay text.

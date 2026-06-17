@@ -1,5 +1,5 @@
 /**
- * Central motion gate — OWNER POLICY: the signature effects (decode,
+ * Central motion gate – OWNER POLICY: the signature effects (decode,
  * scroll-reveal, boot, ascii field, sweeps) run for EVERYONE by default,
  * regardless of the OS prefers-reduced-motion signal. A large share of
  * Windows machines report "reduce" purely from performance presets, and
@@ -37,7 +37,7 @@ export function setMotionOff(off: boolean) {
   applyMotionAttr();
 }
 
-/** Idempotent — mirror the stored preference onto <html> for CSS gates. */
+/** Idempotent – mirror the stored preference onto <html> for CSS gates. */
 export function applyMotionAttr() {
   if (typeof document === "undefined") return;
   document.documentElement.toggleAttribute("data-motion-reduce", motionOff());

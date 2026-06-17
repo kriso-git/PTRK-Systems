@@ -4,9 +4,9 @@ const SCHEMA = {
     {
       "@type": "ProfessionalService",
       "@id": "https://ptrksystems.com/#org",
-      name: "PTRK Systems",
+      name: "PTRK-Systems",
       description:
-        "Design engineering unit Budapesten. Termék-felületek, design rendszerek és frontend architektúra.",
+        "Prémium, modern weboldalak helyi magyar vállalkozásoknak, havi Élő Gondozással: karbantartás, figyelés, forgalom-mérés és igény szerinti fejlesztés. Weboldal-stúdió, közvetlen kapcsolat.",
       url: "https://ptrksystems.com",
       email: "hello@ptrksystems.com",
       areaServed: { "@type": "Country", name: "Hungary" },
@@ -16,11 +16,12 @@ const SCHEMA = {
         addressCountry: "HU",
       },
       knowsAbout: [
-        "design engineering",
-        "frontend architektúra",
-        "design rendszerek",
+        "weboldal készítés",
+        "weboldal karbantartás",
+        "weboldal gondozás",
+        "helyi vállalkozás weboldal",
+        "SEO",
         "Next.js",
-        "TypeScript",
       ],
     },
     {

@@ -134,7 +134,7 @@ const METRICS: Metric[] = [
 ];
 
 /**
- * HudHero — the immersive Marathon HUD-world hero. Big PTRK.SYSTEMS wordmark as the
+ * HudHero – the immersive Marathon HUD-world hero. Big PTRK.SYSTEMS wordmark as the
  * focal point; a LIVE TELEMETRY console (real metrics that count up, a running
  * oscilloscope, a cycling project ticker, a CET clock) parallaxes with the cursor
  * over the reactive field. All the original §00 copy is preserved.
@@ -163,7 +163,7 @@ export function HudHero() {
 
       <div className="relative mx-auto flex h-full max-w-[1500px] flex-col justify-center">
         <div className="mb-8 flex flex-wrap items-center gap-x-6 gap-y-2 font-monospec text-[10px] uppercase tracking-[0.35em] text-secondary">
-          <span className="text-lime">Design Engineering Unit</span>
+          <span className="text-lime">Weboldal-stúdió · Élő gondozás</span>
           <span className="text-secondary/50">est. 2026 · Budapest</span>
         </div>
 
@@ -188,10 +188,10 @@ export function HudHero() {
             </div>
 
             <p className="mt-8 max-w-[54ch] font-shorai text-lg leading-[1.4] tracking-[-0.005em] text-secondary md:text-2xl">
-              Egy fókuszált, vertikális stúdió termék-felületekre, design rendszerekre és
-              frontend architektúrára. Stratégiától live deployig{" "}
-              <span className="text-primary">összehangolt kontextusban</span> — mert a felület{" "}
-              <span className="italic text-lime">a termék</span>.
+              Prémium, modern weboldalak helyi vállalkozásoknak: gyorsan, jó áron, a te
+              igényedre szabva. De a weboldal csak a kezdet, a havi{" "}
+              <span className="text-primary">Élő Gondozással</span> utána is veled maradunk, és
+              mindig <span className="italic text-lime">a versenytársaid felett</span> tartunk.
             </p>
 
             <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
@@ -207,7 +207,7 @@ export function HudHero() {
             </div>
           </div>
 
-          {/* LIVE TELEMETRY console (parallax) — desktop */}
+          {/* LIVE TELEMETRY console (parallax) – desktop */}
           <div className="col-span-12 hidden lg:col-span-5 lg:block">
             <div style={t(-16)} className="ml-auto w-[360px] max-w-full">
               {/* header */}

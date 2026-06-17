@@ -17,7 +17,7 @@ interface ObjProps {
   reduced: boolean;
 }
 
-/** MolekulaX — distorted sphere, a peptide / molecule reading. */
+/** MolekulaX – distorted sphere, a peptide / molecule reading. */
 function DistortBlob({ accent, active, reduced }: ObjProps) {
   const mesh = useRef<THREE.Mesh>(null);
   const sc = useRef(1);
@@ -46,7 +46,7 @@ function DistortBlob({ accent, active, reduced }: ObjProps) {
   );
 }
 
-/** Donna — glossy metallic torus knot (transmission needs an env to refract,
+/** Donna – glossy metallic torus knot (transmission needs an env to refract,
  *  which we deliberately avoid, so this is an emissive-tinted metal instead). */
 function MetalKnot({ accent, active, reduced }: ObjProps) {
   const mesh = useRef<THREE.Mesh>(null);
@@ -74,7 +74,7 @@ function MetalKnot({ accent, active, reduced }: ObjProps) {
   );
 }
 
-/** F3XYKEE — glowing core inside a wireframe icosahedron, a HUD lattice. */
+/** F3XYKEE – glowing core inside a wireframe icosahedron, a HUD lattice. */
 function WireIco({ accent, active, reduced }: ObjProps) {
   const group = useRef<THREE.Group>(null);
   const sc = useRef(1);

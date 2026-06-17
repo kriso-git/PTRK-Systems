@@ -1,5 +1,5 @@
 // Per-project 3D signature mapping. Source of truth for kind + accent is the
-// REAL project list (src/data/projects.ts) — there are exactly three projects,
+// REAL project list (src/data/projects.ts) – there are exactly three projects,
 // no 4th, no `orange` project. Each gets a distinct signature object so the
 // /work cases and the home index read as a family, not a repeat.
 

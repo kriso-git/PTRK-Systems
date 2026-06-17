@@ -9,7 +9,7 @@ import { gyroState } from "@/lib/gyro";
  * Desktop (fine pointer): cursor drives the radial glow centers and the
  * mesh-warp lens. Mobile / touch (coarse pointer): the same CSS vars are
  * auto-panned along a slow Lissajous path so the bg still breathes without
- * any pointer to follow. Both cases share one source of truth — the CSS
+ * any pointer to follow. Both cases share one source of truth – the CSS
  * variables `--mx/--my` (smoothed) and `--cx/--cy` (raw). All decorative
  * canvases (mesh-warp, code-rain) read the same vars off the wrapper, so
  * the whole background reacts coherently.
@@ -40,7 +40,7 @@ export function MarathonBackground() {
     const onMove = (e: MouseEvent) => {
       targetX = e.clientX / window.innerWidth;
       targetY = e.clientY / window.innerHeight;
-      // Crisp position drives the inner spotlight + grid lens — no lag,
+      // Crisp position drives the inner spotlight + grid lens – no lag,
       // so the lens stays glued under the cursor.
       setCrisp(targetX, targetY);
     };
@@ -98,16 +98,16 @@ export function MarathonBackground() {
       {/* Nebula moved to the R3F StageBackground (mounted in layout.tsx, backmost).
           This wrapper now layers only the code-rain / scanlines / grain over it. */}
 
-      {/* Cursor-following radial glows removed — the nebula's own "torch"
+      {/* Cursor-following radial glows removed – the nebula's own "torch"
           (it brightens + reveals toward the pointer) is now the cursor light. */}
 
-      {/* Code rain — JS-driven canvas, immune to the global CSS reduced-motion
+      {/* Code rain – JS-driven canvas, immune to the global CSS reduced-motion
           override. Falling hex/binary across the entire viewport at low
           opacity. Subtle on top of content but visibly alive on desktop and
           mobile alike. */}
       <CodeRain />
 
-      {/* HUD scanlines — kept very faint and strictly behind content via
+      {/* HUD scanlines – kept very faint and strictly behind content via
           the parent z-0. They breathe at the edge of perception, never
           competing with text. */}
       <div
@@ -176,7 +176,7 @@ export function MarathonBackground() {
  *
  * Each grid line is drawn as a polyline of short segments. For every
  * segment endpoint within a fixed radius of the cursor, we push the point
- * radially outward from the cursor by a falloff function — so straight
+ * radially outward from the cursor by a falloff function – so straight
  * grid lines bow away from the pointer like a magnifying lens lifts a
  * piece of paper. Outside the radius the mesh stays perfectly straight,
  * keeping CPU cost low and the effect localised.
@@ -200,7 +200,7 @@ function WarpMesh() {
     let h = window.innerHeight;
     let mx = w / 2;
     let my = h / 2;
-    // Smoothed cursor — gives the lens a tiny inertia so it eases out of
+    // Smoothed cursor – gives the lens a tiny inertia so it eases out of
     // the cell instead of snapping.
     let smx = mx;
     let smy = my;
@@ -226,7 +226,7 @@ function WarpMesh() {
     /**
      * Smooth a polyline of sample points using mid-point quadratic curves.
      * Each segment is drawn as `quadraticCurveTo(prev, midpoint(prev, cur))`
-     * — produces a continuously differentiable curve that visibly bends
+     * – produces a continuously differentiable curve that visibly bends
      * around the lens without piecewise-linear "fragmentation" between
      * sample points, even when consecutive points fall on opposite sides
      * of the steep displacement falloff.
@@ -277,7 +277,7 @@ function WarpMesh() {
       const radius = Math.min(280, Math.max(180, w * 0.16));
       const radiusSq = radius * radius;
       const strength = 32; // peak displacement in px
-      // Sample every 6 px along each line — combined with quadratic
+      // Sample every 6 px along each line – combined with quadratic
       // smoothing this produces a clean visible curve under the lens.
       const step = 6;
 
@@ -341,7 +341,7 @@ function WarpMesh() {
 }
 
 /**
- * Code-rain canvas — Matrix-style falling characters across the full
+ * Code-rain canvas – Matrix-style falling characters across the full
  * viewport at a low, non-distracting opacity.
  *
  * Each column has its own y-position, speed, and char-cycle phase. JS-driven
@@ -406,7 +406,7 @@ function CodeRain() {
       const dt = Math.min(0.05, (now - last) / 1000);
       last = now;
 
-      // Soft fade-out of the previous frame leaves a faint motion trail —
+      // Soft fade-out of the previous frame leaves a faint motion trail –
       // characters dissolve as they fall.
       ctx.fillStyle = "rgba(5, 5, 8, 0.28)";
       ctx.fillRect(0, 0, w, h);
@@ -429,7 +429,7 @@ function CodeRain() {
         }
 
         const x = i * cellW;
-        // Leading character — slightly brighter "head".
+        // Leading character – slightly brighter "head".
         ctx.fillStyle =
           c.tint === "cyan"
             ? "rgba(1, 255, 255, 0.32)"
@@ -474,7 +474,7 @@ function CodeRain() {
     <canvas
       ref={canvasRef}
       aria-hidden
-      // Very low overall opacity — the rain should be a barely-there
+      // Very low overall opacity – the rain should be a barely-there
       // ambient texture, not a competing visual element.
       className="absolute inset-0 w-full h-full pointer-events-none"
       style={{ opacity: 0.16 }}

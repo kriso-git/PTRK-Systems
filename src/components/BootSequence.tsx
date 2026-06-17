@@ -27,7 +27,7 @@ export function BootSequence() {
   const [lineCount, setLineCount] = useState(0);
 
   useEffect(() => {
-    // sessionStorage throws SecurityError when site data is blocked —
+    // sessionStorage throws SecurityError when site data is blocked –
     // treat that as "already booted" instead of crashing the root.
     try {
       if (sessionStorage.getItem("ptrk-booted") || reducedMotion()) {

@@ -4,15 +4,15 @@ import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 /**
- * Static scattered Marathon decoration — short hex/glitch tags scattered across
+ * Static scattered Marathon decoration – short hex/glitch tags scattered across
  * the page at low opacity, plus thin glitch blocks. Live-typing terminal lines
  * are now rendered by the body-level <LiveTerminalTypers /> component instead,
  * because they need fixed positioning above content (z-[40]) to be reliably
  * visible.
  *
- *  1) Permanent visibility — every element renders at low opacity with a
+ *  1) Permanent visibility – every element renders at low opacity with a
  *     subtle drift/pulse so the bg "lives" at every scroll position.
- *  2) Readability shield — on mount/resize/route-change we measure the
+ *  2) Readability shield – on mount/resize/route-change we measure the
  *     bounding boxes of every prose element inside <main>; any scatter
  *     element whose box intersects a prose box fades to 0.
  */
@@ -38,7 +38,7 @@ type ScatterItem = {
   baseOpacity: number;
 };
 
-// Static decorative scatter — only short hex/glitch tags. All actual terminal
+// Static decorative scatter – only short hex/glitch tags. All actual terminal
 // commands live-type in <LiveTerminalTypers /> at body level (z-[40]).
 // The right ~18% of the viewport is reserved for the fixed
 // <RightDataStream /> terminal aside on md+ screens. Scatter elements stay

@@ -1,5 +1,5 @@
 /**
- * Live-site font stack — fully Google Fonts (OFL), no commercial /
+ * Live-site font stack – fully Google Fonts (OFL), no commercial /
  * fan-extracted fonts. Replacements were chosen via the /font-preview
  * archive after side-by-side review:
  *
@@ -27,7 +27,7 @@ import {
   Roboto_Flex,
 } from "next/font/google";
 
-// Chakra Petch — angular techno display sans, Marathon-feel match for
+// Chakra Petch – angular techno display sans, Marathon-feel match for
 // KH Interference. SemiBold 600 is the live default (set via CSS in
 // globals.css), full weight range loaded for explicit hierarchy.
 export const khInterference = Chakra_Petch({
@@ -37,7 +37,7 @@ export const khInterference = Chakra_Petch({
   display: "swap",
 });
 
-// Manrope — Latin Extended subset includes Hungarian (ő, ű, é, á, ó, í, ú).
+// Manrope – Latin Extended subset includes Hungarian (ő, ű, é, á, ó, í, ú).
 export const msPGothic = Manrope({
   subsets: ["latin", "latin-ext"],
   weight: ["500", "600", "700"],
@@ -45,7 +45,7 @@ export const msPGothic = Manrope({
   display: "swap",
 });
 
-// Geist Mono — modern terminal monospace, replaces MonoSpec for all
+// Geist Mono – modern terminal monospace, replaces MonoSpec for all
 // terminal-style UI labels and timestamps.
 export const monoSpec = Geist_Mono({
   subsets: ["latin", "latin-ext"],
@@ -54,7 +54,7 @@ export const monoSpec = Geist_Mono({
   display: "swap",
 });
 
-// DM Mono — calm display monospace, replaces PP Fraktion Mono in the
+// DM Mono – calm display monospace, replaces PP Fraktion Mono in the
 // single project-card watermark spot.
 export const fraktion = DM_Mono({
   subsets: ["latin", "latin-ext"],
@@ -63,7 +63,7 @@ export const fraktion = DM_Mono({
   display: "swap",
 });
 
-// Roboto Flex — variable wdth (25-151) + wght (100-1000). Replaces
+// Roboto Flex – variable wdth (25-151) + wght (100-1000). Replaces
 // Sequel 100 Wide. Default rendering is set to wght 900 + wdth 151 via
 // a CSS override on `.font-sequel` in globals.css so existing class
 // usages keep their wide-heavy look without per-call edits.
@@ -74,7 +74,7 @@ export const sequel = Roboto_Flex({
   display: "swap",
 });
 
-// Onest — Latin Extended subset includes Hungarian.
+// Onest – Latin Extended subset includes Hungarian.
 export const shorai = Onest({
   subsets: ["latin", "latin-ext"],
   weight: ["400", "500", "600"],

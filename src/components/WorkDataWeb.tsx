@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { reducedMotion } from "@/lib/motion";
 
 /**
- * WorkDataWeb — a per-project "data web" that sits top-right of a case debrief
+ * WorkDataWeb – a per-project "data web" that sits top-right of a case debrief
  * hero, themed to the project's domain. F3XYKEE → a military network topology,
  * MolekulaX → a molecular lattice, Donna → a radial delivery net. Animated data
  * "comets" travel the graph. Pure 2D canvas (works without a GPU), motion-gated.

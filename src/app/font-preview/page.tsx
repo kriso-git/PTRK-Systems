@@ -1,5 +1,5 @@
 /**
- * Font alternatíva mockup — `/font-preview` route.
+ * Font alternatíva mockup – `/font-preview` route.
  *
  * Internal preview page: not linked from navigation, only reachable via URL.
  * Shows side-by-side how the 5 problematic fonts (Goliath, KH Interference,
@@ -7,7 +7,7 @@
  * the exact sizes / weights they're used at on the live site, so the user
  * can pick replacements based on real visual impression rather than names.
  *
- * The Goliath section additionally renders the full GoliathSymbols set —
+ * The Goliath section additionally renders the full GoliathSymbols set –
  * the SVG-based decorative replacement that will take over for the Goliath
  * font watermarks on the live site.
  */
@@ -32,14 +32,14 @@ type Sample = {
   source: string;
   /** Risk category */
   risk: Risk;
-  /** font-family CSS value — uses the existing site var for "current", or a
+  /** font-family CSS value – uses the existing site var for "current", or a
    *  preview var loaded in this route's layout */
   fontFamily: string;
   /** Optional inline style overrides (weight, letter-spacing, etc) */
   style?: React.CSSProperties;
   /** Note shown in small print under the sample */
   note?: string;
-  /** Marks this option as the chosen replacement — gets a lime border + chip */
+  /** Marks this option as the chosen replacement – gets a lime border + chip */
   chosen?: boolean;
   /** Marks this card as a "future plan" placeholder, no actual font */
   placeholder?: boolean;
@@ -50,11 +50,11 @@ type Section = {
   slot: string;
   /** Where it's used on the live site, with usage count */
   usage: string;
-  /** Big sample text — the kind the slot is actually used for in production */
+  /** Big sample text – the kind the slot is actually used for in production */
   display: string;
   /** Smaller secondary sample (used for clarity, e.g. Hungarian pangram or sub-title) */
   secondary: string;
-  /** Tertiary line — e.g. timestamps for mono fonts, very small text */
+  /** Tertiary line – e.g. timestamps for mono fonts, very small text */
   tertiary?: string;
   /** Display size class for the primary sample */
   displaySizeClass: string;
@@ -116,7 +116,7 @@ const SECTIONS: Section[] = [
   {
     slot: "GOLIATH",
     usage:
-      "5× — dekoratív watermark · TBD: nem font, generált szimbólumokra cserélve",
+      "5× – dekoratív watermark · TBD: nem font, generált szimbólumokra cserélve",
     display: "·26·",
     secondary: "DESIGN ENGINEERING UNIT",
     tertiary: HU_PANGRAM,
@@ -146,9 +146,9 @@ const SECTIONS: Section[] = [
   {
     slot: "KH INTERFERENCE",
     usage:
-      "44× — fő heading font, page címek, navigáció · ✓ DÖNTÉS: Chakra Petch (SemiBold 600)",
+      "44× – fő heading font, page címek, navigáció · ✓ DÖNTÉS: Chakra Petch (SemiBold 600)",
     display: "§ 04 · WORK ARCHIVE",
-    secondary: "Operátor egysége — Budapesten",
+    secondary: "Operátor egysége – Budapesten",
     tertiary: HU_PANGRAM,
     displaySizeClass: "text-[44px] leading-none",
     displayTracking: "tracking-[0.04em]",
@@ -170,7 +170,7 @@ const SECTIONS: Section[] = [
         fontFamily: "var(--font-pv-chakra-petch)",
         style: { fontWeight: 600 },
         chosen: true,
-        note: "Szögletes-techno display sans, cyberpunk/Marathon karakter. SemiBold súly — köztes a Regular és Bold között, ideális display-balansz a heading-ekhez. Teljes skála: 300/400/500/600/700 + italicok az élő site-on használható lesz.",
+        note: "Szögletes-techno display sans, cyberpunk/Marathon karakter. SemiBold súly – köztes a Regular és Bold között, ideális display-balansz a heading-ekhez. Teljes skála: 300/400/500/600/700 + italicok az élő site-on használható lesz.",
       },
       {
         name: "Major Mono Display",
@@ -178,7 +178,7 @@ const SECTIONS: Section[] = [
         risk: "ofl",
         fontFamily: "var(--font-pv-major-mono)",
         style: { fontWeight: 400 },
-        note: "Angular geometric monospace display, élesen rajzolt karakterek — display heading-nek illik a Marathon-érzéshez.",
+        note: "Angular geometric monospace display, élesen rajzolt karakterek – display heading-nek illik a Marathon-érzéshez.",
       },
       {
         name: "Share Tech Mono",
@@ -194,7 +194,7 @@ const SECTIONS: Section[] = [
         risk: "ofl",
         fontFamily: "var(--font-pv-black-ops)",
         style: { fontWeight: 400 },
-        note: "Military stencil display, vágott élek — agresszívebb, sci-fi/military hangulat.",
+        note: "Military stencil display, vágott élek – agresszívebb, sci-fi/military hangulat.",
       },
       {
         name: "Orbitron",
@@ -233,7 +233,7 @@ const SECTIONS: Section[] = [
   {
     slot: "MONOSPEC",
     usage:
-      "150× — terminal UI labels, timestamps · ✓ DÖNTÉS: Geist Mono",
+      "150× – terminal UI labels, timestamps · ✓ DÖNTÉS: Geist Mono",
     display: "12:05:14 [OK] BUILD COMPLETE · 1.04s",
     secondary: "$ pnpm dev --turbopack",
     tertiary: `// ${HU_PANGRAM}`,
@@ -256,7 +256,7 @@ const SECTIONS: Section[] = [
         fontFamily: "var(--font-pv-geist-mono)",
         style: { fontWeight: 400 },
         chosen: true,
-        note: "Modern terminal mono. Cseréje 1:1 a MonoSpec helyén — koherens „minden terminal mono ugyanaz” élmény az egész oldalon.",
+        note: "Modern terminal mono. Cseréje 1:1 a MonoSpec helyén – koherens „minden terminal mono ugyanaz” élmény az egész oldalon.",
       },
       {
         name: "IBM Plex Mono",
@@ -264,7 +264,7 @@ const SECTIONS: Section[] = [
         risk: "ofl",
         fontFamily: "var(--font-pv-plex-mono)",
         style: { fontWeight: 400 },
-        note: "Backup option — humanistább, ha a Geist túl száraznak hatna.",
+        note: "Backup option – humanistább, ha a Geist túl száraznak hatna.",
       },
       {
         name: "JetBrains Mono",
@@ -272,14 +272,14 @@ const SECTIONS: Section[] = [
         risk: "ofl",
         fontFamily: "var(--font-pv-jetbrains)",
         style: { fontWeight: 400 },
-        note: "Backup — agresszívebb terminál-feel, jobb hinting.",
+        note: "Backup – agresszívebb terminál-feel, jobb hinting.",
       },
     ],
   },
   {
     slot: "SEQUEL 100 WIDE",
     usage:
-      "25× — projekt címek, statisztika accent · ✓ DÖNTÉS: Roboto Flex (wide+heavy)",
+      "25× – projekt címek, statisztika accent · ✓ DÖNTÉS: Roboto Flex (wide+heavy)",
     display: "PROJECT 042",
     secondary: "Méretezett szélességgel",
     tertiary: HU_PANGRAM,
@@ -317,7 +317,7 @@ const SECTIONS: Section[] = [
           fontWeight: 900,
           fontStretch: "150%",
         },
-        note: "Backup — élesebb geometriai konstrukció, sport-/magazin-impact.",
+        note: "Backup – élesebb geometriai konstrukció, sport-/magazin-impact.",
       },
       {
         name: "Saira Stencil One",
@@ -325,7 +325,7 @@ const SECTIONS: Section[] = [
         risk: "ofl",
         fontFamily: "var(--font-pv-saira-stencil)",
         style: { fontWeight: 400 },
-        note: "Backup — Wide stencil, vágott éles karakterek, military/sport hangulattal.",
+        note: "Backup – Wide stencil, vágott éles karakterek, military/sport hangulattal.",
       },
       {
         name: "Goldman 700",
@@ -333,7 +333,7 @@ const SECTIONS: Section[] = [
         risk: "ofl",
         fontFamily: "var(--font-pv-goldman)",
         style: { fontWeight: 700 },
-        note: "Backup — Wide blokk-display, sharp edges, „sport cap” feel.",
+        note: "Backup – Wide blokk-display, sharp edges, „sport cap” feel.",
       },
       {
         name: "Saira Black",
@@ -358,7 +358,7 @@ const SECTIONS: Section[] = [
   },
   {
     slot: "PP FRAKTION MONO",
-    usage: "1× — projektkártya watermark · ✓ DÖNTÉS: DM Mono",
+    usage: "1× – projektkártya watermark · ✓ DÖNTÉS: DM Mono",
     display: "[42·META]",
     secondary: "PROJECT METADATA",
     tertiary: HU_PANGRAM,
@@ -382,7 +382,7 @@ const SECTIONS: Section[] = [
         fontFamily: "var(--font-pv-dm-mono)",
         style: { fontWeight: 400 },
         chosen: true,
-        note: "Nyugodt, kicsit szélesebb karakterek, jól olvasható minden méretben — tökéletes ehhez az 1× watermark szerephez.",
+        note: "Nyugodt, kicsit szélesebb karakterek, jól olvasható minden méretben – tökéletes ehhez az 1× watermark szerephez.",
       },
       {
         name: "Space Mono",
@@ -390,7 +390,7 @@ const SECTIONS: Section[] = [
         risk: "ofl",
         fontFamily: "var(--font-pv-space-mono)",
         style: { fontWeight: 400 },
-        note: "Backup — Pangram-szerű karaktertörés, retro-tech.",
+        note: "Backup – Pangram-szerű karaktertörés, retro-tech.",
       },
     ],
   },
@@ -502,7 +502,7 @@ function SampleCard({
         </div>
       )}
 
-      {/* Secondary + tertiary samples — skipped on placeholder cards
+      {/* Secondary + tertiary samples – skipped on placeholder cards
           since there's no font to demonstrate. */}
       {!sample.placeholder && (
         <>
@@ -555,7 +555,7 @@ function GoliathShowcase() {
           className="text-[20px] md:text-[24px] uppercase tracking-tight"
           style={{ fontFamily: "var(--font-pv-archivo-black)" }}
         >
-          GOLIATH REPLACEMENT — SVG Symbol Set
+          GOLIATH REPLACEMENT – SVG Symbol Set
         </h3>
         <p
           className="text-[10px] uppercase tracking-[0.25em] text-cyan/80"
@@ -640,20 +640,20 @@ function GoliathShowcase() {
           className="text-[10px] uppercase tracking-[0.3em] text-secondary/70 mb-4"
           style={{ fontFamily: "var(--font-pv-geist-mono)" }}
         >
-          § Multitone — vegyes-szín ornament (HUD-feel)
+          § Multitone – vegyes-szín ornament (HUD-feel)
         </div>
         <div className="border border-white/10 bg-void/40 p-6 flex items-center justify-center">
           <GoliathOrnament seed="ptrk-multi" count={6} size={64} multitone />
         </div>
       </div>
 
-      {/* Ornament compositions — live-site watermark replacements */}
+      {/* Ornament compositions – live-site watermark replacements */}
       <div>
         <div
           className="text-[10px] uppercase tracking-[0.3em] text-secondary/70 mb-4"
           style={{ fontFamily: "var(--font-pv-geist-mono)" }}
         >
-          § Ornament kompozíciók — élő site-on használandó cserék
+          § Ornament kompozíciók – élő site-on használandó cserék
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {GOLIATH_SHOWCASE_ORNAMENTS.map((o, i) => {
@@ -691,13 +691,13 @@ function GoliathShowcase() {
         </div>
       </div>
 
-      {/* Background-scatter — section-decoration mockup */}
+      {/* Background-scatter – section-decoration mockup */}
       <div>
         <div
           className="text-[10px] uppercase tracking-[0.3em] text-secondary/70 mb-4"
           style={{ fontFamily: "var(--font-pv-geist-mono)" }}
         >
-          § GoliathScatter — full-section background decoration
+          § GoliathScatter – full-section background decoration
         </div>
         <div className="relative border border-white/10 bg-void/60 px-6 py-12 md:py-16 overflow-hidden min-h-[260px] flex items-center justify-center">
           <GoliathScatter seed="connect-mock" />
@@ -713,7 +713,7 @@ function GoliathShowcase() {
             </span>
             Tartalom-szöveg ide kerül. A háttérbe szétszórt szimbólumok 4
             sarokra + középre kerülnek, mind a 4 Marathon-szín képviselve,
-            3-5% opacityvel — pont mint a Goliath-watermarkok eddig.
+            3-5% opacityvel – pont mint a Goliath-watermarkok eddig.
           </div>
         </div>
       </div>
@@ -784,7 +784,7 @@ export default function FontPreviewPage() {
           <strong className="text-magenta">Archív snapshot.</strong> A
           döntések megtörténtek, a fő site már a választott Google Fonts +
           SVG szimbólum-szettre épül. Ez az oldal megőrzi a teljes
-          összehasonlítási folyamatot későbbi referenciaként — a „Current"
+          összehasonlítási folyamatot későbbi referenciaként – a „Current"
           oszlopok a régi (jogilag problémás) fontokat csak itt töltik
           be, kizárólag a /font-preview route-on. A fő site fontstack-je
           tisztán OFL.
@@ -833,7 +833,7 @@ export default function FontPreviewPage() {
               ))}
             </div>
 
-            {/* Goliath replacement showcase — rendered immediately under
+            {/* Goliath replacement showcase – rendered immediately under
                 the Goliath comparison so the user can see what the
                 custom SVG symbol set looks like at the same scales the
                 font watermarks used on the live site. */}
@@ -868,7 +868,7 @@ export default function FontPreviewPage() {
           className="text-[11px] uppercase tracking-[0.2em] text-secondary/50"
           style={{ fontFamily: "var(--font-pv-geist-mono)" }}
         >
-          Mockup only — nem lesz indexálva, nem szerepel a navigációban.
+          Mockup only – nem lesz indexálva, nem szerepel a navigációban.
         </p>
       </footer>
     </main>

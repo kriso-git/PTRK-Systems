@@ -9,7 +9,7 @@ import { NEBULA_VERT, NEBULA_FRAG } from "./nebulaShader";
 import type { Quality } from "@/lib/r3f/useQuality";
 
 /**
- * StageBackground — the volumetric nebula, now rendered by R3F on its OWN
+ * StageBackground – the volumetric nebula, now rendered by R3F on its OWN
  * dedicated background canvas (fixed, backmost). Kept on a separate canvas from
  * the future per-card <View> stack on purpose: a fullscreen mesh sharing a
  * canvas with drei <View>s flickers (scissor fight, proven in the validation

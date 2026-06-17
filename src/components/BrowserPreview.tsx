@@ -2,7 +2,7 @@ import Image from "next/image";
 import { PROJECT_PREVIEWS } from "@/components/project-previews-registry";
 import type { AccentColor, Project } from "@/data/projects";
 
-/** Real screenshots of the live sites — captured by
+/** Real screenshots of the live sites – captured by
     `node scripts/capture-previews.mjs`, re-run when the sites change.
     Falls back to the stylized PROJECT_PREVIEWS mock when missing. */
 const PREVIEW_IMAGES: Record<string, string> = {
@@ -23,7 +23,7 @@ export function BrowserPreview({
   asLink = true,
 }: {
   project: Project;
-  /** Set false when an ancestor already provides the link context —
+  /** Set false when an ancestor already provides the link context –
       nested <a> inside <a> is invalid HTML and breaks hydration. */
   asLink?: boolean;
 }) {
@@ -64,7 +64,7 @@ export function BrowserPreview({
         <div className="flex-1 flex items-center gap-2 px-3 py-1 bg-surface border border-white/10 min-w-0">
           <span className="font-monospec text-[9px] text-secondary shrink-0">▶</span>
           <span className="font-monospec text-[10px] md:text-xs text-primary tracking-wider truncate">
-            {hasVisit ? `https://${displayUrl}` : `${displayUrl} — soon`}
+            {hasVisit ? `https://${displayUrl}` : `${displayUrl} – soon`}
           </span>
         </div>
         <span className="font-monospec text-[10px] text-cyan/60 tracking-[0.25em] hidden md:inline shrink-0 uppercase">
@@ -78,7 +78,7 @@ export function BrowserPreview({
           <>
             <Image
               src={PREVIEW_IMAGES[project.id]}
-              alt={`${project.name} — élő oldal képernyőképe`}
+              alt={`${project.name} – élő oldal képernyőképe`}
               fill
               sizes="(max-width: 768px) 100vw, 60vw"
               className="object-cover object-top"
@@ -101,7 +101,7 @@ export function BrowserPreview({
           </div>
         )}
 
-        {/* Hover overlay — only when THIS component is the link; otherwise
+        {/* Hover overlay – only when THIS component is the link; otherwise
             the promise ("Visit …") would lie about where the click goes */}
         {asLink && hasVisit && (
           <div className="absolute inset-0 z-10 flex items-center justify-center opacity-0 group-hover/preview:opacity-100 transition-opacity duration-300 pointer-events-none bg-black/40 backdrop-blur-[2px]">

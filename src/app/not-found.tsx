@@ -4,7 +4,7 @@ import { Crosshair } from "@/components/Crosshair";
 import { AcquireOnMount } from "@/components/AcquireOnMount";
 
 export const metadata: Metadata = {
-  title: "404 — Signal Lost",
+  title: "404 – Signal Lost",
 };
 
 const ERROR_LOG = [
@@ -43,7 +43,7 @@ export default function NotFound() {
           </span>
         </h1>
         <p className="font-sequel text-[clamp(28px,4vw,48px)] text-secondary/60 tracking-[-0.01em] mb-14">
-          404 — a keresett szektor nem létezik.
+          404 – a keresett szektor nem létezik.
         </p>
 
         <div className="relative bg-surface/80 border border-magenta/20 mb-14 max-w-[640px]">

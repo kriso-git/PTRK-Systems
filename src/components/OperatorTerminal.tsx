@@ -8,7 +8,7 @@ import { acquireNode, getAcquired, NODES, NODE_COUNT } from "@/lib/nodes";
 type Line = { text: string; tone?: "lime" | "cyan" | "magenta" | "dim" };
 
 const BANNER: Line[] = [
-  { text: "PTRK SYSTEMS — OPERATOR TERMINAL v1.0", tone: "lime" },
+  { text: "PTRK SYSTEMS – OPERATOR TERMINAL v1.0", tone: "lime" },
   { text: "NOD·0A20070A linked · type `help` for commands", tone: "dim" },
 ];
 
@@ -64,7 +64,7 @@ export function OperatorTerminal({ onClose }: { onClose: () => void }) {
       case "projects":
         PROJECTS.forEach((p, i) =>
           print({
-            text: `${String(i + 1).padStart(2, "0")} · ${p.id} — ${p.name} (${p.year})`,
+            text: `${String(i + 1).padStart(2, "0")} · ${p.id} – ${p.name} (${p.year})`,
           }),
         );
         print({ text: "open <id> a debriefhez", tone: "dim" });
@@ -72,14 +72,14 @@ export function OperatorTerminal({ onClose }: { onClose: () => void }) {
       case "open": {
         const id = rest[0];
         if (!id) {
-          print({ text: "usage: open <id> — pl. open molekulax", tone: "dim" });
+          print({ text: "usage: open <id> – pl. open molekulax", tone: "dim" });
           break;
         }
         const p = PROJECTS.find((x) => x.id === id || x.id.startsWith(id));
         if (p) go(`/work/${p.id}`, `${p.name} · mission debrief`);
         else
           print({
-            text: `✗ ismeretlen projekt: ${id} — próbáld: projects`,
+            text: `✗ ismeretlen projekt: ${id} – próbáld: projects`,
             tone: "magenta",
           });
         break;
@@ -134,7 +134,7 @@ export function OperatorTerminal({ onClose }: { onClose: () => void }) {
       case "sudo": {
         if (rest[0] !== "hire") {
           print({
-            text: `sudo: ${rest[0] ?? "?"}: permission denied — ez nem az a fajta rendszer.`,
+            text: `sudo: ${rest[0] ?? "?"}: permission denied – ez nem az a fajta rendszer.`,
             tone: "magenta",
           });
           break;
@@ -176,7 +176,7 @@ export function OperatorTerminal({ onClose }: { onClose: () => void }) {
         break;
       default:
         print({
-          text: `✗ command not found: ${head} — próbáld: help`,
+          text: `✗ command not found: ${head} – próbáld: help`,
           tone: "magenta",
         });
     }

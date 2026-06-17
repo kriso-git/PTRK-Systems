@@ -4,14 +4,14 @@ import dynamic from "next/dynamic";
 import { useEffect, useState, type CSSProperties } from "react";
 import { useQuality } from "@/lib/r3f/useQuality";
 
-// R3F + three — lazy + client-only, off the critical bundle.
+// R3F + three – lazy + client-only, off the critical bundle.
 const StageBackground = dynamic(
   () => import("./StageBackground").then((m) => m.StageBackground),
   { ssr: false }
 );
 
 /** Feature-detect WebGL. If a visitor has no GPU acceleration / WebGL disabled,
- *  we must NOT mount a canvas (it would fail or freeze) — they get the CSS bg. */
+ *  we must NOT mount a canvas (it would fail or freeze) – they get the CSS bg. */
 function webglAvailable(): boolean {
   try {
     const c = document.createElement("canvas");

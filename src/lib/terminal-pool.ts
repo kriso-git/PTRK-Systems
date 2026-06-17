@@ -30,7 +30,7 @@ export const TAG_COLOR: Record<LineTag, SlotColor> = {
 /**
  * Generic dev-session command pool used by the right-edge data stream.
  * 50+ commands across shell calls, status events, code comments, bracketed
- * statuses — flavoured to read like a real dev session monitoring a Marathon-
+ * statuses – flavoured to read like a real dev session monitoring a Marathon-
  * themed system.
  */
 export const COMMAND_POOL: string[] = [
@@ -92,7 +92,7 @@ export const COMMAND_POOL: string[] = [
 /**
  * Route-specific pools for the scattered <LiveTerminalTypers /> background
  * decoration. Each route gets a distinct flavour so the four tabs feel like
- * different rooms in the same imagined dev session — index, work archive,
+ * different rooms in the same imagined dev session – index, work archive,
  * method/process notes, and the comms desk. Each pool also defines its own
  * spawn bias so the typer scatter pattern visibly differs per tab.
  */

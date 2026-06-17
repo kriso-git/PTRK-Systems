@@ -36,7 +36,7 @@ export function MobileTerminalDock() {
   const lineRef = useRef(pickLine());
 
   useEffect(() => {
-    // md:hidden only hides visually — don't run the typing loop on
+    // md:hidden only hides visually – don't run the typing loop on
     // desktop where the dock is invisible.
     if (window.matchMedia("(min-width: 768px)").matches) return;
     setMounted(true);

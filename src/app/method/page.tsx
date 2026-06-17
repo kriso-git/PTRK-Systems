@@ -10,7 +10,7 @@ import { PHASE_ICONS } from "@/lib/process-icons";
 export const metadata: Metadata = {
   title: "Method",
   description:
-    "6 lépéses design engineering folyamat — kutatás, IA, design, frontend, tesztelés, launch. Stratégiai, felhasználó-centrikus, technikailag kifogástalan.",
+    "A folyamatunk hat átlátható fázisban, a kutatástól a folyamatos Élő Gondozásig. Közvetlen kapcsolat, prémium minőség, és a weboldalad sosem marad magára.",
   alternates: { canonical: "/method" },
 };
 
@@ -88,17 +88,17 @@ export default function MethodPage() {
                 className="absolute -top-8 -left-2 text-cyan/[0.04] pointer-events-none"
               />
               <span className="relative">
-                <DecodeText text="Stratégiától" />
+                <DecodeText text="A kutatástól" />
               </span>
               <br />
               <span className="text-cyan relative">
-                <DecodeText text="a deployig." delayMs={150} />
+                <DecodeText text="a gondozásig." delayMs={150} />
               </span>
             </h1>
             <p className="mt-10 font-shorai text-xl md:text-2xl text-secondary leading-[1.4] max-w-[58ch] tracking-[-0.005em]">
-              Hat fázis, négy szállítható, egy vertikális stúdió. A folyamat nem
-              szilóban dolgozó egységeket próbál összevarrni, hanem{" "}
-              <span className="text-primary">eleve közös kontextusban</span> tartja a teljes láncot.
+              Hat átlátható fázis, a kutatástól a folyamatos gondozásig. Nem egy gépezetbe
+              kerülsz: végig <span className="text-primary">közvetlenül velünk dolgozol</span>, és
+              pontosan tudod, hol tart az oldalad.
             </p>
           </div>
         </div>
@@ -208,7 +208,7 @@ export default function MethodPage() {
                 <span className="text-magenta">kapsz.</span>
               </h2>
               <p className="font-shorai text-base text-secondary leading-relaxed max-w-xs">
-                Négy konkrét artefaktum az engagement végén — minden tovább viszi a
+                Négy konkrét artefaktum az engagement végén – minden tovább viszi a
                 terméket utánunk is.
               </p>
             </div>
@@ -260,7 +260,7 @@ export default function MethodPage() {
               </h2>
             </div>
             <p className="col-span-12 md:col-span-5 font-shorai text-lg text-secondary leading-relaxed max-w-md">
-              Egységes stack minden projektben — production-grade, jól ismert, gyorsan
+              Egységes stack minden projektben – production-grade, jól ismert, gyorsan
               skálázható. Nincs cserélgetés, nincs kísérletezés éles ügyféllel.
             </p>
           </div>

@@ -1,5 +1,5 @@
 /**
- * Pure data exports for GoliathSymbols — split out so that
+ * Pure data exports for GoliathSymbols – split out so that
  * GoliathSymbols.tsx can satisfy the only-export-components HMR rule.
  */
 
@@ -77,7 +77,7 @@ export const GOLIATH_SYMBOL_NAMES: GoliathSymbolName[] = [
 ];
 
 /**
- * Marathon palette tones — mirrors the design tokens
+ * Marathon palette tones – mirrors the design tokens
  * (lime / cyan / magenta / orange) so callers can pick a colour without
  * having to know the hex code. `currentColor` (no `tone` prop) stays the
  * default so the same call site can also be coloured via parent text-X.

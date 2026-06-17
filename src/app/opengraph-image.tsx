@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "PTRK Systems — Design Engineering Unit";
+export const alt = "PTRK-Systems – Prémium weboldal + Élő Gondozás";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -97,7 +97,7 @@ export default async function OgImage() {
             marginBottom: 24,
           }}
         >
-          {/* ◢ — clip-path triangle: the glyph is missing from Chakra Petch
+          {/* ◢ – clip-path triangle: the glyph is missing from Chakra Petch
               and satori's dynamic fallback font fetch 400s at build time */}
           <div
             style={{
@@ -108,7 +108,7 @@ export default async function OgImage() {
             }}
           />
           <div style={{ fontSize: 28, letterSpacing: 12, color: "#01ffff" }}>
-            DESIGN.ENGINEERING.UNIT
+            WEBOLDAL.STUDIO
           </div>
           {/* ◣ */}
           <div

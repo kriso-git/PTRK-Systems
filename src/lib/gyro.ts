@@ -1,5 +1,5 @@
 /**
- * Gyro lens state — a module singleton read by MarathonBackground's two
+ * Gyro lens state – a module singleton read by MarathonBackground's two
  * coarse-pointer loops (glow vars + WarpMesh lens). When active, device
  * tilt replaces the Lissajous auto-pan. Values are normalized 0..1.
  */

@@ -29,7 +29,7 @@ import {
   Goldman,
 } from "next/font/google";
 
-// ── ARCHIVE — original (now-removed) fonts kept loaded ONLY on this
+// ── ARCHIVE – original (now-removed) fonts kept loaded ONLY on this
 //    /font-preview route so the "Current" comparison cards still render
 //    visually faithful samples. Files remain in /public/fonts but are
 //    not referenced from the live site fonts.ts. ──────────────────────
@@ -251,7 +251,7 @@ const robotoFlex = Roboto_Flex({
   display: "swap",
 });
 
-// Anybody — variable wdth 75-150 + wght 100-900. Free analog of
+// Anybody – variable wdth 75-150 + wght 100-900. Free analog of
 // Sequel 100 Wide's two-axis flexibility (width + weight).
 const anybody = Anybody({
   subsets: ["latin", "latin-ext"],
@@ -320,7 +320,7 @@ export default function FontPreviewLayout({
   children: React.ReactNode;
 }) {
   // Wrapper sits at z-50 with an opaque void bg so the root layout's marathon
-  // background, scatter, typers and scanlines are fully covered — sample
+  // background, scatter, typers and scanlines are fully covered – sample
   // typography is judged on a clean stage, not over decoration.
   return (
     <div

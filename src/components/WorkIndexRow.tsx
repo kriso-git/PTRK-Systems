@@ -7,7 +7,7 @@ import { PixelIcon } from "@/components/PixelIcon";
 import { projectAccent } from "@/lib/project-accent";
 import type { Project } from "@/data/projects";
 
-// ssr:false (View + three are browser-only) — a Server Component can't load it
+// ssr:false (View + three are browser-only) – a Server Component can't load it
 // directly, so the row itself is a client island that owns the hover state.
 const ProjectSignature = dynamic(
   () => import("@/components/r3f/ProjectSignature").then((m) => m.ProjectSignature),
@@ -15,7 +15,7 @@ const ProjectSignature = dynamic(
 );
 
 /**
- * WorkIndexRow — a single home §04 index row, rebuilt as a HUD readout: a growing
+ * WorkIndexRow – a single home §04 index row, rebuilt as a HUD readout: a growing
  * accent rail + corner ticks light up on hover, a per-project pixel icon flags the
  * node, and the metric sits in a bordered HUD chip. Hovering still reveals the
  * project's signature object behind its number (desktop only, gated by reveal).

@@ -4,7 +4,7 @@ import { Canvas } from "@react-three/fiber";
 import { View } from "@react-three/drei";
 
 /**
- * StageViews — the transparent canvas that hosts every DOM-placed <View> (the
+ * StageViews – the transparent canvas that hosts every DOM-placed <View> (the
  * hero; the per-project signatures) via <View.Port/>. It sits BEHIND the DOM
  * content (z-2) and ABOVE the nebula bg canvas (z-0), so a <View> tracking a
  * transparent slot shows the 3D behind the page text. Desktop/full ONLY (mobile

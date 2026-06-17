@@ -44,46 +44,46 @@ export default function Home() {
           <aside className="col-span-12 md:col-span-3">
             <div className="font-monospec text-[10px] tracking-[0.4em] uppercase text-orange mb-6 flex items-center gap-3">
               <PixelIcon name="business-product-price-tag" width={15} height={15} aria-hidden />
-              <span>§ 02 · Access · Price</span>
+              <span>§ 02 · Ajánlat</span>
             </div>
             <div className="font-monospec text-[10px] tracking-[0.3em] uppercase text-secondary leading-relaxed">
-              Tiszta scope
+              Prémium weboldal
               <br />
-              <span className="text-orange">Fix árazás</span>
+              <span className="text-orange">Élő gondozás</span>
               <br />
-              <span className="block mt-3 text-cyan/70">Gyors launch</span>
+              <span className="block mt-3 text-cyan/70">AAM · nincs ÁFA</span>
             </div>
           </aside>
 
           <div className="col-span-12 md:col-span-9">
             <h2 className="font-khinterference uppercase tracking-[-0.005em] text-[clamp(48px,9vw,144px)] leading-[0.88] text-primary">
-              Mai áron,
+              A weboldal
               <br />
-              <span className="text-lime">mai sebességgel.</span>
+              <span className="text-lime">csak a kezdet.</span>
             </h2>
 
             <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8 max-w-[78ch]">
               <p className="font-shorai text-lg md:text-xl text-secondary leading-[1.55]">
-                Nálunk nincs <span className="text-primary">felesleges óradíj-padding</span>,
-                kéthónapos discovery-pose, hat oldalas változáskezelő és túlszámlázott
-                ügynökségi marzs. Tiszta scope, fix árazás, kiszámítható launch — egy
-                minőségi weboldal nem feltétlenül drága.
+                Először egy <span className="text-primary">prémium, modern weboldal</span>: gyorsan,
+                tiszta scope-pal, felesleges ügynökségi marzs nélkül, a te igényedre szabva.
+                AAM-ben dolgozunk, így nálunk <span className="text-primary">400.000 Ft tényleg 400.000 Ft</span>;
+                egy ÁFÁ-s versenytársnál ugyanez 508.000 Ft, mert nem tudja visszaigényelni.
               </p>
               <p className="font-shorai text-lg md:text-xl text-secondary leading-[1.55]">
-                <span className="text-lime">2026-ban a weboldal nem luxus, hanem alaprendszer.</span>{" "}
-                Ha új embereket akarsz elérni és komolyan venni a céged jelenlétét,
-                ez az első hely, ahol az érdeklődő találkozik veled. Megéri jól csinálni —
-                és ehhez nem kell a kétszeresét fizetned.
+                <span className="text-lime">De a weboldal csak a horog. A valódi érték a havi Élő Gondozás.</span>{" "}
+                Karbantartjuk, figyeljük, mérjük a forgalmad, igény szerint fejlesztjük, és
+                mindig a versenytársaid felett tartjuk. Az oldalad sosem marad magára, és
+                sosem avul el.
               </p>
             </div>
 
-            {/* Inline meter row — HUD chips */}
+            {/* Inline meter row – HUD chips */}
             <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-4 border-t border-white/15 pt-10">
               {[
-                { n: ENGAGEMENT.launchRange, label: "Átlag launch", icon: "interface-essential-clock", text: "text-lime", bg: "bg-lime", border: "hover:border-lime/40" },
-                { n: "1×", label: "Fix ár, nem óradíj", icon: "business-product-price-tag", text: "text-cyan", bg: "bg-cyan", border: "hover:border-cyan/40" },
-                { n: "0", label: "Rejtett tétel", icon: "interface-essential-lock-shield", text: "text-magenta", bg: "bg-magenta", border: "hover:border-magenta/40" },
-                { n: "30d", label: "Hyper-care launch után", icon: "single-user-shield", text: "text-orange", bg: "bg-orange", border: "hover:border-orange/40" },
+                { n: "Élő", label: "Havi gondozás", icon: "interface-essential-cog-double", text: "text-lime", bg: "bg-lime", border: "hover:border-lime/40" },
+                { n: "Tiéd", label: "Domain az 1. naptól", icon: "interface-essential-key-lock", text: "text-cyan", bg: "bg-cyan", border: "hover:border-cyan/40" },
+                { n: "+0%", label: "AAM · nincs ÁFA", icon: "business-product-price-tag", text: "text-magenta", bg: "bg-magenta", border: "hover:border-magenta/40" },
+                { n: "<24h", label: "Közvetlen válasz", icon: "interface-essential-clock", text: "text-orange", bg: "bg-orange", border: "hover:border-orange/40" },
               ].map((m, i) => (
                 <div
                   key={i}
@@ -261,16 +261,17 @@ export default function Home() {
               className="absolute -top-10 left-0 text-lime/[0.05] pointer-events-none"
             />
             <h2 className="font-khinterference uppercase tracking-[-0.005em] leading-[0.82] text-[clamp(72px,16vw,288px)] text-primary relative">
-              Még<span className="text-lime">·</span>egy
+              Beszéljünk
               <br />
-              <span className="text-lime">rendszer.</span>
+              <span className="text-lime">a tiédről.</span>
             </h2>
           </div>
 
           <div className="mt-14 grid grid-cols-12 gap-y-8 md:gap-x-10 items-end">
             <p className="col-span-12 md:col-span-7 font-shorai text-xl md:text-2xl text-secondary leading-[1.4] max-w-[60ch] tracking-[-0.005em]">
-              {ENGAGEMENT.nextSlot} nyit a következő retainer slot. Discovery call 30
-              perc — utána vagy passzol, vagy elindul.
+              {ENGAGEMENT.nextSlot} nyit a következő szabad kapacitás. Egy 30 perces
+              hívásban megnézzük, mire van szükséged, és akár egy kész mintát is mutatunk
+              a te cégedről. Kötelezettség nélkül.
             </p>
             <div className="col-span-12 md:col-span-5 flex flex-col items-start md:items-end gap-5">
               <Link

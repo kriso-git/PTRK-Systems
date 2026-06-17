@@ -28,7 +28,7 @@ const ACCENT_BORDER: Record<string, string> = {
   orange: "border-orange/30",
 };
 
-/* Static literals — Tailwind JIT never sees runtime-built class names */
+/* Static literals – Tailwind JIT never sees runtime-built class names */
 const ACCENT_LINK: Record<string, string> = {
   lime: "border-lime hover:text-lime",
   cyan: "border-cyan hover:text-cyan",

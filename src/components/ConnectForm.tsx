@@ -28,7 +28,7 @@ const CHANNELS = [
     href: "tel:+36700000000",
     color: "cyan" as const,
     icon: "mobile-phone",
-    sub: "Munkaidőben hívható, CET — vagy ütemezz callt mailben.",
+    sub: "Munkaidőben hívható, CET – vagy ütemezz callt mailben.",
   },
   {
     label: "Discord",
@@ -44,7 +44,7 @@ const CHANNELS = [
     href: "https://ptrksystems.slack.com",
     color: "orange" as const,
     icon: "interface-essential-message",
-    sub: "Ügyfél-csatorna közös munkához — meghívóra.",
+    sub: "Ügyfél-csatorna közös munkához – meghívóra.",
   },
   {
     label: "Budapest",
@@ -52,7 +52,7 @@ const CHANNELS = [
     href: undefined,
     color: "lime" as const,
     icon: "map-navigation-pin-location-1",
-    sub: "CET (UTC+1) — távmunka világszerte.",
+    sub: "CET (UTC+1) – távmunka világszerte.",
   },
 ];
 
@@ -70,7 +70,7 @@ export function ConnectForm() {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
     const subject = encodeURIComponent(
-      `PTRK Systems — ${data.get("type") ?? "Új projekt"}`,
+      `PTRK Systems – ${data.get("type") ?? "Új projekt"}`,
     );
     const body = encodeURIComponent(
       `Név: ${data.get("name")}\nEmail: ${data.get("email")}\nProjekt típus: ${data.get(
@@ -98,13 +98,13 @@ export function ConnectForm() {
                 <span className="w-1.5 h-1.5 bg-lime cursor-blink" />
                 Available
               </span>
-              <span className="block mt-3 text-cyan/70">— {ENGAGEMENT.nextSlot}</span>
+              <span className="block mt-3 text-cyan/70">– {ENGAGEMENT.nextSlot}</span>
             </div>
           </aside>
 
           <div className="col-span-12 md:col-span-9 lg:col-span-10">
             <div className="font-monospec text-[10px] uppercase tracking-[0.3em] text-secondary mb-4">
-              <span className="text-orange">Open dispatch</span> · talk before you brief
+              <span className="text-orange">Open dispatch</span> · kötelezettség nélkül
             </div>
             <h1 className="font-khinterference uppercase leading-[0.86] tracking-[-0.005em] text-primary text-[clamp(40px,11vw,184px)] relative">
               <GoliathOrnament
@@ -116,13 +116,13 @@ export function ConnectForm() {
               <span className="relative">Beszéljünk a</span>
               <br />
               <span className="text-orange relative">
-                <DecodeText text="projektedről." />
+                <DecodeText text="weboldaladról." />
               </span>
             </h1>
             <p className="mt-10 font-shorai text-xl md:text-2xl text-secondary leading-[1.4] max-w-[58ch] tracking-[-0.005em]">
-              Új ötlet vagy működő termék — egy 30 perces bemutatkozó beszélgetésben
-              megnézzük, hogy <span className="text-primary">beleférünk-e</span> a
-              víziódba és a határidődbe.
+              Új weboldal kell, vagy a mostanit frissítenéd? Egy 30 perces hívásban
+              megnézzük, <span className="text-primary">mire van szükséged</span>, és akár
+              egy kész mintát is mutatunk a cégedről. Kötelezettség nélkül.
             </p>
           </div>
         </div>
@@ -232,14 +232,14 @@ export function ConnectForm() {
               <span className="text-magenta">Írj emailt.</span>
             </h2>
             <p className="font-shorai text-base md:text-lg text-secondary leading-relaxed max-w-[52ch] mb-12">
-              Itt részletes briefet is írhatsz — projekt cél, határidő,
+              Itt részletes briefet is írhatsz – projekt cél, határidő,
               költségvetés, eddigi munkák. Minden segít a gyors,{" "}
               <span className="text-primary">személyre szabott válaszadásban</span>.
             </p>
 
             {submitted ? (
               <div className="border-l-4 border-lime pl-6 py-6 font-shorai text-lg text-lime leading-relaxed max-w-2xl">
-                Email kliens megnyitva. Küldd el a megjelenő ablakból — visszaigazolást
+                Email kliens megnyitva. Küldd el a megjelenő ablakból – visszaigazolást
                 küldünk 24 órán belül. Köszi!
               </div>
             ) : (
@@ -282,7 +282,7 @@ export function ConnectForm() {
                     name="message"
                     rows={6}
                     required
-                    placeholder="Pár mondatos brief. Cél, határidő, költségvetés ha tudod — minden segít."
+                    placeholder="Pár mondatos brief. Cél, határidő, költségvetés ha tudod – minden segít."
                     className="w-full bg-transparent border-b-2 border-white/20 focus:border-lime outline-none py-3 font-shorai text-lg md:text-xl text-primary placeholder:text-secondary/40 resize-none leading-relaxed transition-colors"
                   />
                 </div>
@@ -296,7 +296,7 @@ export function ConnectForm() {
                     Küldés
                   </button>
                   <p className="font-shorai text-xs text-secondary max-w-xs">
-                    Az adataidat csak a válaszadásra használjuk — semmilyen marketing,
+                    Az adataidat csak a válaszadásra használjuk – semmilyen marketing,
                     semmi spam.
                   </p>
                 </div>

@@ -1,4 +1,4 @@
-// Nebula background shader — ported verbatim from the original BgNebula.tsx so
+// Nebula background shader – ported verbatim from the original BgNebula.tsx so
 // the R3F Stage background is visually identical. Fullscreen-triangle vertex
 // shader (ignores the camera); fragment shader = domain-warped fbm wisps on a
 // dark base, revealed by a cursor "torch".

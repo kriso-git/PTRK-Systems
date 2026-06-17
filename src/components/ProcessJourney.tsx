@@ -8,11 +8,11 @@ import { reducedMotion } from "@/lib/motion";
 import { PhaseVisual } from "@/components/PhaseVisual";
 
 /**
- * ProcessJourney — the home §05 process as a pinned scroll-through. Each scroll
+ * ProcessJourney – the home §05 process as a pinned scroll-through. Each scroll
  * beat advances one phase: the left rail fills, the active phase animates in with
  * its pixel-icon, and the right side carries an animated HUD form (a morphing
  * polygon whose sides grow with the phase, reticle rings, orbiting nodes) framing
- * a ghost phase number. Transparent stage — the site nebula shows through.
+ * a ghost phase number. Transparent stage – the site nebula shows through.
  */
 
 const ACCENTS = ["#c2fe0c", "#01ffff", "#ea027e", "#ff8c42", "#c2fe0c", "#01ffff"] as const;

@@ -1,8 +1,8 @@
 /**
- * Goliath replacement — decorative SVG symbol set.
+ * Goliath replacement – decorative SVG symbol set.
  *
  * The original `font-goliath` wasn't being used to render readable text on
- * the live site at all — every occurrence is a low-opacity (4-6%) corner
+ * the live site at all – every occurrence is a low-opacity (4-6%) corner
  * watermark like "·26·", "HELLO", "2026", "SYS·", "METHOD". The user
  * confirmed those were always purely ornamental, so this module replaces
  * the font entirely with a small library of chunky block-style SVG glyphs
@@ -17,7 +17,7 @@
  *
  *   <GoliathSymbol name="frame" /> <GoliathSymbol name="hex" />
  *
- * Inherit color via `currentColor` — set on the parent the same way
+ * Inherit color via `currentColor` – set on the parent the same way
  * Tailwind classes like `text-lime/[0.04]` worked for the font watermark.
  */
 
@@ -30,9 +30,9 @@ import {
 
 const SHAPES: Record<GoliathSymbolName, React.ReactNode> = {
   // ── Cores ─────────────────────────────────────────────────────────────
-  // Solid filled disc — the "·" watermark equivalent.
+  // Solid filled disc – the "·" watermark equivalent.
   dot: <circle cx="50" cy="50" r="26" />,
-  // Solid heavy square — base ornament.
+  // Solid heavy square – base ornament.
   block: <rect x="14" y="14" width="72" height="72" />,
   // Hollow square frame (path with even-odd fill so the inner cut shows).
   frame: (
@@ -45,7 +45,7 @@ const SHAPES: Record<GoliathSymbolName, React.ReactNode> = {
   bar: <rect x="6" y="40" width="88" height="20" />,
   // Heavy vertical post.
   post: <rect x="40" y="6" width="20" height="88" />,
-  // Chunky plus / cross — fits a 100×100 grid cleanly.
+  // Chunky plus / cross – fits a 100×100 grid cleanly.
   plus: <path d="M40 10 H60 V40 H90 V60 H60 V90 H40 V60 H10 V40 H40 Z" />,
   // Solid diamond / lozenge.
   diamond: <polygon points="50,8 92,50 50,92 8,50" />,
@@ -60,7 +60,7 @@ const SHAPES: Record<GoliathSymbolName, React.ReactNode> = {
       <rect x="6" y="58" width="88" height="14" />
     </>
   ),
-  // Block with a triangular notch cut out of the top — half-step cut.
+  // Block with a triangular notch cut out of the top – half-step cut.
   notch: (
     <path
       d="M14 14 H86 V86 H14 Z M50 14 L70 38 L30 38 Z"
@@ -69,7 +69,7 @@ const SHAPES: Record<GoliathSymbolName, React.ReactNode> = {
   ),
   // Heavy square bracket (corner-piece).
   bracket: <path d="M14 14 H58 V30 H30 V70 H58 V86 H14 Z" />,
-  // Hollow ring — circle with a circular cut.
+  // Hollow ring – circle with a circular cut.
   ring: (
     <path
       d="M50 14 A36 36 0 1 0 50 86 A36 36 0 1 0 50 14 Z M50 30 A20 20 0 1 1 50 70 A20 20 0 1 1 50 30 Z"
@@ -98,23 +98,23 @@ const SHAPES: Record<GoliathSymbolName, React.ReactNode> = {
   "chevron-d": <polygon points="50,92 92,28 70,28 50,60 30,28 8,28" />,
 
   // ── Marathon-rune-style block letterforms ────────────────────────────
-  // Stylized S — zigzag block, reads as alien-rune at low opacity.
+  // Stylized S – zigzag block, reads as alien-rune at low opacity.
   "rune-s": (
     <path d="M14 14 H86 V34 H40 V44 H86 V86 H14 V66 H60 V56 H14 Z" />
   ),
-  // Block T — the bar across the top with a heavy stem.
+  // Block T – the bar across the top with a heavy stem.
   "rune-t": <path d="M10 14 H90 V32 H62 V86 H38 V32 H10 Z" />,
-  // Block X — diagonal cuts through the centre.
+  // Block X – diagonal cuts through the centre.
   "rune-x": (
     <path d="M14 14 H34 L50 36 L66 14 H86 L62 50 L86 86 H66 L50 64 L34 86 H14 L38 50 Z" />
   ),
-  // Block Y — wide top fork tapering to a stem.
+  // Block Y – wide top fork tapering to a stem.
   "rune-y": (
     <path d="M10 14 H32 L50 42 L68 14 H90 L60 56 V86 H40 V56 Z" />
   ),
 
   // ── Extra ornaments ──────────────────────────────────────────────────
-  // Concentric squares — target / scope feel.
+  // Concentric squares – target / scope feel.
   target: (
     <path
       d="M10 10 H90 V90 H10 Z M26 26 V74 H74 V26 Z M40 40 V60 H60 V40 Z"
@@ -133,14 +133,14 @@ const SHAPES: Record<GoliathSymbolName, React.ReactNode> = {
   shield: (
     <polygon points="14,14 86,14 86,58 50,92 14,58" />
   ),
-  // Eye / lozenge with inner pupil — abstract scrutiny mark.
+  // Eye / lozenge with inner pupil – abstract scrutiny mark.
   eye: (
     <path
       d="M8 50 Q50 14 92 50 Q50 86 8 50 Z M40 50 A10 10 0 1 1 60 50 A10 10 0 1 1 40 50 Z"
       fillRule="evenodd"
     />
   ),
-  // Solid octagon — chunky stop-sign feel.
+  // Solid octagon – chunky stop-sign feel.
   octa: <polygon points="32,8 68,8 92,32 92,68 68,92 32,92 8,68 8,32" />,
 };
 
@@ -200,7 +200,7 @@ export function GoliathSymbol({
 
 /**
  * Pseudo-deterministic hash so a given seed string always picks the same
- * glyph sequence — keeps the SSR + CSR markup in sync, and means the
+ * glyph sequence – keeps the SSR + CSR markup in sync, and means the
  * "·26·" corner of the landing page renders the same shapes on every load.
  */
 function hashSeed(seed: string): number {
@@ -213,7 +213,7 @@ function hashSeed(seed: string): number {
 }
 
 /**
- * Composed ornament — a row of N Goliath glyphs picked deterministically
+ * Composed ornament – a row of N Goliath glyphs picked deterministically
  * from `seed`. Drop-in replacement for the old `font-goliath` watermarks.
  *
  * Match the original watermark scale by setting `size` to the same px the
@@ -222,7 +222,7 @@ function hashSeed(seed: string): number {
  *
  * `tone` (optional): pin every glyph in the ornament to one of the
  * Marathon palette colours. If omitted, the ornament inherits parent
- * `text-X` class — keep the same opacity/colour pattern the old
+ * `text-X` class – keep the same opacity/colour pattern the old
  * watermarks used.
  *
  * `multitone` (optional): when set, pick a different palette colour for
@@ -280,7 +280,7 @@ export function GoliathOrnament({
 }
 
 /**
- * Background-decoration scatter — replaces the role the Goliath font had
+ * Background-decoration scatter – replaces the role the Goliath font had
  * in the live site. Renders absolutely-positioned ornaments at the four
  * corners + centre of its parent (which must be `position: relative`),
  * each in a different Marathon tone at the same low 3-7% opacity range

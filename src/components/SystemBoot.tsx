@@ -15,7 +15,7 @@ const dropPreCover = () => {
 };
 
 /**
- * SystemBoot — the new loading screen. A borealis-style sci-fi boot: pixel-icon
+ * SystemBoot – the new loading screen. A borealis-style sci-fi boot: pixel-icon
  * status lines stream in, a big % counter climbs to 100, then the overlay clears
  * to reveal the site. Pure DOM/CSS (NO WebGL) so it is fast and NEVER depends on
  * the GPU. Session-gated + reduced-motion aware (skips instantly).
@@ -66,7 +66,7 @@ export function SystemBoot() {
   useEffect(() => {
     if (phase !== "boot") return;
     // The React boot overlay (z-200) is now committed and covering, so the
-    // pre-paint cover can go — when the halves split open they reveal the PAGE,
+    // pre-paint cover can go – when the halves split open they reveal the PAGE,
     // not the cover.
     dropPreCover();
     const t0 = performance.now();

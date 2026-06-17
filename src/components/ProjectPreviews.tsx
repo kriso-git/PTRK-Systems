@@ -1,6 +1,6 @@
 /**
  * Stylized landing-page previews for each portfolio project.
- * Pure CSS/SVG — no iframe, no external images. Each component
+ * Pure CSS/SVG – no iframe, no external images. Each component
  * faithfully captures the visual essence of the actual deployed site.
  */
 
@@ -151,7 +151,7 @@ export function MolekulaXPreview() {
           className="font-shorai italic text-sm md:text-base mt-3"
           style={{ color: "#00ff99", textShadow: "0 0 12px rgba(0, 255, 153, 0.4)" }}
         >
-          — Peptidtudás és Edukáció
+          – Peptidtudás és Edukáció
         </div>
         <div className="font-shorai text-[10px] md:text-xs mt-4 max-w-md leading-relaxed" style={{ color: "#9ca3af" }}>
           Tudásbázis, peer-reviewed PubMed tanulmányok, közvetlen szakértői kontakt.
@@ -205,7 +205,7 @@ export function DonnaPizzaPreview() {
 
       {/* Address chip top */}
       <div className="absolute top-5 left-1/2 -translate-x-1/2 font-shorai text-[9px] tracking-[0.3em] uppercase" style={{ color: "#c0522c" }}>
-        ◆ Kecskemét — Dózsa György út 9
+        ◆ Kecskemét – Dózsa György út 9
       </div>
 
       {/* Hero */}
