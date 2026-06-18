@@ -1,0 +1,5 @@
+# Modern target so SWC drops legacy polyfills (Array.at/flat/flatMap,
+# Object.fromEntries/hasOwn, String.trimStart/trimEnd) for evergreen browsers.
+last 2 versions
+not dead
+not op_mini all

@@ -49,7 +49,7 @@ export async function generateMetadata({
   const p = PROJECTS.find((x) => x.id === slug);
   if (!p) return {};
   return {
-    title: p.name,
+    title: `${p.name} · egyedi webfejlesztés referencia`,
     description: p.caseStudy.lead,
     alternates: { canonical: `/work/${p.id}` },
   };
@@ -69,8 +69,23 @@ export default async function CaseStudyPage({
   const border = ACCENT_BORDER[p.color];
   const cs = p.caseStudy;
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "@id": `https://ptrksystems.hu/work/${p.id}#breadcrumb`,
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Kezdőlap", item: "https://ptrksystems.hu/" },
+      { "@type": "ListItem", position: 2, name: "Munkák", item: "https://ptrksystems.hu/work" },
+      { "@type": "ListItem", position: 3, name: p.name },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, "\\u003c") }}
+      />
       {/* ─────────────────────────────  DEBRIEF HERO  ───────────────────────────── */}
       <section className="relative z-10 px-6 md:px-10 pt-24 md:pt-40 pb-20 md:pb-28 overflow-hidden">
         {/* per-project themed data web, top-right */}

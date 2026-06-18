@@ -8,7 +8,7 @@ import { PixelIcon } from "@/components/PixelIcon";
 import { PHASE_ICONS } from "@/lib/process-icons";
 
 export const metadata: Metadata = {
-  title: "Method",
+  title: "Folyamat: weboldal készítéstől gondozásig",
   description:
     "A folyamatunk hat átlátható fázisban, a kutatástól a folyamatos Élő Gondozásig. Közvetlen kapcsolat, prémium minőség, és a weboldalad sosem marad magára.",
   alternates: { canonical: "/method" },

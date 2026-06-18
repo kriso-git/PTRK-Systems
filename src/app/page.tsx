@@ -13,12 +13,31 @@ import { ProcessJourney } from "@/components/ProcessJourney";
 import { PixelIcon } from "@/components/PixelIcon";
 
 // Root page is NOT subject to the layout title.template, so set the full string.
-export const metadata = { title: "PTRK-Systems - Introduction", alternates: { canonical: "/" } };
+export const metadata = {
+  title: { absolute: "Weboldal készítés vállalkozásoknak · PTRK-Systems" },
+  alternates: { canonical: "/" },
+};
 
 
 export default function Home() {
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": "https://ptrksystems.hu/#faq",
+    inLanguage: "hu",
+    isPartOf: { "@id": "https://ptrksystems.hu/#website" },
+    mainEntity: FAQ.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c") }}
+      />
       {/* ─────────────────────────────  HERO (immersive HUD-world)  ───────────────────────────── */}
       <HudHero />
 

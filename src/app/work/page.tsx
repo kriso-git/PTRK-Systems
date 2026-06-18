@@ -8,7 +8,7 @@ import { PixelIcon } from "@/components/PixelIcon";
 import { projectAccent } from "@/lib/project-accent";
 
 export const metadata: Metadata = {
-  title: "Work",
+  title: "Munkák · élő weboldal referenciák",
   description:
     "Válogatott munkák: F3XYKEE Terminal, MolekulaX, Donna Pizza. Élesben futó, prémium weboldalak, teljes mission debrief aloldalakkal.",
   alternates: { canonical: "/work" },

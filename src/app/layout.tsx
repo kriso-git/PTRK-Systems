@@ -32,8 +32,8 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "PTRK-Systems",
-    template: "PTRK-Systems - %s",
+    default: "PTRK-Systems · Prémium weboldalak vállalkozásoknak",
+    template: "%s | PTRK-Systems",
   },
   description:
     "Prémium, modern weboldalak magyar vállalkozásoknak, jó áron. A weboldal csak a kezdet: havi Élő Gondozással karbantartjuk, figyeljük és mindig a versenytársaid felett tartjuk. Közvetlen kapcsolat, AAM (nincs ÁFA).",
