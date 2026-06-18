@@ -76,7 +76,7 @@ export function ProcessJourney() {
     activeRef.current = active;
     accentRef.current = accent;
     enterRef.current = enter;
-    scrubRef.current = scaled * 6;
+    scrubRef.current = scaled * 4.5;
   }, [active, accent, enter, scaled]);
   const contentOpacity = 0.15 + enter * 0.85;
   const contentY = (1 - enter) * 34;

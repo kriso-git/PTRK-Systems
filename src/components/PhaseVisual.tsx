@@ -44,11 +44,14 @@ export function PhaseVisual({
     resize();
 
     let raf = 0;
+    let tEased = scrubRef.current;
     const frame = () => {
       raf = requestAnimationFrame(frame);
-      // scroll-scrubbed time: animations track scroll position (forward/back),
-      // freezing when the user stops. Reduced-motion gets a fixed settled frame.
-      const t = reduced ? 6 : scrubRef.current;
+      // Smooth scroll-scrub: ease "t" toward the scroll target each frame so the
+      // visuals GLIDE with the scroll instead of snapping on every tiny delta,
+      // and settle when the user stops. Reduced-motion gets a fixed settled frame.
+      tEased += (scrubRef.current - tEased) * 0.07;
+      const t = reduced ? 6 : tEased;
       const a = Math.max(0, Math.min(DRAWS.length - 1, activeRef.current | 0));
       const p = reduced ? 1 : Math.max(0, Math.min(1, enterRef.current));
       const accent = accentRef.current || "#c2fe0c";
