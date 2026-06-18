@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { reducedMotion } from "@/lib/motion";
 import { markBootReady } from "@/lib/boot-ready";
+import { getQuality } from "@/lib/r3f/useQuality";
 import { PixelIcon } from "./PixelIcon";
 
 // Removes the pre-paint black cover (added by the inline script in layout) that
@@ -45,10 +46,14 @@ export function SystemBoot() {
   // session gate
   useEffect(() => {
     try {
-      if (sessionStorage.getItem("ptrk-booted") || reducedMotion()) {
+      // Skip the boot animation for: returning visitor, reduced-motion, OR mobile
+      // ("lite" tier). On mobile the full-screen z-200 boot overlay was occluding
+      // the hero for ~3s, which pinned LCP to ~6s. Revealing immediately drops LCP
+      // close to FCP. Desktop ("full") keeps the full boot experience.
+      if (sessionStorage.getItem("ptrk-booted") || getQuality() === "lite") {
         sessionStorage.setItem("ptrk-booted", "1");
-        // returning / reduced-motion visitor: no boot -> reveal the page now and
-        // let the one-shot load animations (hero count-ups) run immediately.
+        // no boot -> reveal the page now and let the one-shot load animations
+        // (hero count-ups) run immediately.
         dropPreCover();
         markBootReady();
         return;
