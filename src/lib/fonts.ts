@@ -73,6 +73,7 @@ export const sequel = Roboto_Flex({
   axes: ["wdth"],
   variable: "--font-sequel",
   display: "swap",
+  preload: false, // heavy variable font used only for decorative big numbers (not the LCP wordmark); keep it off the preload critical path so the hero font wins the bandwidth on mobile
 });
 
 // Onest – Latin Extended subset includes Hungarian.

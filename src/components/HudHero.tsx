@@ -7,6 +7,7 @@ import { ScrollCue } from "@/components/ScrollCue";
 import { PixelIcon } from "@/components/PixelIcon";
 import { onBootReady } from "@/lib/boot-ready";
 import { PROJECTS, ENGAGEMENT } from "@/data/projects";
+import { getQuality } from "@/lib/r3f/useQuality";
 
 /* ---------- fires true once the boot loader has revealed the page ---------- */
 function useBootReady() {
@@ -21,6 +22,10 @@ function useParallax() {
   const target = useRef({ x: 0, y: 0 });
   const raf = useRef(0);
   useEffect(() => {
+    // Cursor parallax is desktop-only (its output drives the lg:block telemetry
+    // console). On touch/mobile ("lite") skip the rAF + mousemove listener
+    // entirely — it was a continuous main-thread cost for an unseen effect.
+    if (getQuality() === "lite") return;
     const onMove = (e: MouseEvent) => {
       target.current = { x: e.clientX / window.innerWidth - 0.5, y: e.clientY / window.innerHeight - 0.5 };
     };
@@ -73,6 +78,9 @@ function Waveform() {
   useEffect(() => {
     const cv = ref.current;
     if (!cv) return;
+    // The oscilloscope lives inside the desktop-only telemetry console; on
+    // mobile ("lite") it is display:none, so skip the rAF draw loop entirely.
+    if (getQuality() === "lite") return;
     const ctx = cv.getContext("2d");
     if (!ctx) return;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);

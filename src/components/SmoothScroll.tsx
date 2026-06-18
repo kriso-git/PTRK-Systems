@@ -2,14 +2,16 @@
 
 import { useEffect } from "react";
 import Lenis from "lenis";
-import { reducedMotion } from "@/lib/motion";
+import { getQuality } from "@/lib/r3f/useQuality";
 
 export function SmoothScroll() {
   useEffect(() => {
     if (typeof window === "undefined") return;
-    // OWNER POLICY: gate on the central motion gate (explicit opt-out only),
-    // NOT the OS prefers-reduced-motion signal — see src/lib/motion.ts.
-    if (reducedMotion()) return;
+    // Gate on the central quality tier (which folds in the OWNER motion opt-out,
+    // NOT the OS prefers-reduced-motion signal). On mobile ("lite") native scroll
+    // is faster + smoother than a JS rAF smooth-scroll, and Lenis's per-frame lerp
+    // was the single biggest mobile TBT cost. Desktop ("full") is unchanged.
+    if (getQuality() === "lite") return;
 
     // lerp mode (not duration): each frame eases a fixed fraction toward the
     // target, so even single mouse-wheel notches glide smoothly instead of
