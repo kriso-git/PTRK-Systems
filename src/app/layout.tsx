@@ -82,7 +82,11 @@ export default function RootLayout({
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "try{if(!sessionStorage.getItem('ptrk-booted'))document.documentElement.classList.add('booting')}catch(e){}",
+              // Skip the pre-paint cover on mobile/touch ("lite" tier): there the
+              // boot animation is skipped, so the cover would only hide the SSR
+              // content until React hydrates (~4-6s on a throttled phone) and pin
+              // LCP. Desktop first-visit still gets the cover -> clean boot reveal.
+              "try{var m=matchMedia('(pointer:coarse)').matches||innerWidth<820;if(!m&&!sessionStorage.getItem('ptrk-booted'))document.documentElement.classList.add('booting')}catch(e){}",
           }}
         />
         <JsonLd />
