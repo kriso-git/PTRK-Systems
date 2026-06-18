@@ -48,21 +48,29 @@ const COLOR_TEXT = {
 } as const;
 
 export function ConnectForm() {
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
-    const subject = encodeURIComponent(
-      `PTRK Systems – ${data.get("type") ?? "Új projekt"}`,
-    );
-    const body = encodeURIComponent(
-      `Név: ${data.get("name")}\nEmail: ${data.get("email")}\nProjekt típus: ${data.get(
-        "type",
-      )}\n\n${data.get("message")}`,
-    );
-    window.location.href = `mailto:hello@ptrksystems.hu?subject=${subject}&body=${body}`;
-    setSubmitted(true);
+    const payload = {
+      name: String(data.get("name") ?? ""),
+      email: String(data.get("email") ?? ""),
+      type: String(data.get("type") ?? ""),
+      message: String(data.get("message") ?? ""),
+    };
+    setStatus("sending");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error();
+      setStatus("sent");
+    } catch {
+      setStatus("error");
+    }
   }
 
   return (
@@ -221,10 +229,10 @@ export function ConnectForm() {
               <span className="text-primary">személyre szabott válaszadásban</span>.
             </p>
 
-            {submitted ? (
+            {status === "sent" ? (
               <div className="border-l-4 border-lime pl-6 py-6 font-shorai text-lg text-lime leading-relaxed max-w-2xl">
-                Email kliens megnyitva. Küldd el a megjelenő ablakból – visszaigazolást
-                küldünk 24 órán belül. Köszi!
+                Köszönjük, megkaptuk az üzeneted! Általában 24 órán belül válaszolunk a
+                megadott e-mail címre.
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-10">
@@ -271,18 +279,30 @@ export function ConnectForm() {
                   />
                 </div>
 
-                <div className="pt-6 flex flex-wrap items-center justify-between gap-6">
-                  <button
-                    type="submit"
-                    className="group inline-flex items-baseline gap-4 font-khinterference uppercase tracking-[0.02em] text-3xl md:text-4xl text-primary border-b-2 border-lime pb-1 hover:text-lime transition-colors"
-                  >
-                    <span className="text-lime">→</span>
-                    Küldés
-                  </button>
-                  <p className="font-shorai text-xs text-secondary max-w-xs">
-                    Az adataidat csak a válaszadásra használjuk – semmilyen marketing,
-                    semmi spam.
-                  </p>
+                <div className="pt-6 flex flex-col gap-4">
+                  <div className="flex flex-wrap items-center justify-between gap-6">
+                    <button
+                      type="submit"
+                      disabled={status === "sending"}
+                      className="group inline-flex items-baseline gap-4 font-khinterference uppercase tracking-[0.02em] text-3xl md:text-4xl text-primary border-b-2 border-lime pb-1 hover:text-lime transition-colors disabled:opacity-50 disabled:cursor-wait"
+                    >
+                      <span className="text-lime">→</span>
+                      {status === "sending" ? "Küldés…" : "Küldés"}
+                    </button>
+                    <p className="font-shorai text-xs text-secondary max-w-xs">
+                      Az adataidat csak a válaszadásra használjuk – semmilyen marketing,
+                      semmi spam.
+                    </p>
+                  </div>
+                  {status === "error" && (
+                    <p className="font-shorai text-sm text-magenta">
+                      Hiba történt a küldés közben. Próbáld újra, vagy írj közvetlenül a{" "}
+                      <a href="mailto:hello@ptrksystems.hu" className="underline hover:text-lime">
+                        hello@ptrksystems.hu
+                      </a>
+                      -ra.
+                    </p>
+                  )}
                 </div>
               </form>
             )}
