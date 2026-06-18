@@ -24,11 +24,11 @@ const CHANNELS = [
   },
   {
     label: "Discord",
-    value: "ptrksystems",
-    href: "https://discord.gg/ptrksystems",
+    value: "@ptrksystems",
+    href: undefined,
     color: "magenta" as const,
     icon: "logo-discord",
-    sub: "Aszinkron beszélgetés, képek, gyors visszajelzés.",
+    sub: "Keress rá és adj hozzá: aszinkron egyeztetés, képek, gyors visszajelzés.",
   },
   {
     label: "Budapest",
