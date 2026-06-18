@@ -44,6 +44,11 @@ export function StageBackgroundLazy() {
 
   // null = pre-mount (SSR + first client render) -> show the gradient.
   // false = no WebGL -> keep the gradient forever (never crashes).
-  if (gl !== true) return <div aria-hidden style={fallbackStyle} />;
+  // "lite" (touch / small viewport / reduced-motion) -> ALSO keep the CSS
+  // gradient and never mount the WebGL canvas, so the heavy three.js chunk
+  // (~847KB) is never downloaded on mobile. This is the #1 mobile-perf win;
+  // StageViews/StageVeil are already full-only, so on lite no three.js loads
+  // at all. Desktop (full + WebGL) is completely unchanged.
+  if (quality === "lite" || gl !== true) return <div aria-hidden style={fallbackStyle} />;
   return <StageBackground quality={quality} />;
 }

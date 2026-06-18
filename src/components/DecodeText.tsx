@@ -57,5 +57,27 @@ export function DecodeText({
     return () => cancelAnimationFrame(raf);
   }, [text, delayMs, durationMs]);
 
-  return <span className={className}>{display}</span>;
+  // CLS guard: the variable-width scramble glyphs would reflow the headline on
+  // every frame (desktop CLS spiked to ~0.88). The final text sits in normal
+  // flow and LOCKS the box (and is the accessible text); while scrambling it is
+  // hidden and an absolutely-positioned overlay (out of flow) carries the
+  // animation, so the surrounding layout never shifts. The visible scramble is
+  // unchanged.
+  const animating = display !== text;
+  return (
+    <span
+      className={className}
+      style={{ position: "relative", display: "inline-block", whiteSpace: "nowrap" }}
+    >
+      <span style={animating ? { visibility: "hidden" } : undefined}>{text}</span>
+      {animating && (
+        <>
+          <span aria-hidden style={{ position: "absolute", left: 0, top: 0 }}>
+            {display}
+          </span>
+          <span className="sr-only">{text}</span>
+        </>
+      )}
+    </span>
+  );
 }
