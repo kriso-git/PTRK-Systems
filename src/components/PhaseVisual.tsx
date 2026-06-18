@@ -18,10 +18,12 @@ export function PhaseVisual({
   activeRef,
   accentRef,
   enterRef,
+  scrubRef,
 }: {
   activeRef: { current: number };
   accentRef: { current: string };
   enterRef: { current: number };
+  scrubRef: { current: number };
 }) {
   const ref = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
@@ -42,10 +44,11 @@ export function PhaseVisual({
     resize();
 
     let raf = 0;
-    const t0 = performance.now();
-    const frame = (now: number) => {
+    const frame = () => {
       raf = requestAnimationFrame(frame);
-      const t = reduced ? 6 : (now - t0) / 1000;
+      // scroll-scrubbed time: animations track scroll position (forward/back),
+      // freezing when the user stops. Reduced-motion gets a fixed settled frame.
+      const t = reduced ? 6 : scrubRef.current;
       const a = Math.max(0, Math.min(DRAWS.length - 1, activeRef.current | 0));
       const p = reduced ? 1 : Math.max(0, Math.min(1, enterRef.current));
       const accent = accentRef.current || "#c2fe0c";
@@ -63,7 +66,7 @@ export function PhaseVisual({
     const onR = () => resize();
     window.addEventListener("resize", onR);
     return () => { cancelAnimationFrame(raf); window.removeEventListener("resize", onR); };
-  }, [activeRef, accentRef, enterRef]);
+  }, [activeRef, accentRef, enterRef, scrubRef]);
 
   return <canvas ref={ref} className="h-full w-full" aria-hidden />;
 }

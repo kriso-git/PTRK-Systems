@@ -65,10 +65,19 @@ export function ProcessJourney() {
   const activeRef = useRef(0);
   const accentRef = useRef<string>(ACCENTS[0]);
   const enterRef = useRef(0);
+  // scroll-scrub "time" fed to PhaseVisual: the right-side visuals (sweep, node
+  // connectors, traveling dots) advance with scroll forward AND back, instead of
+  // an autonomous clock. ~6 units of "t" per phase of scroll.
+  const scrubRef = useRef(0);
 
   const railFill = ((active + localT) / PHASE_COUNT) * 100;
   const enter = Math.min(1, localT * 3);
-  useEffect(() => { activeRef.current = active; accentRef.current = accent; enterRef.current = enter; }, [active, accent, enter]);
+  useEffect(() => {
+    activeRef.current = active;
+    accentRef.current = accent;
+    enterRef.current = enter;
+    scrubRef.current = scaled * 6;
+  }, [active, accent, enter, scaled]);
   const contentOpacity = 0.15 + enter * 0.85;
   const contentY = (1 - enter) * 34;
   const ghostScale = 0.92 + enter * 0.08;
@@ -145,7 +154,7 @@ export function ProcessJourney() {
           <div className="relative flex h-[58vh] flex-1 items-center">
             {/* right-side animated HUD forms + ghost number */}
             <div aria-hidden className="pointer-events-none absolute inset-0 opacity-60 lg:inset-auto lg:right-0 lg:top-1/2 lg:h-[78vh] lg:w-[58%] lg:-translate-y-1/2 lg:opacity-100">
-              <div className="absolute inset-0 z-0"><PhaseVisual activeRef={activeRef} accentRef={accentRef} enterRef={enterRef} /></div>
+              <div className="absolute inset-0 z-0"><PhaseVisual activeRef={activeRef} accentRef={accentRef} enterRef={enterRef} scrubRef={scrubRef} /></div>
               <span
                 key={`ghost-${active}`}
                 className="absolute right-2 top-1/2 z-[1] select-none font-sequel leading-none"

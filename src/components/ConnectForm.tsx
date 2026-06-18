@@ -13,28 +13,40 @@ const SLA = [
   { code: "03", label: "Sprint", value: ENGAGEMENT.sprintRange, color: "magenta" as const, icon: "interface-essential-cog-double" },
 ];
 
-const CHANNELS = [
+type Channel = {
+  label: string;
+  value: string;
+  href?: string;
+  color: "lime" | "cyan" | "magenta" | "orange";
+  icon: string;
+  sub: string;
+  copy?: boolean;
+  copyValue?: string;
+};
+
+const CHANNELS: Channel[] = [
   {
     label: "Email",
     value: "hello@ptrksystems.hu",
     href: "mailto:hello@ptrksystems.hu",
-    color: "lime" as const,
+    color: "lime",
     icon: "email-envelope",
     sub: "Általában 24 órán belül érkezik válasz.",
+    copy: true,
   },
   {
     label: "Discord",
     value: "@ptrksystems",
-    href: undefined,
-    color: "magenta" as const,
+    color: "magenta",
     icon: "logo-discord",
     sub: "Keress rá és adj hozzá: aszinkron egyeztetés, képek, gyors visszajelzés.",
+    copy: true,
+    copyValue: "ptrksystems",
   },
   {
     label: "Budapest",
     value: "Budapest, HU",
-    href: undefined,
-    color: "lime" as const,
+    color: "lime",
     icon: "map-navigation-pin-location-1",
     sub: "CET (UTC+1) – távmunka világszerte.",
   },
@@ -46,6 +58,39 @@ const COLOR_TEXT = {
   magenta: "text-magenta",
   orange: "text-orange",
 } as const;
+
+/** Click-to-copy button with a pixel-style clipboard glyph + a brief checkmark. */
+function CopyButton({ value, className }: { value: string; className?: string }) {
+  const [copied, setCopied] = useState(false);
+  return (
+    <button
+      type="button"
+      onClick={() => {
+        navigator.clipboard
+          ?.writeText(value)
+          .then(() => {
+            setCopied(true);
+            setTimeout(() => setCopied(false), 1400);
+          })
+          .catch(() => {});
+      }}
+      aria-label={`${value} másolása`}
+      title="Másolás"
+      className={`shrink-0 grid h-8 w-8 place-items-center self-center border border-white/15 ${className ?? ""} transition-colors hover:border-current/60`}
+    >
+      {copied ? (
+        <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
+          <polyline points="3,8.5 6.5,12 13,4.5" />
+        </svg>
+      ) : (
+        <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
+          <rect x="5" y="5" width="8" height="8" />
+          <polyline points="3,11 3,3 11,3" />
+        </svg>
+      )}
+    </button>
+  );
+}
 
 export function ConnectForm() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
@@ -160,45 +205,40 @@ export function ConnectForm() {
               {CHANNELS.map((ch, i) => {
                 const tx = COLOR_TEXT[ch.color];
                 const isLast = i === CHANNELS.length - 1;
-                const Inner = (
-                  <div className="grid grid-cols-12 gap-4 py-7 md:py-9 items-baseline group">
-                    <div className="col-span-12 md:col-span-3 font-monospec text-[10px] uppercase tracking-[0.35em] text-secondary flex items-center gap-2.5">
-                      <PixelIcon name={ch.icon} width={15} height={15} className={tx} aria-hidden />
-                      {ch.label}
-                    </div>
-                    <div className="col-span-12 md:col-span-9 min-w-0">
-                      <div
-                        className={`font-sequel text-xl md:text-2xl ${tx} tracking-[-0.01em] leading-tight break-all flex items-baseline gap-3 flex-wrap ${
-                          ch.href ? "group-hover:translate-x-1 transition-transform" : ""
-                        }`}
-                      >
-                        <span className="break-all">{ch.value}</span>
-                        {ch.href && <span className="opacity-60 shrink-0">→</span>}
-                      </div>
-                      <div className="mt-2 font-shorai text-sm text-secondary leading-relaxed">
-                        {ch.sub}
-                      </div>
-                    </div>
-                  </div>
-                );
-
                 return (
                   <li
                     key={ch.label}
                     className={`border-t border-white/15 ${isLast ? "border-b" : ""}`}
                   >
-                    {ch.href ? (
-                      <a
-                        href={ch.href}
-                        target={ch.href.startsWith("http") ? "_blank" : undefined}
-                        rel={ch.href.startsWith("http") ? "noreferrer" : undefined}
-                        className="block"
-                      >
-                        {Inner}
-                      </a>
-                    ) : (
-                      Inner
-                    )}
+                    <div className="grid grid-cols-12 gap-4 py-7 md:py-9 items-baseline">
+                      <div className="col-span-12 md:col-span-3 font-monospec text-[10px] uppercase tracking-[0.35em] text-secondary flex items-center gap-2.5">
+                        <PixelIcon name={ch.icon} width={15} height={15} className={tx} aria-hidden />
+                        {ch.label}
+                      </div>
+                      <div className="col-span-12 md:col-span-9 min-w-0">
+                        <div
+                          className={`font-sequel text-xl md:text-2xl ${tx} tracking-[-0.01em] leading-tight flex items-center gap-3 flex-wrap`}
+                        >
+                          {ch.copy && <CopyButton value={ch.copyValue ?? ch.value} className={tx} />}
+                          {ch.href ? (
+                            <a
+                              href={ch.href}
+                              target={ch.href.startsWith("http") ? "_blank" : undefined}
+                              rel={ch.href.startsWith("http") ? "noreferrer" : undefined}
+                              className="inline-flex items-baseline gap-2 break-all transition-transform hover:translate-x-0.5"
+                            >
+                              <span className="break-all">{ch.value}</span>
+                              <span className="opacity-60 shrink-0">→</span>
+                            </a>
+                          ) : (
+                            <span className="break-all">{ch.value}</span>
+                          )}
+                        </div>
+                        <div className="mt-2 font-shorai text-sm text-secondary leading-relaxed">
+                          {ch.sub}
+                        </div>
+                      </div>
+                    </div>
                   </li>
                 );
               })}
