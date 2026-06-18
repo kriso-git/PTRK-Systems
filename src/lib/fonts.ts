@@ -43,6 +43,7 @@ export const msPGothic = Manrope({
   weight: ["500", "600", "700"],
   variable: "--font-msgothic",
   display: "swap",
+  preload: false, // secondary UI font (not the LCP); keep preload bandwidth for the hero + LCP body fonts on mobile
 });
 
 // Geist Mono – modern terminal monospace, replaces MonoSpec for all
@@ -52,6 +53,7 @@ export const monoSpec = Geist_Mono({
   weight: ["300", "400", "500", "600"],
   variable: "--font-monospec",
   display: "swap",
+  preload: false, // HUD label monospace (not the LCP); off the preload critical path so the hero + body fonts win bandwidth on mobile
 });
 
 // DM Mono – calm display monospace, replaces PP Fraktion Mono in the
