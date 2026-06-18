@@ -1,10 +1,16 @@
 /**
- * Central motion gate. The signature effects (decode, scroll-reveal, boot,
- * ascii field, sweeps) run for everyone BY DEFAULT, the brand layer is the
- * product here. Two explicit opt-outs disable them:
- *   1. OS-level `prefers-reduced-motion: reduce`, the standard a11y signal,
- *      honored by reducedMotion() and a CSS @media kill-switch in globals.css.
- *   2. localStorage "ptrk-motion" = "off", mirrored onto html[data-motion-reduce].
+ * Central motion gate — OWNER POLICY: the signature effects (decode,
+ * scroll-reveal, boot, ascii field, sweeps, nebula, smooth scroll) run for
+ * EVERYONE by default, and the OS `prefers-reduced-motion` signal does NOT
+ * disable them. A large share of Windows machines report "reduce" purely from
+ * performance presets, and the brand layer IS the product here.
+ *
+ * ⚠️ Honoring OS reduce was tried (94eb404) and REVERTED — it blanked all
+ * motion on the owner's own Windows machine. Do not re-add a prefers-reduced-
+ * motion gate here or in globals.css without an explicit owner decision.
+ *
+ * The only opt-out is the explicit localStorage "ptrk-motion" = "off"
+ * (set via setMotionOff(); mirrored onto html[data-motion-reduce]).
  */
 
 const KEY = "ptrk-motion";
@@ -20,12 +26,7 @@ export function motionOff(): boolean {
 /** The single source of truth for "should we animate?" (JS side). */
 export function reducedMotion(): boolean {
   if (typeof window === "undefined") return true;
-  if (motionOff()) return true;
-  try {
-    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  } catch {
-    return false;
-  }
+  return motionOff();
 }
 
 export function setMotionOff(off: boolean) {

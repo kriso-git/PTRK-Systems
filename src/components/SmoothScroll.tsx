@@ -2,11 +2,14 @@
 
 import { useEffect } from "react";
 import Lenis from "lenis";
+import { reducedMotion } from "@/lib/motion";
 
 export function SmoothScroll() {
   useEffect(() => {
     if (typeof window === "undefined") return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // OWNER POLICY: gate on the central motion gate (explicit opt-out only),
+    // NOT the OS prefers-reduced-motion signal — see src/lib/motion.ts.
+    if (reducedMotion()) return;
 
     // lerp mode (not duration): each frame eases a fixed fraction toward the
     // target, so even single mouse-wheel notches glide smoothly instead of
