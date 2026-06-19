@@ -8,7 +8,6 @@ export type SignatureKind = "wire" | "distort" | "knot";
 const KIND_BY_ID: Record<string, SignatureKind> = {
   "f3xykee-terminal": "wire", // military-HUD lattice -> wireframe icosahedron
   molekulax: "distort", // peptide / molecule -> distorted sphere
-  "donna-pizza": "knot", // warm flourish -> glossy metallic torus knot
 };
 
 // The four brand accents, hex (mirrors BrowserPreview's ACCENT_HEX).

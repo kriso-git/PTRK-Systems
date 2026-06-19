@@ -6,7 +6,7 @@ import { reducedMotion } from "@/lib/motion";
 /**
  * WorkDataWeb – a per-project "data web" that sits top-right of a case debrief
  * hero, themed to the project's domain. F3XYKEE → a military network topology,
- * MolekulaX → a molecular lattice, Donna → a radial delivery net. Animated data
+ * MolekulaX → a molecular lattice. Animated data
  * "comets" travel the graph. Pure 2D canvas (works without a GPU), motion-gated.
  */
 
@@ -17,7 +17,6 @@ type Motif = "network" | "molecular" | "radial";
 const CONFIG: Record<string, { motif: Motif; label: string }> = {
   "f3xykee-terminal": { motif: "network", label: "NET·TOPOLOGY" },
   molekulax: { motif: "molecular", label: "MOL·LATTICE" },
-  "donna-pizza": { motif: "radial", label: "DELIVERY·NET" },
 };
 
 type Node = { x: number; y: number; vx: number; vy: number; r: number; hub: boolean; fixed: boolean };

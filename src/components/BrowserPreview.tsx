@@ -8,7 +8,6 @@ import type { AccentColor, Project } from "@/data/projects";
 const PREVIEW_IMAGES: Record<string, string> = {
   "f3xykee-terminal": "/previews/f3xykee-terminal.webp",
   molekulax: "/previews/molekulax.webp",
-  "donna-pizza": "/previews/donna-pizza.webp",
 };
 
 const ACCENT_HEX: Record<AccentColor, string> = {

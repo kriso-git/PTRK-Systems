@@ -10,7 +10,7 @@ import { projectAccent } from "@/lib/project-accent";
 export const metadata: Metadata = {
   title: "Munkák · élő weboldal referenciák",
   description:
-    "Válogatott munkák: F3XYKEE Terminal, MolekulaX, Donna Pizza. Élesben futó, prémium weboldalak, teljes mission debrief aloldalakkal.",
+    "Válogatott munkák: F3XYKEE Terminal és MolekulaX. Élesben futó, prémium weboldalak, teljes mission debrief aloldalakkal.",
   alternates: { canonical: "/work" },
 };
 

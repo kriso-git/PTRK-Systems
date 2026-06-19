@@ -6,6 +6,7 @@ import { BrowserPreview } from "@/components/BrowserPreview";
 import { Crosshair } from "@/components/Crosshair";
 import { DecodeText } from "@/components/DecodeText";
 import { WorkDataWeb } from "@/components/WorkDataWeb";
+import { PixelIcon } from "@/components/PixelIcon";
 
 const ACCENT_TEXT: Record<string, string> = {
   lime: "text-lime",
@@ -196,8 +197,13 @@ export default async function CaseStudyPage({
                     : ""
                 }`}
               >
-                <div className="font-monospec text-[10px] uppercase tracking-[0.35em] text-secondary/60 mb-4">
-                  EX.{String(i + 1).padStart(2, "0")}
+                <div className="flex items-center gap-3 mb-4">
+                  {ex.icon && (
+                    <PixelIcon name={ex.icon} width={18} height={18} className={tx} aria-hidden />
+                  )}
+                  <span className="font-monospec text-[10px] uppercase tracking-[0.35em] text-secondary/60">
+                    EX.{String(i + 1).padStart(2, "0")}
+                  </span>
                 </div>
                 <h3 className="font-sequel text-2xl md:text-4xl tracking-[-0.02em] text-primary leading-[1.05] mb-4">
                   {ex.title}

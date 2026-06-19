@@ -36,7 +36,7 @@ const CHANNELS: Channel[] = [
   },
   {
     label: "Discord",
-    value: "@ptrksystems",
+    value: "ptrksystems",
     color: "magenta",
     icon: "logo-discord",
     sub: "Keress rá és adj hozzá: aszinkron egyeztetés, képek, gyors visszajelzés.",
@@ -275,62 +275,80 @@ export function ConnectForm() {
                 megadott e-mail címre.
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-10">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-10">
-                  <Field label="Név" name="name" type="text" placeholder="Kovács Anna" required />
-                  <Field label="Email" name="email" type="email" placeholder="anna@ceg.hu" required />
+              <form
+                onSubmit={handleSubmit}
+                className="relative border border-white/12 bg-void/30 p-6 md:p-9"
+              >
+                {/* HUD corner brackets */}
+                <span aria-hidden className="pointer-events-none absolute left-0 top-0 h-4 w-4 border-l-2 border-t-2 border-magenta/50" />
+                <span aria-hidden className="pointer-events-none absolute right-0 top-0 h-4 w-4 border-r-2 border-t-2 border-magenta/50" />
+                <span aria-hidden className="pointer-events-none absolute left-0 bottom-0 h-4 w-4 border-l-2 border-b-2 border-magenta/50" />
+                <span aria-hidden className="pointer-events-none absolute right-0 bottom-0 h-4 w-4 border-r-2 border-b-2 border-magenta/50" />
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+                  <Field code="F.01" label="Név" name="name" type="text" placeholder="Kovács Anna" required />
+                  <Field code="F.02" label="Email" name="email" type="email" placeholder="anna@ceg.hu" required />
                 </div>
 
-                <div>
+                <div className="mt-6">
                   <label
                     htmlFor="type"
-                    className="block font-monospec text-[10px] uppercase tracking-[0.4em] text-secondary mb-3"
+                    className="flex items-center gap-2 font-monospec text-[10px] uppercase tracking-[0.35em] text-secondary mb-2.5"
                   >
+                    <span className="text-magenta/70">F.03</span>
                     Projekt típus
                   </label>
-                  <select
-                    id="type"
-                    name="type"
-                    defaultValue="Weboldal design + dev"
-                    className="w-full bg-transparent border-b-2 border-white/20 focus:border-lime outline-none py-3 font-khinterference text-2xl md:text-3xl uppercase tracking-[0.01em] text-primary cursor-pointer transition-colors"
-                  >
-                    <option className="bg-void">Weboldal design + dev</option>
-                    <option className="bg-void">Design rendszer</option>
-                    <option className="bg-void">SaaS dashboard</option>
-                    <option className="bg-void">Frontend audit / refactor</option>
-                    <option className="bg-void">Konzultáció</option>
-                  </select>
+                  <div className="relative border border-white/12 bg-void/40 transition-colors focus-within:border-magenta focus-within:bg-void/70">
+                    <select
+                      id="type"
+                      name="type"
+                      defaultValue="Weboldal design + dev"
+                      className="w-full appearance-none bg-transparent px-4 py-3.5 pr-10 font-shorai text-lg text-primary outline-none cursor-pointer"
+                    >
+                      <option className="bg-void">Weboldal design + dev</option>
+                      <option className="bg-void">Design rendszer</option>
+                      <option className="bg-void">SaaS dashboard</option>
+                      <option className="bg-void">Frontend audit / refactor</option>
+                      <option className="bg-void">Konzultáció</option>
+                    </select>
+                    <span aria-hidden className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-magenta">
+                      ▾
+                    </span>
+                  </div>
                 </div>
 
-                <div>
+                <div className="mt-6">
                   <label
                     htmlFor="message"
-                    className="block font-monospec text-[10px] uppercase tracking-[0.4em] text-secondary mb-3"
+                    className="flex items-center gap-2 font-monospec text-[10px] uppercase tracking-[0.35em] text-secondary mb-2.5"
                   >
+                    <span className="text-magenta/70">F.04</span>
                     Miről van szó?
                   </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows={6}
-                    required
-                    placeholder="Pár mondatos brief. Cél, határidő, költségvetés ha tudod – minden segít."
-                    className="w-full bg-transparent border-b-2 border-white/20 focus:border-lime outline-none py-3 font-shorai text-lg md:text-xl text-primary placeholder:text-secondary/40 resize-none leading-relaxed transition-colors"
-                  />
+                  <div className="border border-white/12 bg-void/40 transition-colors focus-within:border-magenta focus-within:bg-void/70">
+                    <textarea
+                      id="message"
+                      name="message"
+                      rows={6}
+                      required
+                      placeholder="Pár mondatos brief. Cél, határidő, költségvetés ha tudod, minden segít."
+                      className="w-full bg-transparent px-4 py-3.5 font-shorai text-lg text-primary placeholder:text-secondary/35 resize-none leading-relaxed outline-none"
+                    />
+                  </div>
                 </div>
 
-                <div className="pt-6 flex flex-col gap-4">
-                  <div className="flex flex-wrap items-center justify-between gap-6">
+                <div className="mt-8 flex flex-col gap-4">
+                  <div className="flex flex-wrap items-center justify-between gap-5">
                     <button
                       type="submit"
                       disabled={status === "sending"}
-                      className="group inline-flex items-baseline gap-4 font-khinterference uppercase tracking-[0.02em] text-3xl md:text-4xl text-primary border-b-2 border-lime pb-1 hover:text-lime transition-colors disabled:opacity-50 disabled:cursor-wait"
+                      className="group inline-flex items-center gap-3 border-2 border-lime bg-lime/10 px-7 py-3.5 font-khinterference uppercase tracking-[0.04em] text-xl md:text-2xl text-primary hover:bg-lime hover:text-void transition-colors disabled:opacity-50 disabled:cursor-wait"
                     >
-                      <span className="text-lime">→</span>
-                      {status === "sending" ? "Küldés…" : "Küldés"}
+                      {status === "sending" ? "Küldés folyamatban" : "Üzenet küldése"}
+                      <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
                     </button>
                     <p className="font-shorai text-xs text-secondary max-w-xs">
-                      Az adataidat csak a válaszadásra használjuk – semmilyen marketing,
+                      Az adataidat csak a válaszadásra használjuk: semmilyen marketing,
                       semmi spam.
                     </p>
                   </div>
@@ -371,20 +389,24 @@ function Field({
   type,
   placeholder,
   required,
+  code,
 }: {
   label: string;
   name: string;
   type: string;
   placeholder?: string;
   required?: boolean;
+  code: string;
 }) {
   return (
     <div>
       <label
         htmlFor={name}
-        className="block font-monospec text-[10px] uppercase tracking-[0.4em] text-secondary mb-3"
+        className="flex items-center gap-2 font-monospec text-[10px] uppercase tracking-[0.35em] text-secondary mb-2.5"
       >
+        <span className="text-magenta/70">{code}</span>
         {label}
+        {required && <span className="text-magenta">*</span>}
       </label>
       <input
         id={name}
@@ -392,7 +414,7 @@ function Field({
         type={type}
         placeholder={placeholder}
         required={required}
-        className="w-full bg-transparent border-b-2 border-white/20 focus:border-lime outline-none py-3 font-khinterference text-2xl md:text-3xl uppercase tracking-[0.01em] text-primary placeholder:text-secondary/30 transition-colors"
+        className="w-full border border-white/12 bg-void/40 px-4 py-3.5 font-shorai text-lg text-primary placeholder:text-secondary/30 outline-none transition-colors focus:border-magenta focus:bg-void/70"
       />
     </div>
   );

@@ -105,7 +105,7 @@ export const NEBULA_FRAG = /* glsl */ `
 
     float vig = smoothstep(1.3, 0.2, length(uv));
     col *= 0.5 + 0.5 * vig;
-    col *= 0.92;
+    col *= 0.6; // overall brightness dialed down from 0.92 - present but non-distracting
 
     gl_FragColor = vec4(col, 1.0);
   }
