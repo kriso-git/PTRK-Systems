@@ -53,7 +53,7 @@ export const PROJECTS: Project[] = [
     year: "2026",
     role: "FULL-STACK · DESIGN + ENG",
     desc: "Military-HUD közösségi adat-hálózat: saját tartalom-motor (szöveg, kép-karusszel, videó, hang), célzott közönség, XP-profilok, privát üzenetküldés, 9 nyelv és Twitch élő-integráció. Auth + RLS, audit-napló, prod deploy a fexyke.hu-n.",
-    stack: ["Next.js 16", "React 19", "TypeScript", "Supabase", "PostgreSQL", "Vercel"],
+    stack: ["Egyedi fejlesztés", "Adatbázis + jogosultság", "Valós idejű funkciók", "Éles, saját domainen"],
     metric: "60/30/10",
     metricLabel: "HUD · Term · Modern",
     color: "lime",
@@ -129,7 +129,7 @@ export const PROJECTS: Project[] = [
     year: "2026",
     role: "DESIGN + FRONTEND",
     desc: "Háromnyelvű farmakológiai edukációs platform 191 hatóanyag-profillal, négy könyvtárban. PubMed-verifikált források gépi ellenőrző-kapuval, interaktív 3D kocka-navigáció, lazy 3D Three.js háttér és PWA offline-támogatás.",
-    stack: ["Vite 6", "React 19", "Three.js", "Tailwind", "PWA"],
+    stack: ["Egyedi fejlesztés", "Többnyelvű tartalom", "3D / WebGL vizuál", "PWA, offline"],
     metric: "191",
     metricLabel: "Hatóanyag-profil",
     color: "cyan",
@@ -259,11 +259,11 @@ export const FAQ = [
   },
   {
     q: "Garantáljátok, hogy több ügyfelem lesz?",
-    a: "Nem ígérünk garantált számokat, mert azt egy új oldalnál tisztességesen nem lehet. Amit adunk: mérés és átláthatóság. Havonta megmutatjuk, mi történik az oldaladdal, és gondoskodunk róla, hogy gyors, megtalálható és friss legyen.",
+    a: "Amit garantálunk: minden hónapban megmérjük és megmutatjuk, mi történik az oldaladdal - gyors-e, megtalálható-e, friss-e, hányan jártak rajta. Garantált ügyfélszámot nem ígérünk, mert azt egy új oldalnál tisztességesen senki sem tudja; aki mégis ígér, az tippel. Mi mérünk és azon dolgozunk, hogy gyors, megtalálható és friss légy, a számokat pedig feketén-fehéren látod.",
   },
   {
     q: "Mennyibe kerül?",
-    a: "Attól függ, mekkora oldal kell: egyoldalas bemutatkozótól az egyedi, többoldalas megoldásig, plusz a havi Élő Gondozás. AAM-ben dolgozunk, így nálad nincs 27% ÁFA a tetején. A pontos árat egy rövid hívásban, a te igényeidre szabva mondjuk meg.",
+    a: "Komoly weboldal és havi gondozás, nem pár tízezres sablon. Az ár az igényeidhez igazodik: az egyoldalas bemutatkozótól az egyedi, többoldalas megoldásig, plusz a havi Élő Gondozás. Mondd el egy rövid hívásban, mire van szükséged, és pontos, rád szabott árat adunk, kötelezettség nélkül.",
   },
   {
     q: "Miért veled dolgozzak, és ne egy ügynökséggel?",

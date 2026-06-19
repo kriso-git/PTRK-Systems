@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { PROJECTS, FAQ, TECH_STACK, ENGAGEMENT } from "@/data/projects";
+import { PROJECTS, FAQ, ENGAGEMENT } from "@/data/projects";
 import { GoliathOrnament } from "@/components/GoliathSymbols";
 import { ManifestoBand } from "@/components/ManifestoBand";
 import { TransmissionLog } from "@/components/TransmissionLog";
@@ -94,36 +94,43 @@ export default function Home() {
       {/* ─────────────────────────────  PROCESS JOURNEY (§05 · pinned scrollytelling)  ───────────────────────────── */}
       <ProcessJourney />
 
-      {/* ─────────────────────────────  STACK MARGINALIA  ───────────────────────────── */}
+      {/* ─────────────────────────────  A MOTOR (§ 06 · benefits, no tool names)  ───────────────────────────── */}
       <section
         data-section="§ 06"
-        data-label="Stack"
+        data-label="A motor"
         className="relative z-10 border-t border-white/10 px-6 md:px-10 py-32 md:py-48 bg-void/30"
       >
         <div className="max-w-[1500px] grid grid-cols-12 gap-y-10 md:gap-x-10 items-end">
           <div className="col-span-12 md:col-span-5">
             <div className="mb-4 flex items-center gap-3 font-monospec text-[10px] uppercase tracking-[0.35em] text-cyan">
               <PixelIcon name="computers-devices-electronics-chipset" width={15} height={15} aria-hidden />
-              <span>§ 06 · Stack</span>
+              <span>§ 06 · Core</span>
             </div>
             <h2 className="font-khinterference uppercase tracking-[-0.005em] text-[clamp(56px,10vw,168px)] leading-[0.85] text-primary">
-              Eszköz<span className="text-cyan">·</span>
-              <br />tár.
+              A <span className="text-cyan">motor.</span>
             </h2>
+            <p className="mt-6 max-w-md font-shorai text-base md:text-lg text-secondary leading-relaxed">
+              Nem látod, de ez hajtja az oldaladat. A lényeg, amit te is érzel belőle:
+            </p>
           </div>
           <div className="col-span-12 md:col-span-7">
-            <ul className="grid grid-cols-2 md:grid-cols-3 gap-2.5 font-monospec text-sm tracking-[0.05em]">
-              {TECH_STACK.filter(
-                (t) => t.category !== "Hosting" && t.category !== "Design"
-              ).map((t) => (
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {[
+                { t: "Villámgyors", d: "másodperc alatt tölt, mobilon is", icon: "interface-essential-wifi-signal" },
+                { t: "Biztonságos és friss", d: "folyamatos frissítés, mentés, SSL", icon: "coding-apps-websites-shield-lock" },
+                { t: "Egyedi, nem sablon", d: "a te igényedre épül, nem kész téma", icon: "interface-essential-cog-double" },
+                { t: "Google-ready", d: "technikai SEO az első naptól", icon: "interface-essential-search-check" },
+              ].map((b) => (
                 <li
-                  key={t.name}
-                  className="group flex items-center gap-2.5 border border-white/10 bg-void/20 px-3 py-2.5 transition-colors hover:border-cyan/40 hover:bg-void/40"
+                  key={b.t}
+                  className="group flex items-start gap-3 border border-white/10 bg-void/20 px-4 py-4 transition-colors hover:border-cyan/40 hover:bg-void/40"
                 >
-                  <span className="h-1.5 w-1.5 shrink-0 bg-cyan/50 transition-colors group-hover:bg-cyan" />
-                  <span className="truncate uppercase text-primary">{t.name}</span>
-                  <span className="ml-auto shrink-0 text-[9px] uppercase tracking-[0.2em] text-secondary/70">
-                    {t.category}
+                  <span className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center border border-cyan/30 text-cyan">
+                    <PixelIcon name={b.icon} width={15} height={15} aria-hidden />
+                  </span>
+                  <span>
+                    <span className="block font-sequel text-lg text-primary tracking-[-0.01em]">{b.t}</span>
+                    <span className="block font-shorai text-sm text-secondary leading-snug">{b.d}</span>
                   </span>
                 </li>
               ))}

@@ -14,7 +14,7 @@ const ITEMS = [
     icon: "interface-essential-wifi-signal",
     accent: "lime" as const,
     head: "Mérünk, nem ígérgetünk.",
-    body: "Mások garantált csodaszámokat ígérnek, amit egy új oldalnál tisztességesen nem lehet. Mi nem. Havonta megmérjük és átláthatóan megmutatjuk, mi történik az oldaladdal: gyors-e, megtalálható-e, friss-e. Becsületesen, valós számokkal.",
+    body: "Minden hónapban megmérjük és átláthatóan megmutatjuk, mi történik az oldaladdal: gyors-e, megtalálható-e, friss-e. Valós számokkal. Garantált csodaszámokat nem ígérünk, aki ilyet ígér egy új oldalnál, az tippel.",
   },
   {
     n: "II",
@@ -143,8 +143,8 @@ export function Cornerstones() {
             </h2>
           </div>
           <p className="max-w-sm font-shorai text-base leading-relaxed text-secondary md:text-lg">
-            Nem ügynökség vagyunk. Három dolog, amit a többség nem ad meg, ezért
-            biztonságosabb és jobb veled dolgozni, mint a megszokottal.
+            Nem ügynökség vagyunk. Három dolog, amit a legtöbben nem adnak meg, ezért
+            velünk biztonságosabb és jobb, mint egy ügynökséggel vagy egy sablonmegoldással.
           </p>
         </div>
 

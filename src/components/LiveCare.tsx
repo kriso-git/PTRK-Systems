@@ -294,6 +294,9 @@ export function LiveCare() {
               <br />
               <span className="text-lime">és a gondozás.</span>
             </h2>
+            <p className="mt-5 max-w-sm font-shorai text-base text-primary/90 leading-relaxed">
+              Élő Gondozás: havi karbantartás, mérés és módosítások. Nem hagyunk magadra.
+            </p>
           </div>
           <p className="max-w-md font-shorai text-base leading-relaxed text-secondary md:text-lg">
             Egy prémium, modern weboldal, gyorsan és jó áron, a te igényedre szabva. De az

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { PROCESS_STEPS, TECH_STACK } from "@/data/projects";
+import { PROCESS_STEPS } from "@/data/projects";
 import { Crosshair } from "@/components/Crosshair";
 import { GoliathOrnament } from "@/components/GoliathSymbols";
 import { DecodeText } from "@/components/DecodeText";
@@ -19,7 +19,7 @@ const DELIVERABLES = [
     code: "D.01",
     icon: "computers-devices-electronics-chipset",
     title: "Production kódbázis",
-    desc: "Next.js 16 / Vite 5 + TypeScript strict, CI/CD-vel, Vercel / Cloudflare deploy ready.",
+    desc: "Gyors, production-grade kódbázis, automata teszteléssel és telepítéssel. A tiéd, az első naptól.",
   },
   {
     code: "D.02",
@@ -31,7 +31,7 @@ const DELIVERABLES = [
     code: "D.03",
     icon: "coding-apps-websites-database",
     title: "Adatréteg",
-    desc: "Supabase PostgreSQL séma, Drizzle migrációk, RLS policy-k minden táblán.",
+    desc: "Biztonságos adatréteg, szigorú jogosultság-kezeléssel: csak az lát adatot, akinek szabad.",
   },
   {
     code: "D.04",
@@ -40,13 +40,6 @@ const DELIVERABLES = [
     desc: "Architektúra dokumentum, runbook, 30 napos hyper-care, tech onboarding.",
   },
 ];
-
-const STACK_BY_CATEGORY = TECH_STACK.filter(
-  (t) => t.category !== "Hosting" && t.category !== "Design",
-).reduce<Record<string, string[]>>((acc, t) => {
-  (acc[t.category] ||= []).push(t.name);
-  return acc;
-}, {});
 
 const PHASE_OUTPUTS = [
   "Discovery brief, success metrics",
@@ -246,42 +239,41 @@ export default function MethodPage() {
         </div>
       </section>
 
-      {/* ─────────────────────────────  STACK TABLE  ───────────────────────────── */}
+      {/* ─────────────────────────────  A MOTOR (capabilities, no tool names)  ───────────────────────────── */}
       <section className="relative z-10 border-t border-white/10 bg-void/30 px-6 md:px-10 py-40 md:py-56">
         <div className="max-w-[1500px]">
           <div className="grid grid-cols-12 gap-y-12 md:gap-x-10 items-end mb-20">
             <div className="col-span-12 md:col-span-7">
               <div className="font-monospec text-[10px] uppercase tracking-[0.4em] text-orange mb-4 flex items-center gap-3">
                 <PixelIcon name="computers-devices-electronics-chipset" width={15} height={15} aria-hidden />
-                <span>Stack</span>
+                <span>Core</span>
               </div>
               <h2 className="font-khinterference uppercase tracking-[-0.005em] text-[clamp(48px,8vw,128px)] leading-[0.88] text-primary">
-                Eszköz<span className="text-orange">·</span>
-                <br />
-                tár.
+                A <span className="text-orange">motor.</span>
               </h2>
             </div>
             <p className="col-span-12 md:col-span-5 font-shorai text-lg text-secondary leading-relaxed max-w-md">
-              Egységes stack minden projektben – production-grade, jól ismert, gyorsan
-              skálázható. Nincs cserélgetés, nincs kísérletezés éles ügyféllel.
+              Egységes, modern alapokon épül minden projekt: gyors, biztonságos, jól
+              skálázható. Nincs kísérletezés éles ügyféllel.
             </p>
           </div>
 
           <ul className="border-t border-white/15">
-            {Object.entries(STACK_BY_CATEGORY).map(([category, names]) => (
+            {[
+              { k: "Felület", v: "Villámgyors, modern, reszponzív megjelenés minden eszközön" },
+              { k: "Adat", v: "Biztonságos adatkezelés, szigorú jogosultságokkal" },
+              { k: "Üzemeltetés", v: "Automata telepítés, mentés és folyamatos monitorozás" },
+              { k: "Minőség", v: "Technikai SEO, akadálymentesség és mért teljesítmény" },
+            ].map((row) => (
               <li
-                key={category}
+                key={row.k}
                 className="grid grid-cols-12 gap-4 border-b border-white/15 py-10 md:py-12 items-baseline"
               >
                 <div className="col-span-12 md:col-span-3 font-monospec text-[11px] uppercase tracking-[0.3em] text-orange">
-                  {category}
+                  {row.k}
                 </div>
-                <div className="col-span-12 md:col-span-9 flex flex-wrap gap-x-8 gap-y-3 font-khinterference uppercase tracking-[0.01em] text-2xl md:text-3xl text-primary">
-                  {names.map((n) => (
-                    <span key={n} className="hover:text-lime transition-colors">
-                      {n}
-                    </span>
-                  ))}
+                <div className="col-span-12 md:col-span-9 font-shorai text-xl md:text-2xl text-primary leading-snug">
+                  {row.v}
                 </div>
               </li>
             ))}
