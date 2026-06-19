@@ -128,12 +128,12 @@ export const PROJECTS: Project[] = [
     client: "Independent",
     year: "2026",
     role: "DESIGN + FRONTEND",
-    desc: "Háromnyelvű farmakológiai edukációs platform 191 hatóanyag-profillal, négy könyvtárban. PubMed-verifikált források gépi ellenőrző-kapuval, lazy 3D Three.js háttér, dózis-kalkulátorok és PWA offline-támogatás.",
+    desc: "Háromnyelvű farmakológiai edukációs platform 191 hatóanyag-profillal, négy könyvtárban. PubMed-verifikált források gépi ellenőrző-kapuval, interaktív 3D kocka-navigáció, lazy 3D Three.js háttér és PWA offline-támogatás.",
     stack: ["Vite 6", "React 19", "Three.js", "Tailwind", "PWA"],
     metric: "191",
     metricLabel: "Hatóanyag-profil",
     color: "cyan",
-    url: "https://molekulax.vercel.app",
+    url: "https://molekulax.hu",
     caseStudy: {
       lead: "Farmakológiai edukációs tudásbázis négy könyvtárral és 191 hatóanyag-profillal, három nyelven: minden tudományos hivatkozás saját fejlesztésű PubMed-verifikációs kapun megy át, mielőtt élesbe kerül.",
       briefing: [
@@ -177,13 +177,13 @@ export const PROJECTS: Project[] = [
           body: "Automatikus háttér-eltávolítás (rembg) és három formátumú képoptimalizálás (PNG, WebP, AVIF) a teljes peptid-katalógusra: egységes, profi, gyorsan töltődő termékfotók kézi szerkesztés nélkül.",
         },
         {
-          icon: "money-payments-accounting-calculator",
-          title: "Interaktív dózis-kalkulátorok",
-          body: "Könyvtáranként saját kalkulátor (peptid-rekonstitúció, teljesítmény- és gyógyszer-dózis): a látogató nemcsak olvas, hanem azonnal kiszámolja a számára releváns értékeket.",
+          icon: "design-layer",
+          title: "3D kocka-navigáció és kártya-vizuálok",
+          body: "A négy könyvtár közti váltás egy interaktív 3D kockán történik, a kategóriáknak pedig előre renderelt, mozgó 3D vizuáljaik vannak: prémium, dinamikus felület futásidejű 3D-terhelés nélkül.",
         },
       ],
       debrief: [
-        "Élő: molekulax.vercel.app, három nyelven (HU / EN / PL).",
+        "Élő: molekulax.hu, három nyelven (HU / EN / PL).",
         "A hivatkozás-higiénia gépileg kikényszerített: a teljes katalógus PMID-állománya élő NCBI-ellenőrzésen megy át minden változásnál.",
         "Ötrétegű integritás-kapu (commit-hook, drift-check, meta-validáció, CI, render-smoke) védi a tartalmat és a renderelést.",
         "PWA: telepíthető és offline is használható, finomhangolt cache-stratégiákkal és nyelvenként lazy-betöltött, kód-szétdarabolt adatréteggel.",

@@ -7,6 +7,7 @@ import { Crosshair } from "@/components/Crosshair";
 import { DecodeText } from "@/components/DecodeText";
 import { WorkDataWeb } from "@/components/WorkDataWeb";
 import { PixelIcon } from "@/components/PixelIcon";
+import { WorkExecutionRail } from "@/components/WorkExecutionRail";
 
 const ACCENT_TEXT: Record<string, string> = {
   lime: "text-lime",
@@ -183,6 +184,7 @@ export default async function CaseStudyPage({
                 <br />
                 <span className={tx}>építettünk.</span>
               </h2>
+              <WorkExecutionRail total={cs.execution.length} color={p.color} />
             </div>
           </aside>
           <div className="col-span-12 md:col-span-9">
