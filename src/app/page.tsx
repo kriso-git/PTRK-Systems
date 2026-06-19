@@ -100,41 +100,55 @@ export default function Home() {
         data-label="A motor"
         className="relative z-10 border-t border-white/10 px-6 md:px-10 py-32 md:py-48 bg-void/30"
       >
-        <div className="max-w-[1500px] grid grid-cols-12 gap-y-10 md:gap-x-10 items-end">
-          <div className="col-span-12 md:col-span-5">
-            <div className="mb-4 flex items-center gap-3 font-monospec text-[10px] uppercase tracking-[0.35em] text-cyan">
-              <PixelIcon name="computers-devices-electronics-chipset" width={15} height={15} aria-hidden />
-              <span>§ 06 · Core</span>
+        <div className="max-w-[1500px]">
+          {/* header band */}
+          <div className="mb-14 grid grid-cols-12 items-end gap-y-6 md:mb-20 md:gap-x-10">
+            <div className="col-span-12 md:col-span-8">
+              <div className="mb-4 flex items-center gap-3 font-monospec text-[10px] uppercase tracking-[0.35em] text-cyan">
+                <PixelIcon name="computers-devices-electronics-chipset" width={15} height={15} aria-hidden />
+                <span>§ 06 · Core</span>
+              </div>
+              <h2 className="font-khinterference uppercase tracking-[-0.005em] text-[clamp(56px,11vw,184px)] leading-[0.82] text-primary">
+                A <span className="text-cyan">motor.</span>
+              </h2>
             </div>
-            <h2 className="font-khinterference uppercase tracking-[-0.005em] text-[clamp(56px,10vw,168px)] leading-[0.85] text-primary">
-              A <span className="text-cyan">motor.</span>
-            </h2>
-            <p className="mt-6 max-w-md font-shorai text-base md:text-lg text-secondary leading-relaxed">
-              Nem látod, de ez hajtja az oldaladat. A lényeg, amit te is érzel belőle:
+            <p className="col-span-12 font-shorai text-base leading-relaxed text-secondary md:col-span-4 md:text-lg">
+              Nem látod, de ez hajtja az oldaladat. Négy dolog, amit te is érzel belőle.
             </p>
           </div>
-          <div className="col-span-12 md:col-span-7">
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {[
-                { t: "Villámgyors", d: "másodperc alatt tölt, mobilon is", icon: "interface-essential-wifi-signal" },
-                { t: "Biztonságos és friss", d: "folyamatos frissítés, mentés, SSL", icon: "coding-apps-websites-shield-lock" },
-                { t: "Egyedi, nem sablon", d: "a te igényedre épül, nem kész téma", icon: "interface-essential-cog-double" },
-                { t: "Google-ready", d: "technikai SEO az első naptól", icon: "interface-essential-search-check" },
-              ].map((b) => (
-                <li
-                  key={b.t}
-                  className="group flex items-start gap-3 border border-white/10 bg-void/20 px-4 py-4 transition-colors hover:border-cyan/40 hover:bg-void/40"
-                >
-                  <span className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center border border-cyan/30 text-cyan">
-                    <PixelIcon name={b.icon} width={15} height={15} aria-hidden />
+
+          {/* 4 full-width HUD benefit cards */}
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-5 lg:grid-cols-4">
+            {[
+              { n: "01", t: "Villámgyors", d: "Másodperc alatt betölt, mobilon is. A lassú oldal vásárlót veszít.", icon: "interface-essential-wifi-signal", aText: "text-lime", aBorder: "border-lime/30", aBar: "bg-lime", aHover: "hover:border-lime/50 hover:shadow-[0_0_60px_-25px_rgba(194,254,12,0.75)]" },
+              { n: "02", t: "Biztonságos és friss", d: "Folyamatos frissítés, mentés és SSL. Sosem marad elavult vagy sérülékeny.", icon: "coding-apps-websites-shield-lock", aText: "text-cyan", aBorder: "border-cyan/30", aBar: "bg-cyan", aHover: "hover:border-cyan/50 hover:shadow-[0_0_60px_-25px_rgba(1,255,255,0.75)]" },
+              { n: "03", t: "Egyedi, nem sablon", d: "A te igényedre épül, a nulláról. Nem egy ezredik kész téma a polcról.", icon: "interface-essential-cog-double", aText: "text-magenta", aBorder: "border-magenta/30", aBar: "bg-magenta", aHover: "hover:border-magenta/50 hover:shadow-[0_0_60px_-25px_rgba(234,2,126,0.75)]" },
+              { n: "04", t: "Google-ready", d: "Technikai SEO az első naptól, hogy a Google és a vendéged is megtaláljon.", icon: "interface-essential-search-check", aText: "text-orange", aBorder: "border-orange/30", aBar: "bg-orange", aHover: "hover:border-orange/50 hover:shadow-[0_0_60px_-25px_rgba(255,140,66,0.75)]" },
+            ].map((b, i) => (
+              <article
+                key={b.n}
+                data-reveal
+                style={{ transitionDelay: `${i * 70}ms` }}
+                className={`group relative flex flex-col border border-white/12 bg-void/40 p-6 backdrop-blur-[2px] transition-all duration-300 md:p-7 ${b.aHover}`}
+              >
+                <span aria-hidden className={`absolute left-0 top-0 h-0.5 w-full ${b.aBar} opacity-50 transition-opacity group-hover:opacity-100`} />
+                <span aria-hidden className={`absolute bottom-0 right-0 h-4 w-4 border-b-2 border-r-2 ${b.aText} opacity-30`} style={{ borderColor: "currentColor" }} />
+                <div className="mb-10 flex items-start justify-between">
+                  <span className={`grid h-14 w-14 place-items-center border ${b.aBorder} ${b.aText}`}>
+                    <PixelIcon name={b.icon} width={26} height={26} aria-hidden />
                   </span>
-                  <span>
-                    <span className="block font-sequel text-lg text-primary tracking-[-0.01em]">{b.t}</span>
-                    <span className="block font-shorai text-sm text-secondary leading-snug">{b.d}</span>
+                  <span className={`font-sequel text-5xl leading-none tracking-[-0.04em] ${b.aText} opacity-20 transition-opacity group-hover:opacity-100`}>
+                    {b.n}
                   </span>
-                </li>
-              ))}
-            </ul>
+                </div>
+                <h3 className="mb-2.5 font-sequel text-2xl leading-tight tracking-[-0.015em] text-primary">
+                  {b.t}
+                </h3>
+                <p className="font-shorai text-sm leading-snug text-secondary md:text-base">
+                  {b.d}
+                </p>
+              </article>
+            ))}
           </div>
         </div>
       </section>

@@ -29,7 +29,7 @@ const STEPS: Step[] = [
   { icon: "computers-devices-electronics-harddisk", label: "MOUNT /HUD/OVERLAY", status: "OK" },
   { icon: "internet-network-wifi-monitor", label: "LINK NOD·0A20070A", status: "OK" },
   { icon: "coding-apps-websites-database", label: "LOAD SHADERS / ATLAS", status: "OK" },
-  { icon: "coding-apps-websites-shield-lock", label: "RLS POLICY / AUTH", status: "OK" },
+  { icon: "coding-apps-websites-shield-lock", label: "JOGOSULTSÁG / AUTH", status: "OK" },
   { icon: "computers-devices-electronics-monitor", label: "GPU / RENDER", status: "ONLINE" },
 ];
 

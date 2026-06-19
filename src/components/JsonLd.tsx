@@ -23,7 +23,7 @@ const SCHEMA = {
         "weboldal felújítás",
         "céges weboldal",
         "SEO",
-        "Next.js",
+        "webfejlesztés",
       ],
       logo: {
         "@type": "ImageObject",
