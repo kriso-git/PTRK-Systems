@@ -11,6 +11,15 @@ function clean(s: unknown, max = 5000) {
   return String(s ?? "").trim().slice(0, max);
 }
 
+/** One-line clean: also strips control chars (incl. CR/LF) so single-line
+ *  fields cannot break out into an email header. The multi-line message keeps
+ *  plain clean() to preserve its line breaks. */
+function clean1(s: unknown, max = 200) {
+  return clean(s, max)
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 /** HTML-escape user input before it goes into the email body. */
 function esc(s: string) {
   return s
@@ -74,10 +83,26 @@ export async function POST(req: Request) {
   }
 
   try {
+    // Reject cross-origin browser submissions. A missing Origin (some privacy
+    // tools / non-browser clients) is allowed so real users are never blocked;
+    // a same-origin browser fetch always sends a matching Origin.
+    const origin = req.headers.get("origin");
+    const ALLOWED = ["https://ptrksystems.hu", "https://www.ptrksystems.hu"];
+    if (origin && !ALLOWED.includes(origin) && !origin.startsWith("http://localhost")) {
+      return NextResponse.json({ error: "Tiltott eredet." }, { status: 403 });
+    }
+
     const body = await req.json().catch(() => ({}));
-    const name = clean(body.name, 200);
-    const email = clean(body.email, 200);
-    const type = clean(body.type, 200);
+
+    // Honeypot: a hidden field only bots fill. If set, pretend success (200)
+    // without sending, so the bot does not retry.
+    if (clean1(body.company, 100)) {
+      return NextResponse.json({ ok: true });
+    }
+
+    const name = clean1(body.name, 200);
+    const email = clean1(body.email, 200);
+    const type = clean1(body.type, 200);
     const message = clean(body.message, 8000);
 
     if (!name || !email || !message) {
@@ -101,12 +126,12 @@ export async function POST(req: Request) {
     });
 
     if (error) {
-      console.error("Resend send error:", error);
+      console.error("Resend send error:", error?.message ?? error);
       return NextResponse.json({ error: "A küldés nem sikerült." }, { status: 502 });
     }
     return NextResponse.json({ ok: true });
   } catch (e) {
-    console.error("Contact route error:", e);
+    console.error("Contact route error:", e instanceof Error ? e.message : e);
     return NextResponse.json({ error: "Szerverhiba." }, { status: 500 });
   }
 }

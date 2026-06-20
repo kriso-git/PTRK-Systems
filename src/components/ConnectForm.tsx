@@ -103,6 +103,7 @@ export function ConnectForm() {
       email: String(data.get("email") ?? ""),
       type: String(data.get("type") ?? ""),
       message: String(data.get("message") ?? ""),
+      company: String(data.get("company") ?? ""),
     };
     setStatus("sending");
     try {
@@ -284,6 +285,12 @@ export function ConnectForm() {
                 <span aria-hidden className="pointer-events-none absolute right-0 top-0 h-4 w-4 border-r-2 border-t-2 border-magenta/50" />
                 <span aria-hidden className="pointer-events-none absolute left-0 bottom-0 h-4 w-4 border-l-2 border-b-2 border-magenta/50" />
                 <span aria-hidden className="pointer-events-none absolute right-0 bottom-0 h-4 w-4 border-r-2 border-b-2 border-magenta/50" />
+
+                {/* honeypot: valódi látogató sosem látja/tölti ki, a spam-botok igen */}
+                <div className="absolute left-[-9999px] top-[-9999px] h-0 w-0 overflow-hidden" aria-hidden>
+                  <label htmlFor="company">Cégnév (hagyd üresen)</label>
+                  <input id="company" name="company" type="text" tabIndex={-1} autoComplete="off" />
+                </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
                   <Field code="F.01" label="Név" name="name" type="text" placeholder="Kovács Anna" required />
