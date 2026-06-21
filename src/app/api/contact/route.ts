@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
+import { checkBotId } from "botid/server";
 
 // Where the leads land + the verified sending identity. The from-domain
 // (ptrksystems.hu) must be verified in Resend; Reply-To is set to the visitor
@@ -90,6 +91,14 @@ export async function POST(req: Request) {
     const ALLOWED = ["https://ptrksystems.hu", "https://www.ptrksystems.hu"];
     if (origin && !ALLOWED.includes(origin) && !origin.startsWith("http://localhost")) {
       return NextResponse.json({ error: "Tiltott eredet." }, { status: 403 });
+    }
+
+    // BotID invisible bot check (Basic tier = free). In local dev it always
+    // returns isBot:false (build/smoke unaffected); in production a missing or
+    // failed challenge (bots, curl, scrapers) is denied.
+    const bot = await checkBotId();
+    if (bot.isBot) {
+      return NextResponse.json({ error: "Hozzáférés megtagadva." }, { status: 403 });
     }
 
     const body = await req.json().catch(() => ({}));

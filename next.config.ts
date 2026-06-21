@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { withBotId } from "botid/next/config";
 
 // CSP kept deliberately Next.js-safe: 'unsafe-inline' is required for the
 // framework's inline bootstrap/RSC scripts and for React inline styles (no
@@ -41,4 +42,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withBotId(nextConfig);
